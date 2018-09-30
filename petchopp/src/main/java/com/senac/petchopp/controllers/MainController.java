@@ -1,7 +1,11 @@
 package com.senac.petchopp.controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.senac.petchopp.model.TipoCategoria;
 
 @Controller
 public class MainController {
@@ -21,9 +25,9 @@ public class MainController {
 		return "cart";
 	}
 
-	@RequestMapping("paginaexemplo")
-	public String paginaExemplo() {
-		return "PaginaExemplo";
+	@GetMapping("teste")
+	public ModelAndView paginaExemplo() {
+		return new ModelAndView("testeCadastro").addObject("tipoCategoria", new TipoCategoria());
 	}
 
 }
