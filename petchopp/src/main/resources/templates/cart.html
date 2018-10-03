@@ -8,8 +8,8 @@
 
     <title>PI4 - Carrinho</title>
 
-    <link rel="stylesheet" href="../main.css">
-    <link rel="stylesheet" href="cart.css">
+    <link rel="stylesheet" href="../static/css/main.css" th:href="@{/css/main.css}">
+    <link rel="stylesheet" href="../static/css/cart.css" th:href="@{/css/cart.css}">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css"
@@ -33,13 +33,14 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="../home/index.html">Home</a>
+                        <a class="nav-link" href="index.html" th:href="@{/}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../search/search.html">Search</a>
+                        <a class="nav-link" href="search.html" th:href="@{/search}">Search</a>
+
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="../cart/cart.html">Carrinho
+                    <li class="nav-item active">
+                        <a class="nav-link" href="cart.html" th:href="@{/cart}">Carrinho
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>

@@ -25,7 +25,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light bg-green fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="../home/index.html">PetChopp</a>
+            <a class="navbar-brand" href="index.html" th:href="@{/}">PetChopp</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -33,15 +33,15 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="../home/index.html">Home</a>
-                        <span class="sr-only">(current)</span>
+                        <a class="nav-link" href="index.html" th:href="@{/}">Home
+                            <span class="sr-only">(current)</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../search/search.html">Search</a>
+                        <a class="nav-link" href="search.html" th:href="@{/search}">Search</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../cart/cart.html">Carrinho</a>
+                        <a class="nav-link" href="cart.html" th:href="@{/cart}">Carrinho</a>
                     </li>
                 </ul>
             </div>
