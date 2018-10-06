@@ -52,113 +52,74 @@
     <!-- Page Content -->
     <div class="container nav-margin">
 
-        <div class="row text-center">
+        <!-- Formulario para enviar a lista de produtos selecionados no carrinho -->
+        <form th:action="" method="post">
 
-            <div class="col-12 text-left">
-                <h3>Carrinho</h3>
-            </div>
+            <div class="row text-center mb-4">
 
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card">
-                    <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-                    <div class="card-body">
-                        <h4 class="card-title">Card title</h4>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo
-                            magni sapiente, tempore debitis beatae culpa natus architecto.</p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary">Detalhes</a>
-                    </div>
+                <div class="col-12 text-left">
+                    <h3>Meu carrinho</h3>
                 </div>
-            </div>
 
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card">
-                    <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-                    <div class="card-body">
-                        <h4 class="card-title">Card title</h4>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo
-                            magni sapiente, tempore debitis beatae culpa natus architecto.</p>
+                <!-- Lista de Produtos -->
+                <div class="col-12 col-md-7">
+
+                    <!-- Header -->
+                    <div class="row text-left font-weight-bold font-size">
+
+                        <div class="col-3 col-md-3 col-lg-5">Produto</div>
+                        <div class="col-3 col-md-3 col-lg-2">Preço</div>
+                        <div class="col-3 col-md-3 col-lg-3">Quantidade</div>
+                        <div class="col-3 col-md-3 col-lg-2">Total</div>
+
                     </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary">Detalhes</a>
+
+                    <hr>
+
+                    <!-- Produto -->
+                    <div class="row text-left border-produto bg-light pt-2 pb-2">
+                        <img class="col-2 col-lg-3 align-middle" src="http://placehold.it/150x100" alt="">
+                        <div class="col-1 col-lg-2 align-self-center"><a href="#">Nome do produto</a></div>
+                        <div class="col-3 col-md-3 col-lg-2 align-self-center">R$ 90,99</div>
+                        <div class="col-3 col-md-3 col-lg-3 align-self-center">3</div>
+                        <div class="col-3 col-md-3 col-lg-2 align-self-center">R$ 200,00</div>
                     </div>
+
                 </div>
-            </div>
 
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card">
-                    <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-                    <div class="card-body">
-                        <h4 class="card-title">Card title</h4>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo
-                            magni sapiente, tempore debitis beatae culpa natus architecto.</p>
+                <!-- Informacoes da compra -->
+                <div class="col-12 col-md-4 offset-1">
+
+                    <div class="row text-left">
+                        <div class="col-8">
+                            <p class="font-weight-bold">Subtotal</p>
+                        </div>
+                        <div class="col-4">909090</div>
                     </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary">Detalhes</a>
+
+                    <div class="row text-left">
+                        <div class="col-8">
+                            <p class="font-weight-bold">CEP</p>
+                        </div>
+                        <div class="col-4">909090</div>
                     </div>
+
+                    <div class="row text-left">
+                        <div class="col-8">
+                            <p class="font-weight-bold">Total</p>
+                        </div>
+                        <div class="col-4">909090</div>
+                    </div>
+
+                    <a name="" id="" class="btn btn-primary mt-5" href="#" role="button" type="submit">Confirmar</a>
+
                 </div>
+
+
             </div>
+            <!-- ./row text-center -->
 
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card">
-                    <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-                    <div class="card-body">
-                        <h4 class="card-title">Card title</h4>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo
-                            magni sapiente, tempore debitis beatae culpa natus architecto.</p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary">Detalhes</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card">
-                    <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-                    <div class="card-body">
-                        <h4 class="card-title">Card title</h4>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo
-                            magni sapiente, tempore debitis beatae culpa natus architecto.</p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary">Detalhes</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card">
-                    <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-                    <div class="card-body">
-                        <h4 class="card-title">Card title</h4>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente
-                            esse necessitatibus neque.</p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary">Detalhes</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card">
-                    <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-                    <div class="card-body">
-                        <h4 class="card-title">Card title</h4>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo
-                            magni sapiente, tempore debitis beatae culpa natus architecto.</p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary">Detalhes</a>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <!-- ./row text-center -->
-
+        </form>
 
     </div>
     <!-- /Page Content -->
