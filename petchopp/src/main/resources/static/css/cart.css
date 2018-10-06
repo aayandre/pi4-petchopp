@@ -1,0 +1,15 @@
+.font-size {
+    font-size: 1.3rem;
+}
+.wid-1250 {
+    max-width: 1250px !important;
+}
+@media (min-width: 992px) { 
+    .wid-larger {
+        max-width: 1250px !important;
+    }
+}
+.border-produto {
+    border: 1px solid #83eb80 !important;
+    border-radius: 4px;
+}

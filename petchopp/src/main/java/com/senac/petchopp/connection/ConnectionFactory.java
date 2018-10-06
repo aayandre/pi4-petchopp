@@ -12,7 +12,7 @@ public class ConnectionFactory {
 
 	private static final String DRIVER = "com.mysql.jdbc.Driver";
 	// N.Virginia
-	private static final String URL = "jdbc:mysql://awsdbmysqlnvirginia.cvvx4cghxp8c.us-east-1.rds.amazonaws.com:3306/projetointegrador4?useSSL=false";
+	private static final String URL = "jdbc:mysql://35.199.127.202:3306/teste?useSSL=false";
 
 	// Sao Paulo
 	// TO-DO
@@ -20,7 +20,7 @@ public class ConnectionFactory {
 	// private static final String URL =
 	// "jdbc:mysql://awsdbmysqlsaopaulo.cm72cae7hfji.sa-east-1.rds.amazonaws.com:3306/projetointegrador4?useSSL=false";
 
-	private static final String USER = "pi4tadsandre";
+	private static final String USER = "root";
 	private static final String PASS = "senacpi4TADS";
 
 	public static Connection getConnection() {
