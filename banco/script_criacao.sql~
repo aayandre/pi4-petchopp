@@ -8,22 +8,22 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
--- Schema petchoppbase
+-- Schema mydb
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `petchoppbase` ;
+DROP SCHEMA IF EXISTS `mydb` ;
 
 -- -----------------------------------------------------
--- Schema petchoppbase
+-- Schema mydb
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `petchoppbase` DEFAULT CHARACTER SET utf8 ;
-USE `petchoppbase` ;
+CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
+USE `mydb` ;
 
 -- -----------------------------------------------------
--- Table `petchoppbase`.`Produto`
+-- Table `mydb`.`Produto`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `petchoppbase`.`Produto` ;
+DROP TABLE IF EXISTS `mydb`.`Produto` ;
 
-CREATE TABLE IF NOT EXISTS `petchoppbase`.`Produto` (
+CREATE TABLE IF NOT EXISTS `mydb`.`Produto` (
   `idProduto` BIGINT NOT NULL,
   `Codigo` VARCHAR(25) NOT NULL,
   `Nome` VARCHAR(150) NOT NULL,
@@ -39,11 +39,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `petchoppbase`.`Endereco`
+-- Table `mydb`.`Endereco`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `petchoppbase`.`Endereco` ;
+DROP TABLE IF EXISTS `mydb`.`Endereco` ;
 
-CREATE TABLE IF NOT EXISTS `petchoppbase`.`Endereco` (
+CREATE TABLE IF NOT EXISTS `mydb`.`Endereco` (
   `idEndereco` BIGINT NOT NULL,
   `CEP` VARCHAR(10) NOT NULL,
   `Logradouro` VARCHAR(150) NOT NULL,
@@ -55,11 +55,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `petchoppbase`.`Cliente`
+-- Table `mydb`.`Cliente`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `petchoppbase`.`Cliente` ;
+DROP TABLE IF EXISTS `mydb`.`Cliente` ;
 
-CREATE TABLE IF NOT EXISTS `petchoppbase`.`Cliente` (
+CREATE TABLE IF NOT EXISTS `mydb`.`Cliente` (
   `idCliente` BIGINT NOT NULL,
   `dtCadastro` DATE NULL,
   `Nome` VARCHAR(100) NULL,
@@ -74,11 +74,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `petchoppbase`.`Venda`
+-- Table `mydb`.`Venda`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `petchoppbase`.`Venda` ;
+DROP TABLE IF EXISTS `mydb`.`Venda` ;
 
-CREATE TABLE IF NOT EXISTS `petchoppbase`.`Venda` (
+CREATE TABLE IF NOT EXISTS `mydb`.`Venda` (
   `idVenda` BIGINT NOT NULL,
   `Data` DATETIME NOT NULL,
   `ValorTotal` DOUBLE NOT NULL,
@@ -87,34 +87,34 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `petchoppbase`.`ItemVenda`
+-- Table `mydb`.`ItemVenda`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `petchoppbase`.`ItemVenda` ;
+DROP TABLE IF EXISTS `mydb`.`ItemVenda` ;
 
-CREATE TABLE IF NOT EXISTS `petchoppbase`.`ItemVenda` (
+CREATE TABLE IF NOT EXISTS `mydb`.`ItemVenda` (
   `idVenda` BIGINT NOT NULL,
   `idProduto` BIGINT NOT NULL,
   `Quantidade` INT NOT NULL,
   `Valor` DOUBLE NOT NULL,
   CONSTRAINT `fk_ItemVendas_1`
     FOREIGN KEY (`idVenda`)
-    REFERENCES `petchoppbase`.`Venda` (`idVenda`)
+    REFERENCES `mydb`.`Venda` (`idVenda`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_ItemVendas_2`
     FOREIGN KEY (`idProduto`)
-    REFERENCES `petchoppbase`.`Produto` (`idProduto`)
+    REFERENCES `mydb`.`Produto` (`idProduto`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `petchoppbase`.`Tipo`
+-- Table `mydb`.`Tipo`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `petchoppbase`.`Tipo` ;
+DROP TABLE IF EXISTS `mydb`.`Tipo` ;
 
-CREATE TABLE IF NOT EXISTS `petchoppbase`.`Tipo` (
+CREATE TABLE IF NOT EXISTS `mydb`.`Tipo` (
   `idTipo` INT NOT NULL,
   `Nome` VARCHAR(45) NOT NULL,
   `Descricao` VARCHAR(45) NOT NULL,
@@ -123,11 +123,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `petchoppbase`.`Categoria`
+-- Table `mydb`.`Categoria`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `petchoppbase`.`Categoria` ;
+DROP TABLE IF EXISTS `mydb`.`Categoria` ;
 
-CREATE TABLE IF NOT EXISTS `petchoppbase`.`Categoria` (
+CREATE TABLE IF NOT EXISTS `mydb`.`Categoria` (
   `idCategoria` INT NOT NULL,
   `Nome` VARCHAR(45) NOT NULL,
   `idTipo` INT NOT NULL,
@@ -135,18 +135,18 @@ CREATE TABLE IF NOT EXISTS `petchoppbase`.`Categoria` (
   INDEX `fk_Categoria_1_idx` (`idTipo` ASC),
   CONSTRAINT `fk_Categoria_1`
     FOREIGN KEY (`idTipo`)
-    REFERENCES `petchoppbase`.`Tipo` (`idTipo`)
+    REFERENCES `mydb`.`Tipo` (`idTipo`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `petchoppbase`.`Tags`
+-- Table `mydb`.`Tags`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `petchoppbase`.`Tags` ;
+DROP TABLE IF EXISTS `mydb`.`Tags` ;
 
-CREATE TABLE IF NOT EXISTS `petchoppbase`.`Tags` (
+CREATE TABLE IF NOT EXISTS `mydb`.`Tags` (
   `idTags` INT NOT NULL,
   `Nome` VARCHAR(45) NOT NULL,
   `idCategoria` INT NOT NULL,
@@ -154,41 +154,41 @@ CREATE TABLE IF NOT EXISTS `petchoppbase`.`Tags` (
   INDEX `fk_Tags_1_idx` (`idCategoria` ASC),
   CONSTRAINT `fk_Tags_1`
     FOREIGN KEY (`idCategoria`)
-    REFERENCES `petchoppbase`.`Categoria` (`idCategoria`)
+    REFERENCES `mydb`.`Categoria` (`idCategoria`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `petchoppbase`.`ProdutoTags`
+-- Table `mydb`.`ProdutoTags`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `petchoppbase`.`ProdutoTags` ;
+DROP TABLE IF EXISTS `mydb`.`ProdutoTags` ;
 
-CREATE TABLE IF NOT EXISTS `petchoppbase`.`ProdutoTags` (
+CREATE TABLE IF NOT EXISTS `mydb`.`ProdutoTags` (
   `idProduto` BIGINT NOT NULL,
   `idTags` INT NOT NULL,
   INDEX `fk_ProdutoTags_1_idx` (`idProduto` ASC),
   INDEX `fk_ProdutoTags_2_idx` (`idTags` ASC),
   CONSTRAINT `fk_ProdutoTags_1`
     FOREIGN KEY (`idProduto`)
-    REFERENCES `petchoppbase`.`Produto` (`idProduto`)
+    REFERENCES `mydb`.`Produto` (`idProduto`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_ProdutoTags_2`
     FOREIGN KEY (`idTags`)
-    REFERENCES `petchoppbase`.`Tags` (`idTags`)
+    REFERENCES `mydb`.`Tags` (`idTags`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `petchoppbase`.`ClienteEndereco`
+-- Table `mydb`.`ClienteEndereco`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `petchoppbase`.`ClienteEndereco` ;
+DROP TABLE IF EXISTS `mydb`.`ClienteEndereco` ;
 
-CREATE TABLE IF NOT EXISTS `petchoppbase`.`ClienteEndereco` (
+CREATE TABLE IF NOT EXISTS `mydb`.`ClienteEndereco` (
   `idCliente` BIGINT NOT NULL,
   `idEndereco` BIGINT NOT NULL,
   `idTipo` INT NOT NULL,
@@ -197,28 +197,28 @@ CREATE TABLE IF NOT EXISTS `petchoppbase`.`ClienteEndereco` (
   INDEX `fk_ClienteEndereco_3_idx` (`idTipo` ASC),
   CONSTRAINT `fk_ClienteEndereco_1`
     FOREIGN KEY (`idCliente`)
-    REFERENCES `petchoppbase`.`Cliente` (`idCliente`)
+    REFERENCES `mydb`.`Cliente` (`idCliente`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_ClienteEndereco_2`
     FOREIGN KEY (`idEndereco`)
-    REFERENCES `petchoppbase`.`Endereco` (`idEndereco`)
+    REFERENCES `mydb`.`Endereco` (`idEndereco`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_ClienteEndereco_3`
     FOREIGN KEY (`idTipo`)
-    REFERENCES `petchoppbase`.`Tipo` (`idTipo`)
+    REFERENCES `mydb`.`Tipo` (`idTipo`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `petchoppbase`.`StatusPedido`
+-- Table `mydb`.`StatusPedido`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `petchoppbase`.`StatusPedido` ;
+DROP TABLE IF EXISTS `mydb`.`StatusPedido` ;
 
-CREATE TABLE IF NOT EXISTS `petchoppbase`.`StatusPedido` (
+CREATE TABLE IF NOT EXISTS `mydb`.`StatusPedido` (
   `idStatusPedido` BIGINT NOT NULL,
   `idVenda` BIGINT NOT NULL,
   `idTipo` INT NOT NULL,
@@ -228,35 +228,45 @@ CREATE TABLE IF NOT EXISTS `petchoppbase`.`StatusPedido` (
   INDEX `fk_StatusPedido_1_idx` (`idVenda` ASC),
   CONSTRAINT `fk_StatusPedido_1`
     FOREIGN KEY (`idVenda`)
-    REFERENCES `petchoppbase`.`Venda` (`idVenda`)
+    REFERENCES `mydb`.`Venda` (`idVenda`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `petchoppbase`.`Estoque`
+-- Table `mydb`.`Estoque`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `petchoppbase`.`Estoque` ;
+DROP TABLE IF EXISTS `mydb`.`Estoque` ;
 
-CREATE TABLE IF NOT EXISTS `petchoppbase`.`Estoque` (
+CREATE TABLE IF NOT EXISTS `mydb`.`Estoque` (
   `idProduto` BIGINT NOT NULL,
   `Quantidade` INT NOT NULL,
   PRIMARY KEY (`idProduto`),
   CONSTRAINT `fk_Estoque_1`
     FOREIGN KEY (`idProduto`)
-    REFERENCES `petchoppbase`.`Produto` (`idProduto`)
+    REFERENCES `mydb`.`Produto` (`idProduto`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `petchoppbase`.`MovimentoEstoque`
+-- Table `mydb`.`table1`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `petchoppbase`.`MovimentoEstoque` ;
+DROP TABLE IF EXISTS `mydb`.`table1` ;
 
-CREATE TABLE IF NOT EXISTS `petchoppbase`.`MovimentoEstoque` (
+CREATE TABLE IF NOT EXISTS `mydb`.`table1` (
+)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`MovimentoEstoque`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`MovimentoEstoque` ;
+
+CREATE TABLE IF NOT EXISTS `mydb`.`MovimentoEstoque` (
   `idMovimento` BIGINT NOT NULL,
   `idProduto` BIGINT NOT NULL,
   `idTipo` INT NOT NULL,
@@ -267,12 +277,12 @@ CREATE TABLE IF NOT EXISTS `petchoppbase`.`MovimentoEstoque` (
   INDEX `fk_MovimentoEstoque_2_idx` (`idTipo` ASC),
   CONSTRAINT `fk_MovimentoEstoque_1`
     FOREIGN KEY (`idProduto`)
-    REFERENCES `petchoppbase`.`Produto` (`idProduto`)
+    REFERENCES `mydb`.`Produto` (`idProduto`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_MovimentoEstoque_2`
     FOREIGN KEY (`idTipo`)
-    REFERENCES `petchoppbase`.`Tipo` (`idTipo`)
+    REFERENCES `mydb`.`Tipo` (`idTipo`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
