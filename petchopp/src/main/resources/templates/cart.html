@@ -12,8 +12,8 @@
     <link rel="stylesheet" href="../static/css/cart.css" th:href="@{/css/cart.css}">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css"
-        data-integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" data-integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B"
+        crossorigin="anonymous">
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" data-integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
@@ -23,11 +23,11 @@
 <body>
 
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-green fixed-top">
+    <nav style="margin-bottom: 10px" class="navbar navbar-expand-lg navbar-light bg-green fixed-top">
         <div class="container">
             <a class="navbar-brand" href="index.html" th:href="@{/}">PetChopp</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+                aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -55,64 +55,45 @@
         <!-- Formulario para enviar a lista de produtos selecionados no carrinho -->
         <form action="" method="post">
 
-            <div class="row text-center mb-4">
+            <div class="row mb-4">
 
-                <div class="col-12 text-left">
-                    <h3>Meu carrinho</h3>
+                <div style="margin: 50px 0px 10px 0px" class="col-12 text-left">
+                    <h4>
+                        <i class="fas fa-shopping-cart"></i> Meu Carrinho</h4>
                 </div>
 
-                <!-- Lista de Produtos -->
-                <div class="col-12 col-md-7">
-
-                    <!-- Header -->
-                    <div class="row text-left font-weight-bold font-size">
-
-                        <div class="col-3 col-md-3 col-lg-5">Produto</div>
-                        <div class="col-3 col-md-3 col-lg-2">Preço</div>
-                        <div class="col-3 col-md-3 col-lg-3">Quantidade</div>
-                        <div class="col-3 col-md-3 col-lg-2">Total</div>
-
-                    </div>
-
-                    <hr>
-
-                    <!-- Produto -->
-                    <div class="row text-left border-produto bg-light pt-2 pb-2">
-                        <img class="col-2 col-lg-3 align-middle" src="http://placehold.it/150x100" alt="">
-                        <div class="col-1 col-lg-2 align-self-center"><a href="#">Nome do produto</a></div>
-                        <div class="col-3 col-md-3 col-lg-2 align-self-center">R$ 90,99</div>
-                        <div class="col-3 col-md-3 col-lg-3 align-self-center">3</div>
-                        <div class="col-3 col-md-3 col-lg-2 align-self-center">R$ 200,00</div>
-                    </div>
-
-                </div>
-
-                <!-- Informacoes da compra -->
-                <div class="col-12 col-md-4 offset-1">
-
-                    <div class="row text-left">
-                        <div class="col-8">
-                            <p class="font-weight-bold">Subtotal</p>
+                <div style="margin-left: 50px" class="row col-12">
+                    <div class="row col-8">
+                        <div class="row col-3">
+                            <img src="http://placehold.it/150x100" alt="">
                         </div>
-                        <div class="col-4">909090</div>
-                    </div>
-
-                    <div class="row text-left">
-                        <div class="col-8">
-                            <p class="font-weight-bold">CEP</p>
+                        <div style="margin-left: 10px" class="col-5">
+                            <p class="font-weight-bold">Ração</p>
+                            <p>Nome de produto</p>
+                            <p>Código do produto</p>
+                            <p>Vendido por Nóis</p>
                         </div>
-                        <div class="col-4">909090</div>
-                    </div>
-
-                    <div class="row text-left">
-                        <div class="col-8">
-                            <p class="font-weight-bold">Total</p>
+                        <div class="align-self-center col-4">
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus" data-field="">
+                                        <span class="glyphicon glyphicon-minus"></span>
+                                    </button>
+                                </span>
+                                <input type="text" id="quantity" name="quantity" class="form-control input-number" value="10" min="1" max="100">
+                                <span class="input-group-btn">
+                                    <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">
+                                        <span class="glyphicon glyphicon-plus"></span>
+                                    </button>
+                                </span>
+                            </div>
+                            <p>
+                                <i class="far fa-trash-alt"></i> Remover Produto</p>
                         </div>
-                        <div class="col-4">909090</div>
                     </div>
+                    <div class="row col-4">
 
-                    <a name="" id="" class="btn btn-primary mt-5" href="#" role="button" type="submit">Confirmar</a>
-
+                    </div>
                 </div>
 
 
@@ -139,6 +120,7 @@
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em"
         crossorigin="anonymous"></script>
+    <script src="/static/js/cart.js"></script>
 </body>
 
 </html>
