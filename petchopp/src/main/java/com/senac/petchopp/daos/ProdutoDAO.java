@@ -2,6 +2,7 @@ package com.senac.petchopp.daos;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.List;
 
 import com.senac.petchopp.connection.ConnectionFactory;
@@ -31,7 +32,7 @@ public class ProdutoDAO implements IDAO {
 			stmt = cn.prepareStatement(sql);
 
 			stmt.setLong(1, novo.getIdProduto());
-			stmt.setInt(2, novo.getCodigo());
+			stmt.setString(2, novo.getCodigo());
 			stmt.setString(3, novo.getNome());
 			stmt.setDouble(4, novo.getPreco());
 			stmt.setDouble(5, novo.getCusto());
@@ -41,8 +42,12 @@ public class ProdutoDAO implements IDAO {
 			stmt.setBoolean(9, novo.isEmEstoque());
 			stmt.setBoolean(10, novo.isDisable());
 
+			stmt.execute();
+
 		} catch (Exception e) {
 			// TODO: handle exception
+		} finally {
+			ConnectionFactory.closeConnection(cn, stmt);
 		}
 
 	}
@@ -60,14 +65,57 @@ public class ProdutoDAO implements IDAO {
 	}
 
 	@Override
-	public Object getById(int id) {
-		// TODO Auto-generated method stub
+	public Object getById(long id) {
+
+		String sql = "SELECT * FROM Produto WHERE idProduto = ? LIMIT 1";
+		cn = ConnectionFactory.getConnection();
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		Produto produto = null;
+
+		try {
+			stmt = cn.prepareStatement(sql);
+			stmt.setLong(1, id);
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				produto = new Produto(rs);
+			}
+			return produto;
+		} catch (Exception e) {
+			// TODO: handle exception
+		} finally {
+			ConnectionFactory.closeConnection(cn, stmt, rs);
+		}
 		return null;
 	}
 
 	@Override
 	public List<Object> getAll() {
 		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Object getByCodigo(String codigo) {
+
+		String sql = "SELECT * FROM Produto WHERE Codigo = ? LIMIT 1";
+		cn = ConnectionFactory.getConnection();
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		Produto produto = null;
+
+		try {
+			stmt = cn.prepareStatement(sql);
+			stmt.setString(1, codigo);
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				produto = new Produto(rs);
+			}
+			return produto;
+		} catch (Exception e) {
+			// TODO: handle exception
+		} finally {
+			ConnectionFactory.closeConnection(cn, stmt, rs);
+		}
 		return null;
 	}
 

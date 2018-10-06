@@ -1,11 +1,15 @@
 package com.senac.petchopp.model.produto;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
+
+import com.senac.petchopp.model.Auxiliares;
 
 public class Produto {
 
 	private long idProduto;
-	private int Codigo;
+	private String Codigo;
 	private String Nome;
 	private double Preco;
 	private double Custo;
@@ -18,8 +22,8 @@ public class Produto {
 	public Produto() {
 	};
 
-	public Produto(long idProduto, int codigo, String nome, double preco, double custo, Date dtCompra, Date dtValidade,
-			String urlImagem, boolean emEstoque, boolean disable) {
+	public Produto(long idProduto, String codigo, String nome, double preco, double custo, Date dtCompra,
+			Date dtValidade, String urlImagem, boolean emEstoque, boolean disable) {
 		super();
 		this.idProduto = idProduto;
 		Codigo = codigo;
@@ -33,6 +37,20 @@ public class Produto {
 		Disable = disable;
 	}
 
+	public Produto(ResultSet rs) throws SQLException {
+		super();
+		this.idProduto = rs.getLong(1);
+		Codigo = rs.getString(2);
+		Nome = rs.getString(3);
+		Preco = rs.getDouble(4);
+		Custo = rs.getDouble(5);
+		this.dtCompra = Auxiliares.SqlDateToUtilDate(rs.getDate(6));
+		this.dtValidade = Auxiliares.SqlDateToUtilDate(rs.getDate(7));
+		this.urlImagem = rs.getString(8);
+		EmEstoque = rs.getBoolean(9);
+		Disable = rs.getBoolean(10);
+	}
+
 	public long getIdProduto() {
 		return idProduto;
 	}
@@ -41,11 +59,11 @@ public class Produto {
 		this.idProduto = idProduto;
 	}
 
-	public int getCodigo() {
+	public String getCodigo() {
 		return Codigo;
 	}
 
-	public void setCodigo(int codigo) {
+	public void setCodigo(String codigo) {
 		Codigo = codigo;
 	}
 
