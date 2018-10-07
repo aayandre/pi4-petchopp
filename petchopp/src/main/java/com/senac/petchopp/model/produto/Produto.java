@@ -13,6 +13,7 @@ public class Produto {
 	private String Nome;
 	private double Preco;
 	private double Custo;
+	private String Descricao;
 	private Date dtCompra;
 	private Date dtValidade;
 	private String urlImagem;
@@ -22,7 +23,26 @@ public class Produto {
 	public Produto() {
 	};
 
-	public Produto(long idProduto, String codigo, String nome, double preco, double custo, Date dtCompra,
+	//Construtor que preenche o produto para fins de teste
+	public Produto(boolean preencher) {
+		if (preencher) {
+			this.idProduto = 999;
+			this.Codigo = "produtoCriadoPorTeste";
+			this.Nome = "Produto Teste";
+			this.Preco = 399.99;
+			this.Custo = 187.67;
+			this.Descricao = "Descricao do produto teste que tem apenas 500 caracteres de espaço";
+			this.dtCompra = new Date();
+			this.dtValidade = new Date();
+			this.urlImagem = "url da imagem do produto";
+			this.EmEstoque = true;
+			this.Disable = false;
+		} else {
+			this.Disable = true;
+		}
+	}
+
+	public Produto(long idProduto, String codigo, String nome, double preco, double custo, String descricao, Date dtCompra,
 			Date dtValidade, String urlImagem, boolean emEstoque, boolean disable) {
 		super();
 		this.idProduto = idProduto;
@@ -30,6 +50,7 @@ public class Produto {
 		Nome = nome;
 		Preco = preco;
 		Custo = custo;
+		Descricao = descricao;
 		this.dtCompra = dtCompra;
 		this.dtValidade = dtValidade;
 		this.urlImagem = urlImagem;
@@ -44,11 +65,12 @@ public class Produto {
 		Nome = rs.getString(3);
 		Preco = rs.getDouble(4);
 		Custo = rs.getDouble(5);
-		this.dtCompra = Auxiliares.SqlDateToUtilDate(rs.getDate(6));
-		this.dtValidade = Auxiliares.SqlDateToUtilDate(rs.getDate(7));
-		this.urlImagem = rs.getString(8);
-		EmEstoque = rs.getBoolean(9);
-		Disable = rs.getBoolean(10);
+		Descricao = rs.getString(6);
+		this.dtCompra = Auxiliares.SqlDateToUtilDate(rs.getDate(7));
+		this.dtValidade = Auxiliares.SqlDateToUtilDate(rs.getDate(8));
+		this.urlImagem = rs.getString(9);
+		EmEstoque = rs.getBoolean(10);
+		Disable = rs.getBoolean(11);
 	}
 
 	public long getIdProduto() {
@@ -89,6 +111,14 @@ public class Produto {
 
 	public void setCusto(double custo) {
 		Custo = custo;
+	}
+	
+	public void setDescricao(String descricao) {
+		Descricao = descricao;
+	}
+	
+	public String getDescricao() {
+		return Descricao;
 	}
 
 	public Date getDtCompra() {

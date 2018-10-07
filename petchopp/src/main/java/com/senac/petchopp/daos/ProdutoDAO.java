@@ -12,12 +12,12 @@ import com.senac.petchopp.model.produto.Produto;
 
 public class ProdutoDAO implements IDAO {
 
-	private static Connection cn = null;
+	static Connection cn = null;
 
 	@Override
 	public void salvar(Object bean) {
 
-		String sql = "INSERT INTO Produto (idProduto, Codigo, Nome, Preco, Custo, dtCompra, dtValidade, urlImagem, emEstoque, Disable) "
+		String sql = "INSERT INTO Produto (Codigo, Nome, Preco, Custo, Descricao, dtCompra, dtValidade, urlImagem, emEstoque, Disable) "
 				+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		PreparedStatement stmt = null;
@@ -31,11 +31,11 @@ public class ProdutoDAO implements IDAO {
 
 			stmt = cn.prepareStatement(sql);
 
-			stmt.setLong(1, novo.getIdProduto());
-			stmt.setString(2, novo.getCodigo());
-			stmt.setString(3, novo.getNome());
-			stmt.setDouble(4, novo.getPreco());
-			stmt.setDouble(5, novo.getCusto());
+			stmt.setString(1, novo.getCodigo());
+			stmt.setString(2, novo.getNome());
+			stmt.setDouble(3, novo.getPreco());
+			stmt.setDouble(4, novo.getCusto());
+			stmt.setString(5, novo.getDescricao());
 			stmt.setDate(6, new java.sql.Date(Auxiliares.UtilDateToCalendar(novo.getDtCompra()).getTimeInMillis()));
 			stmt.setDate(7, new java.sql.Date(Auxiliares.UtilDateToCalendar(novo.getDtValidade()).getTimeInMillis()));
 			stmt.setString(8, novo.getUrlImagem());
@@ -59,7 +59,7 @@ public class ProdutoDAO implements IDAO {
 	}
 
 	@Override
-	public void deletar(int id) {
+	public void deletar(long id) {
 		// TODO Auto-generated method stub
 
 	}
@@ -101,7 +101,7 @@ public class ProdutoDAO implements IDAO {
 		cn = ConnectionFactory.getConnection();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		Produto produto = null;
+		Produto produto = new Produto();
 
 		try {
 			stmt = cn.prepareStatement(sql);
@@ -116,7 +116,7 @@ public class ProdutoDAO implements IDAO {
 		} finally {
 			ConnectionFactory.closeConnection(cn, stmt, rs);
 		}
-		return null;
+		return produto;
 	}
 
 }
