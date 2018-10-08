@@ -29,4 +29,9 @@ public class Auxiliares {
 		}
 
 	}
+
+	public static java.util.Date SqlDateToUtilDate(java.sql.Date sqlDate) {
+		java.util.Date utilDate = new java.util.Date(sqlDate.getTime());
+		return utilDate;
+	}
 }

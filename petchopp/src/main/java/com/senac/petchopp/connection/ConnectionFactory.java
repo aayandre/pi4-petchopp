@@ -12,7 +12,7 @@ public class ConnectionFactory {
 
 	private static final String DRIVER = "com.mysql.jdbc.Driver";
 	// N.Virginia
-	private static final String URL = "jdbc:mysql://35.199.127.202:3306/teste?useSSL=false";
+	private static final String URL = "jdbc:mysql://35.199.127.202:3306/petchoppbase?useSSL=false";
 
 	// Sao Paulo
 	// TO-DO
