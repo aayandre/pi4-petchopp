@@ -5,6 +5,9 @@ import java.sql.SQLException;
 import java.util.Calendar;
 import org.mindrot.jbcrypt.BCrypt;
 
+import com.senac.petchopp.model.Auxiliares;
+import java.sql.Date;
+
 /**
  *
  * @author Marcelo Pereira
@@ -12,9 +15,9 @@ import org.mindrot.jbcrypt.BCrypt;
 public class Cliente {
     
    private long idCliente;
-   private Calendar dtCadastro;
+   private Date dtCadastro;
    private String nome;
-   private Calendar dtNasc;
+   private Date dtNasc;
    private String rg;
    private String cpf;
    private String email;
@@ -27,7 +30,7 @@ public class Cliente {
         
     }
 
-    public Cliente(Calendar dtCadastro, String nome, Calendar dtNasc, String rg, String cpf, String email, String senha, boolean ativo) {
+    public Cliente(Date dtCadastro, String nome, Date dtNasc, String rg, String cpf, String email, String senha, boolean ativo) {
         this.dtCadastro = dtCadastro;
         this.nome = nome;
         this.dtNasc = dtNasc;
@@ -40,13 +43,14 @@ public class Cliente {
     
     public Cliente(ResultSet rs) throws SQLException{
         this.idCliente = rs.getLong("dtCadastro");
+        this.dtCadastro = rs.getDate("dtCadastro");
         this.nome = rs.getString("nome");
-        this.dtNasc = dtNasc;
-        this.rg = rg;
-        this.cpf = cpf;
-        this.email = email;
-        this.senha = senha;
-        this.ativo = ativo;
+        this.dtNasc = rs.getDate("dtNasc");
+        this.rg = rs.getString("RG");
+        this.cpf = rs.getString("CPF");
+        this.email = rs.getString("Email");
+        this.senha = rs.getString("Senha");
+        this.ativo = rs.getBoolean("Ativo");
     }
 
     public long getIdCliente() {
@@ -57,11 +61,11 @@ public class Cliente {
         this.idCliente = idCliente;
     }
 
-    public Calendar getDtCadastro() {
+    public Date getDtCadastro() {
         return dtCadastro;
     }
 
-    public void setDtCadastro(Calendar dtCadastro) {
+    public void setDtCadastro(Date dtCadastro) {
         this.dtCadastro = dtCadastro;
     }
 
@@ -73,11 +77,11 @@ public class Cliente {
         this.nome = nome;
     }
 
-    public Calendar getDtNasc() {
+    public Date getDtNasc() {
         return dtNasc;
     }
 
-    public void setDtNasc(Calendar dtNasc) {
+    public void setDtNasc(Date dtNasc) {
         this.dtNasc = dtNasc;
     }
 
