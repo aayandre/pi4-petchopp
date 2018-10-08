@@ -19,11 +19,8 @@ public class Auxiliares {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
 		try {
-
 			Date resultado = format.parse(inputDate);
-
 			return resultado;
-
 		} catch (ParseException e) {
 			throw new ParseException("Erro ao formatar data de input para util date.", 0);
 		}

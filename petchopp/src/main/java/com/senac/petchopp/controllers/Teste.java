@@ -34,6 +34,9 @@ public class Teste {
 		return new ModelAndView("testes").addObject("produto", teste);
 	}
 
+	// Controller que recebe o codigo do produto pela url,
+	// utiliza o mesmo para procurar no banco
+	// e no fim adiciona o resultado da pesquisa na pagina "testes" e a mostra
 	@GetMapping("/getprodutoteste/{codigo}")
 	public ModelAndView testeGetProduto(@PathVariable String codigo) {
 		ProdutoDAO produtoBanco = new ProdutoDAO();
@@ -41,6 +44,8 @@ public class Teste {
 		return new ModelAndView("testes").addObject("produto", adquirido);
 	}
 
+	// Controller que salva o produto recebido no banco,
+	// redireciona para o controller que visualiza o produto adicionado
 	@RequestMapping("/addprodutoteste")
 	public ModelAndView testeAddProduto(@ModelAttribute("produto") Produto novo) {
 		novo = new Produto(true);
