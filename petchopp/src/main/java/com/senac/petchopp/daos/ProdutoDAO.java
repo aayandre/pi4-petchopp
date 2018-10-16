@@ -3,6 +3,7 @@ package com.senac.petchopp.daos;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class ProdutoDAO implements IDAO {
 	static Connection cn = null;
 
 	@Override
-	public void salvar(Object bean) {
+	public void salvar(Object bean) throws SQLException {
 
 		String sql = "INSERT INTO Produto (Codigo, Nome, Preco, Custo, Descricao, dtCompra, dtValidade, urlImagem, emEstoque, Disable) "
 				+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -45,8 +46,8 @@ public class ProdutoDAO implements IDAO {
 
 			stmt.execute();
 
-		} catch (Exception e) {
-			// TODO: handle exception
+		} catch (SQLException e) {
+			throw new SQLException("Erro ao salvar o objeto no banco.", e);
 		} finally {
 			ConnectionFactory.closeConnection(cn, stmt);
 		}

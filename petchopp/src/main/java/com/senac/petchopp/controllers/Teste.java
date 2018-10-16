@@ -1,5 +1,7 @@
 package com.senac.petchopp.controllers;
 
+import java.sql.SQLException;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -51,8 +53,14 @@ public class Teste {
 		novo = new Produto(true);
 		// Instanciando o DAO para poder usar o método não static salvar()
 		ProdutoDAO adicionar = new ProdutoDAO();
-		adicionar.salvar(novo);
-		return new ModelAndView("redirect:/testes/getprodutoteste/" + novo.getCodigo());
+		try {
+			adicionar.salvar(novo);
+			return new ModelAndView("redirect:/testes/getprodutoteste/" + novo.getCodigo());
+		} catch (SQLException e) {
+			e.printStackTrace();
+			// Isso é um teste
+			return new ModelAndView("redirect:/erro").addObject("msgErro", "Erro ao salvar produto.");
+		}
 	}
 
 }

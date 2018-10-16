@@ -25,7 +25,7 @@ public class ProdutoController {
 
 	// Get
 	@GetMapping("/{codigo}")
-	public ModelAndView detalhesProduto(@PathVariable String codigo) {
+	public ModelAndView detalhesProduto(@PathVariable("codigo") String codigo) {
 		ProdutoDAO produtoBanco = new ProdutoDAO();
 		Produto adquirido = (Produto) produtoBanco.getByCodigo(codigo);
 		// TODO alterar para a página de detalhes do produto
@@ -34,7 +34,7 @@ public class ProdutoController {
 
 	// Delete
 	@DeleteMapping("/desabilitar/{codigo}")
-	public ModelAndView desativarProduto(@PathVariable String codigo) {
+	public ModelAndView desativarProduto(@PathVariable("codigo") String codigo) {
 		ProdutoDAO produtoBanco = new ProdutoDAO();
 		produtoBanco.deletar(codigo);
 		// TODO criar pagina de erro com uma div que recebe a menssagem do erro que ocorreu
@@ -43,7 +43,7 @@ public class ProdutoController {
 
 	// Put(Update)
 	@PutMapping("/alterar/{codigo}")
-	public ModelAndView alterarProduto(@PathVariable String codigo, @ModelAttribute("produto") Produto alterado) {
+	public ModelAndView alterarProduto(@PathVariable("codigo") String codigo, @ModelAttribute("produto") Produto alterado) {
 		ProdutoDAO produtoBanco = new ProdutoDAO();
 		produtoBanco.atualizar(alterado);
 		return new ModelAndView("redirect:/produto/" + codigo);

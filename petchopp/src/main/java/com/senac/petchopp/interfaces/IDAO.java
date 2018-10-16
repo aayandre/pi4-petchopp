@@ -1,6 +1,7 @@
 package com.senac.petchopp.interfaces;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -11,10 +12,10 @@ public interface IDAO {
 	
 	static Connection cn = null;
     
-    public void salvar(Object bean);
-    public void atualizar(Object bean);
-    public void deletar(long id);
-    public Object getById(long id);
-    public List<Object> getAll();
+    public void salvar(Object bean) throws SQLException;
+    public void atualizar(Object bean) throws SQLException;
+    public void deletar(long id) throws SQLException;
+    public Object getById(long id) throws SQLException;
+    public List<Object> getAll() throws SQLException;
     
 }
