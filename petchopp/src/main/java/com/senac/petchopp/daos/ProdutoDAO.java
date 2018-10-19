@@ -3,6 +3,7 @@ package com.senac.petchopp.daos;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.senac.petchopp.connection.ConnectionFactory;
@@ -54,14 +55,61 @@ public class ProdutoDAO implements IDAO {
 
 	@Override
 	public void atualizar(Object bean) {
-		// TODO Auto-generated method stub
+		@SuppressWarnings("unused")
+		String sql = "UPDATE Produto SET (Nome, Preco, Custo, dtCompra, dtValidade, urlImagem, emEstoque, Disable) "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?) WHERE Codigo = ?";
+
+		String sql2 = "UPDATE Produto "
+				+ "SET Nome = ?, Preco = ?, Custo = ?, dtCompra = ?, dtValidade = ?, urlImagem = ?, emEstoque = ?, Disable = ? "
+				+ "WHERE Codigo = ?";
+
+		PreparedStatement stmt = null;
+		cn = ConnectionFactory.getConnection();
+
+		Produto alterado = (Produto) bean;
+
+		try {
+
+			stmt = cn.prepareStatement(sql2);
+
+			// SET
+			stmt.setString(1, alterado.getNome());
+			stmt.setDouble(2, alterado.getPreco());
+			stmt.setDouble(3, alterado.getCusto());
+			stmt.setDate(4, new java.sql.Date(alterado.getDtCompra().getTime()));
+			stmt.setDate(5, new java.sql.Date(alterado.getDtValidade().getTime()));
+			stmt.setString(6, alterado.getUrlImagem());
+			stmt.setBoolean(7, alterado.isEmEstoque());
+			stmt.setBoolean(8, alterado.isDisable());
+
+			// WHERE
+			stmt.setString(9, alterado.getCodigo());
+
+			stmt.execute();
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		} finally {
+			ConnectionFactory.closeConnection(cn, stmt);
+		}
 
 	}
 
 	@Override
 	public void deletar(long id) {
-		// TODO Auto-generated method stub
+		String sql = "UPDATE Produto SET Disable = true WHERE idProduto = ?";
+		PreparedStatement stmt = null;
+		cn = ConnectionFactory.getConnection();
 
+		try {
+			stmt = cn.prepareStatement(sql);
+			stmt.setLong(1, id);
+			stmt.execute();
+		} catch (Exception e) {
+			// TODO: handle exception
+		} finally {
+
+		}
 	}
 
 	@Override
@@ -86,7 +134,7 @@ public class ProdutoDAO implements IDAO {
 		} finally {
 			ConnectionFactory.closeConnection(cn, stmt, rs);
 		}
-		return null;
+		return produto;
 	}
 
 	@Override
@@ -119,4 +167,45 @@ public class ProdutoDAO implements IDAO {
 		return produto;
 	}
 
+	public void deletar(String codigo) {
+		String sql = "UPDATE Produto SET Disable = true WHERE Codigo = ?";
+		PreparedStatement stmt = null;
+		cn = ConnectionFactory.getConnection();
+
+		try {
+			stmt = cn.prepareStatement(sql);
+			stmt.setString(1, codigo);
+			stmt.execute();
+		} catch (Exception e) {
+			// TODO: handle exception
+		} finally {
+			ConnectionFactory.closeConnection(cn, stmt);
+		}
+	}
+
+	public Object searchByNome(String nome) {
+		String sql = "SELECT * FROM Produto WHERE Nome LIKE ? LIMIT 5";
+		PreparedStatement stmt = null;
+		cn = ConnectionFactory.getConnection();
+		ArrayList<Produto> encontrados = new ArrayList<>();
+		ResultSet rs = null;
+
+		try {
+			stmt = cn.prepareStatement(sql);
+			stmt.setString(1, nome);
+			rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				if (new Produto(rs) != null) {
+					encontrados.add(new Produto(rs));
+				}
+			}
+			return encontrados;
+		} catch (Exception e) {
+			// TODO: handle exception
+		} finally {
+			ConnectionFactory.closeConnection(cn, stmt, rs);
+		}
+		return encontrados;
+	}
 }
