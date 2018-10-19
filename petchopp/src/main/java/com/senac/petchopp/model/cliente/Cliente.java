@@ -14,7 +14,7 @@ import java.sql.Date;
  */
 public class Cliente {
     
-   private long idCliente;
+   private Long idCliente;
    private Date dtCadastro;
    private String nome;
    private Date dtNasc;
@@ -30,8 +30,9 @@ public class Cliente {
         
     }
 
-    public Cliente(Date dtCadastro, String nome, Date dtNasc, String rg, String cpf, String email, String senha, boolean ativo) {
-        this.dtCadastro = dtCadastro;
+    public Cliente(Long idCliente, Date dtCadastro, String nome, Date dtNasc, String rg, String cpf, String email, String senha, boolean ativo) {
+        this.idCliente = idCliente;
+    	this.dtCadastro = dtCadastro;
         this.nome = nome;
         this.dtNasc = dtNasc;
         this.rg = rg;

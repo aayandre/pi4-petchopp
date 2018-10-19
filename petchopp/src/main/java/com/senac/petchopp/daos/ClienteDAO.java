@@ -25,8 +25,11 @@ public class ClienteDAO implements IDAO{
     Connection cn = null;
 
 	@Override
+	
 	public void salvar(Object bean) {
-		// TODO Auto-generated method stub
+		PreparedStatement stmt = null;
+		String sql = "INSERT INTO petchoppbase.Cliente (idCliente,dtCadastro,Nome,dtNasc,RG,CPF,Email,Senha,Ativo) "
+				+ "VALUES (?,?,?,?,?,?,?,?,?)";
 		
 	}
 
