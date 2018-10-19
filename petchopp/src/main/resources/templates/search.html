@@ -26,9 +26,9 @@
     <!-- Navigation -->
 
 
-    <header class="navbar navbar-expand-lg navbar-light bg-green fixed-top">
+    <header class="navbar navbar-expand-lg navbar-light bg-color fixed-top"  >
         <div class="container">
-            <a class="navbar-brand" href="index.html" th:href="@{/}">PetChopp</a>
+            <a  class="navbar-brand" href="index.html" th:href="@{/}">PetChopp</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -50,16 +50,49 @@
                 <!-- Filtros -->
                 <!-- Sidebar -->
                 <nav id="sidebar">
-                    <div id="dismiss">
-                        <i class="fas fa-arrow-left"></i>
-                    </div>
                     <div class="sidebar-header">
-                        <h3>Filtros Petchop</h3>
+                        <h3>Filtros PetChopp</h3>
                     </div>
                     <ul class="list-unstyled components">
-                        <a href="#homeSubmenu" ><p>Categorias</p></a>
-                        <li class="active"><a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Cachorro</a>
+                        <a href="#homeSubmenu">
+                            <p>Categorias</p>
+                        </a>
+                        <li class="active"><a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Tamanho</a>
                             <ul class="collapse list-unstyled" id="homeSubmenu">
+                                <li><label class="form-check"> <input class="form-check-input" type="radio" name="exampleRadio"
+                                            value=""> <span class="form-check-label">Pequeno Porte</span>
+                                    </label></li>
+
+                                <li><label class="form-check"> <input class="form-check-input" type="radio" name="exampleRadio"
+                                            value=""> <span class="form-check-label">Médio Porte</span>
+                                    </label></li>
+
+                                <li><label class="form-check"> <input class="form-check-input" type="radio" name="exampleRadio"
+                                            value=""> <span class="form-check-label">Grande Porte </span>
+                                    </label></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="list-unstyled components">
+                        <a href="#homeSubmenu">
+                            <p>Raças Cachorros</p>
+                        </a>
+                        <li class="active"><a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Tamanho</a>
+                            <ul class="collapse list-unstyled" id="homeSubmenu">
+                                <li><label class="form-check"> <input class="form-check-input" type="radio" name="exampleRadio"
+                                            value=""> <span class="form-check-label">Pequeno Porte</span>
+                                    </label></li>
+
+                                <li><label class="form-check"> <input class="form-check-input" type="radio" name="exampleRadio"
+                                            value=""> <span class="form-check-label">Médio Porte</span>
+                                    </label></li>
+                                <li><label class="form-check"> <input class="form-check-input" type="radio" name="exampleRadio"
+                                            value=""> <span class="form-check-label">Pequeno Porte</span>
+                                    </label></li>
+
+                                <li><label class="form-check"> <input class="form-check-input" type="radio" name="exampleRadio"
+                                            value=""> <span class="form-check-label">Médio Porte</span>
+                                    </label></li>
                                 <li><label class="form-check"> <input class="form-check-input" type="radio" name="exampleRadio"
                                             value=""> <span class="form-check-label">Pequeno Porte</span>
                                     </label></li>
@@ -77,7 +110,7 @@
                 </nav>
                 <!-- card.// -->
                 <!-- Page Content -->
-                <div id="content">
+                <div id="content" >
                     <!-- Procura e resultados -->
                     <div class="row">
                         <!-- Procura -->
@@ -86,7 +119,7 @@
                                 <span>Filters</span>
                                 <svg class="svg-inline--fa fa-align-left fa-w-14" aria-hidden="true" data-prefix="fas"
                                     data-icon="align-left" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
-                                    data-fa-i2svg="" style="width: 27%">
+                                    data-fa-i2svg="" style="width: 11px">
                                     <path fill="currentColor" d="M288 44v40c0 8.837-7.163 16-16 16H16c-8.837 0-16-7.163-16-16V44c0-8.837 7.163-16 16-16h256c8.837 0 16 7.163 16 16zM0 172v40c0 8.837 7.163 16 16 16h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16zm16 312h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm256-200H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16h256c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16z"></path>
                                 </svg>
                                 <!-- <i class="fas fa-align-left"></i> -->
@@ -106,133 +139,329 @@
                                 </form>
                             </section>
                         </div>
-
-                        <!-- Filtros selecionados -->
-                        <div>
-
-                            <!-- Resultados -->
-                            <div class="col-lg-11">
-
+                        <div class="container">
+                            <div class="row">
                                 <div class="row">
+                                    <div class="col-md-9">
+                                        <h3>Buscar</h3>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <!-- Controls -->
+                                        <div class="controls float-xs-right hidden-xs">
+                                            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                                                <span class="glyphicon glyphicon-chevron-left"></span>
+                                                <span class="sr-only">Previous</span>
+                                            </a>
+                                            <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                                                <span class="glyphicon glyphicon-chevron-right"></span>
+                                                <span class="sr-only">Next</span>
+                                            </a>
 
-                                    <div class="col-lg-3 col-md-6 mb-4 col-sm-4 col-xs-4">
-                                        <div class="card">
-                                            <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-                                            <div class="card-body">
-                                                <h4 class="card-title">Card title</h4>
-                                                <p class="card-text">Lorem ipsum dolor sit amet,
-                                                    consectetur adipisicing elit. Explicabo magni sapiente,
-                                                    tempore debitis beatae culpa natus architecto.</p>
-                                            </div>
-                                            <div class="card-footer">
-                                                <a href="#" class="btn btn-primary">Detalhes</a>
-                                            </div>
+                                            <ol class="carousel-indicators">
+                                                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                                                <li data-target="#myCarousel" data-slide-to="1"></li>
+                                                <li data-target="#myCarousel" data-slide-to="2"></li>
+                                            </ol>
                                         </div>
                                     </div>
-
-                                    <div class="col-lg-3 col-md-6 mb-4 col-sm-4 col-xs-4">
-                                        <div class="card">
-                                            <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-                                            <div class="card-body">
-                                                <h4 class="card-title">Card title</h4>
-                                                <p class="card-text">Lorem ipsum dolor sit amet,
-                                                    consectetur adipisicing elit. Explicabo magni sapiente,
-                                                    tempore debitis beatae culpa natus architecto.</p>
-                                            </div>
-                                            <div class="card-footer">
-                                                <a href="#" class="btn btn-primary">Detalhes</a>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-3 col-md-6 mb-4 col-sm-4 col-xs-4">
-                                        <div class="card">
-                                            <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-                                            <div class="card-body">
-                                                <h4 class="card-title">Card title</h4>
-                                                <p class="card-text">Lorem ipsum dolor sit amet,
-                                                    consectetur adipisicing elit. Explicabo magni sapiente,
-                                                    tempore debitis beatae culpa natus architecto.</p>
-                                            </div>
-                                            <div class="card-footer">
-                                                <a href="#" class="btn btn-primary">Detalhes</a>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-3 col-md-6 mb-4 col-sm-4 col-xs-4">
-                                        <div class="card">
-                                            <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-                                            <div class="card-body">
-                                                <h4 class="card-title">Card title</h4>
-                                                <p class="card-text">Lorem ipsum dolor sit amet,
-                                                    consectetur adipisicing elit. Explicabo magni sapiente,
-                                                    tempore debitis beatae culpa natus architecto.</p>
-                                            </div>
-                                            <div class="card-footer">
-                                                <a href="#" class="btn btn-primary">Detalhes</a>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-3 col-md-6 mb-4 col-sm-4 col-xs-4">
-                                        <div class="card">
-                                            <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-                                            <div class="card-body">
-                                                <h4 class="card-title">Card title</h4>
-                                                <p class="card-text">Lorem ipsum dolor sit amet,
-                                                    consectetur adipisicing elit. Explicabo magni sapiente,
-                                                    tempore debitis beatae culpa natus architecto.</p>
-                                            </div>
-                                            <div class="card-footer">
-                                                <a href="#" class="btn btn-primary">Detalhes</a>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-3 col-md-6 mb-4 col-sm-4 col-xs-4">
-                                        <div class="card">
-                                            <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-                                            <div class="card-body">
-                                                <h4 class="card-title">Card title</h4>
-                                                <p class="card-text">Lorem ipsum dolor sit amet,
-                                                    consectetur adipisicing elit. Sapiente esse necessitatibus
-                                                    neque.</p>
-                                            </div>
-                                            <div class="card-footer">
-                                                <a href="#" class="btn btn-primary">Detalhes</a>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-3 col-md-6 mb-4">
-                                        <div class="card">
-                                            <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-                                            <div class="card-body">
-                                                <h4 class="card-title">Card title</h4>
-                                                <p class="card-text">Lorem ipsum dolor sit amet,
-                                                    consectetur adipisicing elit. Explicabo magni sapiente,
-                                                    tempore debitis beatae culpa natus architecto.</p>
-                                            </div>
-                                            <div class="card-footer">
-                                                <a href="#" class="btn btn-primary">Detalhes</a>
-                                            </div>
-                                        </div>
-                                    </div>
-
                                 </div>
-                                <!-- ./row -->
+                                <div id="carousel-exemple" class="carousel slide hidden-xs" data-ride="carousel">
+                                    <!-- Wrapper for slides -->
+                                    <div class="carousel-inner">
+                                        <div class="item active">
+                                            <div class="row">
+                                                <div class="col-sm-3" id="edit-card">
+                                                    <div class="col-item card-color">
+                                                        <div class="info">
+                                                            <div class="row">
+                                                                <div class="price col-md-6">
+                                                                    <h5>Ração A</h5>
+                                                                    <h5 class="price-text-color">R$ 73,99 </h5>
+                                                                </div>
+                                                                <div class="rating hidden-sm col-md-6">
+                                                                    <i class="price-text-color fa fa-star"></i>
+                                                                    <i class="price-text-color fa fa-star"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
 
+                                                        <div class="photo">
+                                                            <img src="../Images/racao_dog1.jpg" class="img-fluid" alt="a" />
+                                                        </div>
+                                                        <div class="info">
+                                                            <div class="separator clear-left">
+                                                                <p class="btn-add">
+                                                                    <i class="fa fa-shopping-cart"></i><a href="#"
+                                                                        class="hidden-sm">Adicionar ao Carrinho</a>
+                                                                </p>
+                                                                <p class="btn-details">
+                                                                    <i class="fa fa-list"></i><a href="#" class="hidden-sm">Mais
+                                                                        detalhes</a>
+                                                                </p>
+                                                            </div>
+                                                            <div class="clearfix">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
 
+                                                <div class="col-sm-3" id="edit-card">
+                                                    <div class="col-item card-color">
+                                                        <div class="info">
+                                                            <div class="row">
+                                                                <div class="price col-md-6">
+                                                                    <h5>Ração B</h5>
+                                                                    <h5 class="price-text-color">R$ 95,39 </h5>
+                                                                </div>
+                                                                <div class="rating hidden-sm col-md-6">
+                                                                    <i class="price-text-color fa fa-star"></i>
+                                                                    <i class="price-text-color fa fa-star"></i>
+                                                                    <i class="price-text-color fa fa-star"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="photo">
+                                                            <img src="../Images/racao_dog2.jpg" class="img-fluid" alt="a" />
+                                                        </div>
+                                                        <div class="info">
+                                                            <div class="separator clear-left">
+                                                                <p class="btn-add">
+                                                                    <i class="fa fa-shopping-cart"></i><a href="#"
+                                                                        class="hidden-sm">Adicionar ao Carrinho</a>
+                                                                </p>
+                                                                <p class="btn-details">
+                                                                    <i class="fa fa-list"></i><a href="#" class="hidden-sm">Mais
+                                                                        detalhes</a>
+                                                                </p>
+                                                            </div>
+                                                            <div class="clearfix">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3" id="edit-card">
+                                                    <div class="col-item card-color">
+                                                        <div class="info">
+                                                            <div class="row">
+                                                                <div class="price col-md-6">
+                                                                    <h5>Ração C</h5>
+                                                                    <h5 class="price-text-color">R$ 78,24 </h5>
+                                                                </div>
+                                                                <div class="rating hidden-sm col-md-6">
+                                                                    <i class="price-text-color fa fa-star"></i>
+                                                                    <i class="price-text-color fa fa-star"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="photo">
+                                                            <img src="../Images/racao_dog3.jpg" class="img-fluid" alt="a" />
+                                                        </div>
+                                                        <div class="info">
+                                                            <div class="separator clear-left">
+                                                                <p class="btn-add">
+                                                                    <i class="fa fa-shopping-cart"></i><a href="#"
+                                                                        class="hidden-sm">Adicionar ao Carrinho</a>
+                                                                </p>
+                                                                <p class="btn-details">
+                                                                    <i class="fa fa-list"></i><a href="#" class="hidden-sm">Mais
+                                                                        detalhes</a>
+                                                                </p>
+                                                            </div>
+                                                            <div class="clearfix">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3" id="edit-card">
+                                                    <div class="col-item card-color">
+                                                        <div class="info">
+                                                            <div class="row">
+                                                                <div class="price col-md-6">
+                                                                    <h5>Ração J</h5>
+                                                                    <h5 class="price-text-color">R$ 69,78 </h5>
+                                                                </div>
+                                                                <div class="rating hidden-sm col-md-6">
+                                                                    <i class="price-text-color fa fa-star"></i>
+                                                                    <i class="price-text-color fa fa-star"></i>
+                                                                    <i class="price-text-color fa fa-star"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="photo">
+                                                            <img src="../Images/racao_dog4.jpg" class="img-fluid" alt="a" />
+                                                        </div>
+                                                        <div class="info">
+                                                            <div class="separator clear-left">
+                                                                <p class="btn-add">
+                                                                    <i class="fa fa-shopping-cart"></i><a href="#"
+                                                                        class="hidden-sm">Adicionar ao Carrinho</a>
+                                                                </p>
+                                                                <p class="btn-details">
+                                                                    <i class="fa fa-list"></i><a href="#" class="hidden-sm">Mais
+                                                                        detalhes</a>
+                                                                </p>
+                                                            </div>
+                                                            <div class="clearfix">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="row">
+                                                <div class="col-sm-3" id="edit-card">
+                                                    <div class="col-item card-color">
+                                                        <div class="info">
+                                                            <div class="row">
+                                                                <div class="price col-md-6">
+                                                                    <h5>Ração</h5>
+                                                                    <h5 class="price-text-color">R$ 83,54 </h5>
+                                                                </div>
+                                                                <div class="rating hidden-sm col-md-6">
+                                                                    <i class="price-text-color fa fa-star"></i>
+                                                                    <i class="price-text-color fa fa-star"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="photo">
+                                                            <img src="../Images/racao_dog5.jpg" class="img-fluid" alt="a" />
+                                                        </div>
+                                                        <div class="info">
+                                                            <div class="separator clear-left">
+                                                                <p class="btn-add">
+                                                                    <i class="fa fa-shopping-cart"></i><a href="#"
+                                                                        class="hidden-sm">Adicionar ao Carrinho</a>
+                                                                </p>
+                                                                <p class="btn-details">
+                                                                    <i class="fa fa-list"></i><a href="#" class="hidden-sm">Mais
+                                                                        detalhes</a>
+                                                                </p>
+                                                            </div>
+                                                            <div class="clearfix">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-3" id="edit-card">
+                                                    <div class="col-item card-color">
+                                                        <div class="info">
+                                                            <div class="row">
+                                                                <div class="price col-md-6">
+                                                                    <h5>Ração</h5>
+                                                                    <h5 class="price-text-color">R$ 61,54</h5>
+                                                                </div>
+                                                                <div class="rating hidden-sm col-md-6">
+                                                                    <i class="price-text-color fa fa-star"></i>
+                                                                    <i class="price-text-color fa fa-star"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="photo">
+                                                            <img src="../Images/racao_dog6.jpg" class="img-fluid" alt="a" />
+                                                        </div>
+                                                        <div class="info">
+                                                            <div class="separator clear-left">
+                                                                <p class="btn-add">
+                                                                    <i class="fa fa-shopping-cart"></i><a href="#"
+                                                                        class="hidden-sm">Adicionar ao carrinho</a>
+                                                                </p>
+                                                                <p class="btn-details">
+                                                                    <i class="fa fa-list"></i><a href="#" class="hidden-sm">Mais
+                                                                        detalhes</a>
+                                                                </p>
+                                                            </div>
+                                                            <div class="clearfix">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3" id="edit-card">
+                                                    <div class="col-item card-color">
+                                                        <div class="info">
+                                                            <div class="row">
+                                                                <div class="price col-md-6">
+                                                                    <h5>Ração</h5>
+                                                                    <h5 class="price-text-color"> R$ 59,81 </h5>
+                                                                </div>
+                                                                <div class="rating hidden-sm col-md-6">
+                                                                    <i class="price-text-color fa fa-star"></i>
+                                                                    <i class="price-text-color fa fa-star"></i>
+                                                                    <i class="price-text-color fa fa-star"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="photo">
+                                                            <img src="../Images/racao_dog7.jpg" class="img-fluid" alt="a" />
+                                                        </div>
+                                                        <div class="info">
+                                                            <div class="separator clear-left">
+                                                                <p class="btn-add">
+                                                                    <i class="fa fa-shopping-cart"></i><a href="#"
+                                                                        class="hidden-sm">Adicionar ao Carrinho</a>
+                                                                </p>
+                                                                <p class="btn-details">
+                                                                    <i class="fa fa-list"></i><a href="#" class="hidden-sm">Mais
+                                                                        detalhes</a>
+                                                                </p>
+                                                            </div>
+                                                            <div class="clearfix">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3" id="edit-card">
+                                                    <div class="col-item card-color">
+                                                        <div class="info">
+                                                            <div class="row">
+                                                                <div class="price col-md-6">
+                                                                    <h5>Ração</h5>
+                                                                    <h5 class="price-text-color"> R$ 77,53 </h5>
+                                                                </div>
+                                                                <div class="rating hidden-sm col-md-6">
+                                                                    <i class="price-text-color fa fa-star"></i>
+                                                                    <i class="price-text-color fa fa-star"></i>
+                                                                    <i class="price-text-color fa fa-star"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="photo">
+                                                            <img src="../Images/racao_dog8.jpg" class="img-fluid" alt="a" />
+                                                        </div>
+                                                        <div class="info">
+                                                            <div class="separator clear-left">
+                                                                <p class="btn-add">
+                                                                    <i class="fa fa-shopping-cart"></i><a href="#"
+                                                                        class="hidden-sm">Adicionar ao Carrinho</a>
+                                                                </p>
+                                                                <p class="btn-details">
+                                                                    <i class="fa fa-list"></i><a href="#" class="hidden-sm">Mais
+                                                                        detalhes</a>
+                                                                </p>
+                                                            </div>
+                                                            <div class="clearfix">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-
                         </div>
                     </div>
-                    <!-- ./row text-center -->
+                    <!-- /Page Content -->
                 </div>
-                <!-- /Page Content -->
             </div>
-        </div>
     </section>
 
 
