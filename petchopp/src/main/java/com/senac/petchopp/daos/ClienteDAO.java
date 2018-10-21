@@ -5,6 +5,7 @@
  */
 package com.senac.petchopp.daos;
 
+import com.senac.petchopp.connection.ConnectionFactory;
 import com.senac.petchopp.interfaces.IDAO;
 import com.senac.petchopp.model.Auxiliares;
 import com.senac.petchopp.model.cliente.Cliente;
@@ -25,11 +26,8 @@ public class ClienteDAO implements IDAO{
     Connection cn = null;
 
 	@Override
-	
 	public void salvar(Object bean) {
-		PreparedStatement stmt = null;
-		String sql = "INSERT INTO petchoppbase.Cliente (idCliente,dtCadastro,Nome,dtNasc,RG,CPF,Email,Senha,Ativo) "
-				+ "VALUES (?,?,?,?,?,?,?,?,?)";
+		// TODO Auto-generated method stub
 		
 	}
 
@@ -56,9 +54,7 @@ public class ClienteDAO implements IDAO{
 		// TODO Auto-generated method stub
 		return null;
 	}
-   
 
-   
-    
+	
     
 }
