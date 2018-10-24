@@ -3,6 +3,8 @@ package com.senac.petchopp.model.cliente;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
+import java.util.List;
+
 import org.mindrot.jbcrypt.BCrypt;
 
 import com.senac.petchopp.model.Auxiliares;
@@ -22,6 +24,7 @@ public class Cliente {
    private String cpf;
    private String email;
    private String senha;
+   private List<Endereco> enderecos;
    private boolean ativo;
 
    
@@ -125,5 +128,15 @@ public class Cliente {
     public void setAtivo(boolean ativo) {
         this.ativo = ativo;
     }
+
+	public List<Endereco> getEnderecos() {
+		return enderecos;
+	}
+
+	public void setEnderecos(List<Endereco> enderecos) {
+		this.enderecos = enderecos;
+	}
+
+
     
 }
