@@ -59,8 +59,8 @@ public class ClienteDAO implements IDAO{
 			}
 			
 		} catch (SQLException e) {
-			cn.rollback();
 			e.printStackTrace();
+			cn.rollback();
 		} finally {
 			cn.setAutoCommit(true);
 			ConnectionFactory.closeConnection(cn, stmt);
