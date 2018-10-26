@@ -54,7 +54,7 @@
     <!-- Page Content -->
     <div class="container nav-margin">
 
-        <form th:action="@{/testes/addprodutoteste}" method="post" th:object="${produto}" enctype="multipart/form-data">
+        <form th:action="@{/testes/addprodutoteste}" method="POST" th:object="${produto}" enctype="multipart/form-data">
 
             <div class="row">
 
@@ -64,6 +64,7 @@
                     <div th:if="${message != null}">
                         <p th:text="${message}"></p>
                     </div>
+
                     <div class="form-group">
                         <label>Imagem do produto:</label>
                         <input type="file" name="arquivo" class="form-control">
@@ -137,6 +138,74 @@
             </div>
 
 
+        </form>
+
+        <form th:action="@{/testes/addclienteteste}" method="POST" th:object="${cliente}">
+
+            <div class="row">
+
+                <div class="col-8 offset-2">
+
+                    <div th:if="${message != null}">
+                        <p th:text="${message}"></p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Nome:</label>
+                        <input type="text" class="form-control" th:field="*{nome}" aria-describedby="Nome">
+                    </div>
+                    <div class="form-group">
+                        <label>Data de nascimento:</label>
+                        <input type="date" class="form-control" th:field="*{dtNasc}" aria-describedby="Data de nascimento">
+                    </div>
+                    <div class="form-group">
+                        <label>RG:</label>
+                        <input type="text" class="form-control" th:field="*{rg}" aria-describedby="RG">
+                    </div>
+                    <div class="form-group">
+                        <label>CPF:</label>
+                        <input type="text" class="form-control" th:field="*{cpf}" aria-describedby="CPF">
+                    </div>
+                    <div class="form-group">
+                        <label>E-mail:</label>
+                        <input type="email" class="form-control" th:field="*{email}" aria-describedby="Email">
+                    </div>
+                    <div class="form-group">
+                        <label>Senha:</label>
+                        <input type="password" class="form-control" th:field="*{senha}" aria-describedby="Senha">
+                    </div>
+
+                    <div th:object="endereco">
+                        <!-- Endereço -->
+                        <div class="form-group">
+                            <label>CEP:</label>
+                            <input type="text" class="form-control" th:field="*{cep}" placeholder="CEP"
+                                aria-describedby="CEP">
+                        </div>
+                        <div class="form-group">
+                            <label>Logradouro:</label>
+                            <input type="text" class="form-control" th:field="*{logradouro}" placeholder="Rua/Avenida lalalal lalalalla"
+                                aria-describedby="Logradouro">
+                        </div>
+                        <div class="form-group">
+                            <label>Bairro:</label>
+                            <input type="text" class="form-control" th:field="*{bairro}" placeholder="Bairro"
+                                aria-describedby="Bairro">
+                        </div>
+                        <div class="form-group">
+                            <label>Cidade:</label>
+                            <input type="text" class="form-control" th:field="*{cidade}" placeholder="Cidade"
+                                aria-describedby="Cidade">
+                        </div>
+                        <div class="form-group">
+                            <label>UF:</label>
+                            <input type="text" class="form-control" th:field="*{uf}" placeholder="UF" aria-describedby="UF">
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
         </form>
 
     </div>
