@@ -9,6 +9,8 @@ public class Endereco {
    private long idEndereco;
    private String cep;
    private String logradouro;
+   private String num;
+   private String comp;
    private String bairro;
    private String cidade;
    private String uf;
@@ -19,9 +21,11 @@ public class Endereco {
         
     }
 
-    public Endereco(String cep, String logradouro, String bairro, String cidade, String uf, long idCliente, String tipoEndereco) {
+    public Endereco(String cep, String logradouro, String num, String comp, String bairro, String cidade, String uf, long idCliente, String tipoEndereco) {
         this.cep = cep;
         this.logradouro = logradouro;
+        this.num = num;
+        this.comp = comp;
         this.bairro = bairro;
         this.cidade = cidade;
         this.uf = uf;
@@ -52,8 +56,25 @@ public class Endereco {
     public void setLogradouro(String logradouro) {
         this.logradouro = logradouro;
     }
+    
 
-    public String getBairro() {
+    public String getNum() {
+		return num;
+	}
+
+	public void setNum(String num) {
+		this.num = num;
+	}
+
+	public String getComp() {
+		return comp;
+	}
+
+	public void setComp(String comp) {
+		this.comp = comp;
+	}
+
+	public String getBairro() {
         return bairro;
     }
 
