@@ -54,27 +54,79 @@
     <!-- Page Content -->
     <div class="container nav-margin">
 
-        <form th:action="@{/testepost/tipocad}" method="post" th:object="${tipoCategoria}">
+        <form th:action="@{/testes/addprodutoteste}" method="post" th:object="${produto}" enctype="multipart/form-data">
 
             <div class="row">
 
                 <div class="col-8 offset-2">
 
-                    <div class="form-group">
-                        <label>Id:</label>
-                        <input type="number" th:field="*{id}">
+
+                    <div th:if="${message != null}">
+                        <p th:text="${message}"></p>
                     </div>
                     <div class="form-group">
-                        <label>Codigo:</label>
-                        <input type="number" th:field="*{codigo}">
+                        <label>Imagem do produto:</label>
+                        <input type="file" name="arquivo" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Codigo</label>
+                        <input type="text" th:field="*{Codigo}">
+                    </div>
+                    <div class="form-group">
+                        <label>Nome:</label>
+                        <input type="text" th:field="*{Nome}">
+                    </div>
+                    <div class="form-group">
+                        <label>Preço:</label>
+                        <input type="number" th:field="*{Preco}">
+                    </div>
+                    <div class="form-group">
+                        <label>Custo:</label>
+                        <input type="number" th:field="*{Custo}">
                     </div>
                     <div class="form-group">
                         <label>Descrição:</label>
-                        <input type="text" th:field="*{descricao}">
+                        <textarea cols="30" rows="10" th:field="*{Descricao}"></textarea>
                     </div>
                     <div class="form-group">
-                        <label>Categoria:</label>
-                        <input type="text" th:field="*{categoria}">
+                        <label>Data Compra:</label>
+                        <input type="date" th:field="*{dtCompra}">
+                    </div>
+                    <div class="form-group">
+                        <label>Validade:</label>
+                        <input type="date" th:field="*{dtValidade}">
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" value="1" th:field="*{EmEstoque}"
+                                    checked>
+                                Disponível
+                            </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" value="0" th:field="*{EmEstoque}">
+                                Indisponível
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" value="1" th:field="*{Disable}" checked>
+                                Ativado
+                            </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" value="0" th:field="*{Disable}">
+                                Desativado
+                            </label>
+                        </div>
                     </div>
 
                     <button type="submit" class="btn btn-primary">Enviar</button>
