@@ -1,14 +1,11 @@
 package com.senac.petchopp.model.cliente;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Calendar;
 import java.util.List;
 
 import org.mindrot.jbcrypt.BCrypt;
-
-import com.senac.petchopp.model.Auxiliares;
-import java.sql.Date;
 
 /**
  *

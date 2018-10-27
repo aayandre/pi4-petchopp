@@ -5,23 +5,27 @@ package com.senac.petchopp.model.cliente;
  * @author Marcelo Pereira
  */
 public class Endereco {
-    
-   private long idEndereco;
+
+   private Long idEndereco;
    private String cep;
    private String logradouro;
+   private String num;
+   private String comp;
    private String bairro;
    private String cidade;
    private String uf;
-   private long idCliente;
+   private Long idCliente;
    private String tipoEndereco;
 
     public Endereco() {
-        
+
     }
 
-    public Endereco(String cep, String logradouro, String bairro, String cidade, String uf, long idCliente, String tipoEndereco) {
+    public Endereco(String cep, String logradouro, String num, String comp, String bairro, String cidade, String uf, Long idCliente, String tipoEndereco) {
         this.cep = cep;
         this.logradouro = logradouro;
+        this.num = num;
+        this.comp = comp;
         this.bairro = bairro;
         this.cidade = cidade;
         this.uf = uf;
@@ -29,11 +33,11 @@ public class Endereco {
         this.tipoEndereco = tipoEndereco;
     }
 
-    public long getIdEndereco() {
+    public Long getIdEndereco() {
         return idEndereco;
     }
 
-    public void setIdEndereco(long idEndereco) {
+    public void setIdEndereco(Long idEndereco) {
         this.idEndereco = idEndereco;
     }
 
@@ -53,7 +57,24 @@ public class Endereco {
         this.logradouro = logradouro;
     }
 
-    public String getBairro() {
+
+    public String getNum() {
+		return num;
+	}
+
+	public void setNum(String num) {
+		this.num = num;
+	}
+
+	public String getComp() {
+		return comp;
+	}
+
+	public void setComp(String comp) {
+		this.comp = comp;
+	}
+
+	public String getBairro() {
         return bairro;
     }
 
@@ -77,11 +98,11 @@ public class Endereco {
         this.uf = uf;
     }
 
-    public long getIdCliente() {
+    public Long getIdCliente() {
         return idCliente;
     }
 
-    public void setIdCliente(long idCliente) {
+    public void setIdCliente(Long idCliente) {
         this.idCliente = idCliente;
     }
 
@@ -93,5 +114,5 @@ public class Endereco {
         this.tipoEndereco = tipoEndereco;
     }
 
-    
+
 }
