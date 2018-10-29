@@ -63,4 +63,9 @@ public class Teste {
 		}
 	}
 
+	@RequestMapping("/fragmentos")
+	public String fragmentos() {
+		return "testeFragment";
+	}
+
 }
