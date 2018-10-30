@@ -28,8 +28,7 @@ public class ProdutoController {
 	public ModelAndView detalhesProduto(@PathVariable("codigo") String codigo) {
 		ProdutoDAO produtoBanco = new ProdutoDAO();
 		Produto adquirido = (Produto) produtoBanco.getByCodigo(codigo);
-		// TODO alterar para a página de detalhes do produto
-		return new ModelAndView("testes").addObject("produto", adquirido);
+		return new ModelAndView("detalhe").addObject("produto", adquirido);
 	}
 
 	// Delete

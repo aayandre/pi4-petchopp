@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <link rel="import" href="padrao/headDefault.html" />
+    <th:block th:insert="padrao/general.html :: headfiles"></th:block>
+    <link rel="stylesheet" href="../static/css/detalhe.css" th:href="@{/css/detalhe.css}">
+    <title>Detalhes</title>
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <div th:replace="padrao/general.html :: navbarfiles"></div>
+
+    <!-- Conteudo da pagina -->
+    <div class="conteiner nav-margin">
+
+        <div class="row">
+
+            <!-- Imagem do produto -->
+            <div class="col-4">
+                <img class="h-50" src="https://cdn-petz-imgs.stoom.com.br/fotos/1515429480749.jpg" alt="Imagem do produto">
+            </div>
+
+            <!-- Nome do produto com algumas informacoes a mais -->
+            <div class="col-4">
+                <h2>Nome do produto</h2>
+                <div class="row">
+                    <div class="col-6">
+                        <span class="font-weight-bold">Codigo: </span>02190192090192
+                    </div>
+                    <div class="col-6">
+                        Marca: <a href="#">Royal Cannin</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Preco do produto e coisas sobre a venda -->
+            <div class="col-4">
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div th:replace="padrao/general.html :: footerfiles"></div>
+    <script src="../static/js/detalhe.js" th:src="@{/js/detalhe.js}"></script>
+
+</body>
+
+</html>
