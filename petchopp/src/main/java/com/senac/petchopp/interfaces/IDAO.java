@@ -14,8 +14,8 @@ public interface IDAO {
     
     public void salvar(Object bean) throws SQLException;
     public void atualizar(Object bean) throws SQLException;
-    public void deletar(long id) throws SQLException;
-    public Object getById(long id) throws SQLException;
+    public void deletar(Long id) throws SQLException;
+    public Object getById(Long id) throws SQLException;
     public List<Object> getAll() throws SQLException;
     
 }

@@ -9,7 +9,6 @@ import java.util.List;
 
 import com.senac.petchopp.connection.ConnectionFactory;
 import com.senac.petchopp.interfaces.IDAO;
-import com.senac.petchopp.model.Auxiliares;
 import com.senac.petchopp.model.produto.Produto;
 
 public class ProdutoDAO implements IDAO {
@@ -38,8 +37,8 @@ public class ProdutoDAO implements IDAO {
 			stmt.setDouble(3, novo.getPreco());
 			stmt.setDouble(4, novo.getCusto());
 			stmt.setString(5, novo.getDescricao());
-			stmt.setDate(6, new java.sql.Date(Auxiliares.UtilDateToCalendar(novo.getDtCompra()).getTimeInMillis()));
-			stmt.setDate(7, new java.sql.Date(Auxiliares.UtilDateToCalendar(novo.getDtValidade()).getTimeInMillis()));
+			stmt.setDate(6, java.sql.Date.valueOf(novo.getDtCompra()));
+			stmt.setDate(7, java.sql.Date.valueOf(novo.getDtValidade()));
 			stmt.setString(8, novo.getUrlImagem());
 			stmt.setBoolean(9, novo.isEmEstoque());
 			stmt.setBoolean(10, novo.isDisable());
@@ -77,8 +76,8 @@ public class ProdutoDAO implements IDAO {
 			stmt.setString(1, alterado.getNome());
 			stmt.setDouble(2, alterado.getPreco());
 			stmt.setDouble(3, alterado.getCusto());
-			stmt.setDate(4, new java.sql.Date(alterado.getDtCompra().getTime()));
-			stmt.setDate(5, new java.sql.Date(alterado.getDtValidade().getTime()));
+			stmt.setDate(4, java.sql.Date.valueOf(alterado.getDtCompra()));
+			stmt.setDate(5, java.sql.Date.valueOf(alterado.getDtValidade()));
 			stmt.setString(6, alterado.getUrlImagem());
 			stmt.setBoolean(7, alterado.isEmEstoque());
 			stmt.setBoolean(8, alterado.isDisable());
@@ -97,7 +96,7 @@ public class ProdutoDAO implements IDAO {
 	}
 
 	@Override
-	public void deletar(long id) {
+	public void deletar(Long id) {
 		String sql = "UPDATE Produto SET Disable = true WHERE idProduto = ?";
 		PreparedStatement stmt = null;
 		cn = ConnectionFactory.getConnection();
@@ -114,7 +113,7 @@ public class ProdutoDAO implements IDAO {
 	}
 
 	@Override
-	public Object getById(long id) {
+	public Object getById(Long id) throws SQLException {
 
 		String sql = "SELECT * FROM Produto WHERE idProduto = ? LIMIT 1";
 		cn = ConnectionFactory.getConnection();
@@ -130,7 +129,7 @@ public class ProdutoDAO implements IDAO {
 				produto = new Produto(rs);
 			}
 			return produto;
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			// TODO: handle exception
 		} finally {
 			ConnectionFactory.closeConnection(cn, stmt, rs);
@@ -184,8 +183,8 @@ public class ProdutoDAO implements IDAO {
 		}
 	}
 
-	public Object searchByNome(String nome) {
-		String sql = "SELECT * FROM Produto WHERE Nome LIKE ? LIMIT 5";
+	public ArrayList<Produto> searchByNome(String nome) {
+		String sql = "SELECT * FROM Produto WHERE Nome LIKE ? LIMIT 12";
 		PreparedStatement stmt = null;
 		cn = ConnectionFactory.getConnection();
 		ArrayList<Produto> encontrados = new ArrayList<>();

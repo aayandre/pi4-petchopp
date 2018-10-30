@@ -97,7 +97,7 @@
                 <p th:text="${produto.Descricao}"></p>
                 <p th:text="${produto.dtCompra}"></p>
                 <p th:text="${produto.dtValidade}"></p>
-                <p th:text="${produto.urlImagem}"></p>
+                <img th:src="@{/uploads/{nomeArquivo}(nomeArquivo=${produto.urlImagem})}" alt="Imagem do produto">
                 <p th:text="${produto.EmEstoque}"></p>
                 <p th:text="${produto.Disable}"></p>
             </div>
