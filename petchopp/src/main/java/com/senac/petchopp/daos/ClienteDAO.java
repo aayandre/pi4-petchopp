@@ -33,7 +33,7 @@ public class ClienteDAO implements IDAO{
 		PreparedStatement stmt = null;
 		Cliente novo = (Cliente) bean;
 		String sql = "INSERT INTO Cliente\r\n" + 
-				"(idCliente, dtCadastro, Nome, dtNasc, RG, CPF, Email, Senha, Ativo)\r\n" + 
+				"(idCliente, dtCadastro, Nome, dtNasc, RG, CPF, Email, Senha, Telefone1, Telefone2, Ativo)\r\n" + 
 				"VALUES(?,?,?,?,?,?,?,?,?)";
 		cn = ConnectionFactory.getConnection();
 		
@@ -48,7 +48,9 @@ public class ClienteDAO implements IDAO{
 			stmt.setString(6, novo.getCpf());
 			stmt.setString(7, novo.getEmail());
 			stmt.setString(8, novo.getSenha());
-			stmt.setBoolean(9, novo.isAtivo());
+			stmt.setNString(9, novo.getTelefone1());
+			stmt.setNString(10, novo.getTelefone2());
+			stmt.setBoolean(11, novo.isAtivo());
 			stmt.execute();
 			
 			ResultSet rs = stmt.getGeneratedKeys();
@@ -75,7 +77,7 @@ public class ClienteDAO implements IDAO{
 		PreparedStatement stmt = null;
 		Cliente novo = (Cliente) bean;
 		String sql = "UPDATE Cliente\r\n" + 
-				"SET idCliente = ?, dtCadastro = ?, Nome = ?, dtNasc = ?, RG = ?, CPF = ?, Email = ?, Senha = ?, Ativo = ?"
+				"SET idCliente = ?, dtCadastro = ?, Nome = ?, dtNasc = ?, RG = ?, CPF = ?, Email = ?, Senha = ?, Telefone1 = ?, Telefone2 = ?, Ativo = ?"
 				+ " WHERE idCliente = ?";
 		cn = ConnectionFactory.getConnection();
 		
@@ -90,8 +92,10 @@ public class ClienteDAO implements IDAO{
 			stmt.setString(6, novo.getCpf());
 			stmt.setString(7, novo.getEmail());
 			stmt.setString(8, novo.getSenha());
-			stmt.setBoolean(9, novo.isAtivo());
-			stmt.setLong(10, novo.getIdCliente());
+			stmt.setNString(9, novo.getTelefone1());
+			stmt.setNString(10, novo.getTelefone2());
+			stmt.setBoolean(11, novo.isAtivo());
+			stmt.setLong(12, novo.getIdCliente());
 			stmt.execute();
 			
 			
@@ -137,7 +141,7 @@ public class ClienteDAO implements IDAO{
 	public Object getById(long id) throws SQLException {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT idCliente, dtCadastro, Nome, dtNasc, RG, CPF, Email, Senha, Ativo "
+		String sql = "SELECT idCliente, dtCadastro, Nome, dtNasc, RG, CPF, Email, Senha, Telefone1, Telefone2, Ativo "
 				+ "FROM cliente WHERE idCliente = ?";
 		cn = ConnectionFactory.getConnection();
 		
@@ -169,7 +173,7 @@ public class ClienteDAO implements IDAO{
 
 	@Override
 	public List<Object> getAll() {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 

@@ -25,6 +25,8 @@ public class Cliente {
    private String email;
    private String senha;
    private List<Endereco> enderecos;
+   private String telefone1;
+   private String telefone2;
    private boolean ativo;
 
    
@@ -33,7 +35,7 @@ public class Cliente {
         
     }
 
-    public Cliente(Long idCliente, Date dtCadastro, String nome, Date dtNasc, String rg, String cpf, String email, String senha, boolean ativo) {
+    public Cliente(Long idCliente, Date dtCadastro, String nome, Date dtNasc, String rg, String cpf, String email, String senha, String telefone1, String telefone2, boolean ativo) {
         this.idCliente = idCliente;
     	this.dtCadastro = dtCadastro;
         this.nome = nome;
@@ -42,6 +44,8 @@ public class Cliente {
         this.cpf = cpf;
         this.email = email;
         this.senha = senha;
+        this.telefone1 = telefone1;
+        this.telefone2 = telefone2;
         this.ativo = ativo;
     }
     
@@ -54,6 +58,8 @@ public class Cliente {
         this.cpf = rs.getString("CPF");
         this.email = rs.getString("Email");
         this.senha = rs.getString("Senha");
+        this.telefone1 = rs.getString("telefone1");
+        this.telefone2 = rs.getString("telefone2");
         this.ativo = rs.getBoolean("Ativo");
     }
 
@@ -135,6 +141,26 @@ public class Cliente {
 
 	public void setEnderecos(List<Endereco> enderecos) {
 		this.enderecos = enderecos;
+	}
+
+	public String getTelefone1() {
+		return telefone1;
+	}
+
+	public void setTelefone1(String telefone1) {
+		this.telefone1 = telefone1;
+	}
+
+	public String getTelefone2() {
+		return telefone2;
+	}
+
+	public void setTelefone2(String telefone2) {
+		this.telefone2 = telefone2;
+	}
+
+	public void setIdCliente(Long idCliente) {
+		this.idCliente = idCliente;
 	}
 
 

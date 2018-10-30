@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("cliente")
 public class ClienteController {
 	
-	@GetMapping("Cadastro")
+	@GetMapping("/Cadastro")
 	public String novoCliente() {
 		return "novoCliente";
 	}
+	
+	 
 	
 }
