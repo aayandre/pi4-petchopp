@@ -69,7 +69,7 @@
                 <div class="list-group">
                     <a href="#" class="list-group-item list-group-item-action active">Meus dados</a>
                     <a href="#" class="list-group-item list-group-item-action">Pedidos</a>
-                    <a href="#" class="list-group-item list-group-item-action">Disabled item</a>
+                    <a href="#" class="list-group-item list-group-item-action">item</a>
                 </div>
 
             </div>
@@ -80,7 +80,7 @@
                     <p style="color: rgb(0, 4, 255); background-color: rgb(205, 245, 182)" th:text="${msg}"></p>
                 </div>
 
-                <form th:action="@{/cli/salvar-cliente}" method="POST" th:object="${cliente}">
+                <form th:action="@{salvar-cliente}" method="POST" th:object="${cliente}">
                     <input type="text" id="id" th:field="*{idCliente}" hidden>
                     <div class="row">
 
