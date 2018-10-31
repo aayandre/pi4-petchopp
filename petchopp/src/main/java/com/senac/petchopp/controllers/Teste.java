@@ -39,7 +39,7 @@ public class Teste {
 	// Formulario
 	@GetMapping("/formularioprod")
 	public ModelAndView formulario() {
-		return new ModelAndView("testeCadastro").addObject("produto", new Produto());
+		return new ModelAndView("testeCadastro").addObject("produto", new Produto()).addObject("cliente", new Object());
 	}
 
 	// Controller que recebe o codigo do produto pela url,
