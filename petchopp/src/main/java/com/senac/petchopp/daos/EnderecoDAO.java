@@ -15,7 +15,7 @@ public class EnderecoDAO implements IDAO{
 	 Connection cn = null;
 	 
 	 
-	public void salvarEndereco(List<Endereco> enderecos, long idcliente) throws SQLException {
+	public void salvarEndereco(List<Endereco> enderecos, Long idcliente) throws SQLException {
 		ClienteDAO cd = new ClienteDAO();
 		PreparedStatement stmt = null;
 		cn = ConnectionFactory.getConnection();
@@ -46,7 +46,7 @@ public class EnderecoDAO implements IDAO{
 		}
 	}
 	
-		public List<Endereco> getAllEnd(long idCliente) throws SQLException {
+		public List<Endereco> getAllEnd(Long idCliente) throws SQLException {
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			List<Endereco> enderecos = new ArrayList<>();
@@ -92,13 +92,13 @@ public class EnderecoDAO implements IDAO{
 	}
 
 	@Override
-	public void deletar(long id) {
+	public void deletar(Long id) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public Object getById(long id) {
+	public Object getById(Long id) {
 		
 		return null;
 	}
