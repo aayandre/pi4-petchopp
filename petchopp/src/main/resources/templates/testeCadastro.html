@@ -2,64 +2,23 @@
 <html lang="pt-br">
 
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <title>TITULO</title>
-
-    <!-- No href coloque o caminho normal do arquivo
-    E no th:href o @{}, acredito que signifique o ../static -->
-    <link rel="stylesheet" href="../static/css/main.css" th:href="@{/css/main.css}">
-    <link rel="stylesheet" href="../static/css/home.css" th:href="@{/css/home.css}">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css"
-        data-integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" data-integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
-        crossorigin="anonymous">
-
+    <th:block th:insert="padrao/general.html :: headfiles"></th:block>
+    <title>Pagina de testes de cadastros</title>
 </head>
 
 <body>
 
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-green fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="index.html" th:href="@{/}">PetChopp</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="../home/index.html">Home
-                            <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../search/search.html">Search</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../cart/cart.html">Carrinho</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <div th:replace="padrao/general.html :: navbarfiles"></div>
 
     <!-- Page Content -->
     <div class="container nav-margin">
 
-        <form th:action="@{/testes/addprodutoteste}" method="POST" th:object="${produto}" enctype="multipart/form-data">
+        <div class="row">
 
-            <div class="row">
-
-                <div class="col-8 offset-2">
-
+            <div class="col-6">
+                <h2>Produto</h2>
+                <form th:action="@{/testes/addprodutoteste}" method="POST" th:object="${produto}" enctype="multipart/form-data">
 
                     <div th:if="${message != null}">
                         <p th:text="${message}"></p>
@@ -132,19 +91,13 @@
 
                     <button type="submit" class="btn btn-primary">Enviar</button>
 
-                </div>
-
-
+                </form>
             </div>
 
 
-        </form>
-
-        <form th:action="@{/testes/addclienteteste}" method="POST" th:object="${cliente}">
-
-            <div class="row">
-
-                <div class="col-8 offset-2">
+            <div class="col-6">
+                <h2>Cliente</h2>
+                <form th:action="@{/testes/addclienteteste}" method="POST" th:object="${cliente}">
 
                     <div th:if="${message != null}">
                         <p th:text="${message}"></p>
@@ -175,7 +128,7 @@
                         <input type="password" class="form-control" th:field="*{senha}" aria-describedby="Senha">
                     </div>
 
-                    <div th:object="endereco">
+                    <div th:object="${endereco}">
                         <!-- Endereço -->
                         <div class="form-group">
                             <label>CEP:</label>
@@ -203,10 +156,12 @@
                         </div>
 
                     </div>
-                </div>
-
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </form>
             </div>
-        </form>
+
+        </div>
+
 
     </div>
     <!-- /.container nav-margin -->
@@ -214,25 +169,7 @@
 
 
     <!-- Footer -->
-    <footer class="py-5 bg-dark">
-        <div class="container">
-            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2018</p>
-        </div>
-        <!-- /.container -->
-    </footer>
-
-
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" data-integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" data-integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" data-integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em"
-        crossorigin="anonymous"></script>
-
-    <!-- Optional JavaScript -->
-    <!-- Mesmo esquema do link css -->
-    <script src="../static/js/main.js" th:src="@{/js/main.js}"></script>
+    <div th:replace="padrao/general.html :: footerfiles"></div>
 
 </body>
 

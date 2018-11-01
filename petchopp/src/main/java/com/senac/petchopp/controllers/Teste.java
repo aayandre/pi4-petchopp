@@ -17,6 +17,8 @@ import com.senac.petchopp.daos.ProdutoDAO;
 import com.senac.petchopp.daos.UsuarioDAO;
 import com.senac.petchopp.model.TipoCategoria;
 import com.senac.petchopp.model.Upload;
+import com.senac.petchopp.model.cliente.Cliente;
+import com.senac.petchopp.model.cliente.Endereco;
 import com.senac.petchopp.model.produto.Produto;
 
 @Controller
@@ -39,7 +41,8 @@ public class Teste {
 	// Formulario
 	@GetMapping("/formularioprod")
 	public ModelAndView formulario() {
-		return new ModelAndView("testeCadastro").addObject("produto", new Produto()).addObject("cliente", new Object());
+		return new ModelAndView("testeCadastro").addObject("produto", new Produto()).addObject("cliente", new Cliente())
+				.addObject("endereco", new Endereco());
 	}
 
 	// Controller que recebe o codigo do produto pela url,

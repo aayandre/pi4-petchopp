@@ -40,7 +40,7 @@ public class CategoriaDAO {
 	}
 
 	public ArrayList<Categoria> getAllByProdutoId(Long id) throws SQLException {
-		String sql = "SELECT * FROM Categoria WHERE ";
+//		String sql = "SELECT * FROM Categoria WHERE ";
 		return null;
 	}
 }
