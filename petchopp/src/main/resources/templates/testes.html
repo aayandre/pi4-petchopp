@@ -92,12 +92,12 @@
                 <p th:text="${produto.idProduto}"></p>
                 <p th:text="${produto.Codigo}"></p>
                 <p th:text="${produto.Nome}"></p>
-                <p th:text="${produto.Preco}"></p>
-                <p th:text="${produto.Custo}"></p>
+                <p th:text="${#numbers.formatCurrency(produto.Preco)}"></p>
+                <p th:text="${#numbers.formatCurrency(produto.Custo)}"></p>
                 <p th:text="${produto.Descricao}"></p>
                 <p th:text="${produto.dtCompra}"></p>
                 <p th:text="${produto.dtValidade}"></p>
-                <img th:src="@{/uploads/{nomeArquivo}(nomeArquivo=${produto.urlImagem})}" alt="Imagem do produto">
+                <img th:src="@{~/uploads/{nomeArquivo}(nomeArquivo=${produto.urlImagem})}" alt="Imagem do produto">
                 <p th:text="${produto.EmEstoque}"></p>
                 <p th:text="${produto.Disable}"></p>
             </div>

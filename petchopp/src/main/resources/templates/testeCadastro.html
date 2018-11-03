@@ -39,11 +39,11 @@
                     </div>
                     <div class="form-group">
                         <label>Preço:</label>
-                        <input type="number" th:field="*{Preco}">
+                        <input type="number" step="0.01" min="0" th:field="*{Preco}">
                     </div>
                     <div class="form-group">
                         <label>Custo:</label>
-                        <input type="number" th:field="*{Custo}">
+                        <input type="number" step="0.01" min="0" th:field="*{Custo}">
                     </div>
                     <div class="form-group">
                         <label>Descrição:</label>

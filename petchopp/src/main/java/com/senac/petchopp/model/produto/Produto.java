@@ -14,7 +14,7 @@ public class Produto {
 	private double Preco;
 	private double Custo;
 	private String Descricao;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	private LocalDate dtCompra;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dtValidade;

@@ -64,7 +64,7 @@
                                 <i class="fas fa-shopping-cart"></i> Meu Carrinho</h4>
                         </div>
                         <div class="col-md-4 offset-md-4 col-sm-12 cart-btn-finalizar">
-                            <a th:href="#" class="btn btn-primary btn-block font-weight-bold">Finalizar Compra</a>
+                            <a href="#" th:href="@{#}" class="btn btn-primary btn-block font-weight-bold">Finalizar Compra</a>
                         </div>
                     </div>
                 </div>
@@ -73,20 +73,28 @@
 
                     <div class="row cart-item">
                         <div class="col-12">
-                            <div class="row">
+
+                            <!-- Lista produtos -->
+                            <div class="row" th:each="produto : ${carrinho.produtos}">
+
+                                <!-- Imagem -->
                                 <div class="col-md-2 col-sm-6 col-xs-12 cart-item-left-img">
-                                    <img style="max-height: 150px; width: 108px" src="https://dafitistatic-a.akamaihd.net/p/Ana-Cristina-Mocassim-Ana-Cristina-Recortes-Preto-1297-7209904-1-feed.jpg"
-                                        alt="">
+                                    <img style="max-height: 150px; width: 108px"
+                                      th:src="@{~/uploads/{nomeArquivo}(nomeArquivo=${produto.urlImagem})}"
+                                      alt="Imagem do produto">
                                 </div>
 
+                                <!-- Informações do produto -->
                                 <div class="col-md-3 col-sm-6 col-xs-12 cart-item-info center-objects">
                                     <p class="font-weight-bold cart-item-name">Ração</p>
-                                    <p>Nome de produto</p>
-                                    <p>Código do produto</p>
+                                    <p th:text="${produto.Nome}" >Nome de produto</p>
+                                    <p th:text="${produto.Codigo}">Código do produto</p>
                                     <p class="cart-item-sold">Vendido por Nóis</p>
                                 </div>
 
                                 <div class="col-md-3 col-sm-6 col-xs-12 align-self-center cart-item-center cart-item-left center-objects">
+
+                                    <!-- Seleção da quantidade do produto -->
                                     <div class="input-group cart-item-quantity center-objects">
                                         <span class="input-group-btn">
                                             <button type="button" class="quantity-left-minus btn btn-number cart-item-quantity-button"
@@ -95,7 +103,7 @@
                                             </button>
                                         </span>
                                         <input style="max-width: 60px" type="text" id="quantity" name="quantity" class="form-control input-number"
-                                            value="10" min="1" max="100">
+                                            value="2" min="1" max="100" />
                                         <span class="input-group-btn">
                                             <button type="button" class="quantity-right-plus btn btn-number cart-item-quantity-button"
                                                 data-type="plus" data-field="">
@@ -103,145 +111,30 @@
                                             </button>
                                         </span>
                                     </div>
+
+                                    <!-- Remover produto do carrinho -->
                                     <a href="#"><i class="far fa-trash-alt cart-item-exclude"></i>
                                         Remover Produto</a>
                                 </div>
 
                                 <div class="col-md-4 col-sm-6 col-xs-12 align-self-center">
-                                    <div class="row cart-item-right-border">
+                                     <div class="row cart-item-right-border">
                                         <p class="col-6">
-                                            Individual
+                                           Individual
                                         </p>
-                                        <p class="col-6 cart-item-value">
-                                            R$ 59,99
-                                        </p>
-                                    </div>
-                                    <div class="row cart-item-value-label">
+                                        <p name="produtoPreco" id="produtoPrecoId" class="col-6 cart-item-value" th:text="${#numbers.formatCurrency(produto.Preco)}" th:value="${produto.Preco}"></p>
+                                     </div>
+                                     <div class="row cart-item-value-label">
                                         <p class="col-6">
-                                            Subtotal
+                                           Subtotal
                                         </p>
-                                        <p style="font-size: 16px" class="col-6 font-weight-bold cart-item-value">
-                                            R$ 59,99
+                                        <p class="col-6 font-weight-bold cart-item-value">
+                                            R$ <input type="number" name="subTotal" id="subTotalId" step="0.01" class="input-reset" disabled />
                                         </p>
-                                    </div>
+                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="row cart-item">
-                        <div class="col-12">
-                            <div class="row">
-                                <div class="col-md-2 col-sm-6 col-xs-12 cart-item-left-img">
-                                    <img style="max-height: 150px; width: 108px" src="https://dafitistatic-a.akamaihd.net/p/Ana-Cristina-Mocassim-Ana-Cristina-Recortes-Preto-1297-7209904-1-feed.jpg"
-                                        alt="">
-                                </div>
-
-                                <div class="col-md-3 col-sm-6 col-xs-12 cart-item-info center-objects">
-                                    <p class="font-weight-bold cart-item-name">Ração</p>
-                                    <p>Nome de produto</p>
-                                    <p>Código do produto</p>
-                                    <p class="cart-item-sold">Vendido por Nóis</p>
-                                </div>
-
-                                <div class="col-md-3 col-sm-6 col-xs-12 align-self-center cart-item-center cart-item-left center-objects">
-                                    <div class="input-group cart-item-quantity center-objects">
-                                        <span class="input-group-btn">
-                                            <button type="button" class="quantity-left-minus btn btn-number cart-item-quantity-button"
-                                                data-type="minus" data-field="">
-                                                <i class="fas fa-minus"></i>
-                                            </button>
-                                        </span>
-                                        <input style="max-width: 60px" type="text" id="quantity" name="quantity" class="form-control input-number"
-                                            value="10" min="1" max="100">
-                                        <span class="input-group-btn">
-                                            <button type="button" class="quantity-right-plus btn btn-number cart-item-quantity-button"
-                                                data-type="plus" data-field="">
-                                                <i class="fas fa-plus"></i>
-                                            </button>
-                                        </span>
-                                    </div>
-                                    <a href="#"><i class="far fa-trash-alt cart-item-exclude"></i>
-                                        Remover Produto</a>
-                                </div>
-
-                                <div class="col-md-4 col-sm-6 col-xs-12 align-self-center">
-                                    <div class="row cart-item-right-border">
-                                        <p class="col-6">
-                                            Individual
-                                        </p>
-                                        <p class="col-6 cart-item-value">
-                                            R$ 59,99
-                                        </p>
-                                    </div>
-                                    <div class="row cart-item-value-label">
-                                        <p class="col-6">
-                                            Subtotal
-                                        </p>
-                                        <p style="font-size: 16px" class="col-6 font-weight-bold cart-item-value">
-                                            R$ 59,99
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row cart-item">
-                        <div class="col-12">
-                            <div class="row">
-                                <div class="col-md-2 col-sm-6 col-xs-12 cart-item-left-img">
-                                    <img style="max-height: 150px; width: 108px" src="https://dafitistatic-a.akamaihd.net/p/Ana-Cristina-Mocassim-Ana-Cristina-Recortes-Preto-1297-7209904-1-feed.jpg"
-                                        alt="">
-                                </div>
-
-                                <div class="col-md-3 col-sm-6 col-xs-12 cart-item-info center-objects">
-                                    <p class="font-weight-bold cart-item-name">Ração</p>
-                                    <p>Nome de produto</p>
-                                    <p>Código do produto</p>
-                                    <p class="cart-item-sold">Vendido por Nóis</p>
-                                </div>
-
-                                <div class="col-md-3 col-sm-6 col-xs-12 align-self-center cart-item-center cart-item-left center-objects">
-                                    <div class="input-group cart-item-quantity center-objects">
-                                        <span class="input-group-btn">
-                                            <button type="button" class="quantity-left-minus btn btn-number cart-item-quantity-button"
-                                                data-type="minus" data-field="">
-                                                <i class="fas fa-minus"></i>
-                                            </button>
-                                        </span>
-                                        <input style="max-width: 60px" type="text" id="quantity" name="quantity" class="form-control input-number"
-                                            value="10" min="1" max="100">
-                                        <span class="input-group-btn">
-                                            <button type="button" class="quantity-right-plus btn btn-number cart-item-quantity-button"
-                                                data-type="plus" data-field="">
-                                                <i class="fas fa-plus"></i>
-                                            </button>
-                                        </span>
-                                    </div>
-                                    <a href="#"><i class="far fa-trash-alt cart-item-exclude"></i>
-                                        Remover Produto</a>
-                                </div>
-
-                                <div class="col-md-4 col-sm-6 col-xs-12 align-self-center">
-                                    <div class="row cart-item-right-border">
-                                        <p class="col-6">
-                                            Individual
-                                        </p>
-                                        <p class="col-6 cart-item-value">
-                                            R$ 59,99
-                                        </p>
-                                    </div>
-                                    <div class="row cart-item-value-label">
-                                        <p class="col-6">
-                                            Subtotal
-                                        </p>
-                                        <p style="font-size: 16px" class="col-6 font-weight-bold cart-item-value">
-                                            R$ 59,99
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
+                            <!-- /Lista produtos -->
                         </div>
                     </div>
 
@@ -318,18 +211,16 @@
                                 <h6 class="col-6 font-weight-bold">
                                     TOTAL
                                 </h6>
-                                <p style="font-size: 16px" class="col-6 font-weight-bold cart-item-value text-right">
-                                    R$ 59,99
-                                </p>
+                                <p style="font-size: 16px" class="col-6 font-weight-bold cart-item-value text-right" id="carrinhoTotalId"></p>
                             </div>
                         </div>
 
                         <div class="col-12 cart-btn-finalizar cart-resumo cart-resumo-padding">
-                            <a th:href="#" class="btn btn-primary btn-block font-weight-bold">Finalizar Compra</a>
+                            <a href="#" th:href="@{#}" class="btn btn-primary btn-block font-weight-bold">Finalizar Compra</a>
                         </div>
 
                         <div class="col-12 cart-resumo cart-resumo-padding">
-                            <a th:href="#" class="btn btn-block font-weight-bold cart-resumo-cont-compr">Continuar
+                            <a href="#" th:href="@{#}" class="btn btn-block font-weight-bold cart-resumo-cont-compr">Continuar
                                 Comprando</a>
                         </div>
 
@@ -362,7 +253,8 @@
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em"
         crossorigin="anonymous"></script>
-    <script src="../static/js/cart.js"></script>
+    <script src="../static/js/cart.js" th:src="@{/js/cart.js}"></script>
+
 </body>
 
 </html>

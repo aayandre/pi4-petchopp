@@ -17,6 +17,7 @@ import com.senac.petchopp.daos.ProdutoDAO;
 import com.senac.petchopp.daos.UsuarioDAO;
 import com.senac.petchopp.model.TipoCategoria;
 import com.senac.petchopp.model.Upload;
+import com.senac.petchopp.model.carrinho.Carrinho;
 import com.senac.petchopp.model.cliente.Cliente;
 import com.senac.petchopp.model.cliente.Endereco;
 import com.senac.petchopp.model.produto.Produto;
@@ -77,6 +78,18 @@ public class Teste {
 	@RequestMapping("/fragmentos")
 	public String fragmentos() {
 		return "testeFragment";
+	}
+
+	// Teste de produtos no carrinho
+	// Vou criar os produtos no banco ou carregar alguns produtos do banco
+	// e criar uma lista
+	// teria que passar o carrinho pela sessao
+	// @SessionAttribute("carrinho") Carrinho carrinho
+	@RequestMapping("/carrinho")
+	public ModelAndView carrinhoTeste() {
+		Carrinho teste = new Carrinho();
+		teste.setProdutos(new ProdutoDAO().testeCarrinho(3));
+		return new ModelAndView("cart").addObject("carrinho", teste);
 	}
 
 }

@@ -208,4 +208,30 @@ public class ProdutoDAO implements IDAO {
 		}
 		return encontrados;
 	}
+
+	public ArrayList<Produto> testeCarrinho(int quantidade) {
+		String sql = "SELECT * FROM Produto LIMIT ?";
+		PreparedStatement stmt = null;
+		cn = ConnectionFactory.getConnection();
+		ArrayList<Produto> pegos = new ArrayList<>();
+		ResultSet rs = null;
+
+		try {
+			stmt = cn.prepareStatement(sql);
+			stmt.setInt(1, quantidade);
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				if (new Produto(rs) != null) {
+					pegos.add(new Produto(rs));
+				}
+			}
+			return pegos;
+		} catch (Exception e) {
+			// TODO: handle exception
+		} finally {
+			ConnectionFactory.closeConnection(cn, stmt, rs);
+		}
+		return null;
+	}
+
 }
