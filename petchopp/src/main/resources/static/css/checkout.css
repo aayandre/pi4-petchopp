@@ -4,6 +4,10 @@ body {
     font-size: 13px !important;
   }
 
+  .checkout {
+    padding: 80px 30px;
+  }
+
   .checkout-ico-line {
     margin-bottom: 10px;
   }
@@ -101,4 +105,8 @@ body {
       text-align: right !important;
       margin-right: 10px !important;
     }
+  }
+
+  .box-pag-display{
+    display: none;
   }
