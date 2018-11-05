@@ -14,7 +14,7 @@ public class ClienteController {
 	@GetMapping("Cadastro")
 	public String novoCliente() {
 		Cliente cli = new Cliente();
-		return "cliente-index";
+		return "cliente-index"; //
 	}
 	
 	@GetMapping("NCadastro")
