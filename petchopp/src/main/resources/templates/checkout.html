@@ -88,7 +88,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-6 box-central">
                         <div class="col-md-12 box">
                             <p class="text-white bg-dark box-title">2 - FRETE &nbsp; <i class="fas fa-truck"></i></p>
                             <table class="table box-frete">
@@ -142,16 +142,79 @@
                                     <input id="typePayment" type="radio" name="endereco">
                                     <label style="position: relative;" class="font-weight-bold box-pay-label" for="enderCheckout">Cartão
                                         de Crédito</label>
+
+                                    <div>
+                                        <form action="">
+                                            <br>
+                                            <div class="form-group">
+                                                <label for="numero-cartao-cred">Nº Cartão</label>
+                                                <input class="form-control" type="text" name="numero-cartao-cred" id="nr-cartao-cred"
+                                                    placeholder="0000 0000 0000 0000" maxlength="19">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="nome-cartao-cred">Seu Nome</label>
+                                                <input class="form-control" type="text" name="nome-cartao-cred">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="vencimento-cartao-cred">Vencimento</label>
+                                                <input class="form-control" type="text" name="vencimento-cartao-cred"
+                                                    id="venc-cartao-cred" placeholder="00/00">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="codigo-seg-cartao-cred">Código de Segurança</label>
+                                                <input class="form-control" type="text" name="codigo-seg-cartao-cred"
+                                                    id="cod-seg-cartao-cred">
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
 
                                 <div class="box-pay-div">
                                     <input id="typePayment" type="radio" name="endereco">
                                     <label class="font-weight-bold box-pay-label" for="enderCheckout">Cartão de Débito</label>
+
+                                    <div>
+                                        <form action="">
+                                            <br>
+                                            <div class="form-group">
+                                                <label for="numero-cartao-deb">Nº Cartão</label>
+                                                <input class="form-control" type="text" name="numero-cartao-deb" id="nr-cartao-deb"
+                                                    placeholder="0000 0000 0000 0000" maxlength="19">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="nome-cartao-deb">Seu Nome</label>
+                                                <input class="form-control" type="text" name="nome-cartao-deb">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="vencimento-cartao-deb">Vencimento</label>
+                                                <input class="form-control" type="text" name="vencimento-cartao-deb" id="venc-cartao-deb"
+                                                    placeholder="00/00">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="codigo-seg-cartao-deb">Código de Segurança</label>
+                                                <input class="form-control" type="text" name="codigo-seg-cartao-deb" id="cod-seg-cartao-deb">
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
 
                                 <div class="box-pay-div">
                                     <input id="typePayment" type="radio" name="endereco">
                                     <label class="font-weight-bold box-pay-label" for="enderCheckout">Boleto Bancário</label>
+
+                                    <div>
+                                        <br>
+                                        <ul>
+                                            <li>Pagamento a Vista</li>
+                                            <li>Realize a impressão do boleto ao finalizar a compra</li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -164,59 +227,59 @@
                 <div class="box-pedido">
                     <div class="">
                         <div class="row box-pedido-item ">
-                            <div class="col-md-2 box-pedido-item-img">
+                            <div class="col-md-2 col-sm-2 box-pedido-item-img">
                                 <img style="max-height: 87px; width: 60px; text-align: center;" src="https://araujo.vteximg.com.br/arquivos/ids/3748426-1000-1000/7896029069134_1.jpg?v=636202639027530000"
                                     alt="Imagem do produto">
                             </div>
 
                             <!-- Informações do produto -->
-                            <div class="col-md-7">
+                            <div class="col-md-7 col-sm-10">
                                 <p class="font-weight-bold box-item-name">Tipo ou tag do produto</p>
                                 <p>Quantidade: 1</p>
                             </div>
 
-                            <div class="col-md-3 align-self-center box-item-div-value">
-                                <p class="box-item-value">R$ 70,00</p>
+                            <div class="col-md-3 col-sm-12 align-self-center box-item-div-value">
+                                <p class="box-item-value box-item-value-xs">R$ 70,00</p>
                             </div>
                         </div>
 
                         <div class="row box-pedido-item ">
-                            <div class="col-md-2 box-pedido-item-img">
+                            <div class="col-md-2 col-sm-2 box-pedido-item-img">
                                 <img style="max-height: 87px; width: 60px; text-align: center;" src="https://araujo.vteximg.com.br/arquivos/ids/3748426-1000-1000/7896029069134_1.jpg?v=636202639027530000"
                                     alt="Imagem do produto">
                             </div>
 
                             <!-- Informações do produto -->
-                            <div class="col-md-7">
+                            <div class="col-md-7 col-sm-10">
                                 <p class="font-weight-bold box-item-name">Tipo ou tag do produto</p>
                                 <p>Quantidade: 1</p>
                             </div>
 
-                            <div class="col-md-3 align-self-center box-item-div-value">
-                                <p class="box-item-value">R$ 70,00</p>
+                            <div class="col-md-3 col-sm-12 align-self-center box-item-div-value">
+                                <p class="box-item-value box-item-value-xs">R$ 70,00</p>
                             </div>
                         </div>
 
                         <div class="row box-pedido-item ">
-                            <div class="col-md-2 box-pedido-item-img">
+                            <div class="col-md-2 col-sm-2 box-pedido-item-img">
                                 <img style="max-height: 87px; width: 60px; text-align: center;" src="https://araujo.vteximg.com.br/arquivos/ids/3748426-1000-1000/7896029069134_1.jpg?v=636202639027530000"
                                     alt="Imagem do produto">
                             </div>
 
                             <!-- Informações do produto -->
-                            <div class="col-md-7">
+                            <div class="col-md-7 col-sm-10">
                                 <p class="font-weight-bold box-item-name">Tipo ou tag do produto</p>
                                 <p>Quantidade: 1</p>
                             </div>
 
-                            <div class="col-md-3 align-self-center box-item-div-value">
-                                <p class="box-item-value">R$ 70,00</p>
+                            <div class="col-md-3 col-sm-12 align-self-center box-item-div-value">
+                                <p class="box-item-value box-item-value-xs">R$ 70,00</p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-12 cart-resumo">
+                    <div style="margin: 0px !important;" class="row">
+                        <!-- <div class="col-12 cart-resumo">
                             <div class="row cart-item-value-label cart-item-value-total">
                                 <p class="col-6 font-weight-bold">
                                     Subtotal
@@ -229,9 +292,26 @@
                                 </p>
                                 <p style="font-size: 16px" class="col-6 font-weight-bold cart-item-value text-right" id="carrinhoTotalId"></p>
                             </div>
-                        </div>
+                        </div> -->
 
-                        <div class="col-12 cart-btn-finalizar cart-resumo cart-resumo-padding">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>Subtotal</td>
+                                    <td class="box-pedido-totais">R$ 100,00</td>
+                                </tr>
+                                <tr>
+                                    <td>Frete</td>
+                                    <td class="box-pedido-totais">R$ 10,00</td>
+                                </tr>
+                                <tr>
+                                    <td class="box-pedido-total-geral">Total</td>
+                                    <td class="box-pedido-totais box-pedido-total-geral">R$ 110,00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="col-12 cart-btn-finalizar checkout-btn-finalizar">
                             <a href="#" th:href="@{#}" class="btn btn-primary btn-block font-weight-bold">Finalizar
                                 Compra</a>
                         </div>
@@ -247,8 +327,8 @@
     <!-- Footer -->
     <footer class="py-4 bg-white footer-font-size footer-info">
         <div class="container">
-            <div class="row">
-                <div class="col-md-6">
+            <div class="row footer-top-display">
+                <div class="col-md-6 ">
                     <p class="font-weight-bold">MAIS BUSCADOS</p>
                     <div class="row">
                         <div class="col-md-3">
@@ -358,8 +438,8 @@
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em"
         crossorigin="anonymous"></script>
-    <script src="../static/js/cart.js" th:src="@{/js/cart.js}"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+    <script src="../static/js/checkout.js" th:src="@{/js/checkout.js}"></script>
 </body>
 
 </html>

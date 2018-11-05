@@ -14,9 +14,13 @@ body {
   }
 
   .box{
-    padding: 0px !important;
+    padding: 7.5px !important;
     /* border: 1px solid #ECECEC; */
     margin-bottom: 10px;
+  }
+
+  .box-central{
+    padding: 0px !important;
   }
 
   .box-title{
@@ -81,4 +85,20 @@ body {
 
   .box-pedido-item-img{
     padding: 0px !important;
+  }
+
+  .box-pedido-totais{
+    text-align: right !important;
+  }
+
+  .box-pedido-total-geral{
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  @media screen and (max-width: 768px) {
+    .box-item-value-xs {
+      text-align: right !important;
+      margin-right: 10px !important;
+    }
   }

@@ -64,7 +64,8 @@
                                 <i class="fas fa-shopping-cart"></i> Meu Carrinho</h4>
                         </div>
                         <div class="col-md-4 offset-md-4 col-sm-12 cart-btn-finalizar">
-                            <a href="#" th:href="@{#}" class="btn btn-primary btn-block font-weight-bold">Finalizar Compra</a>
+                            <a href="#" th:href="@{#}" class="btn btn-primary btn-block font-weight-bold">Finalizar
+                                Compra</a>
                         </div>
                     </div>
                 </div>
@@ -79,15 +80,14 @@
 
                                 <!-- Imagem -->
                                 <div class="col-md-2 col-sm-6 col-xs-12 cart-item-left-img">
-                                    <img style="max-height: 150px; width: 108px"
-                                      th:src="@{~/uploads/{nomeArquivo}(nomeArquivo=${produto.urlImagem})}"
-                                      alt="Imagem do produto">
+                                    <img style="max-height: 150px; width: 108px" th:src="@{~/uploads/{nomeArquivo}(nomeArquivo=${produto.urlImagem})}"
+                                        alt="Imagem do produto">
                                 </div>
 
                                 <!-- Informações do produto -->
                                 <div class="col-md-3 col-sm-6 col-xs-12 cart-item-info center-objects">
                                     <p class="font-weight-bold cart-item-name">Tipo ou tag do produto</p>
-                                    <p th:text="${produto.Nome}" >Nome de produto</p>
+                                    <p th:text="${produto.Nome}">Nome de produto</p>
                                     <p th:text="${produto.Codigo}">Código do produto</p>
                                     <p class="cart-item-sold">Vendido por Nóis</p>
                                 </div>
@@ -118,20 +118,22 @@
                                 </div>
 
                                 <div class="col-md-4 col-sm-6 col-xs-12 align-self-center">
-                                     <div class="row cart-item-right-border">
+                                    <div class="row cart-item-right-border">
                                         <p class="col-6">
-                                           Individual
+                                            Individual
                                         </p>
-                                        <p name="produtoPreco" id="produtoPrecoId" class="col-6 cart-item-value" th:text="${#numbers.formatCurrency(produto.Preco)}" th:value="${produto.Preco}"></p>
-                                     </div>
-                                     <div class="row cart-item-value-label">
+                                        <p name="produtoPreco" id="produtoPrecoId" class="col-6 cart-item-value"
+                                            th:text="${#numbers.formatCurrency(produto.Preco)}" th:value="${produto.Preco}"></p>
+                                    </div>
+                                    <div class="row cart-item-value-label">
                                         <p class="col-6">
-                                           Subtotal
+                                            Subtotal
                                         </p>
                                         <p class="col-6 font-weight-bold cart-item-value">
-                                            R$ <input type="number" name="subTotal" id="subTotalId" step="0.01" class="input-reset" disabled />
+                                            R$ <input type="number" name="subTotal" id="subTotalId" step="0.01" class="input-reset"
+                                                disabled />
                                         </p>
-                                     </div>
+                                    </div>
                                 </div>
                             </div>
                             <!-- /Lista produtos -->
@@ -216,14 +218,14 @@
                         </div>
 
                         <div class="col-12 cart-btn-finalizar cart-resumo cart-resumo-padding">
-                            <a href="#" th:href="@{#}" class="btn btn-primary btn-block font-weight-bold">Finalizar Compra</a>
+                            <a href="#" th:href="@{#}" class="btn btn-primary btn-block font-weight-bold">Finalizar
+                                Compra</a>
                         </div>
 
                         <div class="col-12 cart-resumo cart-resumo-padding">
                             <a href="#" th:href="@{#}" class="btn btn-block font-weight-bold cart-resumo-cont-compr">Continuar
                                 Comprando</a>
                         </div>
-
                     </div>
 
                 </div>
@@ -241,8 +243,8 @@
     <!-- Footer -->
     <footer class="py-4 bg-white footer-font-size footer-info">
         <div class="container">
-            <div class="row">
-                <div class="col-md-6">
+            <div class="row footer-top-display">
+                <div class="col-md-6 ">
                     <p class="font-weight-bold">MAIS BUSCADOS</p>
                     <div class="row">
                         <div class="col-md-3">

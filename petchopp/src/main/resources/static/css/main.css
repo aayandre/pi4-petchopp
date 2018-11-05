@@ -22,3 +22,9 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+@media screen and (max-width: 992px) {
+    .footer-top-display {
+      display: none !important;
+    }
+}
