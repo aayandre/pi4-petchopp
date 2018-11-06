@@ -58,7 +58,7 @@
 		<!-- Page Features -->
 		<div class="row">
 			<div class="col-12 table-responsive">
-
+				<h2>Relatorio de Vendas</h2>
 				<table class="table table-hover">
 					<thead>
 						<tr>
@@ -72,8 +72,8 @@
 					<tbody>
 					
 						<tr th:each="venda : ${vendas}">
-							<td th:text="${venda.dataView}"></td>
-							<td th:text="${venda.data}"></td>
+							<td th:text="${venda.dtRelatorio}"></td>
+							<td th:text="${venda.horaRelatorio}"></td>
 							<td th:text="${venda.protocolo}"></td>
 							<td th:text="${venda.idCliente}"></td>
 							<td th:text="${venda.valorTotal}"></td>

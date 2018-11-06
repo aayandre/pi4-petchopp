@@ -22,7 +22,9 @@ public class RelatorioController {
 		ArrayList<Venda> vendas = vendaDAO.getVendas();
 		ModelAndView modelAndView = new ModelAndView("relatorio/vendas");
 		for (Venda venda : vendas) {
-			System.out.println(venda.getDataView());
+			venda.setHoraRelatorio(venda.getDataView());
+			venda.setDtRelatorio(venda.getDataView());
+			System.out.println(venda.getDtRelatorio() + " - " + venda.getHoraRelatorio());
 		}
 		modelAndView.addObject("vendas", vendas);
 		return modelAndView;

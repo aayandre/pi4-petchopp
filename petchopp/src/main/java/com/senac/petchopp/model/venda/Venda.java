@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
+import com.senac.petchopp.model.Auxiliares;
 import com.senac.petchopp.model.carrinho.Carrinho;
 
 public class Venda {
@@ -21,6 +22,8 @@ public class Venda {
 
 	private Carrinho carrrinho;
 	private LocalDateTime dataView;
+	private String dtRelatorio;
+	private String horaRelatorio;
 
 	public Venda() {
 		super();
@@ -116,6 +119,21 @@ public class Venda {
 
 	public void setDataView(LocalDateTime dataView) {
 		this.dataView = dataView;
+	}
+
+	public String getDtRelatorio() {
+		return dtRelatorio;
+	}
+
+	public void setDtRelatorio(LocalDateTime data) {
+		this.dtRelatorio = Auxiliares.formatLocalDateTimeToStringPadraoBrasil(data);
+	}
+	public String getHoraRelatorio() {
+		return horaRelatorio;
+	}
+
+	public void setHoraRelatorio(LocalDateTime data) {
+		this.horaRelatorio = Auxiliares.formatLocalDateTimeToStringPadraoHoraMinSec(data);
 	}
 
 }
