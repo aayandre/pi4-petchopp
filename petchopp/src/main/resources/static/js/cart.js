@@ -8,6 +8,8 @@ $(document).ready(function() {
       // Valor individual do produto
       let produtovalor = $(this).parent().parent().parent().find('#produtoPrecoId');
       let valor = parseFloat(produtovalor.attr('value'));
+      // let quantidadeHidden = $(this).closest('#quantityHidden');
+      // console.log(quantidadeHidden);
 
       // Multiplicação
       valor *= $(this).val();
@@ -18,6 +20,7 @@ $(document).ready(function() {
       let produtoSubtotal = $(this).parent().parent().parent().find('#subTotalId');
       produtoSubtotal.val(valor.toFixed(2));
 
+      // quantidadeHidden.val($(this).val());
     })
 
     // Elemento do total sendo escrito
