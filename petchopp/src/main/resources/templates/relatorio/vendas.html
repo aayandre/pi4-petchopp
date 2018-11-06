@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<title>PI4 - Home</title>
+
+<link rel="stylesheet" href="../static/css/main.css"
+	th:href="@{/css/main.css}">
+<link rel="stylesheet" href="../static/css/home.css"
+	th:href="@{/css/home.css}">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css"
+	data-integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B"
+	crossorigin="anonymous">
+
+<!-- Font Awesome -->
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+	data-integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+	crossorigin="anonymous">
+</head>
+
+<body>
+
+	<!-- Navigation -->
+	<nav class="navbar navbar-expand-lg navbar-light bg-green fixed-top">
+		<div class="container">
+			<a class="navbar-brand" href="index.html" th:href="@{/}">PetChopp</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarResponsive" aria-controls="navbarResponsive"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item active"><a class="nav-link"
+						href="index.html" th:href="@{/}">Home <span class="sr-only">(current)</span>
+					</a></li>
+
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<!-- Page Content -->
+	<div class="container nav-margin">
+
+		<!-- Header -->
+
+
+		<!-- Page Features -->
+		<div class="row">
+			<div class="col-12 table-responsive">
+
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>Data</th>
+							<th>Hora</th>
+							<th>Protocolo</th>
+							<th>Cliente</th>
+							<th>Valor</th>
+						</tr>
+					</thead>
+					<tbody>
+					<!-- 
+						<tr th:each="venda : ${vendas}">
+							<td th:text="${convidado.nome}"></td>
+							<td th:text="${convidado.email}"></td>
+							<td th:text="${convidado.nome}"></td>
+							<td th:text="${convidado.email}"></td>
+							<td th:text="${convidado.telefone}"></td>
+						</tr>
+						 -->
+					</tbody>
+				</table>
+
+			</div>
+			<!-- /.row -->
+
+		</div>
+		<!-- /.container -->
+
+
+	</div>
+	<!-- /Page Content -->
+	<!-- Footer -->
+	<footer class="py-5 bg-dark">
+		<div class="container">
+			<p class="m-0 text-center text-white">Copyright &copy; Your
+				Website 2018</p>
+		</div>
+		<!-- /.container -->
+	</footer>
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		data-integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+		data-integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"
+		data-integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em"
+		crossorigin="anonymous"></script>
+</body>
+
+</html>
