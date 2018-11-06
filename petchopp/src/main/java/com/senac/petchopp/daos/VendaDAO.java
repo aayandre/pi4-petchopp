@@ -19,8 +19,7 @@ public class VendaDAO implements IDAO {
 
 	@Override
 	public void salvar(Object bean) throws SQLException {
-		String sql = "INSERT INTO Venda (idCliente, idFretes, Protocolo, Data, ValorTotal) "
-				+ "VALUES(?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO Venda (idCliente, idFretes, Protocolo, Data, ValorTotal) " + "VALUES(?, ?, ?, ?, ?)";
 
 		PreparedStatement stmt = null;
 
@@ -72,7 +71,7 @@ public class VendaDAO implements IDAO {
 	}
 
 	public Long getIdVenda(Venda venda) {
-		String sql = "SELECT * FROM Venda WHERE idCliente = ? AND data = ? AND valorTotal = ? LIMIT 1";
+		String sql = "SELECT * FROM Venda WHERE idCliente = ? AND Protocolo = ? AND data = ? AND valorTotal = ? LIMIT 1";
 		cn = ConnectionFactory.getConnection();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -81,8 +80,9 @@ public class VendaDAO implements IDAO {
 		try {
 			stmt = cn.prepareStatement(sql);
 			stmt.setLong(1, venda.getIdCliente());
-			stmt.setDate(2, java.sql.Date.valueOf(venda.getData()));
-			stmt.setDouble(3, venda.getValorTotal());
+			stmt.setString(2, venda.getProtocolo());
+			stmt.setDate(3, java.sql.Date.valueOf(venda.getData()));
+			stmt.setDouble(4, venda.getValorTotal());
 			rs = stmt.executeQuery();
 			while (rs.next()) {
 				idVenda = rs.getLong("idVenda");
@@ -108,10 +108,10 @@ public class VendaDAO implements IDAO {
 			for (Produto produto : venda.getCarrrinho().getProdutos()) {
 				stmt = cn.prepareStatement(sql);
 
-				stmt.setLong(1, venda.getIdCliente());
+				stmt.setLong(1, venda.getIdVenda());
 				stmt.setLong(2, produto.getIdProduto());
-				stmt.setDouble(3, produto.getQuantidade());
-				stmt.setDouble(5, produto.getPreco());
+				stmt.setInt(3, produto.getQuantidade().intValue());
+				stmt.setDouble(4, produto.getPreco());
 
 				stmt.execute();
 			}
