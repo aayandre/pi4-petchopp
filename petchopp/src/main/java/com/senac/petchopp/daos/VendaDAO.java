@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +34,8 @@ public class VendaDAO implements IDAO {
 			stmt.setLong(1, venda.getIdCliente());
 			stmt.setLong(2, venda.getIdFretes());
 			stmt.setString(3, venda.getProtocolo());
-			stmt.setDate(4, java.sql.Date.valueOf(venda.getData()));
+			stmt.setDate(4, new java.sql.Date(venda.getDataView().atZone(ZoneId.systemDefault()).toInstant()
+			        .toEpochMilli()));
 			stmt.setDouble(5, venda.getValorTotal());
 
 			stmt.execute();
