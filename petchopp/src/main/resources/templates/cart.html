@@ -23,7 +23,7 @@
 <body>
 
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-green fixed-top">
+    <nav style="margin-bottom: 10px" class="navbar navbar-expand-lg navbar-light bg-green fixed-top">
         <div class="container">
             <a class="navbar-brand" href="index.html" th:href="@{/}">PetChopp</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
@@ -52,82 +52,291 @@
     <!-- Page Content -->
     <div class="container nav-margin">
 
-        <!-- Formulario para enviar a lista de produtos selecionados no carrinho -->
-        <form action="" method="post">
+       <div class="nb-3 cart">
 
-            <div class="row text-center mb-4">
+          <!-- Formulario para enviar a lista de produtos selecionados no carrinho -->
+          <form th:action="@{/checkout/formulario}" method="post" th:object="${carrinho}">
 
-                <div class="col-12 text-left">
-                    <h3>Meu carrinho</h3>
+             <div class="cart-ico">
+                <div class="row cart-ico-line">
+                   <div class="col-md-4 col-sm-12">
+                      <h4 class="text-left">
+                         <i class="fas fa-shopping-cart"></i> Meu Carrinho</h4>
+                   </div>
+                   <div class="col-md-4 offset-md-4 col-sm-12 cart-btn-finalizar">
+                      <!-- <a href="#" th:href="@{/checkout/formulario}" class="btn btn-primary btn-block font-weight-bold">Finalizar
+                         Compra</a> -->
+                         <input type="submit" class="btn btn-primary btn-block font-weight-bold" value="Finalizar Compra" />
+                   </div>
+                </div>
+             </div>
+
+             <div class="cart-itens">
+
+                <div class="row cart-item">
+                   <div class="col-12">
+
+                      <!-- Lista produtos -->
+                      <div class="row" th:each="produto, stat : *{produtos}">
+
+                         <!-- Imagem -->
+                         <div class="col-md-2 col-sm-6 col-xs-12 cart-item-left-img">
+                            <img style="max-height: 150px; width: 108px" th:src="@{~/uploads/{nomeArquivo}(nomeArquivo=${produto.urlImagem})}" alt="Imagem do produto">
+                         </div>
+
+                         <!-- Informações do produto -->
+                         <div class="col-md-3 col-sm-6 col-xs-12 cart-item-info center-objects">
+                            <p class="font-weight-bold cart-item-name">Tipo ou tag do produto</p>
+                            <p th:text="${produto.Nome}">Nome de produto</p>
+                            <p th:text="${produto.Codigo}">Código do produto</p>
+                            <p class="cart-item-sold">Vendido por Nóis</p>
+                         </div>
+
+                         <div class="col-md-3 col-sm-6 col-xs-12 align-self-center cart-item-center cart-item-left center-objects">
+
+                            <!-- Seleção da quantidade do produto -->
+                            <div class="input-group cart-item-quantity center-objects">
+                               <span class="input-group-btn">
+                                  <button type="button" class="quantity-left-minus btn btn-number cart-item-quantity-button" data-type="minus" data-field="">
+                                     <i class="fas fa-minus"></i>
+                                  </button>
+                               </span>
+                               <input style="max-width: 60px" type="text" id="quantity" name="quantity" class="form-control input-number" value="2" min="1" max="100" />
+                               <input type="hidden" id="quantityHidden" th:field="*{produtos[__${stat.index}__].quantidade}" />
+                               <span class="input-group-btn">
+                                  <button type="button" class="quantity-right-plus btn btn-number cart-item-quantity-button" data-type="plus" data-field="">
+                                     <i class="fas fa-plus"></i>
+                                  </button>
+                               </span>
+                            </div>
+
+                            <!-- Remover produto do carrinho -->
+                            <a href="#"><i class="far fa-trash-alt cart-item-exclude"></i>
+                               Remover Produto</a>
+                         </div>
+
+                         <div class="col-md-4 col-sm-6 col-xs-12 align-self-center">
+                            <div class="row cart-item-right-border">
+                               <p class="col-6">
+                                  Individual
+                               </p>
+                               <p name="produtoPreco" id="produtoPrecoId" class="col-6 cart-item-value" th:text="${#numbers.formatCurrency(produto.Preco)}" th:value="${produto.Preco}"></p>
+                            </div>
+                            <div class="row cart-item-value-label">
+                               <p class="col-6">
+                                  Subtotal
+                               </p>
+                               <p class="col-6 font-weight-bold cart-item-value">
+                                  R$ <input type="number" name="subTotal" id="subTotalId" step="0.01" class="input-reset" disabled />
+                               </p>
+                            </div>
+                         </div>
+                      </div>
+                      <!-- /Lista produtos -->
+                   </div>
                 </div>
 
-                <!-- Lista de Produtos -->
-                <div class="col-12 col-md-7">
+             </div>
 
-                    <!-- Header -->
-                    <div class="row text-left font-weight-bold font-size">
+             <div class="row">
 
-                        <div class="col-3 col-md-3 col-lg-5">Produto</div>
-                        <div class="col-3 col-md-3 col-lg-2">Preço</div>
-                        <div class="col-3 col-md-3 col-lg-3">Quantidade</div>
-                        <div class="col-3 col-md-3 col-lg-2">Total</div>
-
-                    </div>
-
-                    <hr>
-
-                    <!-- Produto -->
-                    <div class="row text-left border-produto bg-light pt-2 pb-2">
-                        <img class="col-2 col-lg-3 align-middle" src="http://placehold.it/150x100" alt="">
-                        <div class="col-1 col-lg-2 align-self-center"><a href="#">Nome do produto</a></div>
-                        <div class="col-3 col-md-3 col-lg-2 align-self-center">R$ 90,99</div>
-                        <div class="col-3 col-md-3 col-lg-3 align-self-center">3</div>
-                        <div class="col-3 col-md-3 col-lg-2 align-self-center">R$ 200,00</div>
-                    </div>
-
+                <div class="col-md-4 col-sm-6 col-xs-12 cart-resumo">
+                   <h6 class="font-weight-bold">ENDEREÇO</h6>
+                   <div class="dropdown">
+                      <button class="btn btn-default btn-block dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Selecione
+                         <span class="caret"></span></button>
+                      <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                         <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Rua Ermano de
+                               Stradelli - Jardim Angela</a></li>
+                         <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Endereço 2</a></li>
+                         <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Endereço 3</a></li>
+                      </ul>
+                   </div>
                 </div>
 
-                <!-- Informacoes da compra -->
-                <div class="col-12 col-md-4 offset-1">
-
-                    <div class="row text-left">
-                        <div class="col-8">
-                            <p class="font-weight-bold">Subtotal</p>
-                        </div>
-                        <div class="col-4">909090</div>
-                    </div>
-
-                    <div class="row text-left">
-                        <div class="col-8">
-                            <p class="font-weight-bold">CEP</p>
-                        </div>
-                        <div class="col-4">909090</div>
-                    </div>
-
-                    <div class="row text-left">
-                        <div class="col-8">
-                            <p class="font-weight-bold">Total</p>
-                        </div>
-                        <div class="col-4">909090</div>
-                    </div>
-
-                    <a name="" id="" class="btn btn-primary mt-5" href="#" role="button" type="submit">Confirmar</a>
-
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                   <h6 class="font-weight-bold">FRETE</h6>
+                   <table class="table">
+                      <thead>
+                         <tr>
+                            <th></th>
+                            <th>Valor</th>
+                            <th>Tipo</th>
+                            <th>Prazo</th>
+                         </tr>
+                      </thead>
+                      <tbody>
+                         <tr>
+                            <td>
+                               <div class="radio">
+                                  <label><input type="radio" name="tipofrete" checked></label>
+                               </div>
+                            </td>
+                            <td>R$ 10,00</td>
+                            <td>PAC</td>
+                            <td>5 a 10 Dias</td>
+                         </tr>
+                         <tr>
+                            <td>
+                               <div class="radio">
+                                  <label><input type="radio" name="tipofrete" checked></label>
+                               </div>
+                            </td>
+                            <td>R$ 20,00</td>
+                            <td>SEDEX</td>
+                            <td>3 a 5 Dias</td>
+                         </tr>
+                         <tr>
+                            <td>
+                               <div class="radio">
+                                  <label><input type="radio" name="tipofrete" checked></label>
+                               </div>
+                            </td>
+                            <td>R$ 40,00</td>
+                            <td>SEDEX 10</td>
+                            <td>1 a 3 Dias</td>
+                         </tr>
+                      </tbody>
+                   </table>
                 </div>
 
+                <div class="col-md-4 col-sm-12 col-xs-12">
+                   <h6 class="font-weight-bold">RESUMO</h6>
 
-            </div>
-            <!-- ./row text-center -->
+                   <div class="col-12 cart-resumo">
+                      <div class="row cart-item-value-label cart-item-value-total">
+                         <h6 class="col-6 font-weight-bold">
+                            TOTAL
+                         </h6>
+                         <p style="font-size: 16px" class="col-6 font-weight-bold cart-item-value text-right" id="carrinhoTotalId"></p>
+                         <input type="hidden" th:field="*{total}" id="carrinhoTotalHidden"/>
+                      </div>
+                   </div>
 
-        </form>
+                   <div class="col-12 cart-btn-finalizar cart-resumo cart-resumo-padding">
+                      <!-- <a href="#" th:href="@{/checkout/formulario}" class="btn btn-primary btn-block font-weight-bold">Finalizar
+                         Compra</a> -->
+                         <input type="submit" value="Finalizar Compra" class="btn btn-primary btn-block font-weight-bold" />
+                   </div>
+
+                   <div class="col-12 cart-resumo cart-resumo-padding">
+                      <a href="#" th:href="@{#}" class="btn btn-block font-weight-bold cart-resumo-cont-compr">Continuar
+                         Comprando</a>
+                   </div>
+                </div>
+
+             </div>
+
+          </form>
+
+       </div>
 
     </div>
     <!-- /Page Content -->
 
     <!-- Footer -->
-    <footer class="py-5 bg-dark">
+    <footer class="py-4 bg-white footer-font-size footer-info">
         <div class="container">
-            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2018</p>
+            <div class="row footer-top-display">
+                <div class="col-md-6 ">
+                    <p class="font-weight-bold">MAIS BUSCADOS</p>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <ul class="footer-ul">
+                                <li>Mais buscados 1</li>
+                                <li>Mais buscados 2</li>
+                                <li>Mais buscados 3</li>
+                                <li>Mais buscados 4</li>
+                                <li>Mais buscados 5</li>
+                            </ul>
+                        </div>
+
+                        <div class="col-md-3">
+                            <ul class="footer-ul">
+                                <li>Mais buscados 6</li>
+                                <li>Mais buscados 7</li>
+                                <li>Mais buscados 8</li>
+                                <li>Mais buscados 9</li>
+                                <li>Mais buscados 10</li>
+                            </ul>
+                        </div>
+
+                        <div class="col-md-3">
+                            <ul class="footer-ul">
+                                <li>Mais buscados 11</li>
+                                <li>Mais buscados 12</li>
+                                <li>Mais buscados 13</li>
+                                <li>Mais buscados 14</li>
+                                <li>Mais buscados 15</li>
+                            </ul>
+                        </div>
+
+                        <div class="col-md-3">
+                            <ul class="footer-ul">
+                                <li>Mais buscados 16</li>
+                                <li>Mais buscados 17</li>
+                                <li>Mais buscados 18</li>
+                                <li>Mais buscados 19</li>
+                                <li>Mais buscados 20</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <p class="font-weight-bold">TOP CATEGORIAS</p>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <ul class="footer-ul">
+                                <li>top categorias 1</li>
+                                <li>top categorias 2</li>
+                                <li>top categorias 3</li>
+                                <li>top categorias 4</li>
+                                <li>top categorias 5</li>
+                            </ul>
+                        </div>
+
+                        <div class="col-md-4">
+                            <ul class="footer-ul">
+                                <li>top categorias 6</li>
+                                <li>top categorias 7</li>
+                                <li>top categorias 8</li>
+                                <li>top categorias 9</li>
+                                <li>top categorias 10</li>
+                            </ul>
+                        </div>
+
+                        <div class="col-md-4">
+                            <ul class="footer-ul">
+                                <li>top categorias 11</li>
+                                <li>top categorias 12</li>
+                                <li>top categorias 13</li>
+                                <li>top categorias 14</li>
+                                <li>top categorias 15</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <p class="font-weight-bold">FORMAS DE PAGAMENTO</p>
+            <div class="row">
+                <div style="margin-left: 3px;" class="col-md-6">
+                    <i class="fab fa-cc-visa fa-3x"></i>
+                    <i class="fab fa-cc-mastercard fa-3x"></i>
+                    <i class="fab fa-cc-paypal fa-3x"></i>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+
+    <footer class="py-2 bg-dark footer-font-size">
+        <div class="container">
+            <p class="m-0 text-center text-white">&copy; PetChopp 2018 . Todos os direitos reservados.</p>
+            <p class="m-0 text-center text-white">PETSHOPP COMÉRCIO E PARTICIPAÇÕES S/A - CNPJ:
+                03.321.742/0001-07 - Rua Atílio Delamuta, 546, Jardim Itaiçaba (Ártemis), Jardim Itaiçaba (Ártemis),
+                CEP: 13432-136, Piracicaba, SP, Brasil</p>
+            <!-- <p class="m-0 text-center text-white">Copyright &copy; Your Website 2018</p> -->
         </div>
         <!-- /.container -->
     </footer>
@@ -139,6 +348,8 @@
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em"
         crossorigin="anonymous"></script>
+    <script src="../static/js/cart.js" th:src="@{/js/cart.js}"></script>
+
 </body>
 
 </html>

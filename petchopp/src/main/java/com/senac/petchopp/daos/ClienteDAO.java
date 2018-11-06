@@ -5,20 +5,17 @@
  */
 package com.senac.petchopp.daos;
 
-import com.senac.petchopp.connection.ConnectionFactory;
-import com.senac.petchopp.interfaces.IDAO;
-import com.senac.petchopp.model.Auxiliares;
-import com.senac.petchopp.model.cliente.Cliente;
-import com.senac.petchopp.model.cliente.Endereco;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import com.senac.petchopp.connection.ConnectionFactory;
+import com.senac.petchopp.interfaces.IDAO;
+import com.senac.petchopp.model.Auxiliares;
+import com.senac.petchopp.model.cliente.Cliente;
 
 /**
  *
@@ -116,7 +113,7 @@ public class ClienteDAO implements IDAO{
 	}
 
 	@Override
-	public void deletar(long id) throws SQLException {
+	public void deletar(Long id) throws SQLException {
 		PreparedStatement stmt = null;
 		String sql = "UPDATE Cliente SET Ativo = false WHERE idCliente = ?";
 		cn = ConnectionFactory.getConnection();
@@ -140,7 +137,7 @@ public class ClienteDAO implements IDAO{
 	}
 
 	@Override
-	public Object getById(long id) throws SQLException {
+	public Object getById(Long id) throws SQLException {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		String sql = "SELECT idCliente, dtCadastro, Nome, dtNasc, RG, CPF, Email, Senha, Telefone1, Telefone2, Ativo "
