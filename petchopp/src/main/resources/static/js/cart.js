@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-  function calculaSubTotal(diminuiu) {
+  function calculaSubTotal() {
     var total = 0.00;
     // Pega todos os elementos da quantidade e
     // multiplica pelo valor individual
@@ -22,8 +22,9 @@ $(document).ready(function() {
 
     // Elemento do total sendo escrito
     let carrinhoTotal = $("#carrinhoTotalId")
-    console.log(carrinhoTotal);
+    let carrinhoTotalHidden = $("#carrinhoTotalHidden")
 
+    carrinhoTotalHidden.val(total.toFixed(4));
     carrinhoTotal.text('R$ ' + total.toFixed(2));
 
   };
@@ -38,10 +39,12 @@ $(document).ready(function() {
 
     // Get the field element
     let quantidadeInput = $(this).parent().parent().parent().find("#quantity");
+    let quantidadeHidden = $(this).parent().parent().parent().find("#quantityHidden");
     // Parse into int
     let quantity = parseInt(quantidadeInput.val());
     // Set the value
     quantidadeInput.val(quantity + 1);
+    quantidadeHidden.val(quantity + 1);
     calculaSubTotal();
 
   });
@@ -51,13 +54,15 @@ $(document).ready(function() {
     e.preventDefault();
     // Get the field element
     let quantidadeInput = $(this).parent().parent().parent().find("#quantity");
+    let quantidadeHidden = $(this).parent().parent().parent().find("#quantityHidden");
     // Parse into int
     let quantity = parseInt(quantidadeInput.val());
 
     // Increment
     if (quantity > 1) {
       quantidadeInput.val(quantity - 1);
-      calculaSubTotal(true);
+      quantidadeHidden.val(quantity - 1);
+      calculaSubTotal();
     }
 
   });

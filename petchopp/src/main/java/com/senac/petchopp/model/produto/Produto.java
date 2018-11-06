@@ -21,6 +21,8 @@ public class Produto {
 	private String urlImagem;
 	private boolean EmEstoque;
 	private boolean Disable;
+	
+	private Integer quantidade;
 
 	public Produto() {
 	};
@@ -165,6 +167,14 @@ public class Produto {
 
 	public void setDisable(boolean disable) {
 		Disable = disable;
+	}
+
+	public Integer getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(Integer quantidade) {
+		this.quantidade = quantidade;
 	}
 
 }

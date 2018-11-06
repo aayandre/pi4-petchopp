@@ -52,190 +52,184 @@
     <!-- Page Content -->
     <div class="container nav-margin">
 
-        <!-- Formulario para enviar a lista de produtos selecionados no carrinho -->
-        <form action="" method="post">
+       <div class="nb-3 cart">
 
-            <div class="nb-3 cart">
+          <!-- Formulario para enviar a lista de produtos selecionados no carrinho -->
+          <form th:action="@{/checkout/formulario}" method="post" th:object="${carrinho}">
 
-                <div class="cart-ico">
-                    <div class="row cart-ico-line">
-                        <div class="col-md-4 col-sm-12">
-                            <h4 class="text-left">
-                                <i class="fas fa-shopping-cart"></i> Meu Carrinho</h4>
-                        </div>
-                        <div class="col-md-4 offset-md-4 col-sm-12 cart-btn-finalizar">
-                            <a href="#" th:href="@{#}" class="btn btn-primary btn-block font-weight-bold">Finalizar
-                                Compra</a>
-                        </div>
-                    </div>
+             <div class="cart-ico">
+                <div class="row cart-ico-line">
+                   <div class="col-md-4 col-sm-12">
+                      <h4 class="text-left">
+                         <i class="fas fa-shopping-cart"></i> Meu Carrinho</h4>
+                   </div>
+                   <div class="col-md-4 offset-md-4 col-sm-12 cart-btn-finalizar">
+                      <!-- <a href="#" th:href="@{/checkout/formulario}" class="btn btn-primary btn-block font-weight-bold">Finalizar
+                         Compra</a> -->
+                         <input type="submit" class="btn btn-primary btn-block font-weight-bold" value="Finalizar Compra" />
+                   </div>
                 </div>
+             </div>
 
-                <div class="cart-itens">
+             <div class="cart-itens">
 
-                    <div class="row cart-item">
-                        <div class="col-12">
+                <div class="row cart-item">
+                   <div class="col-12">
 
-                            <!-- Lista produtos -->
-                            <div class="row" th:each="produto : ${carrinho.produtos}">
+                      <!-- Lista produtos -->
+                      <div class="row" th:each="produto, stat : *{produtos}">
 
-                                <!-- Imagem -->
-                                <div class="col-md-2 col-sm-6 col-xs-12 cart-item-left-img">
-                                    <img style="max-height: 150px; width: 108px" th:src="@{~/uploads/{nomeArquivo}(nomeArquivo=${produto.urlImagem})}"
-                                        alt="Imagem do produto">
-                                </div>
+                         <!-- Imagem -->
+                         <div class="col-md-2 col-sm-6 col-xs-12 cart-item-left-img">
+                            <img style="max-height: 150px; width: 108px" th:src="@{~/uploads/{nomeArquivo}(nomeArquivo=${produto.urlImagem})}" alt="Imagem do produto">
+                         </div>
 
-                                <!-- Informações do produto -->
-                                <div class="col-md-3 col-sm-6 col-xs-12 cart-item-info center-objects">
-                                    <p class="font-weight-bold cart-item-name">Tipo ou tag do produto</p>
-                                    <p th:text="${produto.Nome}">Nome de produto</p>
-                                    <p th:text="${produto.Codigo}">Código do produto</p>
-                                    <p class="cart-item-sold">Vendido por Nóis</p>
-                                </div>
+                         <!-- Informações do produto -->
+                         <div class="col-md-3 col-sm-6 col-xs-12 cart-item-info center-objects">
+                            <p class="font-weight-bold cart-item-name">Tipo ou tag do produto</p>
+                            <p th:text="${produto.Nome}">Nome de produto</p>
+                            <p th:text="${produto.Codigo}">Código do produto</p>
+                            <p class="cart-item-sold">Vendido por Nóis</p>
+                         </div>
 
-                                <div class="col-md-3 col-sm-6 col-xs-12 align-self-center cart-item-center cart-item-left center-objects">
+                         <div class="col-md-3 col-sm-6 col-xs-12 align-self-center cart-item-center cart-item-left center-objects">
 
-                                    <!-- Seleção da quantidade do produto -->
-                                    <div class="input-group cart-item-quantity center-objects">
-                                        <span class="input-group-btn">
-                                            <button type="button" class="quantity-left-minus btn btn-number cart-item-quantity-button"
-                                                data-type="minus" data-field="">
-                                                <i class="fas fa-minus"></i>
-                                            </button>
-                                        </span>
-                                        <input style="max-width: 60px" type="text" id="quantity" name="quantity" class="form-control input-number"
-                                            value="2" min="1" max="100" />
-                                        <span class="input-group-btn">
-                                            <button type="button" class="quantity-right-plus btn btn-number cart-item-quantity-button"
-                                                data-type="plus" data-field="">
-                                                <i class="fas fa-plus"></i>
-                                            </button>
-                                        </span>
-                                    </div>
-
-                                    <!-- Remover produto do carrinho -->
-                                    <a href="#"><i class="far fa-trash-alt cart-item-exclude"></i>
-                                        Remover Produto</a>
-                                </div>
-
-                                <div class="col-md-4 col-sm-6 col-xs-12 align-self-center">
-                                    <div class="row cart-item-right-border">
-                                        <p class="col-6">
-                                            Individual
-                                        </p>
-                                        <p name="produtoPreco" id="produtoPrecoId" class="col-6 cart-item-value"
-                                            th:text="${#numbers.formatCurrency(produto.Preco)}" th:value="${produto.Preco}"></p>
-                                    </div>
-                                    <div class="row cart-item-value-label">
-                                        <p class="col-6">
-                                            Subtotal
-                                        </p>
-                                        <p class="col-6 font-weight-bold cart-item-value">
-                                            R$ <input type="number" name="subTotal" id="subTotalId" step="0.01" class="input-reset"
-                                                disabled />
-                                        </p>
-                                    </div>
-                                </div>
+                            <!-- Seleção da quantidade do produto -->
+                            <div class="input-group cart-item-quantity center-objects">
+                               <span class="input-group-btn">
+                                  <button type="button" class="quantity-left-minus btn btn-number cart-item-quantity-button" data-type="minus" data-field="">
+                                     <i class="fas fa-minus"></i>
+                                  </button>
+                               </span>
+                               <input style="max-width: 60px" type="text" id="quantity" name="quantity" class="form-control input-number" value="2" min="1" max="100" />
+                               <input type="hidden" id="quantityHidden" th:field="*{produtos[__${stat.index}__].quantidade}" />
+                               <span class="input-group-btn">
+                                  <button type="button" class="quantity-right-plus btn btn-number cart-item-quantity-button" data-type="plus" data-field="">
+                                     <i class="fas fa-plus"></i>
+                                  </button>
+                               </span>
                             </div>
-                            <!-- /Lista produtos -->
-                        </div>
-                    </div>
 
-                </div>
+                            <!-- Remover produto do carrinho -->
+                            <a href="#"><i class="far fa-trash-alt cart-item-exclude"></i>
+                               Remover Produto</a>
+                         </div>
 
-                <div class="row">
-
-                    <div class="col-md-4 col-sm-6 col-xs-12 cart-resumo">
-                        <h6 class="font-weight-bold">ENDEREÇO</h6>
-                        <div class="dropdown">
-                            <button class="btn btn-default btn-block dropdown-toggle" type="button" id="menu1"
-                                data-toggle="dropdown">Selecione
-                                <span class="caret"></span></button>
-                            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Rua Ermano de
-                                        Stradelli - Jardim Angela</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Endereço 2</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Endereço 3</a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4 col-sm-6 col-xs-12">
-                        <h6 class="font-weight-bold">FRETE</h6>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>Valor</th>
-                                    <th>Tipo</th>
-                                    <th>Prazo</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <div class="radio">
-                                            <label><input type="radio" name="tipofrete" checked></label>
-                                        </div>
-                                    </td>
-                                    <td>R$ 10,00</td>
-                                    <td>PAC</td>
-                                    <td>5 a 10 Dias</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="radio">
-                                            <label><input type="radio" name="tipofrete" checked></label>
-                                        </div>
-                                    </td>
-                                    <td>R$ 20,00</td>
-                                    <td>SEDEX</td>
-                                    <td>3 a 5 Dias</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="radio">
-                                            <label><input type="radio" name="tipofrete" checked></label>
-                                        </div>
-                                    </td>
-                                    <td>R$ 40,00</td>
-                                    <td>SEDEX 10</td>
-                                    <td>1 a 3 Dias</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="col-md-4 col-sm-12 col-xs-12">
-                        <h6 class="font-weight-bold">RESUMO</h6>
-
-                        <div class="col-12 cart-resumo">
-                            <div class="row cart-item-value-label cart-item-value-total">
-                                <h6 class="col-6 font-weight-bold">
-                                    TOTAL
-                                </h6>
-                                <p style="font-size: 16px" class="col-6 font-weight-bold cart-item-value text-right" id="carrinhoTotalId"></p>
+                         <div class="col-md-4 col-sm-6 col-xs-12 align-self-center">
+                            <div class="row cart-item-right-border">
+                               <p class="col-6">
+                                  Individual
+                               </p>
+                               <p name="produtoPreco" id="produtoPrecoId" class="col-6 cart-item-value" th:text="${#numbers.formatCurrency(produto.Preco)}" th:value="${produto.Preco}"></p>
                             </div>
-                        </div>
-
-                        <div class="col-12 cart-btn-finalizar cart-resumo cart-resumo-padding">
-                            <a href="#" th:href="@{#}" class="btn btn-primary btn-block font-weight-bold">Finalizar
-                                Compra</a>
-                        </div>
-
-                        <div class="col-12 cart-resumo cart-resumo-padding">
-                            <a href="#" th:href="@{#}" class="btn btn-block font-weight-bold cart-resumo-cont-compr">Continuar
-                                Comprando</a>
-                        </div>
-                    </div>
-
+                            <div class="row cart-item-value-label">
+                               <p class="col-6">
+                                  Subtotal
+                               </p>
+                               <p class="col-6 font-weight-bold cart-item-value">
+                                  R$ <input type="number" name="subTotal" id="subTotalId" step="0.01" class="input-reset" disabled />
+                               </p>
+                            </div>
+                         </div>
+                      </div>
+                      <!-- /Lista produtos -->
+                   </div>
                 </div>
 
-            </div>
+             </div>
 
-    </div>
-    <!-- ./row text-center -->
+             <div class="row">
 
-    </form>
+                <div class="col-md-4 col-sm-6 col-xs-12 cart-resumo">
+                   <h6 class="font-weight-bold">ENDEREÇO</h6>
+                   <div class="dropdown">
+                      <button class="btn btn-default btn-block dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Selecione
+                         <span class="caret"></span></button>
+                      <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                         <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Rua Ermano de
+                               Stradelli - Jardim Angela</a></li>
+                         <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Endereço 2</a></li>
+                         <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Endereço 3</a></li>
+                      </ul>
+                   </div>
+                </div>
+
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                   <h6 class="font-weight-bold">FRETE</h6>
+                   <table class="table">
+                      <thead>
+                         <tr>
+                            <th></th>
+                            <th>Valor</th>
+                            <th>Tipo</th>
+                            <th>Prazo</th>
+                         </tr>
+                      </thead>
+                      <tbody>
+                         <tr>
+                            <td>
+                               <div class="radio">
+                                  <label><input type="radio" name="tipofrete" checked></label>
+                               </div>
+                            </td>
+                            <td>R$ 10,00</td>
+                            <td>PAC</td>
+                            <td>5 a 10 Dias</td>
+                         </tr>
+                         <tr>
+                            <td>
+                               <div class="radio">
+                                  <label><input type="radio" name="tipofrete" checked></label>
+                               </div>
+                            </td>
+                            <td>R$ 20,00</td>
+                            <td>SEDEX</td>
+                            <td>3 a 5 Dias</td>
+                         </tr>
+                         <tr>
+                            <td>
+                               <div class="radio">
+                                  <label><input type="radio" name="tipofrete" checked></label>
+                               </div>
+                            </td>
+                            <td>R$ 40,00</td>
+                            <td>SEDEX 10</td>
+                            <td>1 a 3 Dias</td>
+                         </tr>
+                      </tbody>
+                   </table>
+                </div>
+
+                <div class="col-md-4 col-sm-12 col-xs-12">
+                   <h6 class="font-weight-bold">RESUMO</h6>
+
+                   <div class="col-12 cart-resumo">
+                      <div class="row cart-item-value-label cart-item-value-total">
+                         <h6 class="col-6 font-weight-bold">
+                            TOTAL
+                         </h6>
+                         <p style="font-size: 16px" class="col-6 font-weight-bold cart-item-value text-right" id="carrinhoTotalId"></p>
+                         <input type="hidden" th:field="*{total}" id="carrinhoTotalHidden"/>
+                      </div>
+                   </div>
+
+                   <div class="col-12 cart-btn-finalizar cart-resumo cart-resumo-padding">
+                      <!-- <a href="#" th:href="@{/checkout/formulario}" class="btn btn-primary btn-block font-weight-bold">Finalizar
+                         Compra</a> -->
+                         <input type="submit" value="Finalizar Compra" class="btn btn-primary btn-block font-weight-bold" />
+                   </div>
+
+                   <div class="col-12 cart-resumo cart-resumo-padding">
+                      <a href="#" th:href="@{#}" class="btn btn-block font-weight-bold cart-resumo-cont-compr">Continuar
+                         Comprando</a>
+                   </div>
+                </div>
+
+             </div>
+
+          </form>
+
+       </div>
 
     </div>
     <!-- /Page Content -->

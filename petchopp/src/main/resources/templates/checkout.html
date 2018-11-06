@@ -225,57 +225,25 @@
             <div class="col-md-4 col-sm-6 col-xs-12 box">
                 <p class="text-white bg-dark box-title">4 - RESUMO DO PEDIDO &nbsp; <i class="fas fa-shopping-cart"></i></p>
                 <div class="box-pedido">
-                    <div class="">
+                    <div th:each="produto : ${carrinho.produtos}">
+
                         <div class="row box-pedido-item ">
                             <div class="col-md-2 col-sm-2 box-pedido-item-img">
-                                <img style="max-height: 87px; width: 60px; text-align: center;" src="https://araujo.vteximg.com.br/arquivos/ids/3748426-1000-1000/7896029069134_1.jpg?v=636202639027530000"
+                                <img style="max-height: 87px; width: 60px; text-align: center;" th:src="@{~/uploads/{nomeArquivo}(nomeArquivo=${produto.urlImagem})}"
                                     alt="Imagem do produto">
                             </div>
 
                             <!-- Informações do produto -->
                             <div class="col-md-7 col-sm-10">
                                 <p class="font-weight-bold box-item-name">Tipo ou tag do produto</p>
-                                <p>Quantidade: 1</p>
+                                <p>Quantidade: [[${produto.quantidade}]]</p>
                             </div>
 
                             <div class="col-md-3 col-sm-12 align-self-center box-item-div-value">
-                                <p class="box-item-value box-item-value-xs">R$ 70,00</p>
+                                <p class="box-item-value box-item-value-xs" th:text="${#numbers.formatCurrency(produto.Preco)}" th:value="${produto.Preco}">R$ 70,00</p>
                             </div>
                         </div>
 
-                        <div class="row box-pedido-item ">
-                            <div class="col-md-2 col-sm-2 box-pedido-item-img">
-                                <img style="max-height: 87px; width: 60px; text-align: center;" src="https://araujo.vteximg.com.br/arquivos/ids/3748426-1000-1000/7896029069134_1.jpg?v=636202639027530000"
-                                    alt="Imagem do produto">
-                            </div>
-
-                            <!-- Informações do produto -->
-                            <div class="col-md-7 col-sm-10">
-                                <p class="font-weight-bold box-item-name">Tipo ou tag do produto</p>
-                                <p>Quantidade: 1</p>
-                            </div>
-
-                            <div class="col-md-3 col-sm-12 align-self-center box-item-div-value">
-                                <p class="box-item-value box-item-value-xs">R$ 70,00</p>
-                            </div>
-                        </div>
-
-                        <div class="row box-pedido-item ">
-                            <div class="col-md-2 col-sm-2 box-pedido-item-img">
-                                <img style="max-height: 87px; width: 60px; text-align: center;" src="https://araujo.vteximg.com.br/arquivos/ids/3748426-1000-1000/7896029069134_1.jpg?v=636202639027530000"
-                                    alt="Imagem do produto">
-                            </div>
-
-                            <!-- Informações do produto -->
-                            <div class="col-md-7 col-sm-10">
-                                <p class="font-weight-bold box-item-name">Tipo ou tag do produto</p>
-                                <p>Quantidade: 1</p>
-                            </div>
-
-                            <div class="col-md-3 col-sm-12 align-self-center box-item-div-value">
-                                <p class="box-item-value box-item-value-xs">R$ 70,00</p>
-                            </div>
-                        </div>
                     </div>
 
                     <div style="margin: 0px !important;" class="row">
@@ -306,13 +274,13 @@
                                 </tr>
                                 <tr>
                                     <td class="box-pedido-total-geral">Total</td>
-                                    <td class="box-pedido-totais box-pedido-total-geral">R$ 110,00</td>
+                                    <td class="box-pedido-totais box-pedido-total-geral" th:text="${#numbers.formatCurrency(carrinho.total)}" th:value="${carrinho.total}">R$ 110,00</td>
                                 </tr>
                             </tbody>
                         </table>
 
                         <div class="col-12 cart-btn-finalizar checkout-btn-finalizar">
-                            <a href="#" th:href="@{#}" class="btn btn-primary btn-block font-weight-bold">Finalizar
+                            <a href="#" th:href="@{/checkout/comprar}" class="btn btn-primary btn-block font-weight-bold">Finalizar
                                 Compra</a>
                         </div>
                     </div>
