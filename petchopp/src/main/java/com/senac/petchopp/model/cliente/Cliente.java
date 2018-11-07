@@ -1,14 +1,11 @@
 package com.senac.petchopp.model.cliente;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Calendar;
 import java.util.List;
 
 import org.mindrot.jbcrypt.BCrypt;
-
-import com.senac.petchopp.model.Auxiliares;
-import java.sql.Date;
 
 /**
  *
@@ -135,6 +132,7 @@ public class Cliente {
         this.ativo = ativo;
     }
 
+
 	public List<Endereco> getEnderecos() {
 		return enderecos;
 	}
@@ -142,6 +140,7 @@ public class Cliente {
 	public void setEnderecos(List<Endereco> enderecos) {
 		this.enderecos = enderecos;
 	}
+
 
 	public String getTelefone1() {
 		return telefone1;
@@ -164,5 +163,5 @@ public class Cliente {
 	}
 
 
-    
+ 
 }

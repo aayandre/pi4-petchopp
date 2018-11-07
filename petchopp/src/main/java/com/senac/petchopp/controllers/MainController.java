@@ -27,6 +27,12 @@ public class MainController {
 		return "cart";
 	}
 
+        @RequestMapping("login")
+	public String loginPage() {
+		return "login";
+	}
+        
+        
 	@GetMapping("teste")
 	public ModelAndView paginaExemplo() {
 		return new ModelAndView("testeCadastro").addObject("tipoCategoria", new TipoCategoria());

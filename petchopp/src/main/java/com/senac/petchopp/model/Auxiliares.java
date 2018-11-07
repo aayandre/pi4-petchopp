@@ -1,6 +1,8 @@
 package com.senac.petchopp.model;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -31,4 +33,18 @@ public class Auxiliares {
 		java.util.Date utilDate = new java.util.Date(sqlDate.getTime());
 		return utilDate;
 	}
+	
+	public static String formatLocalDateTimeToStringPadraoBrasil(LocalDateTime data) {
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		String formatDateTime = data.format(formatter);
+		return formatDateTime;
+	}
+public static String formatLocalDateTimeToStringPadraoHoraMinSec(LocalDateTime data) {
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+		String formatDateTime = data.format(formatter);
+		return formatDateTime;
+	}
+	
 }

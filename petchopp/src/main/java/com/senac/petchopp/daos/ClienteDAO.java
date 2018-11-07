@@ -5,20 +5,17 @@
  */
 package com.senac.petchopp.daos;
 
-import com.senac.petchopp.connection.ConnectionFactory;
-import com.senac.petchopp.interfaces.IDAO;
-import com.senac.petchopp.model.Auxiliares;
-import com.senac.petchopp.model.cliente.Cliente;
-import com.senac.petchopp.model.cliente.Endereco;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import com.senac.petchopp.connection.ConnectionFactory;
+import com.senac.petchopp.interfaces.IDAO;
+import com.senac.petchopp.model.Auxiliares;
+import com.senac.petchopp.model.cliente.Cliente;
 
 /**
  *
@@ -36,9 +33,9 @@ public class ClienteDAO implements IDAO{
 				"(idCliente, dtCadastro, Nome, dtNasc, RG, CPF, Email, Senha, Telefone1, Telefone2, Ativo)\r\n" + 
 				"VALUES(?,?,?,?,?,?,?,?,?)";
 		cn = ConnectionFactory.getConnection();
-		
+		System.out.println("teste cliente");
 		try {
-			cn.setAutoCommit(false);
+//			cn.setAutoCommit(false);
 			stmt = cn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			stmt.setLong(1, novo.getIdCliente());
 			stmt.setDate(2, new java.sql.Date(Auxiliares.UtilDateToCalendar(novo.getDtCadastro()).getTimeInMillis()));
@@ -52,22 +49,24 @@ public class ClienteDAO implements IDAO{
 			stmt.setNString(10, novo.getTelefone2());
 			stmt.setBoolean(11, novo.isAtivo());
 			stmt.execute();
-			
+			System.out.println("teste cliente 2");
 			ResultSet rs = stmt.getGeneratedKeys();
 			if(rs.next()) {
 				novo.setIdCliente(rs.getLong(1));
-				EnderecoDAO ed = new EnderecoDAO();
-				ed.salvarEndereco(novo.getEnderecos(), novo.getIdCliente());
-				if(this.statusCommit) {
-					cn.commit();
-				}
+				System.out.println(rs.getLong(1));
+//				cn.commit();
+//				EnderecoDAO ed = new EnderecoDAO();
+//				ed.salvarEndereco(novo.getEnderecos(), novo.getIdCliente());
+//				if(this.statusCommit) {
+//					
+//				}
 			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-			cn.rollback();
+//			cn.rollback();
 		} finally {
-			cn.setAutoCommit(true);
+//			cn.setAutoCommit(true);
 			ConnectionFactory.closeConnection(cn, stmt);
 		}
 	}
@@ -114,7 +113,7 @@ public class ClienteDAO implements IDAO{
 	}
 
 	@Override
-	public void deletar(long id) throws SQLException {
+	public void deletar(Long id) throws SQLException {
 		PreparedStatement stmt = null;
 		String sql = "UPDATE Cliente SET Ativo = false WHERE idCliente = ?";
 		cn = ConnectionFactory.getConnection();
@@ -138,7 +137,7 @@ public class ClienteDAO implements IDAO{
 	}
 
 	@Override
-	public Object getById(long id) throws SQLException {
+	public Object getById(Long id) throws SQLException {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		String sql = "SELECT idCliente, dtCadastro, Nome, dtNasc, RG, CPF, Email, Senha, Telefone1, Telefone2, Ativo "
