@@ -209,6 +209,33 @@ public class ProdutoDAO implements IDAO {
 		return encontrados;
 	}
 
+	// Criar uma query que traga todos os produtos
+	// mais vendidos de tal categoria ou algo do tipo
+	// em paginacao ou com um limite fixo e um link
+	// para a pagina de pesquisa com os mesmo
+	public ArrayList<Produto> lista1() {
+		String sql = "SELECT * FROM Produto LIMIT 5";
+		PreparedStatement stmt = null;
+		cn = ConnectionFactory.getConnection();
+		ArrayList<Produto> pegos = new ArrayList<>();
+		ResultSet rs = null;
+		try {
+			stmt = cn.prepareStatement(sql);
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				if (new Produto(rs) != null) {
+					pegos.add(new Produto(rs));
+				}
+			}
+			return pegos;
+		} catch (Exception e) {
+			// TODO: handle exception
+		} finally {
+			ConnectionFactory.closeConnection(cn, stmt, rs);
+		}
+		return null;
+	}
+
 	public ArrayList<Produto> testeCarrinho(int quantidade) {
 		String sql = "SELECT * FROM Produto LIMIT ?";
 		PreparedStatement stmt = null;

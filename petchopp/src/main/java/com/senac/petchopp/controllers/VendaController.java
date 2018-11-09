@@ -19,24 +19,19 @@ import com.senac.petchopp.model.venda.Venda;
 
 @Controller
 @RequestMapping("checkout")
-@SessionAttributes("cartS")
+@SessionAttributes({ "cliente", "carrinho" })
 public class VendaController {
 
 	private VendaDAO vendaBanco = new VendaDAO();
 
-	@ModelAttribute("cartS")
-	public Carrinho teste() {
-		return new Carrinho();
-	}
-
 	@GetMapping("")
-	public ModelAndView carrinho(@ModelAttribute("cartS") Carrinho cartS) {
-		cartS.setProdutos(new ProdutoDAO().testeCarrinho(3));
-		return new ModelAndView("cart").addObject("carrinho", cartS);
+	public ModelAndView carrinho(@ModelAttribute("carrinho") Carrinho carrinho) {
+		carrinho.setProdutos(new ProdutoDAO().testeCarrinho(3));
+		return new ModelAndView("cart").addObject("carrinho", carrinho);
 	}
 
 	@RequestMapping("formulario")
-	public ModelAndView formVenda(@ModelAttribute("cartS") Carrinho carrinho) {
+	public ModelAndView formVenda(@ModelAttribute("carrinho") Carrinho carrinho) {
 		/*
 		 * TODO pegar o codigo do cliente que deve estar na session e utiliza-lo para
 		 * pegar: endereço ou informaçoes de pagto salvas
@@ -47,10 +42,10 @@ public class VendaController {
 	}
 
 	@RequestMapping("comprar")
-	public ModelAndView realizarCompra(@SessionAttribute("cartS") Carrinho cartS) {
+	public ModelAndView realizarCompra(@SessionAttribute("carrinho") Carrinho carrinho) {
 		Venda nova = new Venda();
 
-		nova.setCarrrinho(cartS);
+		nova.setCarrrinho(carrinho);
 
 		nova.setIdCliente(new Long("1"));
 		nova.setData(LocalDate.now());
