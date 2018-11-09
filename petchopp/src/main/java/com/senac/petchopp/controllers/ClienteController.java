@@ -1,63 +1,68 @@
 package com.senac.petchopp.controllers;
 
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
-<<<<<<< HEAD
-
-=======
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.senac.petchopp.daos.ClienteDAO;
->>>>>>> todayy
+import com.senac.petchopp.model.Auxiliares;
 import com.senac.petchopp.model.cliente.Cliente;
+import com.senac.petchopp.model.cliente.Endereco;
 
 @Controller
 @RequestMapping("cliente")
+@Scope(value = WebApplicationContext.SCOPE_REQUEST)
 public class ClienteController {
-	
-<<<<<<< HEAD
-	@GetMapping("Cadastro")
-	public String novoCliente() {
-		Cliente cli = new Cliente();
-		return "cliente-index"; //
-	}
-	
-	@GetMapping("NCadastro")
-	public ModelAndView formCliente() {
-		return new ModelAndView("novoCliente").addObject("cliente", new Cliente());
-=======
-	
+
 	private ClienteDAO clienteDAO = new ClienteDAO();
-	
+
 	@GetMapping("conta")
 	public String minhaConta() {
-		return "cliente-index";
->>>>>>> todayy
+		return "cli/cliente-index";
 	}
-	
+
 	@GetMapping("Cadastro")
-	public ModelAndView novoCliente() {
-		ModelAndView modelAndView = new ModelAndView("novoCliente");
+	public ModelAndView novoCliente(HttpSession session) {
+		ModelAndView modelAndView = new ModelAndView("cli/novoCliente");
 		modelAndView.addObject("cliente", new Cliente());
-		System.out.println("Entrando em CadastroCliente");
+		modelAndView.addObject("endereco", new Endereco());
+		System.out.println(session.getId());
 		return modelAndView;
 	}
-	
+
 	@PostMapping("salvar")
-	public ModelAndView salvar(Cliente cliente, RedirectAttributes redirect) {
-		ModelAndView modelAndView = new ModelAndView("login");
-		System.out.println("Cadastrando o Cliente");
+	public ModelAndView salvar(Cliente cliente, @RequestParam(value = "dtNasc") String dtNasc, Endereco endereco,
+			RedirectAttributes redirect) throws SQLException, Exception {
+		ModelAndView modelAndView = new ModelAndView("cli/login");
+		LocalDate stringToLocalDateParse = Auxiliares.stringToLocalDateParse(dtNasc);
+		cliente.addEnderecoToList(endereco);
+
 		try {
+
+			cliente.setDtCadastro(LocalDateTime.now());
+			cliente.setDtNasc(stringToLocalDateParse);
+			cliente.setAtivo(true);
 			clienteDAO.salvar(cliente);
-			redirect.addFlashAttribute("msg", "Cadastro realizado com sucesso");
-			
-		} catch (Exception e) {
-			// TODO: handle exception
+			String msg = "Cliente cadastrado com sucesso";
+			System.out.println("Usuário cadastrado = " + cliente.getNome());
+			redirect.addAttribute("msg", msg);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		return modelAndView.addObject("redirect:cliente");
 	}
-		
+
 }
