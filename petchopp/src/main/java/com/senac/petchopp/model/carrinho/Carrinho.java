@@ -13,6 +13,12 @@ public class Carrinho {
 		super();
 	}
 
+	public Carrinho(ArrayList<Produto> produtos, double total) {
+		super();
+		this.produtos = produtos;
+		this.total = total;
+	}
+
 	public ArrayList<Produto> getProdutos() {
 		return produtos;
 	}

@@ -235,9 +235,9 @@
                     <i class="fas fa-shopping-cart"></i>
                 </p>
                 <div class="box-pedido">
-                    <div class="">
-                        <!-- for each nos produtos -->
-                        <div class="row box-pedido-item" th:each="produto : ${checkout.produtos}">
+                    <div th:each="produto : ${carrinho.produtos}">
+
+                        <div class="row box-pedido-item ">
                             <div class="col-md-2 col-sm-2 box-pedido-item-img">
                                 <img style="max-height: 87px; width: 60px; text-align: center;" th:src="@{~/uploads/{nomeArquivo}(nomeArquivo=${produto.urlImagem})}"
                                     alt="Imagem do produto">
@@ -245,8 +245,8 @@
 
                             <!-- Informações do produto -->
                             <div class="col-md-7 col-sm-10">
-                                <p th:text="${produto.Nome}" class="font-weight-bold box-item-name">Nome do Produto</p>
-                                <p th:text="${produto.qtde}">Quantidade: [[${produto.qtde}]]</p>
+                                <p class="font-weight-bold box-item-name">Tipo ou tag do produto</p>
+                                <p>Quantidade: [[${produto.quantidade}]]</p>
                             </div>
 
                             <div class="col-md-3 col-sm-12 align-self-center box-item-div-value">
@@ -268,14 +268,12 @@
                                 </tr>
                                 <tr>
                                     <td class="box-pedido-total-geral">Total</td>
-                                    <td class="box-pedido-totais box-pedido-total-geral">R$ 110,00</td>
+                                    <td class="box-pedido-totais box-pedido-total-geral" th:text="${#numbers.formatCurrency(carrinho.total)}" th:value="${carrinho.total}">R$ 110,00</td>
                                 </tr>
                             </tbody>
                         </table>
 
                         <div class="col-12 cart-btn-finalizar checkout-btn-finalizar">
-                            <a href="#" th:href="@{#}" class="btn btn-primary btn-block font-weight-bold">Finalizar Compra
-                            </a>
                         </div>
                     </div>
 
@@ -404,3 +402,5 @@
 </body>
 
 </html>
+                            <a href="#" th:href="@{/checkout/comprar}" class="btn btn-primary btn-block font-weight-bold">Finalizar
+                                Compra</a>
