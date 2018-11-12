@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,9 @@ import com.senac.petchopp.model.produto.Produto;
 public class ProdutoDAO implements IDAO {
 
 	static Connection cn = null;
+
+	public ProdutoDAO() {
+	}
 
 	@Override
 	public void salvar(Object bean) throws SQLException {
@@ -37,8 +41,8 @@ public class ProdutoDAO implements IDAO {
 			stmt.setDouble(3, novo.getPreco());
 			stmt.setDouble(4, novo.getCusto());
 			stmt.setString(5, novo.getDescricao());
-			stmt.setDate(6, java.sql.Date.valueOf(novo.getDtCompra()));
-			stmt.setDate(7, java.sql.Date.valueOf(novo.getDtValidade()));
+			stmt.setTimestamp(6, (Timestamp) novo.getDtCompra());
+			stmt.setTimestamp(7, (Timestamp) novo.getDtValidade());
 			stmt.setString(8, novo.getUrlImagem());
 			stmt.setBoolean(9, novo.isEmEstoque());
 			stmt.setBoolean(10, novo.isDisable());
@@ -76,8 +80,8 @@ public class ProdutoDAO implements IDAO {
 			stmt.setString(1, alterado.getNome());
 			stmt.setDouble(2, alterado.getPreco());
 			stmt.setDouble(3, alterado.getCusto());
-			stmt.setDate(4, java.sql.Date.valueOf(alterado.getDtCompra()));
-			stmt.setDate(5, java.sql.Date.valueOf(alterado.getDtValidade()));
+			stmt.setTimestamp(4, (Timestamp) alterado.getDtCompra());
+			stmt.setTimestamp(5, (Timestamp) alterado.getDtValidade());
 			stmt.setString(6, alterado.getUrlImagem());
 			stmt.setBoolean(7, alterado.isEmEstoque());
 			stmt.setBoolean(8, alterado.isDisable());
@@ -165,6 +169,30 @@ public class ProdutoDAO implements IDAO {
 			ConnectionFactory.closeConnection(cn, stmt, rs);
 		}
 		return produto;
+	}
+
+	public ArrayList<Produto> getByNome(String nome) throws SQLException {
+
+		String sql = "SELECT * FROM Produto WHERE Nome LIKE ?";
+		cn = ConnectionFactory.getConnection();
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		ArrayList<Produto> resultados = new ArrayList<>();
+
+		try {
+			stmt = cn.prepareStatement(sql);
+			stmt.setString(1, nome);
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				resultados.add(new Produto(rs));
+			}
+			return resultados;
+		} catch (SQLException e) {
+			// TODO: handle exception
+			throw new SQLException("Erro ao adquirir lista de produtos do banco.", e.getCause());
+		} finally {
+			ConnectionFactory.closeConnection(cn, stmt, rs);
+		}
 	}
 
 	public void deletar(String codigo) {

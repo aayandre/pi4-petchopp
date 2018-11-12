@@ -2,9 +2,7 @@ package com.senac.petchopp.model.produto;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-
-import org.springframework.format.annotation.DateTimeFormat;
+import java.util.Date;
 
 public class Produto {
 
@@ -14,14 +12,12 @@ public class Produto {
 	private double Preco;
 	private double Custo;
 	private String Descricao;
-	@DateTimeFormat(pattern = "dd-MM-yyyy")
-	private LocalDate dtCompra;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDate dtValidade;
+	private Date dtCompra;
+	private Date dtValidade;
 	private String urlImagem;
 	private boolean EmEstoque;
 	private boolean Disable;
-	
+
 	private Integer quantidade;
 
 	public Produto() {
@@ -36,8 +32,8 @@ public class Produto {
 			this.Preco = 399.99;
 			this.Custo = 187.67;
 			this.Descricao = "Descricao do produto teste que tem apenas 500 caracteres de espaço";
-			this.dtCompra = LocalDate.now();
-			this.dtValidade = LocalDate.now();
+			this.dtCompra = new Date();
+			this.dtValidade = new Date();
 			this.urlImagem = "url da imagem do produto";
 			this.EmEstoque = true;
 			this.Disable = false;
@@ -47,7 +43,7 @@ public class Produto {
 	}
 
 	public Produto(Long idProduto, String codigo, String nome, double preco, double custo, String descricao,
-			LocalDate dtCompra, LocalDate dtValidade, String urlImagem, boolean emEstoque, boolean disable) {
+			Date dtCompra, Date dtValidade, String urlImagem, boolean emEstoque, boolean disable) {
 		super();
 		this.idProduto = idProduto;
 		Codigo = codigo;
@@ -70,8 +66,8 @@ public class Produto {
 		Preco = rs.getDouble("Preco");
 		Custo = rs.getDouble("Custo");
 		Descricao = rs.getString("Descricao");
-		this.dtCompra = rs.getDate("dtCompra").toLocalDate();
-		this.dtValidade = rs.getDate("dtValidade").toLocalDate();
+		this.dtCompra = rs.getTimestamp("dtCompra");
+		this.dtValidade = rs.getTimestamp("dtValidade");
 		this.urlImagem = rs.getString("urlImagem");
 		EmEstoque = rs.getBoolean("emEstoque");
 		Disable = rs.getBoolean("Disable");
@@ -125,19 +121,19 @@ public class Produto {
 		return Descricao;
 	}
 
-	public LocalDate getDtCompra() {
+	public Date getDtCompra() {
 		return dtCompra;
 	}
 
-	public void setDtCompra(LocalDate dtCompra) {
+	public void setDtCompra(Date dtCompra) {
 		this.dtCompra = dtCompra;
 	}
 
-	public LocalDate getDtValidade() {
+	public Date getDtValidade() {
 		return dtValidade;
 	}
 
-	public void setDtValidade(LocalDate dtValidade) {
+	public void setDtValidade(Date dtValidade) {
 		this.dtValidade = dtValidade;
 	}
 
