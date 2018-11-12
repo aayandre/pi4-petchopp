@@ -1,5 +1,8 @@
 package com.senac.petchopp.controllers;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,10 +37,24 @@ public class ProdutoController {
 		return new ModelAndView("produto/" + novo.getCodigo());
 	}
 
-	// Get
+	// Get (codigo)
 	@GetMapping("/{codigo}")
 	public ModelAndView detalhesProduto(@PathVariable("codigo") String codigo) {
 		return new ModelAndView("detalhe").addObject("produto", servico.searchByCodigo(codigo));
+	}
+
+	// Get (nome)
+	public ModelAndView procuraProdutos(@ModelAttribute("procura") String procura) {
+		try {
+			ArrayList<Produto> resultados = servico.searchByNome(procura);
+			return new ModelAndView("search").addObject("resultados", resultados);
+		} catch (SQLException e) {
+			// TODO Caso de erro
+			e.printStackTrace();
+			String msg = "Produto não encontrado.";
+			return new ModelAndView("search").addObject("msg", msg);
+		}
+
 	}
 
 	// Delete
