@@ -1,413 +1,405 @@
 <!doctype html>
 <html lang="pt-br">
 
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>PI4 - Checkout</title>
+        <title>PI4 - Checkout</title>
 
-    <link rel="stylesheet" href="../static/css/main.css" th:href="@{/css/main.css}">
-    <link rel="stylesheet" href="../static/css/checkout.css" th:href="@{/css/cart.css}">
+        <link rel="stylesheet" href="../static/css/main.css" th:href="@{/css/main.css}">
+        <link rel="stylesheet" href="../static/css/checkout.css" th:href="@{/css/checkout.css}">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css"
-        data-integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" data-integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B"
+              crossorigin="anonymous">
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" data-integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
-        crossorigin="anonymous">
-</head>
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" data-integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+              crossorigin="anonymous">
+    </head>
 
-<body>
+    <body>
 
-    <!-- Navigation -->
-    <nav style="margin-bottom: 10px" class="navbar navbar-expand-lg navbar-light bg-green fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="index.html" th:href="@{/}">PetChopp</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html" th:href="@{/}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="search.html" th:href="@{/search}">Search</a>
+        <!-- Navigation -->
+        <nav style="margin-bottom: 10px" class="navbar navbar-expand-lg navbar-light bg-green fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="index.html" th:href="@{/}">PetChopp</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html" th:href="@{/}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="search.html" th:href="@{/search}">Search</a>
 
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="cart.html" th:href="@{/cart}">Carrinho
-                            <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Page Content -->
-    <div class="container nav-margin">
-
-        <div class="cart-ico">
-            <div class="row checkout-ico-line">
-                <div class="col-md-4 col-sm-12">
-                    <h4 class="text-left">
-                        <i class="fas fa-clipboard-check"></i> Finalizar Compra</h4>
-                </div>
-                <div class="col-md-4 offset-md-4 col-sm-12 checkout-btn-finalizar">
-                    <a href="#" th:href="@{#}" class="btn btn-primary btn-block font-weight-bold">Finalizar Compra</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="cart.html" th:href="@{/cart}">Carrinho
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
-        </div>
+        </nav>
 
-        <div class="row">
-            <div class="col-md-8 col-sm-6 col-xs-12">
-                <div class="row">
-                    <div class="col-md-6 box">
-                        <p class="text-white bg-dark box-title">1 - ENDEREÇOS &nbsp; <i class="fas fa-map-marker-alt"></i></p>
-                        <div class="box-endereco">
-                            <input id="enderCheckout" type="radio" name="endereco">
-                            <label class="font-weight-bold" for="enderCheckout">Rua Atílio Delamuta, 546</label>
-                            <ul>
-                                <li>Jardim Itaiçaba (Ártemis)</li>
-                                <li>13432-136 | Piracicaba - SP</li>
-                            </ul>
+        <!-- Page Content -->
+        <div class="container nav-margin checkout">
+
+            <div class="cart-ico">
+                <div class="row checkout-ico-line">
+                    <div class="col-md-4 col-sm-12">
+                        <h4 class="text-left">
+                            <i class="fas fa-clipboard-check"></i> Finalizar Compra</h4>
+                    </div>
+                    <div class="col-md-4 offset-md-4 col-sm-12 checkout-btn-finalizar">
+                        <a href="#" th:href="@{#}" class="btn btn-primary btn-block font-weight-bold">Finalizar Compra</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-8 col-sm-6 col-xs-12">
+                    <div class="row">
+                        <div class="col-md-6 box">
+                            <p class="text-white bg-dark box-title">1 - ENDEREÇOS &nbsp;
+                                <i class="fas fa-map-marker-alt"></i>
+                            </p>
+                            <div>
+                                <div class="box-endereco">
+                                    <input id="enderCheckout" type="radio" name="endereco">
+                                    <label class="font-weight-bold" for="enderCheckout">Rua Atílio Delamuta, 546</label>
+                                    <ul>
+                                        <li>Jardim Itaiçaba (Ártemis)</li>
+                                        <li>13432-136 | Piracicaba - SP</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="box-endereco">
+                                <input id="enderCheckout" type="radio" name="endereco">
+                                <label class="font-weight-bold" for="enderCheckout">Rua Atílio Delamuta, 546</label>
+                                <ul>
+                                    <li>Jardim Itaiçaba (Ártemis)</li>
+                                    <li>13432-136 | Piracicaba - SP</li>
+                                </ul>
+                            </div>
                         </div>
 
-                        <div class="box-endereco">
-                            <input id="enderCheckout" type="radio" name="endereco">
-                            <label class="font-weight-bold" for="enderCheckout">Rua Atílio Delamuta, 546</label>
-                            <ul>
-                                <li>Jardim Itaiçaba (Ártemis)</li>
-                                <li>13432-136 | Piracicaba - SP</li>
-                            </ul>
+                        <div class="col-md-6 box-central">
+                            <div class="col-md-12 box">
+                                <p class="text-white bg-dark box-title">2 - FRETE &nbsp;
+                                    <i class="fas fa-truck"></i>
+                                </p>
+                                <table class="table box-frete">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Valor</th>
+                                            <th>Tipo</th>
+                                            <th>Prazo</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" name="tipofrete" checked>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>R$ 10,00</td>
+                                            <td>PAC</td>
+                                            <td>5 a 10 Dias</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" name="tipofrete" checked>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>R$ 20,00</td>
+                                            <td>SEDEX</td>
+                                            <td>3 a 5 Dias</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" name="tipofrete" checked>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>R$ 40,00</td>
+                                            <td>SEDEX 10</td>
+                                            <td>1 a 3 Dias</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="col-md-12 box">
+                                <p class="text-white bg-dark box-title">3 - FORMA DE PAGAMENTO &nbsp;
+                                    <i class="far fa-credit-card"></i>
+                                </p>
+                                <div class="box-pay">
+                                    <div class="box-pay-div">
+                                        <input id="typePayment-cred" type="radio" name="pagto">
+                                        <label style="position: relative;" class="font-weight-bold box-pay-label" for="pagto-checkout">Cartão de Crédito</label>
+
+                                        <div class="box-pag-display" id="pag-info-cred">
+                                            <form action="">
+                                                <br>
+                                                <div class="form-group">
+                                                    <label for="numero-cartao-cred">Nº Cartão</label>
+                                                    <input class="form-control" type="text" name="numero-cartao-cred" id="nr-cartao-cred" placeholder="0000 0000 0000 0000" maxlength="19">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="nome-cartao-cred">Seu Nome</label>
+                                                    <input class="form-control" type="text" name="nome-cartao-cred">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="vencimento-cartao-cred">Vencimento</label>
+                                                    <input class="form-control" type="text" name="vencimento-cartao-cred" id="venc-cartao-cred" placeholder="00/00">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="codigo-seg-cartao-cred">Código de Segurança</label>
+                                                    <input class="form-control" type="text" name="codigo-seg-cartao-cred" id="cod-seg-cartao-cred">
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                    <div class="box-pay-div">
+                                        <input id="typePayment-deb" type="radio" name="pagto">
+                                        <label class="font-weight-bold box-pay-label" for="pagto-checkout">Cartão de Débito</label>
+
+                                        <div class="box-pag-display" id="pag-info-deb">
+                                            <form action="">
+                                                <br>
+                                                <div class="form-group">
+                                                    <label for="numero-cartao-deb">Nº Cartão</label>
+                                                    <input class="form-control" type="text" name="numero-cartao-deb" id="nr-cartao-deb" placeholder="0000 0000 0000 0000" maxlength="19">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="nome-cartao-deb">Seu Nome</label>
+                                                    <input class="form-control" type="text" name="nome-cartao-deb">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="vencimento-cartao-deb">Vencimento</label>
+                                                    <input class="form-control" type="text" name="vencimento-cartao-deb" id="venc-cartao-deb" placeholder="00/00">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="codigo-seg-cartao-deb">Código de Segurança</label>
+                                                    <input class="form-control" type="text" name="codigo-seg-cartao-deb" id="cod-seg-cartao-deb">
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                    <div class="box-pay-div">
+                                        <input id="typePayment-boleto" type="radio" name="pagto">
+                                        <label class="font-weight-bold box-pay-label" for="pagto-checkout">Boleto Bancário</label>
+
+                                        <div class="box-pag-display" id="pag-info-boleto">
+                                            <br>
+                                            <ul>
+                                                <li>Pagamento a Vista</li>
+                                                <li>Realize a impressão do boleto ao finalizar a compra</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="col-md-6 box-central">
-                        <div class="col-md-12 box">
-                            <p class="text-white bg-dark box-title">2 - FRETE &nbsp; <i class="fas fa-truck"></i></p>
-                            <table class="table box-frete">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>Valor</th>
-                                        <th>Tipo</th>
-                                        <th>Prazo</th>
-                                    </tr>
-                                </thead>
+                <div class="col-md-4 col-sm-6 col-xs-12 box">
+                    <p class="text-white bg-dark box-title">4 - RESUMO DO PEDIDO &nbsp;
+                        <i class="fas fa-shopping-cart"></i>
+                    </p>
+                    <div class="box-pedido">
+                        <div th:each="produto : ${carrinho.produtos}">
+
+                            <div class="row box-pedido-item ">
+                                <div class="col-md-2 col-sm-2 box-pedido-item-img">
+                                    <img style="max-height: 87px; width: 60px; text-align: center;" th:src="@{~/uploads/{nomeArquivo}(nomeArquivo=${produto.urlImagem})}"
+                                         alt="Imagem do produto">
+                                </div>
+
+                                <!-- Informações do produto -->
+                                <div class="col-md-7 col-sm-10">
+                                    <p class="font-weight-bold box-item-name">Tipo ou tag do produto</p>
+                                    <p>Quantidade: [[${produto.quantidade}]]</p>
+                                </div>
+
+                                <div class="col-md-3 col-sm-12 align-self-center box-item-div-value">
+                                    <p class="box-item-value box-item-value-xs" th:text="${#numbers.formatCurrency(produto.Preco)}" th:value="${produto.Preco}">R$ 70,00</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="margin: 0px !important;" class="row">
+                            <table class="table">
                                 <tbody>
                                     <tr>
-                                        <td>
-                                            <div class="radio">
-                                                <label><input type="radio" name="tipofrete" checked></label>
-                                            </div>
-                                        </td>
-                                        <td>R$ 10,00</td>
-                                        <td>PAC</td>
-                                        <td>5 a 10 Dias</td>
+                                        <td>Subtotal</td>
+                                        <td class="box-pedido-totais">R$ 100,00</td>
                                     </tr>
                                     <tr>
-                                        <td>
-                                            <div class="radio">
-                                                <label><input type="radio" name="tipofrete" checked></label>
-                                            </div>
-                                        </td>
-                                        <td>R$ 20,00</td>
-                                        <td>SEDEX</td>
-                                        <td>3 a 5 Dias</td>
+                                        <td>Frete</td>
+                                        <td class="box-pedido-totais">R$ 10,00</td>
                                     </tr>
                                     <tr>
-                                        <td>
-                                            <div class="radio">
-                                                <label><input type="radio" name="tipofrete" checked></label>
-                                            </div>
-                                        </td>
-                                        <td>R$ 40,00</td>
-                                        <td>SEDEX 10</td>
-                                        <td>1 a 3 Dias</td>
+                                        <td class="box-pedido-total-geral">Total</td>
+                                        <td class="box-pedido-totais box-pedido-total-geral" th:text="${#numbers.formatCurrency(carrinho.total)}" th:value="${carrinho.total}">R$ 110,00</td>
                                     </tr>
                                 </tbody>
                             </table>
-                        </div>
 
-                        <div class="col-md-12 box">
-                            <p class="text-white bg-dark box-title">3 - FORMA DE PAGAMENTO &nbsp; <i class="far fa-credit-card"></i></p>
-                            <div class="box-pay">
-                                <div class="box-pay-div">
-                                    <input id="typePayment" type="radio" name="endereco">
-                                    <label style="position: relative;" class="font-weight-bold box-pay-label" for="enderCheckout">Cartão
-                                        de Crédito</label>
-
-                                    <div>
-                                        <form action="">
-                                            <br>
-                                            <div class="form-group">
-                                                <label for="numero-cartao-cred">Nº Cartão</label>
-                                                <input class="form-control" type="text" name="numero-cartao-cred" id="nr-cartao-cred"
-                                                    placeholder="0000 0000 0000 0000" maxlength="19">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="nome-cartao-cred">Seu Nome</label>
-                                                <input class="form-control" type="text" name="nome-cartao-cred">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="vencimento-cartao-cred">Vencimento</label>
-                                                <input class="form-control" type="text" name="vencimento-cartao-cred"
-                                                    id="venc-cartao-cred" placeholder="00/00">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="codigo-seg-cartao-cred">Código de Segurança</label>
-                                                <input class="form-control" type="text" name="codigo-seg-cartao-cred"
-                                                    id="cod-seg-cartao-cred">
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-
-                                <div class="box-pay-div">
-                                    <input id="typePayment" type="radio" name="endereco">
-                                    <label class="font-weight-bold box-pay-label" for="enderCheckout">Cartão de Débito</label>
-
-                                    <div>
-                                        <form action="">
-                                            <br>
-                                            <div class="form-group">
-                                                <label for="numero-cartao-deb">Nº Cartão</label>
-                                                <input class="form-control" type="text" name="numero-cartao-deb" id="nr-cartao-deb"
-                                                    placeholder="0000 0000 0000 0000" maxlength="19">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="nome-cartao-deb">Seu Nome</label>
-                                                <input class="form-control" type="text" name="nome-cartao-deb">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="vencimento-cartao-deb">Vencimento</label>
-                                                <input class="form-control" type="text" name="vencimento-cartao-deb" id="venc-cartao-deb"
-                                                    placeholder="00/00">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="codigo-seg-cartao-deb">Código de Segurança</label>
-                                                <input class="form-control" type="text" name="codigo-seg-cartao-deb" id="cod-seg-cartao-deb">
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-
-                                <div class="box-pay-div">
-                                    <input id="typePayment" type="radio" name="endereco">
-                                    <label class="font-weight-bold box-pay-label" for="enderCheckout">Boleto Bancário</label>
-
-                                    <div>
-                                        <br>
-                                        <ul>
-                                            <li>Pagamento a Vista</li>
-                                            <li>Realize a impressão do boleto ao finalizar a compra</li>
-                                        </ul>
-                                    </div>
-                                </div>
+                            <div class="col-12 cart-btn-finalizar checkout-btn-finalizar">
+                                <a href="#" th:href="@{/checkout/comprar}" class="btn btn-primary btn-block font-weight-bold">Finalizar
+                                    Compra</a>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-4 col-sm-6 col-xs-12 box">
-                <p class="text-white bg-dark box-title">4 - RESUMO DO PEDIDO &nbsp; <i class="fas fa-shopping-cart"></i></p>
-                <div class="box-pedido">
-                    <div th:each="produto : ${carrinho.produtos}">
-
-                        <div class="row box-pedido-item ">
-                            <div class="col-md-2 col-sm-2 box-pedido-item-img">
-                                <img style="max-height: 87px; width: 60px; text-align: center;" th:src="@{~/uploads/{nomeArquivo}(nomeArquivo=${produto.urlImagem})}"
-                                    alt="Imagem do produto">
-                            </div>
-
-                            <!-- Informações do produto -->
-                            <div class="col-md-7 col-sm-10">
-                                <p class="font-weight-bold box-item-name">Tipo ou tag do produto</p>
-                                <p>Quantidade: [[${produto.quantidade}]]</p>
-                            </div>
-
-                            <div class="col-md-3 col-sm-12 align-self-center box-item-div-value">
-                                <p class="box-item-value box-item-value-xs" th:text="${#numbers.formatCurrency(produto.Preco)}" th:value="${produto.Preco}">R$ 70,00</p>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div style="margin: 0px !important;" class="row">
-                        <!-- <div class="col-12 cart-resumo">
-                            <div class="row cart-item-value-label cart-item-value-total">
-                                <p class="col-6 font-weight-bold">
-                                    Subtotal
-                                </p>
-                                <p style="font-size: 16px" class="col-6 font-weight-bold cart-item-value text-right" id="carrinhoTotalId"></p>
-                            </div>
-                            <div class="row cart-item-value-label cart-item-value-total">
-                                <p class="col-6 font-weight-bold">
-                                    Frete
-                                </p>
-                                <p style="font-size: 16px" class="col-6 font-weight-bold cart-item-value text-right" id="carrinhoTotalId"></p>
-                            </div>
-                        </div> -->
-
-                        <table class="table">
-                            <tbody>
-                                <tr>
-                                    <td>Subtotal</td>
-                                    <td class="box-pedido-totais">R$ 100,00</td>
-                                </tr>
-                                <tr>
-                                    <td>Frete</td>
-                                    <td class="box-pedido-totais">R$ 10,00</td>
-                                </tr>
-                                <tr>
-                                    <td class="box-pedido-total-geral">Total</td>
-                                    <td class="box-pedido-totais box-pedido-total-geral" th:text="${#numbers.formatCurrency(carrinho.total)}" th:value="${carrinho.total}">R$ 110,00</td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-                        <div class="col-12 cart-btn-finalizar checkout-btn-finalizar">
-                            <a href="#" th:href="@{/checkout/comprar}" class="btn btn-primary btn-block font-weight-bold">Finalizar
-                                Compra</a>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
         </div>
+        <!-- /Page Content -->
 
-    </div>
-    <!-- /Page Content -->
+        <!-- Footer -->
+        <footer class="py-4 bg-white footer-font-size footer-info">
+            <div class="container">
+                <div class="row footer-top-display">
+                    <div class="col-md-6 ">
+                        <p class="font-weight-bold">MAIS BUSCADOS</p>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <ul class="footer-ul">
+                                    <li>Mais buscados 1</li>
+                                    <li>Mais buscados 2</li>
+                                    <li>Mais buscados 3</li>
+                                    <li>Mais buscados 4</li>
+                                    <li>Mais buscados 5</li>
+                                </ul>
+                            </div>
 
-    <!-- Footer -->
-    <footer class="py-4 bg-white footer-font-size footer-info">
-        <div class="container">
-            <div class="row footer-top-display">
-                <div class="col-md-6 ">
-                    <p class="font-weight-bold">MAIS BUSCADOS</p>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <ul class="footer-ul">
-                                <li>Mais buscados 1</li>
-                                <li>Mais buscados 2</li>
-                                <li>Mais buscados 3</li>
-                                <li>Mais buscados 4</li>
-                                <li>Mais buscados 5</li>
-                            </ul>
+                            <div class="col-md-3">
+                                <ul class="footer-ul">
+                                    <li>Mais buscados 6</li>
+                                    <li>Mais buscados 7</li>
+                                    <li>Mais buscados 8</li>
+                                    <li>Mais buscados 9</li>
+                                    <li>Mais buscados 10</li>
+                                </ul>
+                            </div>
+
+                            <div class="col-md-3">
+                                <ul class="footer-ul">
+                                    <li>Mais buscados 11</li>
+                                    <li>Mais buscados 12</li>
+                                    <li>Mais buscados 13</li>
+                                    <li>Mais buscados 14</li>
+                                    <li>Mais buscados 15</li>
+                                </ul>
+                            </div>
+
+                            <div class="col-md-3">
+                                <ul class="footer-ul">
+                                    <li>Mais buscados 16</li>
+                                    <li>Mais buscados 17</li>
+                                    <li>Mais buscados 18</li>
+                                    <li>Mais buscados 19</li>
+                                    <li>Mais buscados 20</li>
+                                </ul>
+                            </div>
                         </div>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="font-weight-bold">TOP CATEGORIAS</p>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <ul class="footer-ul">
+                                    <li>top categorias 1</li>
+                                    <li>top categorias 2</li>
+                                    <li>top categorias 3</li>
+                                    <li>top categorias 4</li>
+                                    <li>top categorias 5</li>
+                                </ul>
+                            </div>
 
-                        <div class="col-md-3">
-                            <ul class="footer-ul">
-                                <li>Mais buscados 6</li>
-                                <li>Mais buscados 7</li>
-                                <li>Mais buscados 8</li>
-                                <li>Mais buscados 9</li>
-                                <li>Mais buscados 10</li>
-                            </ul>
-                        </div>
+                            <div class="col-md-4">
+                                <ul class="footer-ul">
+                                    <li>top categorias 6</li>
+                                    <li>top categorias 7</li>
+                                    <li>top categorias 8</li>
+                                    <li>top categorias 9</li>
+                                    <li>top categorias 10</li>
+                                </ul>
+                            </div>
 
-                        <div class="col-md-3">
-                            <ul class="footer-ul">
-                                <li>Mais buscados 11</li>
-                                <li>Mais buscados 12</li>
-                                <li>Mais buscados 13</li>
-                                <li>Mais buscados 14</li>
-                                <li>Mais buscados 15</li>
-                            </ul>
-                        </div>
-
-                        <div class="col-md-3">
-                            <ul class="footer-ul">
-                                <li>Mais buscados 16</li>
-                                <li>Mais buscados 17</li>
-                                <li>Mais buscados 18</li>
-                                <li>Mais buscados 19</li>
-                                <li>Mais buscados 20</li>
-                            </ul>
+                            <div class="col-md-4">
+                                <ul class="footer-ul">
+                                    <li>top categorias 11</li>
+                                    <li>top categorias 12</li>
+                                    <li>top categorias 13</li>
+                                    <li>top categorias 14</li>
+                                    <li>top categorias 15</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <p class="font-weight-bold">TOP CATEGORIAS</p>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <ul class="footer-ul">
-                                <li>top categorias 1</li>
-                                <li>top categorias 2</li>
-                                <li>top categorias 3</li>
-                                <li>top categorias 4</li>
-                                <li>top categorias 5</li>
-                            </ul>
-                        </div>
 
-                        <div class="col-md-4">
-                            <ul class="footer-ul">
-                                <li>top categorias 6</li>
-                                <li>top categorias 7</li>
-                                <li>top categorias 8</li>
-                                <li>top categorias 9</li>
-                                <li>top categorias 10</li>
-                            </ul>
-                        </div>
-
-                        <div class="col-md-4">
-                            <ul class="footer-ul">
-                                <li>top categorias 11</li>
-                                <li>top categorias 12</li>
-                                <li>top categorias 13</li>
-                                <li>top categorias 14</li>
-                                <li>top categorias 15</li>
-                            </ul>
-                        </div>
+                <p class="font-weight-bold">FORMAS DE PAGAMENTO</p>
+                <div class="row">
+                    <div style="margin-left: 3px;" class="col-md-6">
+                        <i class="fab fa-cc-visa fa-3x"></i>
+                        <i class="fab fa-cc-mastercard fa-3x"></i>
+                        <i class="fab fa-cc-paypal fa-3x"></i>
                     </div>
+
                 </div>
             </div>
+        </footer>
 
-            <p class="font-weight-bold">FORMAS DE PAGAMENTO</p>
-            <div class="row">
-                <div style="margin-left: 3px;" class="col-md-6">
-                    <i class="fab fa-cc-visa fa-3x"></i>
-                    <i class="fab fa-cc-mastercard fa-3x"></i>
-                    <i class="fab fa-cc-paypal fa-3x"></i>
-                </div>
-
+        <footer class="py-2 bg-dark footer-font-size">
+            <div class="container">
+                <p class="m-0 text-center text-white">&copy; PetChopp 2018 . Todos os direitos reservados.</p>
+                <p class="m-0 text-center text-white">PETSHOPP COMÉRCIO E PARTICIPAÇÕES S/A - CNPJ: 03.321.742/0001-07 - Rua Atílio Delamuta, 546, Jardim Itaiçaba
+                    (Ártemis), Jardim Itaiçaba (Ártemis), CEP: 13432-136, Piracicaba, SP, Brasil</p>
+                <!-- <p class="m-0 text-center text-white">Copyright &copy; Your Website 2018</p> -->
             </div>
-        </div>
-    </footer>
-
-    <footer class="py-2 bg-dark footer-font-size">
-        <div class="container">
-            <p class="m-0 text-center text-white">&copy; PetChopp 2018 . Todos os direitos reservados.</p>
-            <p class="m-0 text-center text-white">PETSHOPP COMÉRCIO E PARTICIPAÇÕES S/A - CNPJ:
-                03.321.742/0001-07 - Rua Atílio Delamuta, 546, Jardim Itaiçaba (Ártemis), Jardim Itaiçaba (Ártemis),
-                CEP: 13432-136, Piracicaba, SP, Brasil</p>
-            <!-- <p class="m-0 text-center text-white">Copyright &copy; Your Website 2018</p> -->
-        </div>
-        <!-- /.container -->
-    </footer>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            <!-- /.container -->
+        </footer>
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
         crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em"
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em"
         crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
-    <script src="../static/js/checkout.js" th:src="@{/js/checkout.js}"></script>
-</body>
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+        <script src="../static/js/checkout.js" th:src="@{/js/checkout.js}"></script>
+    </body>
 </html>
