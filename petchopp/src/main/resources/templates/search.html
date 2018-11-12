@@ -28,21 +28,25 @@
 
     <header class="navbar navbar-expand-lg navbar-light bg-color fixed-top"  >
         <div class="container">
-            <a  class="navbar-brand" href="index.html" th:href="@{/}">PetChopp</a>
+            <a  class="navbar-brand font-nav" href="index.html" th:href="@{/}">PetChopp</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <nav class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a class="nav-link" href="index.html" th:href="@{/}">Home</a></li>
-                    <li class="nav-item active"><a class="nav-link" href="search.html" th:href="@{/search}">Search
+                    <li class="nav-item"><a class="nav-link font-nav" href="index.html" th:href="@{/}">Home</a></li>
+                    <li class="nav-item active"><a class="nav-link font-nav" href="search.html" th:href="@{/search}">Search
                             <span class="sr-only">(current)</span>
                         </a></li>
-                    <li class="nav-item"><a class="nav-link" href="cart.html" th:href="@{/cart}">Carrinho</a></li>
+                    <li class="nav-item"><a class="nav-link font-nav" href="cart.html" th:href="@{/cart}">Carrinho</a></li>
                 </ul>
             </nav>
         </div>
+        <style>
+
+        </style>
+        </style>
     </header>
     <section class="container-fluid nav-margin">
         <div class="row text-center">
@@ -66,7 +70,6 @@
                                 <li><label class="form-check"> <input class="form-check-input" type="radio" name="exampleRadio"
                                             value=""> <span class="form-check-label">Médio Porte</span>
                                     </label></li>
-
                                 <li><label class="form-check"> <input class="form-check-input" type="radio" name="exampleRadio"
                                             value=""> <span class="form-check-label">Grande Porte </span>
                                     </label></li>
@@ -89,21 +92,6 @@
                                 <li><label class="form-check"> <input class="form-check-input" type="radio" name="exampleRadio"
                                             value=""> <span class="form-check-label">Pequeno Porte</span>
                                     </label></li>
-
-                                <li><label class="form-check"> <input class="form-check-input" type="radio" name="exampleRadio"
-                                            value=""> <span class="form-check-label">Médio Porte</span>
-                                    </label></li>
-                                <li><label class="form-check"> <input class="form-check-input" type="radio" name="exampleRadio"
-                                            value=""> <span class="form-check-label">Pequeno Porte</span>
-                                    </label></li>
-
-                                <li><label class="form-check"> <input class="form-check-input" type="radio" name="exampleRadio"
-                                            value=""> <span class="form-check-label">Médio Porte</span>
-                                    </label></li>
-
-                                <li><label class="form-check"> <input class="form-check-input" type="radio" name="exampleRadio"
-                                            value=""> <span class="form-check-label">Grande Porte </span>
-                                    </label></li>
                             </ul>
                         </li>
                     </ul>
@@ -114,9 +102,9 @@
                     <!-- Procura e resultados -->
                     <div class="row">
                         <!-- Procura -->
-                        <div class="col-md-12 col-12 col-md-8 col-lg-9 col-md-4 col-sm-4 col-xs-4 d-flex">
-                            <button type="button" id="sidebarCollapse" class="btn btn-info teste">
-                                <span>Filters</span>
+                        <div class="col-md-12 col-md-8 col-md-6 col-md-4 col-xs-4 d-flex">
+                            <button type="button" id="sidebarCollapse" class="btn btn-primary btn-info btn-sm teste" style="width: 8%">
+                                <span>Filtros</span>
                                 <svg class="svg-inline--fa fa-align-left fa-w-14" aria-hidden="true" data-prefix="fas"
                                     data-icon="align-left" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
                                     data-fa-i2svg="" style="width: 11px">
@@ -145,7 +133,7 @@
                                     <div class="col-md-9">
                                         <h3>Buscar</h3>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-lg-3">
                                         <!-- Controls -->
                                         <div class="controls float-xs-right hidden-xs">
                                             <a class="left carousel-control" href="#myCarousel" data-slide="prev">
@@ -170,12 +158,12 @@
                                     <div class="carousel-inner">
                                         <div class="item active">
                                             <div class="row">
-                                                <div class="col-sm-3" id="edit-card">
+                                                <div class="col-lg-3" id="edit-card">
                                                     <div class="col-item card-color">
                                                         <div class="info">
                                                             <div class="row">
                                                                 <div class="price col-md-6">
-                                                                    <h5>Ração A</h5>
+                                                                    <h5>Ração</h5>
                                                                     <h5 class="price-text-color">R$ 73,99 </h5>
                                                                 </div>
                                                                 <div class="rating hidden-sm col-md-6">
@@ -205,12 +193,12 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-sm-3" id="edit-card">
+                                                <div class="col-lg-3" id="edit-card">
                                                     <div class="col-item card-color">
                                                         <div class="info">
                                                             <div class="row">
                                                                 <div class="price col-md-6">
-                                                                    <h5>Ração B</h5>
+                                                                    <h5>Ração</h5>
                                                                     <h5 class="price-text-color">R$ 95,39 </h5>
                                                                 </div>
                                                                 <div class="rating hidden-sm col-md-6">
@@ -240,12 +228,12 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-3" id="edit-card">
+                                                <div class="col-lg-3" id="edit-card">
                                                     <div class="col-item card-color">
                                                         <div class="info">
                                                             <div class="row">
                                                                 <div class="price col-md-6">
-                                                                    <h5>Ração C</h5>
+                                                                    <h5>Ração</h5>
                                                                     <h5 class="price-text-color">R$ 78,24 </h5>
                                                                 </div>
                                                                 <div class="rating hidden-sm col-md-6">
@@ -274,12 +262,12 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-3" id="edit-card">
+                                                <div class="col-lg-3" id="edit-card">
                                                     <div class="col-item card-color">
                                                         <div class="info">
                                                             <div class="row">
                                                                 <div class="price col-md-6">
-                                                                    <h5>Ração J</h5>
+                                                                    <h5>Ração</h5>
                                                                     <h5 class="price-text-color">R$ 69,78 </h5>
                                                                 </div>
                                                                 <div class="rating hidden-sm col-md-6">
@@ -313,7 +301,7 @@
                                         </div>
                                         <div class="item">
                                             <div class="row">
-                                                <div class="col-sm-3" id="edit-card">
+                                                <div class="col-lg-3" id="edit-card">
                                                     <div class="col-item card-color">
                                                         <div class="info">
                                                             <div class="row">
@@ -348,7 +336,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-sm-3" id="edit-card">
+                                                <div class="col-lg-3" id="edit-card">
                                                     <div class="col-item card-color">
                                                         <div class="info">
                                                             <div class="row">
@@ -382,7 +370,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-3" id="edit-card">
+                                                <div class="col-lg-3" id="edit-card">
                                                     <div class="col-item card-color">
                                                         <div class="info">
                                                             <div class="row">
@@ -417,7 +405,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-3" id="edit-card">
+                                                <div class="col-lg-3" id="edit-card">
                                                     <div class="col-item card-color">
                                                         <div class="info">
                                                             <div class="row">

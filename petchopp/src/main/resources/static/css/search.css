@@ -29,6 +29,9 @@ a:focus {
     margin-bottom: 40px;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
 }
+.navbar-light{
+    color: rgba(255,255,255);
+}
 
 .navbar-btn {
     box-shadow: none;
@@ -156,16 +159,16 @@ a.article:hover {
 }
 
 button.teste {
-    width: 10%;
     margin-bottom: 2rem;
-    height: 38px;
+
     margin-right: 120px;
 }
 .col-item
 {
-    border: 2px solid #2323A1;
-    border-radius: 5px;
-    background: #FFF;
+    border-width: 0px 2px;
+   border-style: dotted;
+   border-color: #4c43d8;
+   border-radius: 20%;
 }
 .col-item .photo img
 {
@@ -175,16 +178,17 @@ button.teste {
 
 .col-item .info
 {
-    padding: 10px;
+    background-color: #4c43d8;
     border-radius: 0 0 5px 5px;
-    margin-top: 1px;
+    font-size: smaller;
+    padding:1%;
 }
 .col-item:hover .info {
     background-color: rgba(215, 215, 244, 0.5); 
 }
 .col-item .price
 {
-    /*width: 50%;*/
+    color: gold;
     float: left;
     margin-top: 5px;
 }
@@ -197,7 +201,7 @@ button.teste {
 
 .price-text-color
 {
-    color: #00990E;
+    color: gold;
 }
 
 .col-item .info .rating
@@ -207,13 +211,8 @@ button.teste {
 
 .col-item .rating
 {
-    /*width: 50%;*/
     float: left;
-    font-size: 17px;
-    text-align: right;
-    line-height: 52px;
-    margin-bottom: 10px;
-    height: 52px;
+    text-align: auto;
 }
 
 .col-item .separator
@@ -268,13 +267,11 @@ button.teste {
     margin-bottom: 3%;
 }
 .card-color {
-    background-color: rgb(15,165,190,.6);
+    background-color: #fafafa;
 }
 .bg-color {
-    background-color: #a632ff;
-    color: white !important;
+    background-color: #4c43d8;
+    
 }
-#coco{
-    color: white !important;
-}
-
+.font-nav{
+    color:  #fafafa !important;
