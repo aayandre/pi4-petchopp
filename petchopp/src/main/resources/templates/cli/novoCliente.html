@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<title>TITULO</title>
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" data-integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B"
+	 crossorigin="anonymous">
+
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" data-integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+	 crossorigin="anonymous">
+		<!-- No href coloque o caminho normal do arquivo
+    E no th:href o @{}, acredito que signifique o ../static -->
+	<link rel="stylesheet" href="../../static/css/main.css" th:href="@{/css/main.css}">
+	<link rel="stylesheet" href="../../static/css/home.css" th:href="@{/css/home.css}">
+	<style>
+		input {
+	padding: 1.5em;
+	width: 100%;
+}
+
+.ddd {
+	width: 3.5em;
+}
+</style>
+</head>
+
+<body>
+
+	<!-- Navigation -->
+	<nav class="navbar navbar-expand-lg navbar-light bar-color fixed-top">
+		<div class="container">
+			<a class="navbar-brand" href="index.html" th:href="@{/}">PetChopp</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+			 aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item active">
+						<a class="nav-link" href="../home/index.html">Home
+							<span class="sr-only">(current)</span>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="../search/search.html">Search</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="../cart/cart.html">Carrinho</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<!-- Page Content -->
+	<div class="container nav-margin">
+		<div class="row">
+			<div class="col-md-2 lateral-cli-menu">
+
+				<div class="list-group">
+					<a href="#" class="list-group-item list-group-item-action active">Meus dados</a>
+					<a href="#" class="list-group-item list-group-item-action">Pedidos</a>
+					<a href="#" class="list-group-item list-group-item-action">item</a>
+				</div>
+
+			</div>
+			<div class="col-md-10 form-cad-cli">
+
+				<div th:if="${msg != null}">
+					<p style="color: rgb(0, 4, 255); background-color: rgb(205, 245, 182)" th:text="${msg}"></p>
+				</div>
+
+				<form class="formCli" th:action="@{salvar}" method="POST" th:object="${cliente}">
+					<div class="row">
+
+						<div class="col-md-6">
+							<h4>Meus dados</h4>
+							<hr>
+							<div class="row">
+
+								<div class="col-6" style="display: block;">
+									<label for="nome">Nome Completo </label>
+									<input type="text" name="" id="nome" th:field="*{nome}" class="form-control" placeholder="" aria-describedby="helpId">
+								</div>
+								<div class="col-6" style="display: block;">
+									<label for="email">E-mail</label>
+									<input type="email" name="email" id="email" th:field="*{email}" class="form-control" placeholder="exemplo@domain.com">
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-4">
+									<label for="dtNasc">Data nasc.</label>
+									<input type="date" id="dtNasc" name="dtNasc" th:field="*{dtNasc}" class="form-control">
+								</div>
+								<div class="col-4">
+									<label for="rg">RG</label>
+									<input type="text" id="rg" name="rg" th:field="*{rg}" class="form-control">
+								</div>
+								<div class="col-4">
+									<label for="cpf">CPF</label>
+
+									<input type="text" id="cpf" name="cpf" th:field="*{cpf}" class="form-control">
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-6">
+									<div class="form-group">
+										<label for="cel">DDD + Celular</label>
+										<input type="tel" name="cel" id="cel" th:field="*{telefone1}" class="form-control">
+									</div>
+								</div>
+								<div class="col-6">
+									<div class="form-group">
+										<label for="tel">DDD + Telefone</label>
+										<input type="tel" name="tel" id="tel" th:field="*{telefone2}" class="form-control">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-6">
+									<div class="form-group">
+										<label for="senha">Senha</label>
+										<input type="password" name="senha" id="senha" class="form-control" minlength="6">
+									</div>
+								</div>
+								<div class="col-6">
+									<div class="form-group">
+										<label for="senhaConf">Confirmar Senha</label>
+										<input type="password" name="senhaConf" id="senhaConf" th:field="*{senha}" class="form-control" min="6">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6 endereco" th:object="${endereco}">
+							<h4>Meu Endereço</h4>
+							<hr>
+							<div class="row">
+								<div class="col-4">
+									<div class="form-group">
+										<label for="cep">CEP</label>
+										<input type="text" name="cep" id="cep" th:field="*{cep}" class="form-control" placeholder="Ex: 00000-000">
+									</div>
+								</div>
+								<div class="col-8">
+										<div class="form-group">
+												<label for="log">Endereço</label>
+												<input type="text" name="log" id="log" th:field="*{logradouro}" class="form-control" placeholder="Ex: Rua São João">
+										</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-4">
+									<div class="form-group">
+										<label for="num">Numero</label>
+										<input type="text" name="num" id="num" th:field="*{num}" class="form-control" placeholder="Ex: 405">
+									</div>
+								</div>
+								<div class="col-md-8">
+									<div class="form-group">
+										<label for="comp">Complemento</label>
+										<input type="text" name="comp" id="comp" th:field="*{comp}" class="form-control" placeholder="Ex: Apto 1005, 10° andar ">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+									<div class="col-md-12">
+										<label for="bairro">Bairro</label>
+										<input type="text" name="bairro" id="bairro" th:field="*{bairro}" class="form-control">
+									</div>
+								</div>
+								<div class="row">
+										<div class="col-md-3">
+											<div class="form-group">
+												<label for="uf">Estado</label>
+												<input type="text" name="uf" id="uf" th:field="*{uf}" class="form-control" placeholder="Ex: SP">
+											</div>
+										</div>
+										<div class="col-md-9">
+											<div class="form-group">
+												<label for="cidade">Cidade</label>
+												<input type="text" name="cidade" id="cidade" th:field="*{cidade}" class="form-control" placeholder="Ex: Apto 1005, 10° andar ">
+											</div>
+										</div>
+									</div>
+									<div class="row">
+											<div class="col-md-12">
+													<div class="form-group">
+														<label for="tipoEnd">Identificação Endereço</label>
+														<input type="text" name="tipoEnd" id="tipoEnd" th:field="*{tipoEndereco}" class="form-control" placeholder="Ex: Casa, Trabalho">
+													</div>
+												</div>
+									</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs12">
+							<input type="submit" class="btn-outline-success">
+						</div>
+					</div>
+
+
+				</form>
+			</div>
+
+		</div>
+	</div>
+
+	<!-- /.container nav-margin -->
+	<!-- /Page Content -->
+
+
+	<!-- Footer -->
+	<footer class="py-5 bg-dark">
+		<div class="container">
+			<p class="m-0 text-center text-white">Copyright &copy; Your Website 2018</p>
+		</div>
+		<!-- /.container -->
+	</footer>
+
+	<!-----------------SCRIPTS----------------->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+	 crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" data-integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+	 crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" data-integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em"
+	 crossorigin="anonymous"></script>
+
+	<!-- Optional JavaScript -->
+	<!-- Mesmo esquema do link css -->
+	<script src="../../static/js/main.js" th:src="@{/js/main.js}"></script>
+	<script src="../../static/js/busca-endereco.js" th:src="@{/js/busca-endereco.js}"></script>
+</body>
+</html>
