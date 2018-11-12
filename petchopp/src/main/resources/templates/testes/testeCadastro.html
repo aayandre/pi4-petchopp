@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+    <th:block th:insert="padrao/general.html :: headfiles"></th:block>
+    <title>Pagina de testes de cadastros</title>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <div th:replace="padrao/general.html :: navbarfiles"></div>
+
+    <!-- Page Content -->
+    <div class="container nav-margin">
+
+        <div class="row">
+
+            <div class="col-6">
+                <h2>Produto</h2>
+                <form th:action="@{/testes/addprodutoteste}" method="POST" th:object="${produto}" enctype="multipart/form-data">
+
+                    <div th:if="${message != null}">
+                        <p th:text="${message}"></p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Imagem do produto:</label>
+                        <input type="file" name="arquivo" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Codigo</label>
+                        <input type="text" th:field="*{Codigo}">
+                    </div>
+                    <div class="form-group">
+                        <label>Nome:</label>
+                        <input type="text" th:field="*{Nome}">
+                    </div>
+                    <div class="form-group">
+                        <label>Preço:</label>
+                        <input type="number" step="0.01" min="0" th:field="*{Preco}">
+                    </div>
+                    <div class="form-group">
+                        <label>Custo:</label>
+                        <input type="number" step="0.01" min="0" th:field="*{Custo}">
+                    </div>
+                    <div class="form-group">
+                        <label>Descrição:</label>
+                        <textarea cols="30" rows="10" th:field="*{Descricao}"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Data Compra:</label>
+                        <input type="date" th:field="*{dtCompra}">
+                    </div>
+                    <div class="form-group">
+                        <label>Validade:</label>
+                        <input type="date" th:field="*{dtValidade}">
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" value="1" th:field="*{EmEstoque}"
+                                    checked>
+                                Disponível
+                            </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" value="0" th:field="*{EmEstoque}">
+                                Indisponível
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" value="1" th:field="*{Disable}" checked>
+                                Ativado
+                            </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" value="0" th:field="*{Disable}">
+                                Desativado
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+
+                </form>
+            </div>
+
+
+            <div class="col-6">
+                <h2>Cliente</h2>
+                <form th:action="@{/testes/addclienteteste}" method="POST" th:object="${cliente}">
+
+                    <div th:if="${message != null}">
+                        <p th:text="${message}"></p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Nome:</label>
+                        <input type="text" class="form-control" th:field="*{nome}" aria-describedby="Nome">
+                    </div>
+                    <div class="form-group">
+                        <label>Data de nascimento:</label>
+                        <input type="date" class="form-control" th:field="*{dtNasc}" aria-describedby="Data de nascimento">
+                    </div>
+                    <div class="form-group">
+                        <label>RG:</label>
+                        <input type="text" class="form-control" th:field="*{rg}" aria-describedby="RG">
+                    </div>
+                    <div class="form-group">
+                        <label>CPF:</label>
+                        <input type="text" class="form-control" th:field="*{cpf}" aria-describedby="CPF">
+                    </div>
+                    <div class="form-group">
+                        <label>E-mail:</label>
+                        <input type="email" class="form-control" th:field="*{email}" aria-describedby="Email">
+                    </div>
+                    <div class="form-group">
+                        <label>Senha:</label>
+                        <input type="password" class="form-control" th:field="*{senha}" aria-describedby="Senha">
+                    </div>
+
+                    <div th:object="${endereco}">
+                        <!-- Endereço -->
+                        <div class="form-group">
+                            <label>CEP:</label>
+                            <input type="text" class="form-control" th:field="*{cep}" placeholder="CEP"
+                                aria-describedby="CEP">
+                        </div>
+                        <div class="form-group">
+                            <label>Logradouro:</label>
+                            <input type="text" class="form-control" th:field="*{logradouro}" placeholder="Rua/Avenida lalalal lalalalla"
+                                aria-describedby="Logradouro">
+                        </div>
+                        <div class="form-group">
+                            <label>Bairro:</label>
+                            <input type="text" class="form-control" th:field="*{bairro}" placeholder="Bairro"
+                                aria-describedby="Bairro">
+                        </div>
+                        <div class="form-group">
+                            <label>Cidade:</label>
+                            <input type="text" class="form-control" th:field="*{cidade}" placeholder="Cidade"
+                                aria-describedby="Cidade">
+                        </div>
+                        <div class="form-group">
+                            <label>UF:</label>
+                            <input type="text" class="form-control" th:field="*{uf}" placeholder="UF" aria-describedby="UF">
+                        </div>
+
+                    </div>
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </form>
+            </div>
+
+        </div>
+
+
+    </div>
+    <!-- /.container nav-margin -->
+    <!-- /Page Content -->
+
+
+    <!-- Footer -->
+    <div th:replace="padrao/general.html :: footerfiles"></div>
+
+</body>
+
+
+</html>

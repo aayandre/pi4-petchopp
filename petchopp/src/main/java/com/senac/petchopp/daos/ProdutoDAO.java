@@ -3,19 +3,24 @@ package com.senac.petchopp.daos;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.senac.petchopp.connection.ConnectionFactory;
 import com.senac.petchopp.interfaces.IDAO;
-import com.senac.petchopp.model.Auxiliares;
 import com.senac.petchopp.model.produto.Produto;
 
 public class ProdutoDAO implements IDAO {
 
 	static Connection cn = null;
 
+	public ProdutoDAO() {
+	}
+
 	@Override
-	public void salvar(Object bean) {
+	public void salvar(Object bean) throws SQLException {
 
 		String sql = "INSERT INTO Produto (Codigo, Nome, Preco, Custo, Descricao, dtCompra, dtValidade, urlImagem, emEstoque, Disable) "
 				+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -36,11 +41,53 @@ public class ProdutoDAO implements IDAO {
 			stmt.setDouble(3, novo.getPreco());
 			stmt.setDouble(4, novo.getCusto());
 			stmt.setString(5, novo.getDescricao());
-			stmt.setDate(6, new java.sql.Date(Auxiliares.UtilDateToCalendar(novo.getDtCompra()).getTimeInMillis()));
-			stmt.setDate(7, new java.sql.Date(Auxiliares.UtilDateToCalendar(novo.getDtValidade()).getTimeInMillis()));
+			stmt.setTimestamp(6, (Timestamp) novo.getDtCompra());
+			stmt.setTimestamp(7, (Timestamp) novo.getDtValidade());
 			stmt.setString(8, novo.getUrlImagem());
 			stmt.setBoolean(9, novo.isEmEstoque());
 			stmt.setBoolean(10, novo.isDisable());
+
+			stmt.execute();
+
+		} catch (SQLException e) {
+			throw new SQLException("Erro ao salvar o objeto no banco.", e);
+		} finally {
+			ConnectionFactory.closeConnection(cn, stmt);
+		}
+
+	}
+
+	@Override
+	public void atualizar(Object bean) {
+		@SuppressWarnings("unused")
+		String sql = "UPDATE Produto SET (Nome, Preco, Custo, dtCompra, dtValidade, urlImagem, emEstoque, Disable) "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?) WHERE Codigo = ?";
+
+		String sql2 = "UPDATE Produto "
+				+ "SET Nome = ?, Preco = ?, Custo = ?, dtCompra = ?, dtValidade = ?, urlImagem = ?, emEstoque = ?, Disable = ? "
+				+ "WHERE Codigo = ?";
+
+		PreparedStatement stmt = null;
+		cn = ConnectionFactory.getConnection();
+
+		Produto alterado = (Produto) bean;
+
+		try {
+
+			stmt = cn.prepareStatement(sql2);
+
+			// SET
+			stmt.setString(1, alterado.getNome());
+			stmt.setDouble(2, alterado.getPreco());
+			stmt.setDouble(3, alterado.getCusto());
+			stmt.setTimestamp(4, (Timestamp) alterado.getDtCompra());
+			stmt.setTimestamp(5, (Timestamp) alterado.getDtValidade());
+			stmt.setString(6, alterado.getUrlImagem());
+			stmt.setBoolean(7, alterado.isEmEstoque());
+			stmt.setBoolean(8, alterado.isDisable());
+
+			// WHERE
+			stmt.setString(9, alterado.getCodigo());
 
 			stmt.execute();
 
@@ -53,19 +100,24 @@ public class ProdutoDAO implements IDAO {
 	}
 
 	@Override
-	public void atualizar(Object bean) {
-		// TODO Auto-generated method stub
+	public void deletar(Long id) {
+		String sql = "UPDATE Produto SET Disable = true WHERE idProduto = ?";
+		PreparedStatement stmt = null;
+		cn = ConnectionFactory.getConnection();
 
+		try {
+			stmt = cn.prepareStatement(sql);
+			stmt.setLong(1, id);
+			stmt.execute();
+		} catch (Exception e) {
+			// TODO: handle exception
+		} finally {
+
+		}
 	}
 
 	@Override
-	public void deletar(long id) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public Object getById(long id) {
+	public Object getById(Long id) throws SQLException {
 
 		String sql = "SELECT * FROM Produto WHERE idProduto = ? LIMIT 1";
 		cn = ConnectionFactory.getConnection();
@@ -81,12 +133,12 @@ public class ProdutoDAO implements IDAO {
 				produto = new Produto(rs);
 			}
 			return produto;
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			// TODO: handle exception
 		} finally {
 			ConnectionFactory.closeConnection(cn, stmt, rs);
 		}
-		return null;
+		return produto;
 	}
 
 	@Override
@@ -117,6 +169,124 @@ public class ProdutoDAO implements IDAO {
 			ConnectionFactory.closeConnection(cn, stmt, rs);
 		}
 		return produto;
+	}
+
+	public ArrayList<Produto> getByNome(String nome) throws SQLException {
+
+		String sql = "SELECT * FROM Produto WHERE Nome LIKE ?";
+		cn = ConnectionFactory.getConnection();
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		ArrayList<Produto> resultados = new ArrayList<>();
+
+		try {
+			stmt = cn.prepareStatement(sql);
+			stmt.setString(1, nome);
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				resultados.add(new Produto(rs));
+			}
+			return resultados;
+		} catch (SQLException e) {
+			// TODO: handle exception
+			throw new SQLException("Erro ao adquirir lista de produtos do banco.", e.getCause());
+		} finally {
+			ConnectionFactory.closeConnection(cn, stmt, rs);
+		}
+	}
+
+	public void deletar(String codigo) {
+		String sql = "UPDATE Produto SET Disable = true WHERE Codigo = ?";
+		PreparedStatement stmt = null;
+		cn = ConnectionFactory.getConnection();
+
+		try {
+			stmt = cn.prepareStatement(sql);
+			stmt.setString(1, codigo);
+			stmt.execute();
+		} catch (Exception e) {
+			// TODO: handle exception
+		} finally {
+			ConnectionFactory.closeConnection(cn, stmt);
+		}
+	}
+
+	public ArrayList<Produto> searchByNome(String nome) {
+		String sql = "SELECT * FROM Produto WHERE Nome LIKE ? LIMIT 12";
+		PreparedStatement stmt = null;
+		cn = ConnectionFactory.getConnection();
+		ArrayList<Produto> encontrados = new ArrayList<>();
+		ResultSet rs = null;
+
+		try {
+			stmt = cn.prepareStatement(sql);
+			stmt.setString(1, nome);
+			rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				if (new Produto(rs) != null) {
+					encontrados.add(new Produto(rs));
+				}
+			}
+			return encontrados;
+		} catch (Exception e) {
+			// TODO: handle exception
+		} finally {
+			ConnectionFactory.closeConnection(cn, stmt, rs);
+		}
+		return encontrados;
+	}
+
+	// Criar uma query que traga todos os produtos
+	// mais vendidos de tal categoria ou algo do tipo
+	// em paginacao ou com um limite fixo e um link
+	// para a pagina de pesquisa com os mesmo
+	public ArrayList<Produto> lista1() {
+		String sql = "SELECT * FROM Produto LIMIT 5";
+		PreparedStatement stmt = null;
+		cn = ConnectionFactory.getConnection();
+		ArrayList<Produto> pegos = new ArrayList<>();
+		ResultSet rs = null;
+		try {
+			stmt = cn.prepareStatement(sql);
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				if (new Produto(rs) != null) {
+					pegos.add(new Produto(rs));
+				}
+			}
+			return pegos;
+		} catch (Exception e) {
+			// TODO: handle exception
+		} finally {
+			ConnectionFactory.closeConnection(cn, stmt, rs);
+		}
+		return null;
+	}
+
+	public ArrayList<Produto> testeCarrinho(int quantidade) {
+		String sql = "SELECT * FROM Produto LIMIT ?";
+		PreparedStatement stmt = null;
+		cn = ConnectionFactory.getConnection();
+		ArrayList<Produto> pegos = new ArrayList<>();
+		ResultSet rs = null;
+
+		try {
+			stmt = cn.prepareStatement(sql);
+			stmt.setInt(1, quantidade);
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				if (new Produto(rs) != null) {
+					pegos.add(new Produto(rs));
+				}
+			}
+			return pegos;
+		} catch (Exception e) {
+			// TODO: handle exception
+		} finally {
+			ConnectionFactory.closeConnection(cn, stmt, rs);
+		}
+		return null;
 	}
 
 }

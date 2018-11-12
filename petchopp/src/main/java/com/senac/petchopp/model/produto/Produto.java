@@ -4,11 +4,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 
-import com.senac.petchopp.model.Auxiliares;
-
 public class Produto {
 
-	private long idProduto;
+	private Long idProduto;
 	private String Codigo;
 	private String Nome;
 	private double Preco;
@@ -20,13 +18,15 @@ public class Produto {
 	private boolean EmEstoque;
 	private boolean Disable;
 
+	private Integer quantidade;
+
 	public Produto() {
 	};
 
-	//Construtor que preenche o produto para fins de teste
+	// Construtor que preenche o produto para fins de teste
 	public Produto(boolean preencher) {
 		if (preencher) {
-			this.idProduto = 999;
+			this.idProduto = Long.valueOf(999);
 			this.Codigo = "produtoCriadoPorTeste";
 			this.Nome = "Produto Teste";
 			this.Preco = 399.99;
@@ -42,8 +42,8 @@ public class Produto {
 		}
 	}
 
-	public Produto(long idProduto, String codigo, String nome, double preco, double custo, String descricao, Date dtCompra,
-			Date dtValidade, String urlImagem, boolean emEstoque, boolean disable) {
+	public Produto(Long idProduto, String codigo, String nome, double preco, double custo, String descricao,
+			Date dtCompra, Date dtValidade, String urlImagem, boolean emEstoque, boolean disable) {
 		super();
 		this.idProduto = idProduto;
 		Codigo = codigo;
@@ -60,24 +60,24 @@ public class Produto {
 
 	public Produto(ResultSet rs) throws SQLException {
 		super();
-		this.idProduto = rs.getLong(1);
-		Codigo = rs.getString(2);
-		Nome = rs.getString(3);
-		Preco = rs.getDouble(4);
-		Custo = rs.getDouble(5);
-		Descricao = rs.getString(6);
-		this.dtCompra = Auxiliares.SqlDateToUtilDate(rs.getDate(7));
-		this.dtValidade = Auxiliares.SqlDateToUtilDate(rs.getDate(8));
-		this.urlImagem = rs.getString(9);
-		EmEstoque = rs.getBoolean(10);
-		Disable = rs.getBoolean(11);
+		this.idProduto = rs.getLong("idProduto");
+		Codigo = rs.getString("Codigo");
+		Nome = rs.getString("Nome");
+		Preco = rs.getDouble("Preco");
+		Custo = rs.getDouble("Custo");
+		Descricao = rs.getString("Descricao");
+		this.dtCompra = rs.getTimestamp("dtCompra");
+		this.dtValidade = rs.getTimestamp("dtValidade");
+		this.urlImagem = rs.getString("urlImagem");
+		EmEstoque = rs.getBoolean("emEstoque");
+		Disable = rs.getBoolean("Disable");
 	}
 
-	public long getIdProduto() {
+	public Long getIdProduto() {
 		return idProduto;
 	}
 
-	public void setIdProduto(long idProduto) {
+	public void setIdProduto(Long idProduto) {
 		this.idProduto = idProduto;
 	}
 
@@ -112,11 +112,11 @@ public class Produto {
 	public void setCusto(double custo) {
 		Custo = custo;
 	}
-	
+
 	public void setDescricao(String descricao) {
 		Descricao = descricao;
 	}
-	
+
 	public String getDescricao() {
 		return Descricao;
 	}
@@ -145,6 +145,10 @@ public class Produto {
 		this.urlImagem = urlImagem;
 	}
 
+	public void setUrlImagemPath(String fileName) {
+		this.urlImagem = fileName;
+	}
+
 	public boolean isEmEstoque() {
 		return EmEstoque;
 	}
@@ -159,6 +163,14 @@ public class Produto {
 
 	public void setDisable(boolean disable) {
 		Disable = disable;
+	}
+
+	public Integer getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(Integer quantidade) {
+		this.quantidade = quantidade;
 	}
 
 }
