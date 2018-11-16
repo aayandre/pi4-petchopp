@@ -14,8 +14,8 @@ import java.util.List;
 
 import com.senac.petchopp.connection.ConnectionFactory;
 import com.senac.petchopp.interfaces.IDAO;
-import com.senac.petchopp.model.Auxiliares;
 import com.senac.petchopp.model.cliente.Cliente;
+import com.senac.petchopp.model.cliente.Endereco;
 
 /**
  *
@@ -30,38 +30,40 @@ public class ClienteDAO implements IDAO{
 		PreparedStatement stmt = null;
 		Cliente novo = (Cliente) bean;
 		String sql = "INSERT INTO Cliente\r\n" + 
-				"(idCliente, dtCadastro, Nome, dtNasc, RG, CPF, Email, Senha, Telefone1, Telefone2, Ativo)\r\n" + 
-				"VALUES(?,?,?,?,?,?,?,?,?)";
+				"(dtCadastro, Nome, dtNasc, RG, CPF, Email, Senha, Telefone1, Telefone2, Ativo)\r\n" + 
+				"VALUES(?,?,?,?,?,?,?,?,?,?)";
 		cn = ConnectionFactory.getConnection();
 		System.out.println("teste cliente");
 		try {
-//			cn.setAutoCommit(false);
 			stmt = cn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			stmt.setLong(1, novo.getIdCliente());
-			stmt.setDate(2, new java.sql.Date(Auxiliares.UtilDateToCalendar(novo.getDtCadastro()).getTimeInMillis()));
-			stmt.setString(3, novo.getNome());
-			stmt.setDate(4, new java.sql.Date(Auxiliares.UtilDateToCalendar(novo.getDtNasc()).getTimeInMillis()));
-			stmt.setString(5, novo.getRg());
-			stmt.setString(6, novo.getCpf());
-			stmt.setString(7, novo.getEmail());
-			stmt.setString(8, novo.getSenha());
-			stmt.setNString(9, novo.getTelefone1());
-			stmt.setNString(10, novo.getTelefone2());
-			stmt.setBoolean(11, novo.isAtivo());
+			stmt.setDate(1, java.sql.Date.valueOf(novo.getDtCadastro().toLocalDate()));
+			stmt.setString(2, novo.getNome());
+			stmt.setDate(3, java.sql.Date.valueOf((novo.getDtNasc())));
+			stmt.setString(4, novo.getRg());
+			stmt.setString(5, novo.getCpf());
+			stmt.setString(6, novo.getEmail());
+			stmt.setString(7, novo.getSenha());
+			stmt.setNString(8, novo.getTelefone1());
+			stmt.setNString(9, novo.getTelefone2());
+			stmt.setBoolean(10, novo.isAtivo());
 			stmt.execute();
-			System.out.println("teste cliente 2");
+			
 			ResultSet rs = stmt.getGeneratedKeys();
+			List<Endereco> ends = novo.getEnderecos();
 			if(rs.next()) {
 				novo.setIdCliente(rs.getLong(1));
-				System.out.println(rs.getLong(1));
-//				cn.commit();
-//				EnderecoDAO ed = new EnderecoDAO();
-//				ed.salvarEndereco(novo.getEnderecos(), novo.getIdCliente());
-//				if(this.statusCommit) {
-//					
-//				}
+				
+				EnderecoDAO ed = new EnderecoDAO();
+				try {
+					ed.salvarEndereco(ends, novo.getIdCliente());
+					for (Endereco end :ends) {
+						System.out.println(end.getCep());
+					}
+				
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 //			cn.rollback();
@@ -84,9 +86,9 @@ public class ClienteDAO implements IDAO{
 			cn.setAutoCommit(false);
 			stmt = cn.prepareStatement(sql);
 			stmt.setLong(1, novo.getIdCliente());
-			stmt.setDate(2, new java.sql.Date(Auxiliares.UtilDateToCalendar(novo.getDtCadastro()).getTimeInMillis()));
+			stmt.setDate(2, java.sql.Date.valueOf(novo.getDtCadastro().toLocalDate()));
 			stmt.setString(3, novo.getNome());
-			stmt.setDate(4, new java.sql.Date(Auxiliares.UtilDateToCalendar(novo.getDtNasc()).getTimeInMillis()));
+			stmt.setDate(4, java.sql.Date.valueOf((novo.getDtNasc())));
 			stmt.setString(5, novo.getRg());
 			stmt.setString(6, novo.getCpf());
 			stmt.setString(7, novo.getEmail());

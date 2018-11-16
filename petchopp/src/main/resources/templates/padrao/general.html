@@ -17,7 +17,7 @@
 
 <div th:fragment="navbarfiles">
    <!-- Navigation -->
-   <nav class="navbar navbar-expand-lg navbar-light bg-green fixed-top">
+   <nav class="navbar navbar-expand-lg navbar-light bg-color fixed-top">
       <div class="container">
          <a class="navbar-brand" href="index.html" th:href="@{/}">PetChopp</a>
          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,19 +42,116 @@
 
 <div th:fragment="footerfiles">
    <!-- Footer -->
-   <footer class="py-5 bg-dark mt-3">
+   <footer class="py-4 bg-white footer-font-size footer-info">
       <div class="container">
-         <p class="m-0 text-center text-white">Copyright &copy; Your Website 2018</p>
+         <div class="row footer-top-display">
+            <div class="col-md-6 ">
+               <p class="font-weight-bold">MAIS BUSCADOS</p>
+               <div class="row">
+                  <div class="col-md-3">
+                     <ul class="footer-ul">
+                        <li>Mais buscados 1</li>
+                        <li>Mais buscados 2</li>
+                        <li>Mais buscados 3</li>
+                        <li>Mais buscados 4</li>
+                        <li>Mais buscados 5</li>
+                     </ul>
+                  </div>
+
+                  <div class="col-md-3">
+                     <ul class="footer-ul">
+                        <li>Mais buscados 6</li>
+                        <li>Mais buscados 7</li>
+                        <li>Mais buscados 8</li>
+                        <li>Mais buscados 9</li>
+                        <li>Mais buscados 10</li>
+                     </ul>
+                  </div>
+
+                  <div class="col-md-3">
+                     <ul class="footer-ul">
+                        <li>Mais buscados 11</li>
+                        <li>Mais buscados 12</li>
+                        <li>Mais buscados 13</li>
+                        <li>Mais buscados 14</li>
+                        <li>Mais buscados 15</li>
+                     </ul>
+                  </div>
+
+                  <div class="col-md-3">
+                     <ul class="footer-ul">
+                        <li>Mais buscados 16</li>
+                        <li>Mais buscados 17</li>
+                        <li>Mais buscados 18</li>
+                        <li>Mais buscados 19</li>
+                        <li>Mais buscados 20</li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <div class="col-md-6">
+               <p class="font-weight-bold">TOP CATEGORIAS</p>
+               <div class="row">
+                  <div class="col-md-4">
+                     <ul class="footer-ul">
+                        <li>top categorias 1</li>
+                        <li>top categorias 2</li>
+                        <li>top categorias 3</li>
+                        <li>top categorias 4</li>
+                        <li>top categorias 5</li>
+                     </ul>
+                  </div>
+
+                  <div class="col-md-4">
+                     <ul class="footer-ul">
+                        <li>top categorias 6</li>
+                        <li>top categorias 7</li>
+                        <li>top categorias 8</li>
+                        <li>top categorias 9</li>
+                        <li>top categorias 10</li>
+                     </ul>
+                  </div>
+
+                  <div class="col-md-4">
+                     <ul class="footer-ul">
+                        <li>top categorias 11</li>
+                        <li>top categorias 12</li>
+                        <li>top categorias 13</li>
+                        <li>top categorias 14</li>
+                        <li>top categorias 15</li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+         <p class="font-weight-bold">FORMAS DE PAGAMENTO</p>
+         <div class="row">
+            <div style="margin-left: 3px;" class="col-md-6">
+               <i class="fab fa-cc-visa fa-3x"></i>
+               <i class="fab fa-cc-mastercard fa-3x"></i>
+               <i class="fab fa-cc-paypal fa-3x"></i>
+            </div>
+
+         </div>
+      </div>
+   </footer>
+
+   <footer class="py-2 bg-dark footer-font-size">
+      <div class="container">
+         <p class="m-0 text-center text-white">&copy; PetChopp 2018 . Todos os direitos reservados.</p>
+         <p class="m-0 text-center text-white">PETSHOPP COMÉRCIO E PARTICIPAÇÕES S/A - CNPJ:
+            03.321.742/0001-07 - Rua Atílio Delamuta, 546, Jardim Itaiçaba (Ártemis), Jardim Itaiçaba (Ártemis),
+            CEP: 13432-136, Piracicaba, SP, Brasil</p>
+         <!-- <p class="m-0 text-center text-white">Copyright &copy; Your Website 2018</p> -->
       </div>
       <!-- /.container -->
    </footer>
-
-
+   <!-- Optional JavaScript -->
    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-   <script src="https://code.jquery.com/jquery-3.3.1.min.js" data-integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" data-integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" data-integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
-
+   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
    <!-- Optional JavaScript -->
    <!-- Mesmo esquema do link css -->
    <script src="../static/js/main.js" th:src="@{/js/main.js}"></script>

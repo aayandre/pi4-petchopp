@@ -1,0 +1,98 @@
+
+#timeline-wrap{
+    margin:150px 20%;
+    top:100;
+    position:relative;
+   
+  }
+  
+  #timeline{
+    /* float:left; */
+    padding:0;
+    height:1px;
+     width:auto;
+    background-color:#aabbc4;
+    position:relative;
+   
+  }
+  #timeline-next{
+    z-index:1;
+    float:right;
+    padding:0;
+    margin-right:-50px;
+    height:1px;
+     width:5%;
+    border-top:dashed 1px #aabbc4;
+    
+    position:relative;
+   
+  }
+   .marker{
+     z-index:1000;
+     border:1px solid #347699;
+     width:25px;
+     height:25px;
+     position: absolute;
+     border-radius:25px;
+     background-color:slategrey;
+     
+     -webkit-transition: all 300ms ease;
+  -moz-transition: all 300ms ease;
+  -ms-transition: all 300ms ease;
+  -o-transition: all 300ms ease;
+  transition: all 300ms ease;
+   }
+   .marker:hover{
+    cursor:pointer;
+     -moz-transform: scale(1.2);
+  -webkit-transform: scale(1.2);
+  -o-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  transform: scale(1.2);
+     
+     -webkit-transition: all 300ms ease;
+  -moz-transition: all 300ms ease;
+  -ms-transition: all 300ms ease;
+  -o-transition: all 300ms ease;
+  transition: all 300ms ease;
+   }
+  
+  .mfirst{
+       top:-13px;
+  }
+  
+  .m2{
+       top:-13px;
+        left:20%;
+  }
+  
+  .m3{
+       top:-13px;
+        left:40%;
+  }
+  
+  .m4{
+       top:-13px;
+      left:60%;
+  }
+  .m5{
+       top:-13px;
+      left:80%;
+  }
+  
+  .mlast{ 
+      /* border:1px dashed #aabbc4;  */
+       top:-13px;
+      left:100%;
+  }
+  
+  
+  /* .inner-marker{opacity:0;
+    z-index:0;
+     width:25px;
+     height:25px;
+     border-radius:25px;
+      position: absolute;
+  
+  
+  } */

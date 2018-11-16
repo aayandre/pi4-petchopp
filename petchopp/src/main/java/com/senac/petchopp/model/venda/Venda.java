@@ -48,6 +48,18 @@ public class Venda {
         this.dataView = LocalDateTime.ofInstant(Instant.ofEpochMilli(rs.getTimestamp("data").getTime()),
                 ZoneId.systemDefault());
     }
+	
+
+	public Carrinho getCarrrinho() {
+		return carrrinho;
+	}
+
+	public void setCarrrinho(Carrinho carrrinho) {
+		this.carrrinho = carrrinho;
+	}
+
+	
+
 
     public Long getIdVenda() {
         return idVenda;

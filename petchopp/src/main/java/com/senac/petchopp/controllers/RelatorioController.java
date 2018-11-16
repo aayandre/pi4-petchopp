@@ -16,18 +16,18 @@ public class RelatorioController {
 	private VendaDAO vendaDAO = new VendaDAO();
 	
 	
-	@RequestMapping("vendas")
-	public ModelAndView relVendas() {
-		
-		ArrayList<Venda> vendas = vendaDAO.getVendas();
-		ModelAndView modelAndView = new ModelAndView("relatorio/vendas");
-		for (Venda venda : vendas) {
-			venda.setHoraRelatorio(venda.getDataView());
-			venda.setDtRelatorio(venda.getDataView());
-			System.out.println(venda.getDtRelatorio() + " - " + venda.getHoraRelatorio());
-		}
-		modelAndView.addObject("vendas", vendas);
-		return modelAndView;
-	}
+//	@RequestMapping("vendas")
+//	public ModelAndView relVendas() {
+//		
+//		ArrayList<Venda> vendas = vendaDAO.getVendas();
+//		ModelAndView modelAndView = new ModelAndView("relatorio/vendas");
+//		for (Venda venda : vendas) {
+//			venda.setHoraRelatorio(venda.getDataView());
+//			venda.setDtRelatorio(venda.getDataView());
+//			System.out.println(venda.getDtRelatorio() + " - " + venda.getHoraRelatorio());
+//		}
+//		modelAndView.addObject("vendas", vendas);
+//		return modelAndView;
+//	}
 	
 }

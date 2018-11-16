@@ -15,13 +15,13 @@ import com.senac.petchopp.model.venda.Venda;
 
 public class VendaDAO implements IDAO {
 
-    private static Connection cn = null;
+	private static Connection cn = null;
 
-    @Override
-    public void salvar(Object bean) throws SQLException {
-        String sql = "INSERT INTO Venda (idCliente, idFretes, Protocolo, Data, ValorTotal) " + "VALUES(?, ?, ?, ?, ?)";
+	@Override
+	public void salvar(Object bean) throws SQLException {
+		String sql = "INSERT INTO Venda (idCliente, idFretes, Protocolo, Data, ValorTotal) " + "VALUES(?, ?, ?, ?, ?)";
 
-        PreparedStatement stmt = null;
+		PreparedStatement stmt = null;
 
 		cn = ConnectionFactory.getConnection();
 
