@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +34,8 @@ public class VendaDAO implements IDAO {
 			stmt.setLong(1, venda.getIdCliente());
 			stmt.setLong(2, venda.getIdFretes());
 			stmt.setString(3, venda.getProtocolo());
-			stmt.setDate(4, java.sql.Date.valueOf(venda.getData()));
+			stmt.setDate(4, new java.sql.Date(venda.getDataView().atZone(ZoneId.systemDefault()).toInstant()
+			        .toEpochMilli()));
 			stmt.setDouble(5, venda.getValorTotal());
 
 			stmt.execute();
@@ -104,7 +106,7 @@ public class VendaDAO implements IDAO {
 
 		try {
 
-			for (Produto produto : venda.getCarrrinho().getProdutos()) {
+			for (Produto produto : venda.getCarrinho().getProdutos()) {
 				stmt = cn.prepareStatement(sql);
 
 				stmt.setLong(1, venda.getIdVenda());
@@ -147,4 +149,53 @@ public class VendaDAO implements IDAO {
 		return encontrados;
 	}
 
+    public ArrayList<Produto> getItensVendaByVenda(int idVenda) {
+        String sql = "SELECT * FROM itemVenda WHERE idVenda = ?";
+        PreparedStatement stmt = null;
+        cn = ConnectionFactory.getConnection();
+        ArrayList<Produto> produtos = new ArrayList<>();
+        ResultSet rs = null;
+
+        try {
+            stmt = cn.prepareStatement(sql);
+            stmt.setInt(0, idVenda);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                ProdutoDAO prodDAO = new ProdutoDAO();
+                produtos.add((Produto) prodDAO.getById(rs.getLong("idProduto")));
+            }
+           
+        } catch (Exception e) {
+            // TODO: handle exception
+        } finally {
+            ConnectionFactory.closeConnection(cn, stmt, rs);
+        }
+        return produtos;
+    }
+
+    public Venda getVendasByCliente(int idCliente) throws SQLException {
+        String sql = "SELECT * FROM Venda WHERE idCliente = ?";
+        PreparedStatement stmt = null;
+        cn = ConnectionFactory.getConnection();
+        Venda venda = new Venda();
+        ResultSet rs = null;
+
+        try {
+            stmt = cn.prepareStatement(sql);
+            stmt.setInt(0, idCliente);
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                venda = new Venda(rs);
+                venda.setCarrinho(getItensVendaByVenda(Integer.parseInt(venda.getIdVenda().toString())), venda.getValorTotal());
+            }
+        } catch (Exception e) {
+
+        } finally {
+            ConnectionFactory.closeConnection(cn, stmt, rs);
+        }
+        return venda;
+    }
+    
 }

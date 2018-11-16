@@ -2,6 +2,10 @@
     padding: 60px;
 }
 
+p{
+    margin-bottom: 10px !important;
+}
+
 .orderlist-ico-line{
     margin-bottom: 10px;
 }
@@ -32,6 +36,23 @@
 
 .orderlist-itens{
     padding: 25px 10px;
+    border: 1px solid #d1d3d6;
+}
+
+.orderlist-row-item{
+    padding-bottom: 15px;
+    border-bottom: 1px solid #d1d3d6;
+}
+
+.orderlist-row-resumo{
+    border: 1px solid #d1d3d6;
+}
+
+.display-none{
+    display: none !important;
+}
+
+.orderList-detail-item{
     border: 1px solid #d1d3d6;
 }
 

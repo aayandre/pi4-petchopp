@@ -33,7 +33,7 @@ public class MainController {
 
 	@RequestMapping("login")
 	public String loginPage() {
-		return "login";
+		return "cli/login";
 	}
 
 	@ModelAttribute("cliente")
