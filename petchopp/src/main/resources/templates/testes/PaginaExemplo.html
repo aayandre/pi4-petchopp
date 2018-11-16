@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+   <!-- Required meta tags -->
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+   <title th:text="${titulo}">TITULO</title>
+
+   <!-- No href coloque o caminho normal do arquivo
+    E no th:href o @{}, acredito que signifique o ../static -->
+   <link rel="stylesheet" href="../../static/css/main.css" th:href="@{/css/main.css}">
+   <link rel="stylesheet" href="../../static/css/search.css" th:href="@{/css/search.css}">
+
+   <!-- Bootstrap CSS -->
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" data-integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+
+   <!-- Font Awesome -->
+   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" data-integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+</head>
+
+<body>
+
+   <!-- Navigation -->
+   <nav class="navbar navbar-expand-lg navbar-light bg-color fixed-top">
+      <div class="container">
+         <a class="navbar-brand" href="index.html" th:href="@{/}">PetChopp</a>
+         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+         </button>
+         <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+               <li class="nav-item">
+                  <a class="nav-link" href="search.html" th:href="@{/search}">Search</a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link" href="cart.html" th:href="@{/cart}">Carrinho</a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link" href="cart.html" th:href="@{/cart}">Cadastro</a>
+               </li>
+            </ul>
+         </div>
+      </div>
+   </nav>
+
+   <!-- Page Content -->
+   <section class="container-fluid nav-margin">
+      <div class="row text-center">
+         <!-- <div class="wrapper"> -->
+
+         <!-- Filtros Sidebar -->
+         <nav id="sidebar" class="col-12 col-md-3">
+
+            <ul class="list-unstyled components">
+               <a href="#homeSubmenu">
+                  <p>Categorias</p>
+               </a>
+               <li class="active">
+                  <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                     Título do dropdown
+                  </a>
+                  <ul class="collapse list-unstyled" id="homeSubmenu">
+
+                     <li>
+                        <label class="form-check"> <input class="form-check-input" type="radio" name="exampleRadio" value="">
+                           <span class="form-check-label">Nome do filtro 1</span>
+                        </label>
+                     </li>
+
+                     <li>
+                        <label class="form-check"> <input class="form-check-input" type="radio" name="exampleRadio" value="">
+                           <span class="form-check-label">Nome do filtro 2</span>
+                        </label>
+                     </li>
+
+                     <li>
+                        <label class="form-check"> <input class="form-check-input" type="radio" name="exampleRadio" value="">
+                           <span class="form-check-label">Nome do filtro 3</span>
+                        </label>
+                     </li>
+
+                  </ul>
+               </li>
+            </ul>
+
+         </nav>
+
+         <!-- Procura e resultados -->
+         <article class="container col-12 col-md-9" id="content">
+
+            <div class="row">
+
+               <!-- Procura -->
+               <div class="col-md-12 col-md-8 col-md-6 col-md-4 col-xs-4 d-flex">
+                  <button type="button" id="sidebarCollapse" class="btn btn-primary btn-info btn-sm teste" value="Filtros">
+                     <i class="fas fa-filter"></i>
+                     Filtros
+                  </button>
+
+                  <section style="width: 100%">
+                     <form action="#" method="get" class="float-right" style="width: 100%">
+                        <div class="form-group">
+                           <div class="input-group mb-2">
+                              <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"
+                                 placeholder="Procure seu produto">
+                              <div class="input-group-append">
+                                 <button>
+                                    <span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-search"></i></span>
+                                 </button>
+                              </div>
+                           </div>
+                        </div>
+                     </form>
+                  </section>
+               </div>
+
+               <div class="container">
+
+                  <!-- Resultados da pesquisa -->
+                  <div class="row">
+
+                     <div class="col-lg-3" id="edit-card">
+                        <div class="col-item card-color">
+                           <div class="info">
+                              <div class="row">
+                                 <div class="price col-md-6">
+                                    <h5>Ração</h5>
+                                    <h5 class="price-text-color">R$ 95,39</h5>
+                                 </div>
+                              </div>
+                           </div>
+
+                           <div class="photo">
+                              <img src="http://placehold.it/500x325" class="img-fluid" alt="Imagem do produto procurado" />
+                           </div>
+                           <div class="info">
+                              <div class="separator clear-left">
+                                 <p class="btn-add">
+                                    <i class="fa fa-shopping-cart"></i>
+                                    <a href="#" class="hidden-sm">Adicionar ao Carrinho</a>
+                                 </p>
+                                 <p class="btn-details">
+                                    <i class="fa fa-list"></i>
+                                    <a href="#" class="hidden-sm">Mais detalhes</a>
+                                 </p>
+                              </div>
+                              <div class="clearfix">
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+
+                  </div>
+               </div>
+            </div>
+         </article>
+         <!-- /Procura e resultados -->
+
+         <!-- </div> -->
+      </div>
+   </section>
+   <!-- /.container nav-margin -->
+   <!-- /Page Content -->
+
+
+   <!-- Footer -->
+   <footer class="py-4 mt-2 bg-white footer-font-size footer-info">
+      <div class="container">
+         <div class="row footer-top-display">
+            <div class="col-md-6 ">
+               <p class="font-weight-bold">MAIS BUSCADOS</p>
+               <div class="row">
+                  <div class="col-md-3">
+                     <ul class="footer-ul">
+                        <li>Mais buscados 1</li>
+                        <li>Mais buscados 2</li>
+                        <li>Mais buscados 3</li>
+                        <li>Mais buscados 4</li>
+                        <li>Mais buscados 5</li>
+                     </ul>
+                  </div>
+
+                  <div class="col-md-3">
+                     <ul class="footer-ul">
+                        <li>Mais buscados 6</li>
+                        <li>Mais buscados 7</li>
+                        <li>Mais buscados 8</li>
+                        <li>Mais buscados 9</li>
+                        <li>Mais buscados 10</li>
+                     </ul>
+                  </div>
+
+                  <div class="col-md-3">
+                     <ul class="footer-ul">
+                        <li>Mais buscados 11</li>
+                        <li>Mais buscados 12</li>
+                        <li>Mais buscados 13</li>
+                        <li>Mais buscados 14</li>
+                        <li>Mais buscados 15</li>
+                     </ul>
+                  </div>
+
+                  <div class="col-md-3">
+                     <ul class="footer-ul">
+                        <li>Mais buscados 16</li>
+                        <li>Mais buscados 17</li>
+                        <li>Mais buscados 18</li>
+                        <li>Mais buscados 19</li>
+                        <li>Mais buscados 20</li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <div class="col-md-6">
+               <p class="font-weight-bold">TOP CATEGORIAS</p>
+               <div class="row">
+                  <div class="col-md-4">
+                     <ul class="footer-ul">
+                        <li>top categorias 1</li>
+                        <li>top categorias 2</li>
+                        <li>top categorias 3</li>
+                        <li>top categorias 4</li>
+                        <li>top categorias 5</li>
+                     </ul>
+                  </div>
+
+                  <div class="col-md-4">
+                     <ul class="footer-ul">
+                        <li>top categorias 6</li>
+                        <li>top categorias 7</li>
+                        <li>top categorias 8</li>
+                        <li>top categorias 9</li>
+                        <li>top categorias 10</li>
+                     </ul>
+                  </div>
+
+                  <div class="col-md-4">
+                     <ul class="footer-ul">
+                        <li>top categorias 11</li>
+                        <li>top categorias 12</li>
+                        <li>top categorias 13</li>
+                        <li>top categorias 14</li>
+                        <li>top categorias 15</li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+         <p class="font-weight-bold">FORMAS DE PAGAMENTO</p>
+         <div class="row">
+            <div style="margin-left: 3px;" class="col-md-6">
+               <i class="fab fa-cc-visa fa-3x"></i>
+               <i class="fab fa-cc-mastercard fa-3x"></i>
+               <i class="fab fa-cc-paypal fa-3x"></i>
+            </div>
+
+         </div>
+      </div>
+   </footer>
+
+   <footer class="py-2 bg-dark footer-font-size">
+      <div class="container">
+         <p class="m-0 text-center text-white">&copy; PetChopp 2018 . Todos os direitos reservados.</p>
+         <p class="m-0 text-center text-white">PETSHOPP COMÉRCIO E PARTICIPAÇÕES S/A - CNPJ:
+            03.321.742/0001-07 - Rua Atílio Delamuta, 546, Jardim Itaiçaba (Ártemis), Jardim Itaiçaba (Ártemis),
+            CEP: 13432-136, Piracicaba, SP, Brasil</p>
+         <!-- <p class="m-0 text-center text-white">Copyright &copy; Your Website 2018</p> -->
+      </div>
+      <!-- /.container -->
+   </footer>
+   <!-- Optional JavaScript -->
+   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+   <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+   <!-- Optional JavaScript -->
+   <!-- Mesmo esquema do link css -->
+   <script src="../../static/js/main.js" th:src="@{/js/main.js}"></script>
+   <script src="../../static/js/search.js" th:src="@{/js/search.js}"></script>
+
+
+</body>
+
+
+</html>

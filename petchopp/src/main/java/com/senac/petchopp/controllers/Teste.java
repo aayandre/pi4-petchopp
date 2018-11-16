@@ -15,25 +15,19 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.senac.petchopp.daos.ProdutoDAO;
-import com.senac.petchopp.daos.UsuarioDAO;
-import com.senac.petchopp.model.TipoCategoria;
 import com.senac.petchopp.model.Upload;
 import com.senac.petchopp.model.carrinho.Carrinho;
 import com.senac.petchopp.model.cliente.Cliente;
 import com.senac.petchopp.model.cliente.Endereco;
 import com.senac.petchopp.model.produto.Produto;
+import com.senac.petchopp.model.produto.ProdutoService;
 
 @Controller
 @RequestMapping("/testes")
 @SessionAttributes({ "cliente", "carrinho" })
 public class Teste {
 
-	@PostMapping("/tipocad")
-	public ModelAndView insertDBTeste(@ModelAttribute("tipoCategoria") TipoCategoria tc) {
-		UsuarioDAO.teste(tc);
-		TipoCategoria resultado = UsuarioDAO.testeGet();
-		return new ModelAndView("testes/testeVisualizacao").addObject("resultado", resultado);
-	}
+	private ProdutoService servico = new ProdutoService();
 
 	@GetMapping("/mostraprodutoteste")
 	public ModelAndView mostrarProduto(@ModelAttribute("cliente") Cliente cliente) {
@@ -53,8 +47,7 @@ public class Teste {
 	// e no fim adiciona o resultado da pesquisa na pagina "testes" e a mostra
 	@GetMapping("/getprodutoteste/{codigo}")
 	public ModelAndView testeGetProduto(@PathVariable String codigo) {
-		ProdutoDAO produtoBanco = new ProdutoDAO();
-		Produto adquirido = (Produto) produtoBanco.getByCodigo(codigo);
+		Produto adquirido = (Produto) servico.searchByCodigo(codigo);
 		return new ModelAndView("testes/testes").addObject("produto", adquirido);
 	}
 

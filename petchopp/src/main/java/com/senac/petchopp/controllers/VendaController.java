@@ -19,41 +19,40 @@ import com.senac.petchopp.model.venda.Venda;
 
 @Controller
 @RequestMapping("checkout")
-@SessionAttributes({"cliente", "carrinho"})
+@SessionAttributes({ "cliente", "carrinho" })
 public class VendaController {
 
-    private VendaDAO vendaBanco = new VendaDAO();
+	private VendaDAO vendaBanco = new VendaDAO();
 
-    @GetMapping("")
-    public ModelAndView carrinho(@ModelAttribute("carrinho") Carrinho carrinho) {
-        carrinho.setProdutos(new ProdutoDAO().testeCarrinho(3));
-        return new ModelAndView("cart").addObject("carrinho", carrinho);
-    }
+	@GetMapping("")
+	public ModelAndView carrinho(@ModelAttribute("carrinho") Carrinho carrinho) {
+		carrinho.setProdutos(new ProdutoDAO().testeCarrinho(3));
+		return new ModelAndView("cart").addObject("carrinho", carrinho);
+	}
 
-    @RequestMapping("formulario")
-    public ModelAndView formVenda(@ModelAttribute("carrinho") Carrinho carrinho) {
-        /*
-        * TODO pegar o codigo do cliente que deve estar na session e utiliza-lo para
-        * pegar: endereço ou informaçoes de pagto salvas
-         */
-//        Object msgS = session.getAttribute("teste");
-//        model.addAttribute("teste", msgS);
-        return new ModelAndView("checkout").addObject("carrinho", carrinho);
-    }
+	@RequestMapping("formulario")
+	public ModelAndView formVenda(@ModelAttribute("carrinho") Carrinho carrinho) {
+		/*
+		 * TODO pegar o codigo do cliente que deve estar na session e utiliza-lo para
+		 * pegar: endereço ou informaçoes de pagto salvas
+		 */
+//		Object msgS = session.getAttribute("teste");
+//		model.addAttribute("teste", msgS);
+		return new ModelAndView("checkout").addObject("carrinho", carrinho);
+	}
 
-    @RequestMapping("comprar")
-    public ModelAndView realizarCompra(@SessionAttribute("carrinho") Carrinho carrinho) {
-        Venda nova = new Venda();
+	@RequestMapping("comprar")
+	public ModelAndView realizarCompra(@SessionAttribute("carrinho") Carrinho carrinho) {
+		Venda nova = new Venda();
 
-        nova.setCarrinho(carrinho);
+		nova.setCarrrinho(carrinho);
 
-        nova.setIdCliente(new Long("1"));
-        nova.setData(LocalDate.now());
-        nova.setDataView(LocalDateTime.now());
-        nova.setIdFretes(new Long("2"));
-        nova.setProtocolo(nova.getDataView().toString().replaceAll("[^0-9]", ""));
-        nova.setValorTotal(nova.getCarrinho().getTotal());
-
+		nova.setIdCliente(new Long("1"));
+		nova.setData(LocalDate.now());
+		nova.setDataView(LocalDateTime.now());
+		nova.setIdFretes(new Long("2"));
+		nova.setProtocolo(nova.getDataView().toString());
+		nova.setValorTotal(nova.getCarrrinho().getTotal());
 
 		// Salvar infos
 		try {
@@ -66,7 +65,6 @@ public class VendaController {
 			e.printStackTrace();
 		}
 
-        return null;
-    }
+		return null;
+	}
 }
-

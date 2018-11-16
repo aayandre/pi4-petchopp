@@ -19,7 +19,7 @@
 
    </div>
    <link rel="stylesheet" href="../static/css/home.css" th:href="@{/css/home.css}">
-   <title>PI4 - Home</title>
+   <title th:text="${titulo}">PI4 - Home</title>
 
 </head>
 
@@ -29,16 +29,14 @@
    <!-- Navigation -->
    <div th:replace="padrao/general.html :: navbarfiles"></div>
    <div th:if="false">
-      <nav class="navbar navbar-expand-lg navbar-light bg-green fixed-top">
+      <nav class="navbar navbar-expand-lg navbar-light bg-color fixed-top">
          <div class="container">
 
     <!-- Navigation -->
 
                <ul class="navbar-nav ml-auto">
                   <li class="nav-item active">
-                     <a class="nav-link" href="index.html" th:href="@{/}">Home
-                        <span class="sr-only">(current)</span>
-                     </a>
+                     <a class="nav-link" href="index.html" th:href="@{/}">Home</a>
                   </li>
                   <li class="nav-item">
                      <a class="nav-link" href="search.html" th:href="@{/search}">Search</a>
@@ -251,19 +249,10 @@
 
    </div>
    <!-- /Page Content -->
-   <!-- Footer -->
-   <footer class="py-5 bg-dark">
-      <div class="container">
-         <p class="m-0 text-center text-white">Copyright &copy; Your Website 2018</p>
-      </div>
-      <!-- /.container -->
-   </footer>
 
-   <!-- Optional JavaScript -->
-   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" data-integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" data-integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" data-integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+   <!-- Footer -->
+   <div th:replace="padrao/general.html :: footerfiles"></div>
+   <script src="../static/js/home.js" th:src="@{/js/home.js}"></script>
 </body>
 
 </html>
