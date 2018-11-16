@@ -10,18 +10,19 @@ import java.util.List;
 
 import com.senac.petchopp.connection.ConnectionFactory;
 import com.senac.petchopp.interfaces.IDAO;
+import com.senac.petchopp.model.carrinho.Carrinho;
 import com.senac.petchopp.model.produto.Produto;
 import com.senac.petchopp.model.venda.Venda;
 
 public class VendaDAO implements IDAO {
 
-	private static Connection cn = null;
+    private static Connection cn = null;
 
-	@Override
-	public void salvar(Object bean) throws SQLException {
-		String sql = "INSERT INTO Venda (idCliente, idFretes, Protocolo, Data, ValorTotal) " + "VALUES(?, ?, ?, ?, ?)";
+    @Override
+    public void salvar(Object bean) throws SQLException {
+        String sql = "INSERT INTO Venda (idCliente, idFretes, Protocolo, Data, ValorTotal) " + "VALUES(?, ?, ?, ?, ?)";
 
-		PreparedStatement stmt = null;
+        PreparedStatement stmt = null;
 
 		cn = ConnectionFactory.getConnection();
 
@@ -149,4 +150,53 @@ public class VendaDAO implements IDAO {
 		return encontrados;
 	}
 
+    public ArrayList<Produto> getItensVendaByVenda(int idVenda) {
+        String sql = "SELECT * FROM itemVenda WHERE idVenda = ?";
+        PreparedStatement stmt = null;
+        cn = ConnectionFactory.getConnection();
+        ArrayList<Produto> produtos = new ArrayList<>();
+        ResultSet rs = null;
+
+        try {
+            stmt = cn.prepareStatement(sql);
+            stmt.setInt(0, idVenda);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                ProdutoDAO prodDAO = new ProdutoDAO();
+                produtos.add((Produto) prodDAO.getById(rs.getLong("idProduto")));
+            }
+           
+        } catch (Exception e) {
+            // TODO: handle exception
+        } finally {
+            ConnectionFactory.closeConnection(cn, stmt, rs);
+        }
+        return produtos;
+    }
+
+    public Venda getVendasByCliente(int idCliente) throws SQLException {
+        String sql = "SELECT * FROM Venda WHERE idCliente = ?";
+        PreparedStatement stmt = null;
+        cn = ConnectionFactory.getConnection();
+        Venda venda = new Venda();
+        ResultSet rs = null;
+
+        try {
+            stmt = cn.prepareStatement(sql);
+            stmt.setInt(0, idCliente);
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                venda = new Venda(rs);
+                venda.setCarrinho(getItensVendaByVenda(Integer.parseInt(venda.getIdVenda().toString())), venda.getValorTotal());
+            }
+        } catch (Exception e) {
+
+        } finally {
+            ConnectionFactory.closeConnection(cn, stmt, rs);
+        }
+        return venda;
+    }
+    
 }

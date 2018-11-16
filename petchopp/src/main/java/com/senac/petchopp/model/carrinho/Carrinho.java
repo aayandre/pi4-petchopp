@@ -1,38 +1,39 @@
 package com.senac.petchopp.model.carrinho;
 
+import com.senac.petchopp.daos.ProdutoDAO;
 import java.util.ArrayList;
 
 import com.senac.petchopp.model.produto.Produto;
+import java.sql.SQLException;
 
 public class Carrinho {
 
-	private ArrayList<Produto> produtos;
-	private double total;
+    private ArrayList<Produto> produtos;
+    private double total;
 
-	public Carrinho() {
-		super();
-	}
+    public Carrinho() {
+        super();
+    }
 
-	public Carrinho(ArrayList<Produto> produtos, double total) {
-		super();
-		this.produtos = produtos;
-		this.total = total;
-	}
+    public Carrinho(ArrayList<Produto> produtos, double total) {
+        super();
+        this.produtos = produtos;
+        this.total = total;
+    }
 
-	public ArrayList<Produto> getProdutos() {
-		return produtos;
-	}
+    public ArrayList<Produto> getProdutos() {
+        return produtos;
+    }
 
-	public void setProdutos(ArrayList<Produto> produtos) {
-		this.produtos = produtos;
-	}
+    public void setProdutos(ArrayList<Produto> produtos) {
+        this.produtos = produtos;
+    }
 
-	public double getTotal() {
-		return total;
-	}
+    public double getTotal() {
+        return total;
+    }
 
-	public void setTotal(double total) {
-		this.total = total;
-	}
-
+    public void setTotal(double total) {
+        this.total = total;
+    }
 }

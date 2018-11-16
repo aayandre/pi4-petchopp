@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -24,26 +25,27 @@ import com.senac.petchopp.model.produto.Produto;
 
 @Controller
 @RequestMapping("/testes")
+@SessionAttributes({ "cliente", "carrinho" })
 public class Teste {
 
 	@PostMapping("/tipocad")
 	public ModelAndView insertDBTeste(@ModelAttribute("tipoCategoria") TipoCategoria tc) {
 		UsuarioDAO.teste(tc);
 		TipoCategoria resultado = UsuarioDAO.testeGet();
-		return new ModelAndView("testeVisualizacao").addObject("resultado", resultado);
+		return new ModelAndView("testes/testeVisualizacao").addObject("resultado", resultado);
 	}
 
 	@GetMapping("/mostraprodutoteste")
-	public ModelAndView mostrarProduto() {
+	public ModelAndView mostrarProduto(@ModelAttribute("cliente") Cliente cliente) {
 		Produto teste = new Produto(true);
-		return new ModelAndView("testes").addObject("produto", teste);
+		return new ModelAndView("testes/testes").addObject("produto", teste).addObject("cliente", cliente);
 	}
 
 	// Formulario
 	@GetMapping("/formularioprod")
 	public ModelAndView formulario() {
-		return new ModelAndView("testeCadastro").addObject("produto", new Produto()).addObject("cliente", new Cliente())
-				.addObject("endereco", new Endereco());
+		return new ModelAndView("testes/testeCadastro").addObject("produto", new Produto())
+				.addObject("cliente", new Cliente()).addObject("endereco", new Endereco());
 	}
 
 	// Controller que recebe o codigo do produto pela url,
@@ -53,7 +55,7 @@ public class Teste {
 	public ModelAndView testeGetProduto(@PathVariable String codigo) {
 		ProdutoDAO produtoBanco = new ProdutoDAO();
 		Produto adquirido = (Produto) produtoBanco.getByCodigo(codigo);
-		return new ModelAndView("testes").addObject("produto", adquirido);
+		return new ModelAndView("testes/testes").addObject("produto", adquirido);
 	}
 
 	// Controller que salva o produto recebido no banco,
@@ -77,7 +79,7 @@ public class Teste {
 
 	@RequestMapping("/fragmentos")
 	public String fragmentos() {
-		return "testeFragment";
+		return "testes/testeFragment";
 	}
 
 	// Teste de produtos no carrinho
