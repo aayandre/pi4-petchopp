@@ -11,59 +11,63 @@
    <!-- Navigation Bar -->
    <div th:replace="padrao/general.html :: navbarfiles"></div>
 
-   <!-- Conteudo da pagina -->
+   <!-- Page Content -->
    <div class="container nav-margin">
 
-         <!-- Imagem, nome, tipo, preco, codigo -->
-         <div class="row">
-   
-            <!-- Imagem do produto -->
-            <div class="col-12 col-md-4">
-               <img class="img-fluid" src="https://cdn-petz-imgs.stoom.com.br/fotos/1515429480749.jpg" alt="Imagem do produto">
+      <!-- Imagem, nome, tipo, preco, codigo -->
+      <div class="row">
+
+         <!-- Imagem do produto -->
+         <div class="col-12 col-md-4">
+            <img class="img-fluid" src="https://cdn-petz-imgs.stoom.com.br/fotos/1515429480749.jpg" alt="Imagem do produto">
+         </div>
+
+         <!-- Nome do produto com algumas informacoes a mais -->
+         <div class="col-12 col-md-4 pt-5">
+            <h2 th:text="${produto.nome}">Nome do produto</h2>
+            <div class="row">
+               <div class="col-6">
+                  <div th:text="${produto.codigo}"><span class="font-weight-bold">Codigo: </span>Teste</div>
+               </div>
+               <div class="col-6">
+                  Marca: <a href="#">Royal Cannin</a>
+               </div>
             </div>
-   
-            <!-- Nome do produto com algumas informacoes a mais -->
-            <div class="col-12 col-md-4 pt-5">
-               <h2 th:text="${produto.nome}">Nome do produto</h2>
-               <div class="row">
-                  <div class="col-6">
-                     <div th:text="${produto.codigo}"><span class="font-weight-bold">Codigo: </span>Teste</div>
+         </div>
+
+         <!-- Preco do produto e coisas sobre a venda -->
+         <div class="col-12 col-md-4 pt-5">
+
+            <div class="card">
+               <div class="card-block">
+                  <div class="m-2">
+                     <h5>Por</h5>
+                     <h4 class="card-title" th:text="${#numbers.formatDecimal(produto.Preco, 0, 'COMMA', 2, 'POINT')}">R$
+                        190,99</h4>
                   </div>
-                  <div class="col-6">
-                     Marca: <a href="#">Royal Cannin</a>
+                  <hr>
+                  <div class="text-center mb-3">
+                     <a href="#" class="btn btn-primary">Adicionar ao Carrinho</a>
                   </div>
                </div>
             </div>
-   
-            <!-- Preco do produto e coisas sobre a venda -->
-            <div class="col-12 col-md-4 pt-5">
-   
-               <div class="card">
-                  <div class="card-block">
-                     <div class="m-2">
-                        <h5>Por</h5>
-                        <h4 class="card-title" th:text="${#numbers.formatDecimal(produto.Preco, 0, 'COMMA', 2, 'POINT')}">R$ 190,99</h4>
-                     </div>
-                     <hr>
-                     <div class="text-center mb-3">
-                        <a href="#" class="btn btn-primary">Adicionar ao Carrinho</a>
-                     </div>
-                  </div>
-               </div>
-   
-            </div>
-   
+
          </div>
-   
-         <!-- Detalhes -->
-         <div class="row">
-           <div class="col-12 p-3">
-             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
-               aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-           </div>
-         </div>
-   
+
       </div>
+
+      <!-- Detalhes -->
+      <div class="row">
+         <div class="col-12 p-3">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+               dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+               ea commodo consequat. Duis
+               aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+               sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+         </div>
+      </div>
+
+   </div>
 
    <!-- Footer -->
    <div th:replace="padrao/general.html :: footerfiles"></div>
