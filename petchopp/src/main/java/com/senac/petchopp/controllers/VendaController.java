@@ -45,14 +45,14 @@ public class VendaController {
 	public ModelAndView realizarCompra(@SessionAttribute("carrinho") Carrinho carrinho) {
 		Venda nova = new Venda();
 
-		nova.setCarrrinho(carrinho);
+		nova.setCarrinho(carrinho);
 
 		nova.setIdCliente(new Long("1"));
 		nova.setData(LocalDate.now());
 		nova.setDataView(LocalDateTime.now());
 		nova.setIdFretes(new Long("2"));
 		nova.setProtocolo(nova.getDataView().toString());
-		nova.setValorTotal(nova.getCarrrinho().getTotal());
+		nova.setValorTotal(nova.getCarrinho().getTotal());
 
 		// Salvar infos
 		try {
