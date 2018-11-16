@@ -10,7 +10,6 @@ import java.util.List;
 
 import com.senac.petchopp.connection.ConnectionFactory;
 import com.senac.petchopp.interfaces.IDAO;
-import com.senac.petchopp.model.carrinho.Carrinho;
 import com.senac.petchopp.model.produto.Produto;
 import com.senac.petchopp.model.venda.Venda;
 
@@ -107,7 +106,7 @@ public class VendaDAO implements IDAO {
 
 		try {
 
-			for (Produto produto : venda.getCarrrinho().getProdutos()) {
+			for (Produto produto : venda.getCarrinho().getProdutos()) {
 				stmt = cn.prepareStatement(sql);
 
 				stmt.setLong(1, venda.getIdVenda());

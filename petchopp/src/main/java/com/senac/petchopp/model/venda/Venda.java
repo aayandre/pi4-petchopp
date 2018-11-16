@@ -114,7 +114,7 @@ public class Venda {
     }
     
     public void setCarrinho(ArrayList<Produto> produtos, Double valorTotal) {
-        Carrinho carrinho = new Carrinho(produtos, valorTotal);
+        this.carrinho = new Carrinho(produtos, valorTotal);
     }
 
     public LocalDateTime getDataView() {

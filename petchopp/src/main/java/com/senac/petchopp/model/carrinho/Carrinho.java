@@ -1,10 +1,8 @@
 package com.senac.petchopp.model.carrinho;
 
-import com.senac.petchopp.daos.ProdutoDAO;
 import java.util.ArrayList;
 
 import com.senac.petchopp.model.produto.Produto;
-import java.sql.SQLException;
 
 public class Carrinho {
 
