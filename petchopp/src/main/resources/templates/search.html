@@ -27,150 +27,229 @@
    <!-- Navigation Bar -->
    <div th:replace="padrao/general.html :: navbarfiles"></div>
 
-   <section class="container-fluid nav-margin">
-      <div class="row text-center">
+   <!-- Page Content -->
+   <div class="container-fluid nav-margin">
 
-
-            <!-- Filtros Sidebar -->
-            <nav id="sidebar" class="col-3">
-               <ul class="list-unstyled components">
-                  <a href="#homeSubmenu">
-                     <p>Categorias</p>
-                  </a>
-                  <li class="active">
-                     <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                        Tamanho
-                     </a>
-                     <ul class="collapse list-unstyled" id="homeSubmenu">
-                        <li>
-                           <label class="form-check"> <input class="form-check-input" type="radio" name="exampleRadio" value="">
-                              <span class="form-check-label">Pequeno Porte</span>
-                           </label>
-                        </li>
-
-                        <li>
-                           <label class="form-check"> <input class="form-check-input" type="radio" name="exampleRadio" value="">
-                              <span class="form-check-label">Médio Porte</span>
-                           </label>
-                        </li>
-                        <li>
-                           <label class="form-check"> <input class="form-check-input" type="radio" name="exampleRadio" value="">
-                              <span class="form-check-label">Grande Porte</span>
-                           </label>
-                        </li>
-                     </ul>
-                  </li>
-               </ul>
-               <ul class="list-unstyled components">
-                  <a href="#homeSubmenu">
-                     <p>Raças Cachorros</p>
-                  </a>
-                  <li class="active">
-                     <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                        Tamanho
-                     </a>
-                     <ul class="collapse list-unstyled" id="homeSubmenu">
-                        <li>
-                           <label class="form-check"> <input class="form-check-input" type="radio" name="exampleRadio" value="">
-                              <span class="form-check-label">Pequeno Porte</span>
-                           </label>
-                        </li>
-
-                        <li>
-                           <label class="form-check"> <input class="form-check-input" type="radio" name="exampleRadio" value="">
-                              <span class="form-check-label">Médio Porte</span>
-                           </label>
-                        </li>
-                        <li>
-                           <label class="form-check"> <input class="form-check-input" type="radio" name="exampleRadio" value="">
-                              <span class="form-check-label">Pequeno Porte</span>
-                           </label>
-                        </li>
-                     </ul>
-                  </li>
-               </ul>
-            </nav>
-
-             <!-- Procura e resultados -->
-            <article class="container col-9" id="content">
-
-               <div class="row">
-
-                  <!-- Procura -->
-                  <div class="col-md-12 col-md-8 col-md-6 col-md-4 col-xs-4 d-flex">
-                     <button type="button" id="sidebarCollapse" class="btn btn-primary btn-info btn-sm teste" value="Filtros">
-                        <i class="fas fa-filter"></i>
-                        Filtros
-                     </button>
-
-                     <section style="width: 100%">
-                        <form action="#" method="get" class="float-right" style="width: 100%">
-                           <div class="form-group">
-                              <div class="input-group mb-2">
-                                 <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"
-                                    placeholder="Procure seu produto">
-                                 <div class="input-group-append">
-                                    <button>
-                                       <span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-search"></i></span>
-                                    </button>
-                                 </div>
-                              </div>
-                           </div>
-                        </form>
-                     </section>
-                  </div>
-
-                  <div class="container">
-                     
-                     <!-- Resultados da pesquisa -->
-                     <div class="row">
-
-
-                        <div class="col-lg-3" id="edit-card">
-                           <div class="col-item card-color">
-                              <div class="info">
-                                 <div class="row">
-                                    <div class="price col-md-6">
-                                       <h5>Ração</h5>
-                                       <h5 class="price-text-color">R$ 95,39</h5>
-                                    </div>
-                                    <div class="rating hidden-sm col-md-6">
-                                       <i class="price-text-color fa fa-star"></i>
-                                       <i class="price-text-color fa fa-star"></i>
-                                       <i class="price-text-color fa fa-star"></i>
-                                    </div>
-                                 </div>
-                              </div>
-
-                              <div class="photo">
-                                 <img src="http://placehold.it/500x325" class="img-fluid" alt="Imagem do produto procurado" />
-                              </div>
-                              <div class="info">
-                                 <div class="separator clear-left">
-                                    <p class="btn-add">
-                                       <i class="fa fa-shopping-cart"></i>
-                                       <a href="#" class="hidden-sm">Adicionar ao Carrinho</a>
-                                    </p>
-                                    <p class="btn-details">
-                                       <i class="fa fa-list"></i>
-                                       <a href="#" class="hidden-sm">Mais detalhes</a>
-                                    </p>
-                                 </div>
-                                 <div class="clearfix">
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-
+      <div class="row">
+         <div class="btn btn-dark col-12" type="button" data-toggle="collapse" data-target="#contentId" aria-expanded="true"
+            aria-controls="contentId">
+            <h5>Filtros</h5>
+         </div>
+         <!-- Procura -->
+         <div class="col-12 col-md-8 offset-md-2">
+            <form action="#" method="get">
+               <div class="form-group">
+                  <div class="input-group mb-3">
+                     <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"
+                        placeholder="Procure seu produto">
+                     <div class="input-group-append">
+                        <span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-search"></i></span>
                      </div>
                   </div>
                </div>
-            </article>
-            <!-- /Procura e resultados -->
-            
-         <!-- </div> -->
+            </form>
+         </div>
       </div>
-   </section>
+
+      <div class="row text-center">
+         <!-- Filtros -->
+         <div class="card col-sm-12 col-md-3 text-left mb-2">
+
+            <div class="card-body">
+
+               <div class="card collapse" id="contentId">
+
+                  <article class="card-group-item">
+                     <header class="card-header">
+                        <h6 class="title">Coisas </h6>
+                     </header>
+                     <div class="filter-content">
+                        <div class="card-body">
+                           <form>
+                              <label class="form-check">
+                                 <input class="form-check-input" type="checkbox" value="">
+                                 <span class="form-check-label">
+                                    Rações
+                                 </span>
+                              </label> <!-- form-check.// -->
+                              <label class="form-check">
+                                 <input class="form-check-input" type="checkbox" value="">
+                                 <span class="form-check-label">
+                                    Brinquedos
+                                 </span>
+                              </label> <!-- form-check.// -->
+                              <label class="form-check">
+                                 <input class="form-check-input" type="checkbox" value="">
+                                 <span class="form-check-label">
+                                    Ferramentas
+                                 </span>
+                              </label> <!-- form-check.// -->
+                           </form>
+                        </div> <!-- card-body.// -->
+                     </div>
+                  </article> <!-- card-group-item.// -->
+
+                  <article class="card-group-item">
+                     <header class="card-header">
+                        <h6 class="title">Tipos </h6>
+                     </header>
+                     <div class="filter-content">
+                        <div class="card-body">
+                           <label class="form-check">
+                              <input class="form-check-input" type="radio" name="exampleRadio" value="">
+                              <span class="form-check-label">
+                                 Tipo 1
+                              </span>
+                           </label>
+
+                           <label class="form-check">
+                              <input class="form-check-input" type="radio" name="exampleRadio" value="">
+                              <span class="form-check-label">
+                                 Tipo 2
+                              </span>
+                           </label>
+                           </label>
+                           <label class="form-check">
+                              <input class="form-check-input" type="radio" name="exampleRadio" value="">
+                              <span class="form-check-label">
+                                 Tipo 3
+                              </span>
+                           </label>
+
+                        </div> <!-- card-body.// -->
+                     </div>
+                  </article> <!-- card-group-item.// -->
+
+               </div> <!-- card.// -->
+            </div>
+         </div>
+
+         <!-- Procura e resultados -->
+         <div class="col-sm-12 col-md-9 text-left">
+
+            <div class="row">
+
+               <!-- Filtros selecionados -->
+               <div class="col-12"></div>
+               <!-- Resultados -->
+               <div class="col-12">
+                  <div class="row">
+                     <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="card">
+                           <img class="card-img-top" src="http://placehold.it/500x325" alt="">
+                           <div class="card-body">
+                              <h4 class="card-title">Card title</h4>
+                              <p class="card-text">
+                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo
+                                 magni sapiente, tempore debitis beatae culpa natus architecto.
+                              </p>
+                           </div>
+                           <div class="card-footer">
+                              <a href="#" class="btn btn-primary">Detalhes</a>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="card">
+                           <img class="card-img-top" src="http://placehold.it/500x325" alt="">
+                           <div class="card-body">
+                              <h4 class="card-title">Card title</h4>
+                              <p class="card-text">
+                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo
+                                 magni sapiente, tempore debitis beatae culpa natus architecto.
+                              </p>
+                           </div>
+                           <div class="card-footer">
+                              <a href="#" class="btn btn-primary">Detalhes</a>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="card">
+                           <img class="card-img-top" src="http://placehold.it/500x325" alt="">
+                           <div class="card-body">
+                              <h4 class="card-title">Card title</h4>
+                              <p class="card-text">
+                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo
+                                 magni sapiente, tempore debitis beatae culpa natus architecto.
+                              </p>
+                           </div>
+                           <div class="card-footer">
+                              <a href="#" class="btn btn-primary">Detalhes</a>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="card">
+                           <img class="card-img-top" src="http://placehold.it/500x325" alt="">
+                           <div class="card-body">
+                              <h4 class="card-title">Card title</h4>
+                              <p class="card-text">
+                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo
+                                 magni sapiente, tempore debitis beatae culpa natus architecto.
+                              </p>
+                           </div>
+                           <div class="card-footer">
+                              <a href="#" class="btn btn-primary">Detalhes</a>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="card">
+                           <img class="card-img-top" src="http://placehold.it/500x325" alt="">
+                           <div class="card-body">
+                              <h4 class="card-title">Card title</h4>
+                              <p class="card-text">
+                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo
+                                 magni sapiente, tempore debitis beatae culpa natus architecto.
+                              </p>
+                           </div>
+                           <div class="card-footer">
+                              <a href="#" class="btn btn-primary">Detalhes</a>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="card">
+                           <img class="card-img-top" src="http://placehold.it/500x325" alt="">
+                           <div class="card-body">
+                              <h4 class="card-title">Card title</h4>
+                              <p class="card-text">
+                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente
+                                 esse necessitatibus neque.
+                              </p>
+                           </div>
+                           <div class="card-footer">
+                              <a href="#" class="btn btn-primary">Detalhes</a>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="card">
+                           <img class="card-img-top" src="http://placehold.it/500x325" alt="">
+                           <div class="card-body">
+                              <h4 class="card-title">Card title</h4>
+                              <p class="card-text">
+                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo
+                                 magni sapiente, tempore debitis beatae culpa natus architecto.
+                              </p>
+                           </div>
+                           <div class="card-footer">
+                              <a href="#" class="btn btn-primary">Detalhes</a>
+                           </div>
+                        </div>
+                     </div>
+                  </div><!-- ./row -->
+               </div>
+            </div>
+         </div>
+
+      </div>
+      <!-- ./row text-center -->
+
+   </div>
+   <!-- /.container nav-margin -->
+   <!-- /Page Content -->
 
    <!-- Footer -->
    <div th:replace="padrao/general.html :: footerfiles"></div>
