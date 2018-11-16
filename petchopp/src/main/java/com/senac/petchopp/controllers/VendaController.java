@@ -54,18 +54,7 @@ public class VendaController {
         nova.setProtocolo(nova.getDataView().toString().replaceAll("[^0-9]", ""));
         nova.setValorTotal(nova.getCarrinho().getTotal());
 
-        // Salvar infos
-        try {
-            vendaBanco.salvar(nova);
-            Long idVenda = vendaBanco.getIdVenda(nova);
-            nova.setIdVenda(idVenda);
-            vendaBanco.salvarItensVenda(nova);
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
 
-<<<<<<< HEAD
 		// Salvar infos
 		try {
 			vendaBanco.salvar(nova);
@@ -77,11 +66,7 @@ public class VendaController {
 			e.printStackTrace();
 		}
 
-		return null;
-	}
-	
-=======
         return null;
     }
->>>>>>> 9a78229efc2e6e65f8f1531de3f500109ec521b6
 }
+
