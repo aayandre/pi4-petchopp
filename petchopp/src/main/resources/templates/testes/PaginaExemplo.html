@@ -11,7 +11,17 @@
    <!-- No href coloque o caminho normal do arquivo
     E no th:href o @{}, acredito que signifique o ../static -->
    <link rel="stylesheet" href="../../static/css/main.css" th:href="@{/css/main.css}">
+   <!-- <link rel="stylesheet" href="../../static/css/cart.css" th:href="@{/css/cart.css}">
+   <link rel="stylesheet" href="../../static/css/checkout.css" th:href="@{/css/checkout.css}">
+   <link rel="stylesheet" href="../../static/css/home.css" th:href="@{/css/home.css}"> -->
    <link rel="stylesheet" href="../../static/css/search.css" th:href="@{/css/search.css}">
+   <!-- <link rel="stylesheet" href="../../static/css/detalhe.css" th:href="@{/css/detalhe.css}">
+   <link rel="stylesheet" href="../../static/css/cliente.css" th:href="@{/css/cliente.css}">
+   <link rel="stylesheet" href="../../static/css/login.css" th:href="@{/css/login.css}">
+   <link rel="stylesheet" href="../../static/css/orderList.css" th:href="@{/css/orderList.css}"> -->
+
+
+
 
    <!-- Bootstrap CSS -->
    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" data-integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
@@ -51,7 +61,7 @@
 
       <div class="row text-center">
          <!-- Filtros -->
-         <div class="card col-12 col-md-4 col-lg-3 text-left mb-2">
+         <div class="card col-sm-12 col-md-3 text-left mb-2">
             <div class="card-header">
                <div class="btn btn-dark col-12" type="button" data-toggle="collapse" data-target="#contentId"
                   aria-expanded="true" aria-controls="contentId">
@@ -128,7 +138,7 @@
          </div>
 
          <!-- Procura e resultados -->
-         <div class="col-12 col-md-8 col-lg-9 text-left">
+         <div class="col-sm-12 col-md-9 text-left">
 
             <div class="row">
                
@@ -260,6 +270,7 @@
                </div>
             </div>
          </div>
+         
       </div>
       <!-- ./row text-center -->
 
@@ -383,7 +394,6 @@
    <!-- Mesmo esquema do link css -->
    <script src="../../static/js/main.js" th:src="@{/js/main.js}"></script>
    <script src="../../static/js/search.js" th:src="@{/js/search.js}"></script>
-
 
 </body>
 
