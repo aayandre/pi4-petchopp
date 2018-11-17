@@ -66,72 +66,229 @@
 
 
    <!-- Page Content -->
-   <div class="container nav-margin">
+   <div class="container-fluid nav-margin">
 
-      <!-- Imagem, nome, tipo, preco, codigo -->
       <div class="row">
-
-         <!-- Imagem do produto -->
-         <div class="col-12 col-md-4">
-            <img class="img-fluid" src="https://cdn-petz-imgs.stoom.com.br/fotos/1515429480749.jpg" alt="Imagem do produto">
+         <div class="btn btn-dark col-12" type="button" data-toggle="collapse" data-target="#contentId" aria-expanded="true"
+            aria-controls="contentId">
+            <h5>Filtros</h5>
          </div>
-
-         <!-- Nome do produto com algumas informacoes a mais -->
-         <div class="col-12 col-md-4 pt-5">
-            <h2 th:text="${produto.nome}">Nome do produto</h2>
-            <div class="row">
-               <div class="col-6">
-                  <div th:text="${produto.codigo}"><span class="font-weight-bold">Codigo: </span>Teste</div>
-               </div>
-               <div class="col-6">
-                  Marca: <a href="#">Royal Cannin</a>
-               </div>
-            </div>
-         </div>
-
-         <!-- Preco do produto e coisas sobre a venda -->
-         <div class="col-12 col-md-4 pt-5">
-
-            <div class="produto-info">
-                     <h5>Por</h5>
-                     <h4 class="card-title" th:text="${#numbers.formatDecimal(produto.Preco, 0, 'COMMA', 2, 'POINT')}">R$
-                        190,99</h4>
-                  <hr>
-                  <div class="text-center mb-3">
-                     <a href="#" class="btn btn-primary">Adicionar ao Carrinho</a>
+         <!-- Procura -->
+         <div class="col-12 col-md-8 offset-md-2">
+            <form action="#" method="get">
+               <div class="form-group">
+                  <div class="input-group mb-3">
+                     <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"
+                        placeholder="Procure seu produto">
+                     <div class="input-group-append">
+                        <span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-search"></i></span>
+                     </div>
                   </div>
                </div>
-            </div>
+            </form>
+         </div>
+      </div>
 
+      <div class="row text-center">
+         <!-- Filtros -->
+         <div class="card col-sm-12 col-md-3 text-left mb-2">
+
+            <div class="card-body">
+
+               <div class="card collapse" id="contentId">
+
+                  <article class="card-group-item">
+                     <header class="card-header">
+                        <h6 class="title">Coisas </h6>
+                     </header>
+                     <div class="filter-content">
+                        <div class="card-body">
+                           <form>
+                              <label class="form-check">
+                                 <input class="form-check-input" type="checkbox" value="">
+                                 <span class="form-check-label">
+                                    Rações
+                                 </span>
+                              </label> <!-- form-check.// -->
+                              <label class="form-check">
+                                 <input class="form-check-input" type="checkbox" value="">
+                                 <span class="form-check-label">
+                                    Brinquedos
+                                 </span>
+                              </label> <!-- form-check.// -->
+                              <label class="form-check">
+                                 <input class="form-check-input" type="checkbox" value="">
+                                 <span class="form-check-label">
+                                    Ferramentas
+                                 </span>
+                              </label> <!-- form-check.// -->
+                           </form>
+                        </div> <!-- card-body.// -->
+                     </div>
+                  </article> <!-- card-group-item.// -->
+
+                  <article class="card-group-item">
+                     <header class="card-header">
+                        <h6 class="title">Tipos </h6>
+                     </header>
+                     <div class="filter-content">
+                        <div class="card-body">
+                           <label class="form-check">
+                              <input class="form-check-input" type="radio" name="exampleRadio" value="">
+                              <span class="form-check-label">
+                                 Tipo 1
+                              </span>
+                           </label>
+
+                           <label class="form-check">
+                              <input class="form-check-input" type="radio" name="exampleRadio" value="">
+                              <span class="form-check-label">
+                                 Tipo 2
+                              </span>
+                           </label>
+                           </label>
+                           <label class="form-check">
+                              <input class="form-check-input" type="radio" name="exampleRadio" value="">
+                              <span class="form-check-label">
+                                 Tipo 3
+                              </span>
+                           </label>
+
+                        </div> <!-- card-body.// -->
+                     </div>
+                  </article> <!-- card-group-item.// -->
+
+               </div> <!-- card.// -->
+            </div>
+         </div>
+
+         <!-- Procura e resultados -->
+         <div class="col-sm-12 col-md-9 text-left">
+
+            <div class="row">
+
+               <!-- Filtros selecionados -->
+               <div class="col-12"></div>
+               <!-- Resultados -->
+               <div class="col-12">
+                  <div class="row">
+                     <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="card">
+                           <img class="card-img-top" src="http://placehold.it/500x325" alt="">
+                           <div class="card-body">
+                              <h4 class="card-title">Card title</h4>
+                              <p class="card-text">
+                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo
+                                 magni sapiente, tempore debitis beatae culpa natus architecto.
+                              </p>
+                           </div>
+                           <div class="card-footer">
+                              <a href="#" class="btn btn-primary">Detalhes</a>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="card">
+                           <img class="card-img-top" src="http://placehold.it/500x325" alt="">
+                           <div class="card-body">
+                              <h4 class="card-title">Card title</h4>
+                              <p class="card-text">
+                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo
+                                 magni sapiente, tempore debitis beatae culpa natus architecto.
+                              </p>
+                           </div>
+                           <div class="card-footer">
+                              <a href="#" class="btn btn-primary">Detalhes</a>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="card">
+                           <img class="card-img-top" src="http://placehold.it/500x325" alt="">
+                           <div class="card-body">
+                              <h4 class="card-title">Card title</h4>
+                              <p class="card-text">
+                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo
+                                 magni sapiente, tempore debitis beatae culpa natus architecto.
+                              </p>
+                           </div>
+                           <div class="card-footer">
+                              <a href="#" class="btn btn-primary">Detalhes</a>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="card">
+                           <img class="card-img-top" src="http://placehold.it/500x325" alt="">
+                           <div class="card-body">
+                              <h4 class="card-title">Card title</h4>
+                              <p class="card-text">
+                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo
+                                 magni sapiente, tempore debitis beatae culpa natus architecto.
+                              </p>
+                           </div>
+                           <div class="card-footer">
+                              <a href="#" class="btn btn-primary">Detalhes</a>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="card">
+                           <img class="card-img-top" src="http://placehold.it/500x325" alt="">
+                           <div class="card-body">
+                              <h4 class="card-title">Card title</h4>
+                              <p class="card-text">
+                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo
+                                 magni sapiente, tempore debitis beatae culpa natus architecto.
+                              </p>
+                           </div>
+                           <div class="card-footer">
+                              <a href="#" class="btn btn-primary">Detalhes</a>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="card">
+                           <img class="card-img-top" src="http://placehold.it/500x325" alt="">
+                           <div class="card-body">
+                              <h4 class="card-title">Card title</h4>
+                              <p class="card-text">
+                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente
+                                 esse necessitatibus neque.
+                              </p>
+                           </div>
+                           <div class="card-footer">
+                              <a href="#" class="btn btn-primary">Detalhes</a>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="card">
+                           <img class="card-img-top" src="http://placehold.it/500x325" alt="">
+                           <div class="card-body">
+                              <h4 class="card-title">Card title</h4>
+                              <p class="card-text">
+                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo
+                                 magni sapiente, tempore debitis beatae culpa natus architecto.
+                              </p>
+                           </div>
+                           <div class="card-footer">
+                              <a href="#" class="btn btn-primary">Detalhes</a>
+                           </div>
+                        </div>
+                     </div>
+                  </div><!-- ./row -->
+               </div>
+            </div>
          </div>
 
       </div>
-
-      <!-- Detalhes -->
-      <div class="row">
-         <div class="card col-12 p-3">
-            <div class="card-header">
-                  Detalhes
-               <i class="far fa-caret-square-down end-icon" id="detalhesToggle"></i>
-            </div>
-            <div class="card-body" id="detalhesId" style="display: none">
-               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                  et
-                  dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                  aliquip
-                  ex
-                  ea commodo consequat. Duis
-                  aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                  Excepteur
-                  sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            </div>
-
-         </div>
-      </div>
+      <!-- ./row text-center -->
 
    </div>
    <!-- /.container nav-margin -->
    <!-- /Page Content -->
+
 
 
    <!-- Footer -->
