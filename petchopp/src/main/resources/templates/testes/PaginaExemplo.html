@@ -38,29 +38,29 @@
    <!-- Navigation -->
    <nav class="navbar navbar-expand-lg navbar-dark navbar-collapse bg-color">
 
-         <!-- Logo -->
-         <a class="navbar-brand ml-5" href="index.html" th:href="@{/}">PetChopp</a>
+      <!-- Logo -->
+      <a class="navbar-brand ml-5" href="index.html" th:href="@{/}">PetChopp</a>
 
-         <!-- Collapsed menu -->
-         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-            aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-         </button>
+      <!-- Collapsed menu -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+         aria-expanded="false" aria-label="Toggle navigation">
+         <span class="navbar-toggler-icon"></span>
+      </button>
 
-         <!-- Links -->
-         <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-               <li class="nav-item">
-                  <a class="nav-link" href="search.html" th:href="@{/search}">Search</a>
-               </li>
-               <li class="nav-item">
-                  <a class="nav-link" href="cart.html" th:href="@{/cart}">Carrinho</a>
-               </li>
-               <li class="nav-item">
-                  <a class="nav-link" href="cart.html" th:href="@{/cart}">Cadastro</a>
-               </li>
-            </ul>
-         </div>
+      <!-- Links -->
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+         <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+               <a class="nav-link" href="search.html" th:href="@{/search}">Search</a>
+            </li>
+            <li class="nav-item">
+               <a class="nav-link" href="cart.html" th:href="@{/cart}">Carrinho</a>
+            </li>
+            <li class="nav-item">
+               <a class="nav-link" href="cart.html" th:href="@{/cart}">Cadastro</a>
+            </li>
+         </ul>
+      </div>
 
    </nav>
 
@@ -92,13 +92,10 @@
          <!-- Preco do produto e coisas sobre a venda -->
          <div class="col-12 col-md-4 pt-5">
 
-            <div class="card">
-               <div class="card-block">
-                  <div class="m-2">
+            <div class="produto-info">
                      <h5>Por</h5>
                      <h4 class="card-title" th:text="${#numbers.formatDecimal(produto.Preco, 0, 'COMMA', 2, 'POINT')}">R$
                         190,99</h4>
-                  </div>
                   <hr>
                   <div class="text-center mb-3">
                      <a href="#" class="btn btn-primary">Adicionar ao Carrinho</a>
@@ -112,14 +109,23 @@
 
       <!-- Detalhes -->
       <div class="row">
-         <div class="col-12 p-3">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-               dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-               ex
-               ea commodo consequat. Duis
-               aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-               Excepteur
-               sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+         <div class="card col-12 p-3">
+            <div class="card-header">
+                  Detalhes
+               <i class="far fa-caret-square-down end-icon" id="detalhesToggle"></i>
+            </div>
+            <div class="card-body" id="detalhesId" style="display: none">
+               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
+                  et
+                  dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                  aliquip
+                  ex
+                  ea commodo consequat. Duis
+                  aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                  Excepteur
+                  sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>
+
          </div>
       </div>
 
@@ -244,7 +250,8 @@
    <!-- Optional JavaScript -->
    <!-- Mesmo esquema do link css -->
    <script src="../../static/js/main.js" th:src="@{/js/main.js}"></script>
-   <script src="../../static/js/search.js" th:src="@{/js/search.js}"></script>
+   <!-- <script src="../../static/js/search.js" th:src="@{/js/search.js}"></script> -->
+   <script src="../../static/js/detalhe.js" th:src="@{/js/detalhe.js}"></script>
 
 </body>
 

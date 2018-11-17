@@ -1,0 +1,14 @@
+.card-header {
+    font-size: 25px;
+}
+
+.end-icon {
+    float: right;
+}
+
+.produto-info {
+    border: 0.5px solid #80808059;
+    border-radius: 4px;
+    padding: 5px 3px;
+    margin-bottom: 10px;
+}
