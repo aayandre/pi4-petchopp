@@ -1,26 +1,61 @@
 $(document).ready(function () {
-    var sideToggle = false;
-    $('#sidebarCollapse').on('click', function () {
-        // open or close navbar
-        $('#sidebar').toggle(650);
-        // if(!sideToggle) {
-        //     $('#sidebar').hide( 600 , function() {
-        //         sideToggle = true;
-        //     });
-        // } else {
-        //     $('#sidebar').show( 600 , function() {
-        //         sideToggle = false;
-        //     });
-        // }
-        // close dropdowns
-        $('.collapse.in').toggleClass('in');
-        // and also adjust aria-expanded attributes we use for the open/closed arrows
-        // in our CSS
-        $('a[aria-expanded=true]').attr('aria-expanded', 'false');
-    });
 
-});
+    // Filtros START
+    if ($(window).width() > 700 && $("#listaFiltrosId").css("display") == "none") {
+        $("#listaFiltrosId").toggle();
+        // $("#resultadosId").toggleClass("col-md-12");
 
-$('#myCarousel').carousel({
-    interval: 4000
+    }
+
+    $("#filtrosToggleId").click(function () {
+        if ($(window).width() > 700) {
+            $("#resultadosId").toggleClass("col-md-12");
+            $("#listaFiltrosId").toggle();
+        } else {
+            $("#listaFiltrosId").toggle(500);
+            setTimeout(function () {
+                $("#resultadosId").toggleClass("col-md-12");
+            }, 650)
+        }
+
+
+    })
+    // Filtros END
+
+    // Procura START
+    function enviarForm(e) {
+
+        let getUrl = window.location.origin;
+        console.log(getUrl);
+
+        let procura = $("#formProcuraId").serialize();
+        let filtros = $("#formFiltrosId").serialize();
+        let resultado = {
+            procura: procura,
+            filtros: filtros
+        };
+        console.log(resultado);
+
+        $.ajax({
+            type: "get",
+            url: getUrl + "/rest/formulario",
+            data: resultado,
+            success: function (response) {
+                console.log(response);
+            }
+        });
+    }
+
+    $("#formProcuraId").on("submit", enviarForm(event));
+
+
+
+    // $("#formProcuraId", "#formFiltrosId").on("submit", function (event) {
+    //     event.preventDefault();
+    //     console.log($(this).serialize());
+    // });
+
+
+
+
 });

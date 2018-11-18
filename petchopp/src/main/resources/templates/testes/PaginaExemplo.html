@@ -14,8 +14,8 @@
    <!-- <link rel="stylesheet" href="../../static/css/cart.css" th:href="@{/css/cart.css}"> -->
    <!-- <link rel="stylesheet" href="../../static/css/checkout.css" th:href="@{/css/checkout.css}"> -->
    <!-- <link rel="stylesheet" href="../../static/css/home.css" th:href="@{/css/home.css}"> -->
-   <!-- <link rel="stylesheet" href="../../static/css/search.css" th:href="@{/css/search.css}"> -->
-   <link rel="stylesheet" href="../../static/css/detalhe.css" th:href="@{/css/detalhe.css}">
+   <link rel="stylesheet" href="../../static/css/search.css" th:href="@{/css/search.css}">
+   <!-- <link rel="stylesheet" href="../../static/css/detalhe.css" th:href="@{/css/detalhe.css}"> -->
    <!-- <link rel="stylesheet" href="../../static/css/cliente.css" th:href="@{/css/cliente.css}"> -->
    <!-- <link rel="stylesheet" href="../../static/css/login.css" th:href="@{/css/login.css}"> -->
    <!-- <link rel="stylesheet" href="../../static/css/orderList.css" th:href="@{/css/orderList.css}"> -->
@@ -36,7 +36,7 @@
 <body>
 
    <!-- Navigation -->
-   <nav class="navbar navbar-expand-lg navbar-dark navbar-collapse bg-color">
+   <nav class="navbar navbar-expand-lg fixed-top navbar-dark navbar-collapse bg-color">
 
       <!-- Logo -->
       <a class="navbar-brand ml-5" href="index.html" th:href="@{/}">PetChopp</a>
@@ -66,115 +66,107 @@
 
 
    <!-- Page Content -->
-   <div class="container-fluid nav-margin">
+   <div class="container nav-margin">
 
-      <div class="row">
-         <div class="btn btn-dark col-12" type="button" data-toggle="collapse" data-target="#contentId" aria-expanded="true"
-            aria-controls="contentId">
-            <h5>Filtros</h5>
-         </div>
+      <!-- Procura e botão do filtro -->
+      <div class="row text-center">
+
          <!-- Procura -->
-         <div class="col-12 col-md-8 offset-md-2">
-            <form action="#" method="get">
+         <div class="col-xs-12 col-sm-10 offset-sm-1 offset-md-0 col-md-8 order-md-last">
+            <form id="formProcuraId">
+
                <div class="form-group">
-                  <div class="input-group mb-3">
-                     <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"
-                        placeholder="Procure seu produto">
-                     <div class="input-group-append">
+                  <div class="input-group">
+                     <input type="text" class="form-control" name="searchWord" id="procuraId" placeholder="Procure por nome ou tag">
+                     <div class="input-group-append" id="searchBtn">
                         <span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-search"></i></span>
                      </div>
                   </div>
                </div>
+
             </form>
          </div>
+
+         <!-- Botão de filtro -->
+         <div class="col-xs-12 col-sm-10 col-md-2 offset-sm-1 offset-md-0 order-md-first text-center">
+            <button type="button" class="btn btn-custom w-75" id="filtrosToggleId">
+               Filtros
+            </button>
+         </div>
+
       </div>
 
       <div class="row text-center">
+
          <!-- Filtros -->
-         <div class="card col-sm-12 col-md-3 text-left mb-2">
+         <div class="col-sm-12 col-md-3 text-left mt-2 p-3" id="listaFiltrosId" style="display: none">
+            <form id="formFiltrosId">
+               <!-- Tipos -->
+               <div class="filter-group">
+                  <h6 class="title">Tipos</h6>
+                  <label class="form-check">
+                     <input name="check" class="form-check-input" type="checkbox" value="1">
+                     <span class="form-check-label">
+                        Rações
+                     </span>
+                  </label> <!-- form-check.// -->
+                  <label class="form-check">
+                     <input name="check" class="form-check-input" type="checkbox" value="2">
+                     <span class="form-check-label">
+                        Brinquedos
+                     </span>
+                  </label> <!-- form-check.// -->
+                  <label class="form-check">
+                     <input name="check" class="form-check-input" type="checkbox" value="3">
+                     <span class="form-check-label">
+                        Ferramentas
+                     </span>
+                  </label> <!-- form-check.// -->
+               </div>
 
-            <div class="card-body">
+               <!-- Tags -->
+               <div class="filter-group">
+                  <h6 class="title">Tags</h6>
+                  <label class="form-check">
+                     <input name="check" class="form-check-input" type="checkbox" value="4">
+                     <span class="form-check-label">
+                        Rações
+                     </span>
+                  </label> <!-- form-check.// -->
+                  <label class="form-check">
+                     <input name="check" class="form-check-input" type="checkbox" value="5">
+                     <span class="form-check-label">
+                        Brinquedos
+                     </span>
+                  </label> <!-- form-check.// -->
+                  <label class="form-check">
+                     <input name="check" class="form-check-input" type="checkbox" value="6">
+                     <span class="form-check-label">
+                        Ferramentas
+                     </span>
+                  </label> <!-- form-check.// -->
+               </div>
 
-               <div class="card collapse" id="contentId">
+            </form>
+         </div><!-- ./Filtros -->
 
-                  <article class="card-group-item">
-                     <header class="card-header">
-                        <h6 class="title">Coisas </h6>
-                     </header>
-                     <div class="filter-content">
-                        <div class="card-body">
-                           <form>
-                              <label class="form-check">
-                                 <input class="form-check-input" type="checkbox" value="">
-                                 <span class="form-check-label">
-                                    Rações
-                                 </span>
-                              </label> <!-- form-check.// -->
-                              <label class="form-check">
-                                 <input class="form-check-input" type="checkbox" value="">
-                                 <span class="form-check-label">
-                                    Brinquedos
-                                 </span>
-                              </label> <!-- form-check.// -->
-                              <label class="form-check">
-                                 <input class="form-check-input" type="checkbox" value="">
-                                 <span class="form-check-label">
-                                    Ferramentas
-                                 </span>
-                              </label> <!-- form-check.// -->
-                           </form>
-                        </div> <!-- card-body.// -->
-                     </div>
-                  </article> <!-- card-group-item.// -->
-
-                  <article class="card-group-item">
-                     <header class="card-header">
-                        <h6 class="title">Tipos </h6>
-                     </header>
-                     <div class="filter-content">
-                        <div class="card-body">
-                           <label class="form-check">
-                              <input class="form-check-input" type="radio" name="exampleRadio" value="">
-                              <span class="form-check-label">
-                                 Tipo 1
-                              </span>
-                           </label>
-
-                           <label class="form-check">
-                              <input class="form-check-input" type="radio" name="exampleRadio" value="">
-                              <span class="form-check-label">
-                                 Tipo 2
-                              </span>
-                           </label>
-                           </label>
-                           <label class="form-check">
-                              <input class="form-check-input" type="radio" name="exampleRadio" value="">
-                              <span class="form-check-label">
-                                 Tipo 3
-                              </span>
-                           </label>
-
-                        </div> <!-- card-body.// -->
-                     </div>
-                  </article> <!-- card-group-item.// -->
-
-               </div> <!-- card.// -->
-            </div>
-         </div>
 
          <!-- Procura e resultados -->
-         <div class="col-sm-12 col-md-9 text-left">
+         <div class="col-sm-12 col-md-9 mt-3 text-left" id="resultadosId">
 
             <div class="row">
 
                <!-- Filtros selecionados -->
                <div class="col-12"></div>
-               <!-- Resultados -->
+
+               <!-- Resultados e tabela de filtros -->
                <div class="col-12">
+
                   <div class="row">
+
                      <div class="col-lg-3 col-md-6 mb-4">
                         <div class="card">
-                           <img class="card-img-top" src="http://placehold.it/500x325" alt="">
+                           <img class="card-img-top img-fluid" src="http://placehold.it/500x325" alt="">
                            <div class="card-body">
                               <h4 class="card-title">Card title</h4>
                               <p class="card-text">
@@ -278,6 +270,7 @@
                         </div>
                      </div>
                   </div><!-- ./row -->
+
                </div>
             </div>
          </div>
@@ -407,8 +400,8 @@
    <!-- Optional JavaScript -->
    <!-- Mesmo esquema do link css -->
    <script src="../../static/js/main.js" th:src="@{/js/main.js}"></script>
-   <!-- <script src="../../static/js/search.js" th:src="@{/js/search.js}"></script> -->
-   <script src="../../static/js/detalhe.js" th:src="@{/js/detalhe.js}"></script>
+   <script src="../../static/js/search.js" th:src="@{/js/search.js}"></script>
+   <!-- <script src="../../static/js/detalhe.js" th:src="@{/js/detalhe.js}"></script> -->
 
 </body>
 

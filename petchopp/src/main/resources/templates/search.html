@@ -11,12 +11,12 @@
       <link rel="stylesheet" href="../static/css/main.css" th:href="@{/css/main.css}">
       <!-- Bootstrap CSS -->
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css"
-      data-integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous"
-      th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css}">
-      
+         data-integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous"
+         th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css}">
+
       <!-- Font Awesome -->
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" data-integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
-      crossorigin="anonymous" th:href="@{https://use.fontawesome.com/releases/v5.3.1/css/all.css}">
+         crossorigin="anonymous" th:href="@{https://use.fontawesome.com/releases/v5.3.1/css/all.css}">
    </div>
    <link rel="stylesheet" href="../static/css/search.css" th:href="@{/css/search.css}">
    <title th:text="${titulo}">Procura</title>
@@ -28,115 +28,107 @@
    <div th:replace="padrao/general.html :: navbarfiles"></div>
 
    <!-- Page Content -->
-   <div class="container-fluid nav-margin">
+   <div class="container nav-margin">
 
-      <div class="row">
-         <div class="btn btn-dark col-12" type="button" data-toggle="collapse" data-target="#contentId" aria-expanded="true"
-            aria-controls="contentId">
-            <h5>Filtros</h5>
-         </div>
+      <!-- Procura e botão do filtro -->
+      <div class="row text-center">
+
          <!-- Procura -->
-         <div class="col-12 col-md-8 offset-md-2">
-            <form action="#" method="get">
+         <div class="col-xs-12 col-sm-10 offset-sm-1 offset-md-0 col-md-8 order-md-last">
+            <form id="formProcuraId">
+
                <div class="form-group">
-                  <div class="input-group mb-3">
-                     <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"
-                        placeholder="Procure seu produto">
-                     <div class="input-group-append">
+                  <div class="input-group">
+                     <input type="text" class="form-control" name="searchWord" id="procuraId" placeholder="Procure por nome ou tag">
+                     <div class="input-group-append" id="searchBtn">
                         <span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-search"></i></span>
                      </div>
                   </div>
                </div>
+
             </form>
          </div>
+
+         <!-- Botão de filtro -->
+         <div class="col-xs-12 col-sm-10 col-md-2 offset-sm-1 offset-md-0 order-md-first text-center">
+            <button type="button" class="btn btn-custom w-75" id="filtrosToggleId">
+               Filtros
+            </button>
+         </div>
+
       </div>
 
       <div class="row text-center">
+
          <!-- Filtros -->
-         <div class="card col-sm-12 col-md-3 text-left mb-2">
+         <div class="col-sm-12 col-md-3 text-left mt-2 p-3" id="listaFiltrosId" style="display: none">
+            <form id="formFiltrosId">
+               <!-- Tipos -->
+               <div class="filter-group">
+                  <h6 class="title">Tipos</h6>
+                  <label class="form-check">
+                     <input name="check" class="form-check-input" type="checkbox" value="1">
+                     <span class="form-check-label">
+                        Rações
+                     </span>
+                  </label> <!-- form-check.// -->
+                  <label class="form-check">
+                     <input name="check" class="form-check-input" type="checkbox" value="2">
+                     <span class="form-check-label">
+                        Brinquedos
+                     </span>
+                  </label> <!-- form-check.// -->
+                  <label class="form-check">
+                     <input name="check" class="form-check-input" type="checkbox" value="3">
+                     <span class="form-check-label">
+                        Ferramentas
+                     </span>
+                  </label> <!-- form-check.// -->
+               </div>
 
-            <div class="card-body">
+               <!-- Tags -->
+               <div class="filter-group">
+                  <h6 class="title">Tags</h6>
+                  <label class="form-check">
+                     <input name="check" class="form-check-input" type="checkbox" value="4">
+                     <span class="form-check-label">
+                        Rações
+                     </span>
+                  </label> <!-- form-check.// -->
+                  <label class="form-check">
+                     <input name="check" class="form-check-input" type="checkbox" value="5">
+                     <span class="form-check-label">
+                        Brinquedos
+                     </span>
+                  </label> <!-- form-check.// -->
+                  <label class="form-check">
+                     <input name="check" class="form-check-input" type="checkbox" value="6">
+                     <span class="form-check-label">
+                        Ferramentas
+                     </span>
+                  </label> <!-- form-check.// -->
+               </div>
 
-               <div class="card collapse" id="contentId">
-
-                  <article class="card-group-item">
-                     <header class="card-header">
-                        <h6 class="title">Coisas </h6>
-                     </header>
-                     <div class="filter-content">
-                        <div class="card-body">
-                           <form>
-                              <label class="form-check">
-                                 <input class="form-check-input" type="checkbox" value="">
-                                 <span class="form-check-label">
-                                    Rações
-                                 </span>
-                              </label> <!-- form-check.// -->
-                              <label class="form-check">
-                                 <input class="form-check-input" type="checkbox" value="">
-                                 <span class="form-check-label">
-                                    Brinquedos
-                                 </span>
-                              </label> <!-- form-check.// -->
-                              <label class="form-check">
-                                 <input class="form-check-input" type="checkbox" value="">
-                                 <span class="form-check-label">
-                                    Ferramentas
-                                 </span>
-                              </label> <!-- form-check.// -->
-                           </form>
-                        </div> <!-- card-body.// -->
-                     </div>
-                  </article> <!-- card-group-item.// -->
-
-                  <article class="card-group-item">
-                     <header class="card-header">
-                        <h6 class="title">Tipos </h6>
-                     </header>
-                     <div class="filter-content">
-                        <div class="card-body">
-                           <label class="form-check">
-                              <input class="form-check-input" type="radio" name="exampleRadio" value="">
-                              <span class="form-check-label">
-                                 Tipo 1
-                              </span>
-                           </label>
-
-                           <label class="form-check">
-                              <input class="form-check-input" type="radio" name="exampleRadio" value="">
-                              <span class="form-check-label">
-                                 Tipo 2
-                              </span>
-                           </label>
-                           </label>
-                           <label class="form-check">
-                              <input class="form-check-input" type="radio" name="exampleRadio" value="">
-                              <span class="form-check-label">
-                                 Tipo 3
-                              </span>
-                           </label>
-
-                        </div> <!-- card-body.// -->
-                     </div>
-                  </article> <!-- card-group-item.// -->
-
-               </div> <!-- card.// -->
-            </div>
+            </form><!-- ./Filtros -->
          </div>
 
+
          <!-- Procura e resultados -->
-         <div class="col-sm-12 col-md-9 text-left">
+         <div class="col-sm-12 col-md-9 mt-3 text-left" id="resultadosId">
 
             <div class="row">
 
                <!-- Filtros selecionados -->
                <div class="col-12"></div>
-               <!-- Resultados -->
+
+               <!-- Resultados e tabela de filtros -->
                <div class="col-12">
+
                   <div class="row">
+
                      <div class="col-lg-3 col-md-6 mb-4">
                         <div class="card">
-                           <img class="card-img-top" src="http://placehold.it/500x325" alt="">
+                           <img class="card-img-top img-fluid" src="http://placehold.it/500x325" alt="">
                            <div class="card-body">
                               <h4 class="card-title">Card title</h4>
                               <p class="card-text">
@@ -240,6 +232,7 @@
                         </div>
                      </div>
                   </div><!-- ./row -->
+
                </div>
             </div>
          </div>

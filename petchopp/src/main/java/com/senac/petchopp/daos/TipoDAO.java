@@ -7,20 +7,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.senac.petchopp.connection.ConnectionFactory;
-import com.senac.petchopp.model.categoria.Categoria;
+import com.senac.petchopp.model.tipo.Tipo;
 
-public class CategoriaDAO {
+public class TipoDAO {
 
 	private Connection cn = null;
 
-	public ArrayList<Categoria> getAll() throws SQLException {
+	public ArrayList<Tipo> getAll() throws SQLException {
 
-		String sql = "SELECT * FROM Categoria";
+		String sql = "SELECT * FROM Tipo WHERE Nome = Produto";
 
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 
-		ArrayList<Categoria> resultados = new ArrayList<>();
+		ArrayList<Tipo> resultados = new ArrayList<>();
 
 		cn = ConnectionFactory.getConnection();
 
@@ -28,19 +28,15 @@ public class CategoriaDAO {
 			stmt = cn.prepareStatement(sql);
 			rs = stmt.executeQuery();
 			while (rs.next()) {
-				resultados.add(new Categoria(rs));
+				resultados.add(new Tipo(rs));
 			}
 			return resultados;
 		} catch (SQLException e) {
-			throw new SQLException("Erro ao adiquirir todas as categorias", e);
+			throw new SQLException("Erro ao adiquirir todas os Tipos do banco.", e);
 		} finally {
 			ConnectionFactory.closeConnection(cn, stmt, rs);
 		}
 
 	}
 
-	public ArrayList<Categoria> getAllByProdutoId(Long id) throws SQLException {
-//		String sql = "SELECT * FROM Categoria WHERE ";
-		return null;
-	}
 }
