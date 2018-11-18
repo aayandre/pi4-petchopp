@@ -41,7 +41,8 @@ public class Venda {
 	public Venda(ResultSet rs) throws SQLException {
 		super();
 		this.idVenda = rs.getLong("idVenda");
-		this.idCliente = rs.getLong("idVenda");
+		this.idCliente = rs.getLong("idCliente");
+                this.data = LocalDate.parse(rs.getString("data"));
 		this.protocolo = rs.getString("Protocolo");
 		this.valorTotal = rs.getDouble("valorTotal");
 		this.dataView = LocalDateTime.ofInstant(Instant.ofEpochMilli(rs.getTimestamp("data").getTime()),

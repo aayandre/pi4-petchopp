@@ -17,9 +17,12 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.senac.petchopp.daos.ClienteDAO;
+import com.senac.petchopp.daos.VendaDAO;
 import com.senac.petchopp.model.Auxiliares;
 import com.senac.petchopp.model.cliente.Cliente;
 import com.senac.petchopp.model.cliente.Endereco;
+import com.senac.petchopp.model.venda.Venda;
+import java.util.List;
 
 @Controller
 @RequestMapping("cliente")
@@ -64,5 +67,16 @@ public class ClienteController {
 		}
 		return modelAndView.addObject("redirect:cliente");
 	}
+        
+        @GetMapping("orders")
+        public ModelAndView visualizarPedidos() throws SQLException{
+            VendaDAO vendaDAO = new VendaDAO();
+            
+            List<Venda> vendas = vendaDAO.getVendasByCliente(1);
+            ModelAndView modelAndView = new ModelAndView("cli/orderList");
+            modelAndView.addObject("vendas", vendas);
+            
+            return modelAndView;
+        }
 
 }

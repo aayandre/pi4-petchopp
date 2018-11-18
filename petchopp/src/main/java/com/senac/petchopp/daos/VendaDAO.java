@@ -150,7 +150,7 @@ public class VendaDAO implements IDAO {
 	}
 
     public ArrayList<Produto> getItensVendaByVenda(int idVenda) {
-        String sql = "SELECT * FROM itemVenda WHERE idVenda = ?";
+        String sql = "SELECT * FROM ItemVenda WHERE idVenda = ?";
         PreparedStatement stmt = null;
         cn = ConnectionFactory.getConnection();
         ArrayList<Produto> produtos = new ArrayList<>();
@@ -158,7 +158,7 @@ public class VendaDAO implements IDAO {
 
         try {
             stmt = cn.prepareStatement(sql);
-            stmt.setInt(0, idVenda);
+            stmt.setInt(1, idVenda);
             rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -168,34 +168,39 @@ public class VendaDAO implements IDAO {
            
         } catch (Exception e) {
             // TODO: handle exception
+            System.out.println(e.getMessage());
         } finally {
             ConnectionFactory.closeConnection(cn, stmt, rs);
         }
         return produtos;
     }
 
-    public Venda getVendasByCliente(int idCliente) throws SQLException {
+    public List<Venda> getVendasByCliente(int idCliente) throws SQLException {
         String sql = "SELECT * FROM Venda WHERE idCliente = ?";
         PreparedStatement stmt = null;
         cn = ConnectionFactory.getConnection();
-        Venda venda = new Venda();
+        List<Venda> vendas = new ArrayList<>();
         ResultSet rs = null;
 
         try {
             stmt = cn.prepareStatement(sql);
-            stmt.setInt(0, idCliente);
+            stmt.setInt(1, idCliente);
             rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                venda = new Venda(rs);
+            
+            while (rs.next()){
+                Venda venda = new Venda(rs);
                 venda.setCarrinho(getItensVendaByVenda(Integer.parseInt(venda.getIdVenda().toString())), venda.getValorTotal());
+                vendas.add(venda);
+            }
+            if (rs.next()) {
+                
             }
         } catch (Exception e) {
 
         } finally {
             ConnectionFactory.closeConnection(cn, stmt, rs);
         }
-        return venda;
+        return vendas;
     }
     
 }
