@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="../../static/css/main.css" th:href="@{/css/main.css}">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" data-integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B"
-        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css"
+        data-integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" data-integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
@@ -25,8 +25,8 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-color fixed-top">
         <div class="container">
             <a class="navbar-brand" href="index.html" th:href="@{/}">PetChopp</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
-                aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -55,46 +55,42 @@
             </div>
         </div>
 
-        <div class="col-12" th:each="venda : *{vendas}">
-            <div id="order" class="orderlist-itens mb-3">
+        <div class="col-12" th:each="venda, vendaIter : *{vendas}">
+            <div id="order" class="orderlist-itens mb-3" th:id="'order' + ${vendaIter.index}">
+                <!-- Imagem dos itens -->
                 <div class="row orderlist-row-item m-0">
                     <div class="col-md-4 orderlist-border-right">
-                        <div class="offset-md-2 col-md-8 ">
-                            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                        <div class="offset-md-2 col-md-8" th:id="'carousel' + ${vendaIter.index}">
+                            <div th:id="'carouselItemOrder' + ${vendaIter.index}" class="carousel slide" data-ride="carousel">
                                 <div class="carousel-inner">
-                                    <div class="carousel-item active">
-                                        <img style="max-width: 100px; margin: auto !important;" class="d-block w-100" src="https://cobasi.vteximg.com.br/arquivos/ids/189784-1000-1000/Racao-Golden-Adulto-Special.jpg?v=636403047711430000"
-                                            alt="First slide">
-                                    </div>
-                                    <div class="carousel-item">
-                                        <img style="max-width: 100px; margin: auto !important;" class="d-block w-100" src="https://www.petlove.com.br/images/products/191775/hd/RACAO_MAGNUS_CAES_ADULTOS_SABOR_CARNE_c%C3%B3pia.jpg?1504634692"
-                                            alt="Second slide">
-                                    </div>
-                                    <div class="carousel-item">
-                                        <img style="max-width: 100px; margin: auto !important;" class="d-block w-100" src="https://cobasi.vteximg.com.br/arquivos/ids/183232-1000-1000/Racao-Premier-Ambientes-Internos-Filhotes.jpg?v=636105678444500000"
-                                            alt="Third slide">
+                                    <div class="carousel-item" th:each="produto, iter : *{venda.Carrinho.Produtos}"
+                                        th:classappend="${#strings.equals(iter.index, '0')} ? active : ''">
+
+                                        <img style="max-width: 100px; margin: auto !important;" class="d-block w-100"
+                                            th:src="@{../uploads/{nomeArquivo}(nomeArquivo=${produto.urlImagem})}">
+
                                     </div>
                                 </div>
-                                <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="sr-only">Previous</span>
-                                </a>
-                                <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="sr-only">Next</span>
-                                </a>
                             </div>
+                            <a class="carousel-control-prev" th:href="'#carouselItemOrder' + ${vendaIter.index}" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" th:href="'#carouselItemOrder' + ${vendaIter.index}" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
                         </div>
                         <p class="text-center mt-3 mb-0">
-                            <span class="font-weight-bold">Qtde de Itens: </span>1</p>
-                        <p class="display-none text-center mt-3 mb-0">
-                            <span class="font-weight-bold">Pagamento: </span>Cartão de Crédito</p>
+                            <span class="font-weight-bold">Qtde de Itens: </span>[[${venda.QtdeItensVenda}]]</p>
+                        <p class="text-center mt-3 mb-0" style="display: none;" th:id="'pagto' + ${vendaIter.index}">
+                            <span class="font-weight-bold">Pagamento: </span>[[${venda.FormaPagto.Descricao}]]</p>
                     </div>
 
                     <!-- Status do pedido -->
                     <div class="col-md-4 align-self-center orderlist-status-align">
                         <p>Status do Pedido</p>
-                        <p class="font-weight-bold">Finalizado</p>
+                        <p class="font-weight-bold" th:text="${venda.Status.Descricao}">Sem Status</p>
                     </div>
 
                     <!-- informações do pedido -->
@@ -103,21 +99,24 @@
                             <p>
                                 <span class="font-weight-bold">Protocolo: </span>[[${venda.Protocolo}]]</p>
                             <p>
-                                <span class="font-weight-bold">Data Pedido: </span>[[${venda.Data}]]</p>
+                                <span class="font-weight-bold">Data Pedido: </span>[[${#dates.format(venda.Data,
+                                'dd/MM/yyyy HH:mm:ss')}]]</p>
                             <p>
-                                <span class="font-weight-bold">Total Pedido: </span>[[${venda.ValorTotal}]]</p>
-                            <a href="javascript:void(0);" id="btn-details" class="btn btn-primary btn-block font-weight-bold">Detalhes</a>
+                                <span class="font-weight-bold">Total Pedido: </span>[[${#numbers.formatCurrency(venda.ValorTotal)}]]</p>
+                            <a href="javascript:void(0);" id="btn-details" th:onclick="exibirDetalhes('[[${vendaIter.index}]]')"
+                                class="btn btn-primary btn-block font-weight-bold">Detalhes</a>
                         </div>
                     </div>
                 </div>
 
                 <!-- Informações detalhadas do pedido -->
-                <div id="details-order" style="display: none;">
-                    <div class="row orderList-detail-item m-3" th:each="produto, stat : *{produtos}">
+                <!-- <div id="details-order" style="display: none;"> -->
+                <div th:id="'details-order' + ${vendaIter.index}" style="display: none;">
+                    <div class="row orderList-detail-item m-3" th:each="produto : *{venda.Carrinho.Produtos}">
 
                         <!-- Imagem -->
                         <div class="col-4 align-self-center">
-                            <img style="max-width: 100px; margin: auto !important;" class="d-block w-100" src="https://www.petlove.com.br/images/products/191775/hd/RACAO_MAGNUS_CAES_ADULTOS_SABOR_CARNE_c%C3%B3pia.jpg?1504634692">
+                            <img style="max-width: 100px; margin: auto !important;" class="d-block w-100" th:src="@{../uploads/{nomeArquivo}(nomeArquivo=${produto.urlImagem})}">
                         </div>
 
                         <!-- Informações do produto -->
@@ -133,50 +132,8 @@
                                 <p class="col-6">
                                     Quantidade
                                 </p>
-                                <p name="produtoPreco" id="produtoPrecoId" class="col-6 cart-item-value" th:text="${#numbers.formatCurrency(produto.Preco)}"
-                                    th:value="${produto.Preco}">1</p>
-                            </div>
-                            <div class="row cart-item-right-border">
-                                <p class="col-6">
-                                    Individual
-                                </p>
-                                <p name="produtoPreco" id="produtoPrecoId" class="col-6 cart-item-value" th:text="${#numbers.formatCurrency(produto.Preco)}"
-                                    th:value="${produto.Preco}">R$ 35,00</p>
-                            </div>
-                            <div class="row cart-item-value-label">
-                                <p class="col-6">
-                                    Subtotal
-                                </p>
-                                <!-- <p class="col-6 font-weight-bold cart-item-value">
-                                                    R$
-                                                    <input type="number" name="subTotal" id="subTotalId" step="0.01" class="input-reset" disabled />
-                                                </p> -->
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row orderList-detail-item m-3" th:each="produto, stat : *{produtos}">
-
-                        <!-- Imagem -->
-                        <div class="col-4 align-self-center">
-                            <img style="max-width: 100px; margin: auto !important;" class="d-block w-100" src="https://www.petlove.com.br/images/products/191775/hd/RACAO_MAGNUS_CAES_ADULTOS_SABOR_CARNE_c%C3%B3pia.jpg?1504634692">
-                        </div>
-
-                        <!-- Informações do produto -->
-                        <div class="col-4 mt-2 cart-item-info center-objects">
-                            <p class="font-weight-bold cart-item-name">Tipo ou tag do produto</p>
-                            <p th:text="${produto.Nome}">Nome de produto</p>
-                            <p th:text="${produto.Codigo}">Código do produto</p>
-                            <p class="cart-item-sold">Vendido por Nóis</p>
-                        </div>
-
-                        <div class="col-4 align-self-center">
-                            <div class="row cart-item-right-border">
-                                <p class="col-6">
-                                    Quantidade
-                                </p>
-                                <p name="produtoPreco" id="produtoPrecoId" class="col-6 cart-item-value" th:text="${#numbers.formatCurrency(produto.Preco)}"
-                                    th:value="${produto.Preco}">1</p>
+                                <p name="produtoPreco" id="produtoPrecoId" class="col-6 cart-item-value" th:text="${#numbers.formatCurrency(produto.Quantidade)}"
+                                    th:value="${produto.Quantidade}">1</p>
                             </div>
                             <div class="row cart-item-right-border">
                                 <p class="col-6">
@@ -232,14 +189,56 @@
                                     Subtotal
                                 </p>
                                 <!-- <p class="col-6 font-weight-bold cart-item-value">
-                                                        R$
-                                                        <input type="number" name="subTotal" id="subTotalId" step="0.01" class="input-reset" disabled />
-                                                    </p> -->
+                                                            R$
+                                                            <input type="number" name="subTotal" id="subTotalId" step="0.01" class="input-reset" disabled />
+                                                        </p> -->
                             </div>
                         </div>
                     </div>
 
-                    <div class="row mx-3 mt-3 orderlist-row-resumo" th:each="produto, stat : *{produtos}">
+                    <div class="row orderList-detail-item m-3" th:each="produto, stat : *{produtos}">
+
+                        <!-- Imagem -->
+                        <div class="col-4 align-self-center">
+                            <img style="max-width: 100px; margin: auto !important;" class="d-block w-100" src="https://www.petlove.com.br/images/products/191775/hd/RACAO_MAGNUS_CAES_ADULTOS_SABOR_CARNE_c%C3%B3pia.jpg?1504634692">
+                        </div>
+
+                        <!-- Informações do produto -->
+                        <div class="col-4 mt-2 cart-item-info center-objects">
+                            <p class="font-weight-bold cart-item-name">Tipo ou tag do produto</p>
+                            <p th:text="${produto.Nome}">Nome de produto</p>
+                            <p th:text="${produto.Codigo}">Código do produto</p>
+                            <p class="cart-item-sold">Vendido por Nóis</p>
+                        </div>
+
+                        <div class="col-4 align-self-center">
+                            <div class="row cart-item-right-border">
+                                <p class="col-6">
+                                    Quantidade
+                                </p>
+                                <p name="produtoPreco" id="produtoPrecoId" class="col-6 cart-item-value" th:text="${#numbers.formatCurrency(produto.Preco)}"
+                                    th:value="${produto.Preco}">1</p>
+                            </div>
+                            <div class="row cart-item-right-border">
+                                <p class="col-6">
+                                    Individual
+                                </p>
+                                <p name="produtoPreco" id="produtoPrecoId" class="col-6 cart-item-value" th:text="${#numbers.formatCurrency(produto.Preco)}"
+                                    th:value="${produto.Preco}">R$ 35,00</p>
+                            </div>
+                            <div class="row cart-item-value-label">
+                                <p class="col-6">
+                                    Subtotal
+                                </p>
+                                <!-- <p class="col-6 font-weight-bold cart-item-value">
+                                                            R$
+                                                            <input type="number" name="subTotal" id="subTotalId" step="0.01" class="input-reset" disabled />
+                                                        </p> -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row m-3 orderlist-row-resumo">
                         <div class="col-6 my-2">
                             <p class="font-weight-bold mb-3">ENDEREÇO DE ENTREGA:</p>
                             <p>Rua Atílio Delamuta, 546 - Jardim Itaiçaba (Ártemis)</p>
@@ -267,6 +266,7 @@
                 </div>
             </div>
         </div>
+    </div>
 
     </div>
     <!-- /Page Content -->
@@ -371,7 +371,8 @@
     <footer class="py-2 bg-dark footer-font-size">
         <div class="container">
             <p class="m-0 text-center text-white">&copy; PetChopp 2018 . Todos os direitos reservados.</p>
-            <p class="m-0 text-center text-white">PETSHOPP COMÉRCIO E PARTICIPAÇÕES S/A - CNPJ: 03.321.742/0001-07 - Rua Atílio Delamuta, 546, Jardim Itaiçaba
+            <p class="m-0 text-center text-white">PETSHOPP COMÉRCIO E PARTICIPAÇÕES S/A - CNPJ: 03.321.742/0001-07 -
+                Rua Atílio Delamuta, 546, Jardim Itaiçaba
                 (Ártemis), Jardim Itaiçaba (Ártemis), CEP: 13432-136, Piracicaba, SP, Brasil</p>
             <!-- <p class="m-0 text-center text-white">Copyright &copy; Your Website 2018</p> -->
         </div>
