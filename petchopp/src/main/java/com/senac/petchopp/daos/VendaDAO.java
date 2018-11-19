@@ -11,6 +11,7 @@ import java.util.List;
 import com.senac.petchopp.connection.ConnectionFactory;
 import com.senac.petchopp.interfaces.IDAO;
 import com.senac.petchopp.model.produto.Produto;
+import com.senac.petchopp.model.produto.ProdutoVenda;
 import com.senac.petchopp.model.venda.Venda;
 
 public class VendaDAO implements IDAO {
@@ -106,13 +107,13 @@ public class VendaDAO implements IDAO {
 
         try {
 
-            for (Produto produto : venda.getCarrinho().getProdutos()) {
+            for (ProdutoVenda produto : venda.getCarrinho().getProdutos()) {
                 stmt = cn.prepareStatement(sql);
 
                 stmt.setLong(1, venda.getIdVenda());
                 stmt.setLong(2, produto.getIdProduto());
                 stmt.setInt(3, produto.getQuantidade().intValue());
-                stmt.setDouble(4, produto.getPreco());
+                stmt.setDouble(4, produto.getValor());
 
                 stmt.execute();
             }
@@ -149,38 +150,13 @@ public class VendaDAO implements IDAO {
         return encontrados;
     }
 
-    public ArrayList<Produto> getItensVendaByVenda(int idVenda) {
-        String sql = "SELECT * FROM ItemVenda WHERE idVenda = ?";
-        PreparedStatement stmt = null;
-        cn = ConnectionFactory.getConnection();
-        ArrayList<Produto> produtos = new ArrayList<>();
-        ResultSet rs = null;
-
-        try {
-            stmt = cn.prepareStatement(sql);
-            stmt.setInt(1, idVenda);
-            rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                ProdutoDAO prodDAO = new ProdutoDAO();
-                produtos.add((Produto) prodDAO.getById(rs.getLong("idProduto")));
-            }
-
-        } catch (Exception e) {
-            // TODO: handle exception
-            System.out.println(e.getMessage());
-        } finally {
-            ConnectionFactory.closeConnection(cn, stmt, rs);
-        }
-        return produtos;
-    }
-
     public List<Venda> getVendasByCliente(int idCliente) throws SQLException {
         String sql = "SELECT * FROM Venda WHERE idCliente = ? and idVenda IN (4, 7)";
         PreparedStatement stmt = null;
         cn = ConnectionFactory.getConnection();
         List<Venda> vendas = new ArrayList<>();
         ResultSet rs = null;
+        ProdutoVendaDAO prodVendaDAO = new ProdutoVendaDAO();
 
         try {
             stmt = cn.prepareStatement(sql);
@@ -189,7 +165,7 @@ public class VendaDAO implements IDAO {
 
             while (rs.next()) {
                 Venda venda = new Venda(rs);
-                venda.setCarrinho(getItensVendaByVenda(Integer.parseInt(venda.getIdVenda().toString())), venda.getValorTotal());
+                venda.setCarrinho(prodVendaDAO.getProdutoVendaByVenda(Integer.parseInt(venda.getIdVenda().toString())), venda.getValorTotal());
                 venda.setStatus(TipoDAO.getTipoByID(rs.getInt("status")));
                 venda.setFormaPagto(TipoDAO.getTipoByID(rs.getInt("formaPagto")));
                 venda.setQtdeItensVenda(venda.getCarrinho().getProdutos().size());
@@ -199,7 +175,7 @@ public class VendaDAO implements IDAO {
 
             }
         } catch (Exception e) {
-
+            
         } finally {
             ConnectionFactory.closeConnection(cn, stmt, rs);
         }
