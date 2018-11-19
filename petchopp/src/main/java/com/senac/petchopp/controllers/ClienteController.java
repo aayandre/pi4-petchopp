@@ -20,6 +20,7 @@ import com.senac.petchopp.daos.ClienteDAO;
 import com.senac.petchopp.model.Auxiliares;
 import com.senac.petchopp.model.cliente.Cliente;
 import com.senac.petchopp.model.cliente.Endereco;
+import com.senac.petchopp.service.LoginService;
 
 @Controller
 @RequestMapping("cliente")
@@ -51,7 +52,7 @@ public class ClienteController {
 
 		try {
 
-			cliente.setDtCadastro(LocalDateTime.now());
+			cliente.setDtCadastro(LocalDate.now());
 			cliente.setDtNasc(stringToLocalDateParse);
 			cliente.setAtivo(true);
 			clienteDAO.salvar(cliente);
@@ -63,6 +64,25 @@ public class ClienteController {
 			e.printStackTrace();
 		}
 		return modelAndView.addObject("redirect:cliente");
+	}
+	
+	@GetMapping("login")
+	public String loginCliente() {
+		return "cli/login"; 
+	}
+	
+	@PostMapping("logon")
+	public ModelAndView logonUsurio(@RequestParam(value="email") String email, @RequestParam(value="password") String senha
+			,RedirectAttributes redirect, HttpSession session) throws SQLException {
+		
+		Cliente cliente = new LoginService().clienteLogon(email, senha);
+		session.setAttribute("cliente", cliente);
+		if(cliente!=null) {
+			System.out.println(cliente.getEmail());
+		return new ModelAndView("cli/cliente-index");
+		}
+		
+		return new ModelAndView("cli/login");
 	}
 
 }

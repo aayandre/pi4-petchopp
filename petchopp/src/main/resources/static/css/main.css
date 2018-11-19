@@ -35,3 +35,11 @@ body {
         display: none !important;
     }
 }
+
+/* Menu login Cliente */
+
+.nav-cliente{
+    color: #d9d9d9;
+}
+
+/* FIM login cliente */

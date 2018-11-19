@@ -53,62 +53,41 @@
                     <li class="nav-item">
                         <a class="nav-link" href="../cart/cart.html">Carrinho</a>
                     </li>
+
                 </ul>
+
             </div>
         </div>
     </nav>
 
     <!-- Page Content -->
     <div class="container nav-margin">
-      <!-- Era so um teste para mostrar o valor do cliente na sessao
+        <!-- Era so um teste para mostrar o valor do cliente na sessao
       sem utilizar a notacao do SessionAttributes no controller  -->
-      <!-- <h1 th:text="${session.carrinho.total}"></h1> -->
+        <!-- <h1 th:text="${session.carrinho.total}"></h1> -->
         <div class="row">
             <div class="col-md-2 lateral-cli-menu">
 
                 <div class="list-group">
                     <a href="#" class="list-group-item list-group-item-action active">Meus dados</a>
                     <a href="#" class="list-group-item list-group-item-action">Pedidos</a>
-                    <a href="#" class="list-group-item list-group-item-action">Disabled item</a>
+                    <a href="#" class="list-group-item list-group-item-action">Outro dados</a>
                 </div>
 
             </div>
-            <div class="col-md-10 form-cad-cli">
+            <div class="col-md-10 ">
                 <h3>Meus dados</h3>
                 <hr>
-                <form class="form">
-                    <div class="row">
-
-                        <div class="col-mg-6" style="display: block;">
-                            <label for="nome">Nome Completo </label>
-                            <input type="text" name="" id="nome" class="form-control" placeholder="" aria-describedby="helpId">
-                        </div>
-                        <div class="col-mg-6" style="display: block;">
-                            <label for="email">E-mail</label>
-                            <input type="email" name="" id="email" class="form-control" placeholder="exemplo@domain.com"
-                                aria-describedby="helpId">
-                        </div>
-                    </div>
-                    <div class="col-xs-6">
-                        <div class="row">
-
-                            <div class="col-xs-2">
-                                <div class="form-group">
-                                    <label for="dddcelular">DDD </label>
-                                    <input type="tel" name="dddcelular" id="dddcelular" class="form-control ddd"
-                                        maxlength="2">
-                                </div>
-                                <div class="col-xs-10">
-                                    <div class="form-group">
-                                        <label for="celular">Celular</label>
-                                        <input type="tel" name="celular" id="celular" class="form-control" placeholder="9999-99999">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </form>
+                <ul>
+                    <li>
+                        <p>
+                            Nome: <span th:text="${session.cliente.nome}"></span>
+                        </p>
+                    </li>
+                    <li>E-mail: <span th:text="${session.cliente.email}"></span></li>
+                    <li>Celular: <span th:text="${session.cliente.telefone1}"></span></li>
+                    <li>Telefone: <span th:text="${session.cliente.telefone2}"></span></li>
+                </ul>
             </div>
 
         </div>
