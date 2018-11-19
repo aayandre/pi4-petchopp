@@ -16,6 +16,7 @@ import com.senac.petchopp.model.venda.Venda;
 public class VendaDAO implements IDAO {
 
 	private static Connection cn = null;
+	private TipoDAO tipodao = new TipoDAO();
 
 	@Override
 	public void salvar(Object bean) throws SQLException {
@@ -34,8 +35,8 @@ public class VendaDAO implements IDAO {
 			stmt.setLong(1, venda.getIdCliente());
 			stmt.setLong(2, venda.getIdFretes());
 			stmt.setString(3, venda.getProtocolo());
-			stmt.setDate(4, new java.sql.Date(venda.getDataView().atZone(ZoneId.systemDefault()).toInstant()
-			        .toEpochMilli()));
+			stmt.setDate(4,
+					new java.sql.Date(venda.getDataView().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()));
 			stmt.setDouble(5, venda.getValorTotal());
 
 			stmt.execute();
@@ -82,7 +83,7 @@ public class VendaDAO implements IDAO {
 			stmt = cn.prepareStatement(sql);
 			stmt.setLong(1, venda.getIdCliente());
 			stmt.setString(2, venda.getProtocolo());
-			stmt.setDate(3, java.sql.Date.valueOf(venda.getData()));
+			stmt.setTimestamp(3, venda.getData());
 			stmt.setDouble(4, venda.getValorTotal());
 			rs = stmt.executeQuery();
 			while (rs.next()) {
@@ -149,53 +150,62 @@ public class VendaDAO implements IDAO {
 		return encontrados;
 	}
 
-    public ArrayList<Produto> getItensVendaByVenda(int idVenda) {
-        String sql = "SELECT * FROM itemVenda WHERE idVenda = ?";
-        PreparedStatement stmt = null;
-        cn = ConnectionFactory.getConnection();
-        ArrayList<Produto> produtos = new ArrayList<>();
-        ResultSet rs = null;
+	public ArrayList<Produto> getItensVendaByVenda(int idVenda) {
+		String sql = "SELECT * FROM ItemVenda WHERE idVenda = ?";
+		PreparedStatement stmt = null;
+		cn = ConnectionFactory.getConnection();
+		ArrayList<Produto> produtos = new ArrayList<>();
+		ResultSet rs = null;
 
-        try {
-            stmt = cn.prepareStatement(sql);
-            stmt.setInt(0, idVenda);
-            rs = stmt.executeQuery();
+		try {
+			stmt = cn.prepareStatement(sql);
+			stmt.setInt(1, idVenda);
+			rs = stmt.executeQuery();
 
-            while (rs.next()) {
-                ProdutoDAO prodDAO = new ProdutoDAO();
-                produtos.add((Produto) prodDAO.getById(rs.getLong("idProduto")));
-            }
-           
-        } catch (Exception e) {
-            // TODO: handle exception
-        } finally {
-            ConnectionFactory.closeConnection(cn, stmt, rs);
-        }
-        return produtos;
-    }
+			while (rs.next()) {
+				ProdutoDAO prodDAO = new ProdutoDAO();
+				produtos.add((Produto) prodDAO.getById(rs.getLong("idProduto")));
+			}
 
-    public Venda getVendasByCliente(int idCliente) throws SQLException {
-        String sql = "SELECT * FROM Venda WHERE idCliente = ?";
-        PreparedStatement stmt = null;
-        cn = ConnectionFactory.getConnection();
-        Venda venda = new Venda();
-        ResultSet rs = null;
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+		} finally {
+			ConnectionFactory.closeConnection(cn, stmt, rs);
+		}
+		return produtos;
+	}
 
-        try {
-            stmt = cn.prepareStatement(sql);
-            stmt.setInt(0, idCliente);
-            rs = stmt.executeQuery();
+	public List<Venda> getVendasByCliente(int idCliente) throws SQLException {
+		String sql = "SELECT * FROM Venda WHERE idCliente = ? and idVenda IN (4, 7)";
+		PreparedStatement stmt = null;
+		cn = ConnectionFactory.getConnection();
+		List<Venda> vendas = new ArrayList<>();
+		ResultSet rs = null;
 
-            if (rs.next()) {
-                venda = new Venda(rs);
-                venda.setCarrinho(getItensVendaByVenda(Integer.parseInt(venda.getIdVenda().toString())), venda.getValorTotal());
-            }
-        } catch (Exception e) {
+		try {
+			stmt = cn.prepareStatement(sql);
+			stmt.setInt(1, idCliente);
+			rs = stmt.executeQuery();
 
-        } finally {
-            ConnectionFactory.closeConnection(cn, stmt, rs);
-        }
-        return venda;
-    }
-    
+			while (rs.next()) {
+				Venda venda = new Venda(rs);
+				venda.setCarrinho(getItensVendaByVenda(Integer.parseInt(venda.getIdVenda().toString())),
+						venda.getValorTotal());
+				venda.setStatus(tipodao.getTipoByID(rs.getInt("status")));
+				venda.setFormaPagto(tipodao.getTipoByID(rs.getInt("formaPagto")));
+				venda.setQtdeItensVenda(venda.getCarrinho().getProdutos().size());
+				vendas.add(venda);
+			}
+			if (rs.next()) {
+
+			}
+		} catch (Exception e) {
+
+		} finally {
+			ConnectionFactory.closeConnection(cn, stmt, rs);
+		}
+		return vendas;
+	}
+
 }

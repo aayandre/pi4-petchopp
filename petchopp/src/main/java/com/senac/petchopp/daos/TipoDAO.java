@@ -12,6 +12,10 @@ import com.senac.petchopp.model.tipo.Tipo;
 public class TipoDAO {
 
 	private Connection cn = null;
+	
+	public TipoDAO() {
+		super();
+	}
 
 	public ArrayList<Tipo> getAll() throws SQLException {
 
@@ -37,6 +41,54 @@ public class TipoDAO {
 			ConnectionFactory.closeConnection(cn, stmt, rs);
 		}
 
-	}
+    }
+    
+    public Tipo getTipoByID(int idTipo){
+        String sql = "SELECT * FROM Tipo WHERE idTipo = ?";
+        PreparedStatement stmt = null;
+        cn = ConnectionFactory.getConnection();
+        Tipo tipo = new Tipo();
+        ResultSet rs = null;
+
+        try {
+            stmt = cn.prepareStatement(sql);
+            stmt.setInt(1, idTipo);
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                tipo = new Tipo(rs);
+            }
+         
+        } catch (Exception e) {
+
+        } finally {
+            ConnectionFactory.closeConnection(cn, stmt, rs);
+        }
+        return tipo;
+    }
+    
+    public Tipo getTipoByNome(String nome){
+        String sql = "SELECT * FROM Tipo WHERE nome = ?";
+        PreparedStatement stmt = null;
+        cn = ConnectionFactory.getConnection();
+        Tipo tipo = new Tipo();
+        ResultSet rs = null;
+
+        try {
+            stmt = cn.prepareStatement(sql);
+            stmt.setString(1, nome);
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                tipo = new Tipo(rs);
+            }
+         
+        } catch (Exception e) {
+
+        } finally {
+            ConnectionFactory.closeConnection(cn, stmt, rs);
+        }
+        return tipo;
+    }
 
 }
