@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.senac.petchopp.model.FormularioSearch;
-import com.senac.petchopp.model.FormularioSearch.Filtros;
 import com.senac.petchopp.model.produto.Produto;
 import com.senac.petchopp.model.produto.ProdutoService;
+import com.senac.petchopp.wos.FormularioSearch;
+import com.senac.petchopp.wos.FormularioSearch.Filtros;
 
 @RestController
 @RequestMapping("rest")

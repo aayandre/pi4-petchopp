@@ -1,8 +1,25 @@
 .filter-group {
-    border: 0.5px solid blue;
+    border-radius: 4px;
+    box-shadow: 1px 1px 1px 1px #8080804f;
+    padding: 5px 5px 2px 10px;
     margin-bottom: 1rem;
+    background-color: rgba(62, 145, 252, 0.23);
+}
+
+.filter-group h6 {
+    font-weight: 600;
+    color: rgb(118, 125, 131);
+}
+
+.filter-group label {
+    color: rgb(68, 73, 77);
+    padding-left: 1.7rem;
 }
 
 .btn-custom {
     background-color: #b2b5d2b8;
+}
+
+#searchBtn {
+    cursor: pointer;
 }

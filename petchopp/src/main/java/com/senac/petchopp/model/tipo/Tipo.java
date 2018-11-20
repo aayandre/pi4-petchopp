@@ -51,4 +51,9 @@ public class Tipo {
 		this.descricao = descricao;
 	}
 
+	@Override
+	public String toString() {
+		return "Tipo [idTipo=" + idTipo + ", nome=" + nome + ", descricao=" + descricao + "]";
+	}
+
 }

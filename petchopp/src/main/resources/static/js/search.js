@@ -3,14 +3,15 @@
 $(document).ready(function () {
 
     // Filtros START
-    if ($(window).width() > 700 && $("#listaFiltrosId").css("display") == "none") {
+
+    // Mostra os filtros se a janela estiver a X width
+    if ($(window).width() > 576 && $("#listaFiltrosId").css("display") == "none") {
         $("#listaFiltrosId").toggle();
-        // $("#resultadosId").toggleClass("col-md-12");
+    };
 
-    }
-
+    // Botão de mostrar filtros
     $("#filtrosToggleId").click(function () {
-        if ($(window).width() > 700) {
+        if ($(window).width() > 576) {
             $("#resultadosId").toggleClass("col-md-12");
             $("#listaFiltrosId").toggle();
         } else {
@@ -19,16 +20,26 @@ $(document).ready(function () {
                 $("#resultadosId").toggleClass("col-md-12");
             }, 650)
         }
+    });
+
+    // Lista filtros do server
+    $.getJSON(window.location.origin + "/rest/filtros",
+        function (data, textStatus, jqXHR) {
+            console.log(data);
+        }
+    );
 
 
-    })
     // Filtros END
 
     // Procura START
+
+    // Watcher no botão da barra de pesquisa
     $("#searchBtn").click(function () {
         $("#formProcuraId").submit();
     })
 
+    // Função do submit no formulario de procura
     $("#formProcuraId").submit(function (event) {
         // cancela o submit normal do form
         event.preventDefault();
@@ -71,38 +82,5 @@ $(document).ready(function () {
             }
         });
     })
-
-
-    // $("#formProcuraId").on("submit", enviarForm(event));
-
-    // function enviarForm(e) {
-
-    //     let getUrl = window.location.origin;
-    //     console.log(getUrl);
-
-    //     let procura = $("#formProcuraId").serialize();
-    //     let filtros = $("#formFiltrosId").serialize();
-    //     let resultado = {
-    //         procura: procura,
-    //         filtros: filtros
-    //     };
-    //     console.log(resultado);
-
-    //     $.ajax({
-    //         type: "post",
-    //         url: getUrl + "/rest/formulario",
-    //         dataType: "json",
-    //         data: resultado,
-    //         success: function (response) {
-    //             console.log(response);
-    //         }
-    //     });
-    // }
-
-
-    // $("#formProcuraId", "#formFiltrosId").on("submit", function (event) {
-    //     event.preventDefault();
-    //     console.log($(this).serialize());
-    // });
-
+    // Procura END
 });

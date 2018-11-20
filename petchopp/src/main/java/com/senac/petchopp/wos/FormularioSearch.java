@@ -1,4 +1,4 @@
-package com.senac.petchopp.model;
+package com.senac.petchopp.wos;
 
 import java.util.Arrays;
 

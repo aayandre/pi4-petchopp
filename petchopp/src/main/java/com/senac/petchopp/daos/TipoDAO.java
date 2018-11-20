@@ -5,26 +5,53 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.senac.petchopp.connection.ConnectionFactory;
+import com.senac.petchopp.interfaces.IDAO;
 import com.senac.petchopp.model.tipo.Tipo;
 
-public class TipoDAO {
+public class TipoDAO implements IDAO {
 
 	private Connection cn = null;
-	
+
 	public TipoDAO() {
 		super();
 	}
 
-	public ArrayList<Tipo> getAll() throws SQLException {
+	@Override
+	public void salvar(Object bean) throws SQLException {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void atualizar(Object bean) throws SQLException {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void deletar(Long id) throws SQLException {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public Object getById(Long id) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Object> getAll() throws SQLException {
 
 		String sql = "SELECT * FROM Tipo WHERE Nome = Produto";
 
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 
-		ArrayList<Tipo> resultados = new ArrayList<>();
+		List<Object> resultados = new ArrayList<>();
 
 		cn = ConnectionFactory.getConnection();
 
@@ -41,54 +68,54 @@ public class TipoDAO {
 			ConnectionFactory.closeConnection(cn, stmt, rs);
 		}
 
-    }
-    
-    public Tipo getTipoByID(int idTipo){
-        String sql = "SELECT * FROM Tipo WHERE idTipo = ?";
-        PreparedStatement stmt = null;
-        cn = ConnectionFactory.getConnection();
-        Tipo tipo = new Tipo();
-        ResultSet rs = null;
+	}
 
-        try {
-            stmt = cn.prepareStatement(sql);
-            stmt.setInt(1, idTipo);
-            rs = stmt.executeQuery();
+	public Tipo getTipoByID(int idTipo) {
+		String sql = "SELECT * FROM Tipo WHERE idTipo = ?";
+		PreparedStatement stmt = null;
+		cn = ConnectionFactory.getConnection();
+		Tipo tipo = new Tipo();
+		ResultSet rs = null;
 
-            if (rs.next()) {
-                tipo = new Tipo(rs);
-            }
-         
-        } catch (Exception e) {
+		try {
+			stmt = cn.prepareStatement(sql);
+			stmt.setInt(1, idTipo);
+			rs = stmt.executeQuery();
 
-        } finally {
-            ConnectionFactory.closeConnection(cn, stmt, rs);
-        }
-        return tipo;
-    }
-    
-    public Tipo getTipoByNome(String nome){
-        String sql = "SELECT * FROM Tipo WHERE nome = ?";
-        PreparedStatement stmt = null;
-        cn = ConnectionFactory.getConnection();
-        Tipo tipo = new Tipo();
-        ResultSet rs = null;
+			if (rs.next()) {
+				tipo = new Tipo(rs);
+			}
 
-        try {
-            stmt = cn.prepareStatement(sql);
-            stmt.setString(1, nome);
-            rs = stmt.executeQuery();
+		} catch (Exception e) {
 
-            if (rs.next()) {
-                tipo = new Tipo(rs);
-            }
-         
-        } catch (Exception e) {
+		} finally {
+			ConnectionFactory.closeConnection(cn, stmt, rs);
+		}
+		return tipo;
+	}
 
-        } finally {
-            ConnectionFactory.closeConnection(cn, stmt, rs);
-        }
-        return tipo;
-    }
+	public Tipo getTipoByNome(String nome) {
+		String sql = "SELECT * FROM Tipo WHERE nome = ?";
+		PreparedStatement stmt = null;
+		cn = ConnectionFactory.getConnection();
+		Tipo tipo = new Tipo();
+		ResultSet rs = null;
+
+		try {
+			stmt = cn.prepareStatement(sql);
+			stmt.setString(1, nome);
+			rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				tipo = new Tipo(rs);
+			}
+
+		} catch (Exception e) {
+
+		} finally {
+			ConnectionFactory.closeConnection(cn, stmt, rs);
+		}
+		return tipo;
+	}
 
 }
