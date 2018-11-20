@@ -28,7 +28,7 @@
    <div th:replace="padrao/general.html :: navbarfiles"></div>
 
    <!-- Page Content -->
-   <div class="container nav-margin">
+   <div class="container-fluid p-3 nav-margin">
 
       <!-- Procura e botão do filtro -->
       <div class="row text-center">
@@ -63,25 +63,38 @@
          <!-- Filtros -->
          <div class="col-sm-12 col-md-3 text-left mt-2 p-3" id="listaFiltrosId" style="display: none">
             <form id="formFiltrosId">
+
                <!-- Tipos -->
                <div class="filter-group" id="tiposId">
                   <h6 class="title">Tipos</h6>
+                  <!-- Populado atravez do js -->
+               </div>
+
+               <!-- Preço -->
+               <div class="filter-group" id="precosId">
+                  <h6 class="title">Preço</h6>
                   <label class="form-check">
-                     <input name="check" class="form-check-input" type="checkbox" value="1">
+                     <input name="check" class="form-check-input" type="checkbox" value="3">
                      <span class="form-check-label">
-                        Rações
+                        Acima de R$ 300,00
                      </span>
                   </label> <!-- form-check.// -->
                   <label class="form-check">
                      <input name="check" class="form-check-input" type="checkbox" value="2">
                      <span class="form-check-label">
-                        Brinquedos
+                        R$ 200,00 ~ R$ 300,00
                      </span>
                   </label> <!-- form-check.// -->
                   <label class="form-check">
-                     <input name="check" class="form-check-input" type="checkbox" value="3">
+                     <input name="check" class="form-check-input" type="checkbox" value="1">
                      <span class="form-check-label">
-                        Ferramentas
+                        R$ 100,00 ~ R$ 200,00
+                     </span>
+                  </label> <!-- form-check.// -->
+                  <label class="form-check">
+                     <input name="check" class="form-check-input" type="checkbox" value="1">
+                     <span class="form-check-label">
+                        Abaixo de R$ 100,00
                      </span>
                   </label> <!-- form-check.// -->
                </div>
@@ -89,24 +102,7 @@
                <!-- Tags -->
                <div class="filter-group" id="tagsId">
                   <h6 class="title">Tags</h6>
-                  <label class="form-check">
-                     <input name="check" class="form-check-input" type="checkbox" value="4">
-                     <span class="form-check-label">
-                        Rações
-                     </span>
-                  </label> <!-- form-check.// -->
-                  <label class="form-check">
-                     <input name="check" class="form-check-input" type="checkbox" value="5">
-                     <span class="form-check-label">
-                        Brinquedos
-                     </span>
-                  </label> <!-- form-check.// -->
-                  <label class="form-check">
-                     <input name="check" class="form-check-input" type="checkbox" value="6">
-                     <span class="form-check-label">
-                        Ferramentas
-                     </span>
-                  </label> <!-- form-check.// -->
+                  <!-- Populado atravez do js -->
                </div>
 
             </form>
@@ -243,7 +239,6 @@
    </div>
    <!-- /.container nav-margin -->
    <!-- /Page Content -->
-
    <!-- Footer -->
    <div th:replace="padrao/general.html :: footerfiles"></div>
    <script src="../static/js/search.js" th:src="@{/js/search.js}"></script>

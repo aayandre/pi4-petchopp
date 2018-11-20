@@ -11,16 +11,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.senac.petchopp.model.filtro.Filtro;
+import com.senac.petchopp.model.filtro.FiltroService;
 import com.senac.petchopp.model.produto.Produto;
 import com.senac.petchopp.model.produto.ProdutoService;
 import com.senac.petchopp.wos.FormularioSearch;
-import com.senac.petchopp.wos.FormularioSearch.Filtros;
 
 @RestController
 @RequestMapping("rest")
 public class TesteRest {
 
 	private ProdutoService servico = new ProdutoService();
+	private FiltroService filtroService = new FiltroService();
 
 	@RequestMapping("mostrar")
 	public Produto mostrarProduto() {
@@ -42,15 +44,8 @@ public class TesteRest {
 	}
 
 	@RequestMapping("filtros")
-	public Filtros listaDeFiltros() {
-		return null;
-	}
-
-	@PostMapping("formString")
-	public ResponseEntity<String> formString(@RequestBody String procura) {
-		System.out.println(procura);
-		procura = "Texto adicionado no controller";
-		return new ResponseEntity<String>(procura, HttpStatus.OK);
+	public ResponseEntity<Filtro> listaDeFiltros() {
+		return new ResponseEntity<Filtro>(filtroService.getAll(), HttpStatus.OK);
 	}
 
 	@PostMapping("formulario")

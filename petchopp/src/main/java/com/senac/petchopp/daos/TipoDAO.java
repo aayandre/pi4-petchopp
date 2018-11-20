@@ -46,7 +46,7 @@ public class TipoDAO implements IDAO {
 	@Override
 	public List<Object> getAll() throws SQLException {
 
-		String sql = "SELECT * FROM Tipo WHERE Nome = Produto";
+		String sql = "SELECT * FROM Tipo WHERE Nome = ?";
 
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -57,6 +57,7 @@ public class TipoDAO implements IDAO {
 
 		try {
 			stmt = cn.prepareStatement(sql);
+			stmt.setString(1, "Produto");
 			rs = stmt.executeQuery();
 			while (rs.next()) {
 				resultados.add(new Tipo(rs));

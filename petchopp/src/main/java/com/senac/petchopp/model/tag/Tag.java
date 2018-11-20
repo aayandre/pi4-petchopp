@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 public class Tag {
 
-	private int idTags;
+	private int idTag;
 	private String nome;
 	private int idTipo;
 
@@ -15,24 +15,24 @@ public class Tag {
 
 	public Tag(int idTags, String nome, int idTipo) {
 		super();
-		this.idTags = idTags;
+		this.idTag = idTags;
 		this.nome = nome;
 		this.idTipo = idTipo;
 	}
 
 	public Tag(ResultSet rs) throws SQLException {
 		super();
-		this.idTags = rs.getInt("idTags");
+		this.idTag = rs.getInt("idTags");
 		this.nome = rs.getString("Nome");
 		this.idTipo = rs.getInt("idTipo");
 	}
 
 	public int getIdTags() {
-		return idTags;
+		return idTag;
 	}
 
 	public void setIdTags(int idTags) {
-		this.idTags = idTags;
+		this.idTag = idTags;
 	}
 
 	public String getNome() {
@@ -53,7 +53,7 @@ public class Tag {
 
 	@Override
 	public String toString() {
-		return "Tag [idTags=" + idTags + ", nome=" + nome + ", idTipo=" + idTipo + "]";
+		return "Tag [idTags=" + idTag + ", nome=" + nome + ", idTipo=" + idTipo + "]";
 	}
 
 }
