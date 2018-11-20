@@ -60,6 +60,22 @@
                <a class="nav-link" href="cart.html" th:href="@{/cart}">Cadastro</a>
             </li>
          </ul>
+         <!-- Inicio menu cliente -->
+
+         <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+               <a href="#" class="dropdown-toggle icon-user">
+                  <span class="fas fa-user"></span> 
+                  <strong th:text="#{cliente.nome} ?: 'Login'">Marcelo</strong>
+                  <span class="glyphicon glyphicon-chevron-down"></span>
+               </a>
+
+            </li>
+         </ul>
+
+
+
+         <!-- FIM Menu cliente -->
       </div>
 
    </nav>

@@ -58,7 +58,7 @@ public class EnderecoDAO implements IDAO{
 			ResultSet rs = null;
 			List<Endereco> enderecos = new ArrayList<>();
 			String sql = "SELECT idEndereco, CEP, Logradouro, Numero, Complemento, Bairro, Cidade, UF, idCliente, TipoEndereco "
-					+ "FROM endereco WHERE idCliente = ?";
+					+ "FROM Endereco WHERE idCliente = ?";
 			cn = ConnectionFactory.getConnection();
 			
 			try {
