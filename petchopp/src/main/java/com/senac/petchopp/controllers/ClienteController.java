@@ -84,5 +84,10 @@ public class ClienteController {
 		
 		return new ModelAndView("cli/login");
 	}
+	
+	@GetMapping("minhaconta")
+	public String minhaconta() {
+		return "cli/cliente-index"; 
+	}
 
 }

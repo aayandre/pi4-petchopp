@@ -38,8 +38,9 @@ body {
 
 /* Menu login Cliente */
 
-.nav-cliente{
+.icon-user{
     color: #d9d9d9;
+    z-index: 1;
 }
 
 /* FIM login cliente */
