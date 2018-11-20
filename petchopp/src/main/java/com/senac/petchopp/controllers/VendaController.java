@@ -25,11 +25,11 @@ public class VendaController {
 
 	private VendaDAO vendaBanco = new VendaDAO();
 
-	@GetMapping("")
-	public ModelAndView carrinho(@ModelAttribute("carrinho") Carrinho carrinho) {
-		carrinho.setProdutos(new ProdutoDAO().testeCarrinho(3));
-		return new ModelAndView("cart").addObject("carrinho", carrinho);
-	}
+//	@GetMapping("")
+//	public ModelAndView carrinho(@ModelAttribute("carrinho") Carrinho carrinho) {
+//		carrinho.setProdutos(new ProdutoDAO().testeCarrinho(3));
+//		return new ModelAndView("cart").addObject("carrinho", carrinho);
+//	}
 
 	@RequestMapping("formulario")
 	public ModelAndView formVenda(@ModelAttribute("carrinho") Carrinho carrinho) {

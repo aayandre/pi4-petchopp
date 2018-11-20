@@ -80,11 +80,12 @@ public class Teste {
 	// e criar uma lista
 	// teria que passar o carrinho pela sessao
 	// @SessionAttribute("carrinho") Carrinho carrinho
-	@RequestMapping("/carrinho")
-	public ModelAndView carrinhoTeste() {
-		Carrinho teste = new Carrinho();
-		teste.setProdutos(new ProdutoDAO().testeCarrinho(3));
-		return new ModelAndView("cart").addObject("carrinho", teste);
-	}
+
+//	@RequestMapping("/carrinho")
+//	public ModelAndView carrinhoTeste() {
+//		Carrinho teste = new Carrinho();
+//		teste.setProdutos(new ProdutoDAO().testeCarrinho(3));
+//		return new ModelAndView("cart").addObject("carrinho", teste);
+//	}
 
 }

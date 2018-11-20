@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import com.senac.petchopp.model.tipo.Tipo;
 import com.senac.petchopp.model.carrinho.Carrinho;
 import com.senac.petchopp.model.produto.Produto;
+import com.senac.petchopp.model.produto.ProdutoVenda;
+import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Venda {
 
@@ -117,7 +120,7 @@ public class Venda {
         this.carrinho = carrinho;
     }
 
-    public void setCarrinho(ArrayList<Produto> produtos, Double valorTotal) {
+    public void setCarrinho(ArrayList<ProdutoVenda> produtos, Double valorTotal) {
         this.carrinho = new Carrinho(produtos, valorTotal);
     }
 
