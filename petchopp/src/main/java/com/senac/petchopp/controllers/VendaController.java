@@ -16,6 +16,7 @@ import com.senac.petchopp.daos.ProdutoDAO;
 import com.senac.petchopp.daos.VendaDAO;
 import com.senac.petchopp.model.carrinho.Carrinho;
 import com.senac.petchopp.model.venda.Venda;
+import java.sql.Timestamp;
 
 @Controller
 @RequestMapping("checkout")
@@ -24,11 +25,11 @@ public class VendaController {
 
 	private VendaDAO vendaBanco = new VendaDAO();
 
-	@GetMapping("")
-	public ModelAndView carrinho(@ModelAttribute("carrinho") Carrinho carrinho) {
-		carrinho.setProdutos(new ProdutoDAO().testeCarrinho(3));
-		return new ModelAndView("cart").addObject("carrinho", carrinho);
-	}
+//	@GetMapping("")
+//	public ModelAndView carrinho(@ModelAttribute("carrinho") Carrinho carrinho) {
+//		carrinho.setProdutos(new ProdutoDAO().testeCarrinho(3));
+//		return new ModelAndView("cart").addObject("carrinho", carrinho);
+//	}
 
 	@RequestMapping("formulario")
 	public ModelAndView formVenda(@ModelAttribute("carrinho") Carrinho carrinho) {
@@ -48,7 +49,8 @@ public class VendaController {
 		nova.setCarrinho(carrinho);
 
 		nova.setIdCliente(new Long("1"));
-		nova.setData(LocalDate.now());
+		//nova.setData(LocalDate.now());
+                nova.setData(new Timestamp(System.currentTimeMillis()));
 		nova.setDataView(LocalDateTime.now());
 		nova.setIdFretes(new Long("2"));
 		nova.setProtocolo(nova.getDataView().toString());

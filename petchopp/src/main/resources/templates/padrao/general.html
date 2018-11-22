@@ -196,4 +196,192 @@
    <!-- Optional JavaScript -->
    <!-- Mesmo esquema do link css -->
    <script src="../static/js/main.js" th:src="@{/js/main.js}"></script>
+<div th:fragment="headfiles">
+
+   <!-- Required meta tags -->
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+   <!-- No href coloque o caminho normal do arquivo
+         E no th:href o @{}, acredito que signifique o ../static -->
+   <link rel="stylesheet" href="../static/css/main.css" th:href="@{/css/main.css}">
+
+   <!-- Bootstrap CSS -->
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css"
+      data-integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+
+   <!-- Font Awesome -->
+   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" data-integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+      crossorigin="anonymous">
+</div>
+
+<div th:fragment="navbarfiles">
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg fixed-top navbar-dark navbar-collapse bg-color">
+
+      <!-- Logo -->
+      <a class="navbar-brand ml-5" href="index.html" th:href="@{/}">PetChopp</a>
+
+      <!-- Collapsed menu -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+         aria-expanded="false" aria-label="Toggle navigation">
+         <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Links -->
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+         <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+               <a class="nav-link" href="search.html" th:href="@{/search}">Search</a>
+            </li>
+            <li class="nav-item">
+               <a class="nav-link" href="cart.html" th:href="@{/cart}">Carrinho</a>
+            </li>
+            <!-- <li class="nav-item">
+               <a class="nav-link" href="cart.html" th:href="@{/cart}">Cadastro</a>
+            </li> -->
+            <li class="nav-item">
+               <!-- Inicio menu cliente -->
+               <div class="dropdown">
+                     <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                           <strong th:text="${session.cliente.nome} ?: 'Login'"></strong>
+                     </button>
+                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                       <a class="dropdown-item" href="#" th:href="@{/cliente/login}">Entrar</a>
+                       <a class="dropdown-item" href="#" th:href="@{/cliente/Cadastro}">Cadastrar</a>
+                     </div>
+                   </div>
+               <!-- <ul class="nav navbar-nav navbar-right nav-cliente">
+                  <li class="dropdown">
+                     <a href="#" class="dropdown-toggle icon-user">
+                        <span class="fas fa-user"></span> 
+                        <strong th:text="${session.cliente.nome} ?: 'Login'">Login</strong>
+                        <span class="glyphicon glyphicon-chevron-down"></span>
+                     </a>
+
+                  </li>
+               </ul> -->
+               <!-- FIM Menu cliente -->
+            </li>
+         </ul>
+      </div>
+
+   </nav>
+</div>
+
+<div th:fragment="footerfiles">
+   <!-- Footer -->
+   <footer class="py-4 bg-white footer-font-size footer-info mt-3">
+      <div class="container">
+         <div class="row footer-top-display">
+            <div class="col-md-6 ">
+               <p class="font-weight-bold">MAIS BUSCADOS</p>
+               <div class="row">
+                  <div class="col-md-3">
+                     <ul class="footer-ul">
+                        <li>Mais buscados 1</li>
+                        <li>Mais buscados 2</li>
+                        <li>Mais buscados 3</li>
+                        <li>Mais buscados 4</li>
+                        <li>Mais buscados 5</li>
+                     </ul>
+                  </div>
+
+                  <div class="col-md-3">
+                     <ul class="footer-ul">
+                        <li>Mais buscados 6</li>
+                        <li>Mais buscados 7</li>
+                        <li>Mais buscados 8</li>
+                        <li>Mais buscados 9</li>
+                        <li>Mais buscados 10</li>
+                     </ul>
+                  </div>
+
+                  <div class="col-md-3">
+                     <ul class="footer-ul">
+                        <li>Mais buscados 11</li>
+                        <li>Mais buscados 12</li>
+                        <li>Mais buscados 13</li>
+                        <li>Mais buscados 14</li>
+                        <li>Mais buscados 15</li>
+                     </ul>
+                  </div>
+
+                  <div class="col-md-3">
+                     <ul class="footer-ul">
+                        <li>Mais buscados 16</li>
+                        <li>Mais buscados 17</li>
+                        <li>Mais buscados 18</li>
+                        <li>Mais buscados 19</li>
+                        <li>Mais buscados 20</li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <div class="col-md-6">
+               <p class="font-weight-bold">TOP CATEGORIAS</p>
+               <div class="row">
+                  <div class="col-md-4">
+                     <ul class="footer-ul">
+                        <li>top categorias 1</li>
+                        <li>top categorias 2</li>
+                        <li>top categorias 3</li>
+                        <li>top categorias 4</li>
+                        <li>top categorias 5</li>
+                     </ul>
+                  </div>
+
+                  <div class="col-md-4">
+                     <ul class="footer-ul">
+                        <li>top categorias 6</li>
+                        <li>top categorias 7</li>
+                        <li>top categorias 8</li>
+                        <li>top categorias 9</li>
+                        <li>top categorias 10</li>
+                     </ul>
+                  </div>
+
+                  <div class="col-md-4">
+                     <ul class="footer-ul">
+                        <li>top categorias 11</li>
+                        <li>top categorias 12</li>
+                        <li>top categorias 13</li>
+                        <li>top categorias 14</li>
+                        <li>top categorias 15</li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+         <p class="font-weight-bold">FORMAS DE PAGAMENTO</p>
+         <div class="row">
+            <div style="margin-left: 3px;" class="col-md-6">
+               <i class="fab fa-cc-visa fa-3x"></i>
+               <i class="fab fa-cc-mastercard fa-3x"></i>
+               <i class="fab fa-cc-paypal fa-3x"></i>
+            </div>
+
+         </div>
+      </div>
+   </footer>
+
+   <footer class="py-2 bg-dark footer-font-size">
+      <div class="container">
+         <p class="m-0 text-center text-white">&copy; PetChopp 2018 . Todos os direitos reservados.</p>
+         <p class="m-0 text-center text-white">PETSHOPP COMÉRCIO E PARTICIPAÇÕES S/A - CNPJ:
+            03.321.742/0001-07 - Rua Atílio Delamuta, 546, Jardim Itaiçaba (Ártemis), Jardim Itaiçaba (Ártemis),
+            CEP: 13432-136, Piracicaba, SP, Brasil</p>
+         <!-- <p class="m-0 text-center text-white">Copyright &copy; Your Website 2018</p> -->
+      </div>
+      <!-- /.container -->
+   </footer>
+   <!-- Optional JavaScript -->
+   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+   <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+   <!-- Optional JavaScript -->
+   <!-- Mesmo esquema do link css -->
+   <script src="../static/js/main.js" th:src="@{/js/main.js}"></script>
 </div>
