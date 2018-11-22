@@ -11,6 +11,7 @@ import java.util.List;
 import com.senac.petchopp.connection.ConnectionFactory;
 import com.senac.petchopp.interfaces.IDAO;
 import com.senac.petchopp.model.produto.Produto;
+import com.senac.petchopp.model.produto.ProdutoVenda;
 import com.senac.petchopp.model.venda.Venda;
 
 public class VendaDAO implements IDAO {
@@ -106,13 +107,13 @@ public class VendaDAO implements IDAO {
 
         try {
 
-            for (Produto produto : venda.getCarrinho().getProdutos()) {
+            for (ProdutoVenda produto : venda.getCarrinho().getProdutos()) {
                 stmt = cn.prepareStatement(sql);
 
                 stmt.setLong(1, venda.getIdVenda());
                 stmt.setLong(2, produto.getIdProduto());
                 stmt.setInt(3, produto.getQuantidade().intValue());
-                stmt.setDouble(4, produto.getPreco());
+                stmt.setDouble(4, produto.getValor());
 
                 stmt.execute();
             }
@@ -149,11 +150,11 @@ public class VendaDAO implements IDAO {
         return encontrados;
     }
 
-    public ArrayList<Produto> getItensVendaByVenda(int idVenda) {
+    public ArrayList<ProdutoVenda> getItensVendaByVenda(int idVenda) {
         String sql = "SELECT * FROM ItemVenda WHERE idVenda = ?";
         PreparedStatement stmt = null;
         cn = ConnectionFactory.getConnection();
-        ArrayList<Produto> produtos = new ArrayList<>();
+        ArrayList<ProdutoVenda> produtos = new ArrayList<>();
         ResultSet rs = null;
 
         try {
@@ -162,8 +163,8 @@ public class VendaDAO implements IDAO {
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                ProdutoDAO prodDAO = new ProdutoDAO();
-                produtos.add((Produto) prodDAO.getById(rs.getLong("idProduto")));
+                ProdutoVendaDAO prodVendaDAO = new ProdutoVendaDAO();
+                produtos.add((ProdutoVenda) prodVendaDAO.getProdutoVendaByVenda(rs.getLong("idProduto")));
             }
 
         } catch (Exception e) {
