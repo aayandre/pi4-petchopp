@@ -45,14 +45,21 @@
             <li class="nav-item">
                <!-- Inicio menu cliente -->
                <div class="dropdown">
-                     <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                           <strong th:text="${session.cliente.nome} ?: 'Login'"></strong>
-                     </button>
-                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                       <a class="dropdown-item" href="#" th:href="@{/cliente/login}">Entrar</a>
-                       <a class="dropdown-item" href="#" th:href="@{/cliente/Cadastro}">Cadastrar</a>
+                  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                     aria-haspopup="true" aria-expanded="false">
+                     <strong th:text="${session.cliente.nome} ?: 'Login'"></strong>
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                     <div th:if="${session.cliente == null}">
+                        <a class="dropdown-item" href="#" th:href="@{/cliente/login}">Entrar</a>
+                        <a class="dropdown-item" href="#" th:href="@{/cliente/Cadastro}">Cadastrar</a>
                      </div>
-                   </div>
+                     <div th:unless="${session.cliente}">
+                           <a class="dropdown-item" href="#" th:href="@{/cliente/minhaconta}">Minha conta</a>
+                           <a class="dropdown-item" href="#" th:href="@{/cliente/login}">Sair</a>
+                        </div>
+                  </div>
+               </div>
                <!-- <ul class="nav navbar-nav navbar-right nav-cliente">
                   <li class="dropdown">
                      <a href="#" class="dropdown-toggle icon-user">
