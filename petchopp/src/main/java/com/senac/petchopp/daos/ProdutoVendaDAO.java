@@ -10,13 +10,13 @@ import java.util.List;
 
 public class ProdutoVendaDAO {
     
-    public List<ProdutoVenda> getProdutoVendaByVenda(long idVenda){
+    public ArrayList<ProdutoVenda> getProdutoVendaByVenda(long idVenda){
         String sql = "SELECT ItemVenda.*, Produto.codigo, Produto.nome, Produto.urlImagem " + 
                 "FROM ItemVenda INNER JOIN Produto ON ItemVenda.idProduto = Produto.idProduto " + 
                 "WHERE ItemVenda.idVenda = ?";
         PreparedStatement stmt = null;
         cn = ConnectionFactory.getConnection();
-        List<ProdutoVenda> ProdutosVenda = new ArrayList<>();
+        ArrayList<ProdutoVenda> ProdutosVenda = new ArrayList<>();
         ResultSet rs = null;
 
         try {
@@ -30,7 +30,7 @@ public class ProdutoVendaDAO {
             }
 
         } catch (Exception e) {
-
+            System.out.println(e.getMessage());
         } finally {
             ConnectionFactory.closeConnection(cn, stmt, rs);
         }

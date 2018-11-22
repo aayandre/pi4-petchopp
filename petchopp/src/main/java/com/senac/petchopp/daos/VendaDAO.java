@@ -150,38 +150,13 @@ public class VendaDAO implements IDAO {
         return encontrados;
     }
 
-    public ArrayList<ProdutoVenda> getItensVendaByVenda(int idVenda) {
-        String sql = "SELECT * FROM ItemVenda WHERE idVenda = ?";
-        PreparedStatement stmt = null;
-        cn = ConnectionFactory.getConnection();
-        ArrayList<ProdutoVenda> produtos = new ArrayList<>();
-        ResultSet rs = null;
-
-        try {
-            stmt = cn.prepareStatement(sql);
-            stmt.setInt(1, idVenda);
-            rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                ProdutoVendaDAO prodVendaDAO = new ProdutoVendaDAO();
-                produtos.add((ProdutoVenda) prodVendaDAO.getProdutoVendaByVenda(rs.getLong("idProduto")));
-            }
-
-        } catch (Exception e) {
-            // TODO: handle exception
-            System.out.println(e.getMessage());
-        } finally {
-            ConnectionFactory.closeConnection(cn, stmt, rs);
-        }
-        return produtos;
-    }
-
     public List<Venda> getVendasByCliente(int idCliente) throws SQLException {
         String sql = "SELECT * FROM Venda WHERE idCliente = ? and idVenda IN (4, 7)";
         PreparedStatement stmt = null;
         cn = ConnectionFactory.getConnection();
         List<Venda> vendas = new ArrayList<>();
         ResultSet rs = null;
+        ProdutoVendaDAO prodVendaDAO = new ProdutoVendaDAO();
 
         try {
             stmt = cn.prepareStatement(sql);
@@ -190,7 +165,7 @@ public class VendaDAO implements IDAO {
 
             while (rs.next()) {
                 Venda venda = new Venda(rs);
-                venda.setCarrinho(getItensVendaByVenda(Integer.parseInt(venda.getIdVenda().toString())), venda.getValorTotal());
+                venda.setCarrinho(prodVendaDAO.getProdutoVendaByVenda(Integer.parseInt(venda.getIdVenda().toString())), venda.getValorTotal());
                 venda.setStatus(TipoDAO.getTipoByID(rs.getInt("status")));
                 venda.setFormaPagto(TipoDAO.getTipoByID(rs.getInt("formaPagto")));
                 venda.setQtdeItensVenda(venda.getCarrinho().getProdutos().size());
@@ -200,7 +175,7 @@ public class VendaDAO implements IDAO {
 
             }
         } catch (Exception e) {
-
+            
         } finally {
             ConnectionFactory.closeConnection(cn, stmt, rs);
         }

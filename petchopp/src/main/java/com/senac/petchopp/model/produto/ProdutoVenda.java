@@ -10,19 +10,19 @@ public class ProdutoVenda {
     private String codigo;
     private String nome;
     private double valor;
-    private double total;
+    private double totalItem;
     private String urlImagem;
     private Integer quantidade;
 
     public ProdutoVenda() {
     }
 
-    public ProdutoVenda(Long idProduto, String codigo, String nome, double valor, double total, String urlImagem, Integer quantidade) {
+    public ProdutoVenda(Long idProduto, String codigo, String nome, double valor, double totalItem, String urlImagem, Integer quantidade) {
         this.idProduto = idProduto;
         this.codigo = codigo;
         this.nome = nome;
         this.valor = valor;
-        this.total = total;
+        this.totalItem = totalItem;
         this.urlImagem = urlImagem;
         this.quantidade = quantidade;
     }
@@ -32,7 +32,7 @@ public class ProdutoVenda {
         this.codigo = rs.getString("Codigo");
         this.nome = rs.getString("Nome");
         this.valor = rs.getDouble("valor");
-        this.total = rs.getDouble("total");
+        this.totalItem = rs.getDouble("total");
         this.urlImagem = rs.getString("urlImagem");
         this.quantidade = rs.getInt("quantidade");
     }
@@ -85,4 +85,11 @@ public class ProdutoVenda {
         this.quantidade = quantidade;
     }
 
+    public double getTotalItem() {
+        return totalItem;
+    }
+
+    public void setTotalItem(double totalItem) {
+        this.totalItem = totalItem;
+    }
 }
