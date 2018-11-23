@@ -4,8 +4,14 @@ body {
     font-size: 13px !important;
 }
 
+.nav-bottom {
+    top: 56px !important;
+    z-index: 0 !important;
+    animation: 300; 
+}
+
 .nav-margin {
-    margin-top: 4rem !important;
+    margin-top: 7rem !important;
 }
 
 .bg-color {
@@ -36,9 +42,16 @@ body {
     }
 }
 
+.card-text {
+    min-height: 4.2em;
+    max-height: 4.2em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 /* Menu login Cliente */
 
-.icon-user{
+.icon-user {
     color: #d9d9d9;
     z-index: 1;
 }

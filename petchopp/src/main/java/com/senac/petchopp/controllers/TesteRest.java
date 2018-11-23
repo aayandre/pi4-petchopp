@@ -2,11 +2,11 @@ package com.senac.petchopp.controllers;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,8 +31,8 @@ public class TesteRest {
 	}
 
 	@GetMapping("mostrarLista")
-	public ArrayList<Produto> listaProdutos() {
-		ArrayList<Produto> lista;
+	public List<Produto> listaProdutos() {
+		List<Produto> lista;
 		try {
 			lista = servico.searchByNome("");
 			return lista;
@@ -48,10 +48,17 @@ public class TesteRest {
 		return new ResponseEntity<Filtro>(filtroService.getAll(), HttpStatus.OK);
 	}
 
-	@PostMapping("formulario")
-	public String formulario(@RequestBody FormularioSearch resultado) {
-		resultado.setProcura("Texto adicionado no controller");
-		System.out.println(resultado.toString());
-		return resultado.getProcura();
+	@RequestMapping("formulario")
+	public List<Produto> formulario(@RequestBody FormularioSearch resultado) {
+		List<Produto> lista;
+//		System.out.println(resultado.toString());
+		try {
+			lista = servico.searchByNome("");
+			return lista;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return new ArrayList<>();
+		}
 	}
 }

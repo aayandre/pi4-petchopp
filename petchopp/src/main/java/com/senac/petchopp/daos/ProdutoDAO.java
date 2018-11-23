@@ -22,8 +22,8 @@ public class ProdutoDAO implements IDAO {
 	@Override
 	public void salvar(Object bean) throws SQLException {
 
-		String sql = "INSERT INTO Produto (Codigo, Nome, Preco, Custo, Descricao, dtCompra, dtValidade, urlImagem, emEstoque, Disable) "
-				+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO Produto (Codigo, Nome, Descricao, Peso, Preco, Custo, dtCompra, dtValidade, urlImagem, emEstoque, Disable) "
+				+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		PreparedStatement stmt = null;
 
@@ -38,14 +38,15 @@ public class ProdutoDAO implements IDAO {
 
 			stmt.setString(1, novo.getCodigo());
 			stmt.setString(2, novo.getNome());
-			stmt.setDouble(3, novo.getPreco());
-			stmt.setDouble(4, novo.getCusto());
-			stmt.setString(5, novo.getDescricao());
-			stmt.setTimestamp(6, (Timestamp) novo.getDtCompra());
-			stmt.setTimestamp(7, (Timestamp) novo.getDtValidade());
-			stmt.setString(8, novo.getUrlImagem());
-			stmt.setBoolean(9, novo.isEmEstoque());
-			stmt.setBoolean(10, novo.isDisable());
+			stmt.setString(3, novo.getDescricao());
+			stmt.setDouble(4, novo.getPeso());
+			stmt.setDouble(5, novo.getPreco());
+			stmt.setDouble(6, novo.getCusto());
+			stmt.setTimestamp(7, (Timestamp) novo.getDtCompra());
+			stmt.setTimestamp(8, (Timestamp) novo.getDtValidade());
+			stmt.setString(9, novo.getUrlImagem());
+			stmt.setBoolean(10, novo.isEmEstoque());
+			stmt.setBoolean(11, novo.isDisable());
 
 			stmt.execute();
 
@@ -59,12 +60,9 @@ public class ProdutoDAO implements IDAO {
 
 	@Override
 	public void atualizar(Object bean) {
-		@SuppressWarnings("unused")
-		String sql = "UPDATE Produto SET (Nome, Preco, Custo, dtCompra, dtValidade, urlImagem, emEstoque, Disable) "
-				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?) WHERE Codigo = ?";
 
-		String sql2 = "UPDATE Produto "
-				+ "SET Nome = ?, Preco = ?, Custo = ?, dtCompra = ?, dtValidade = ?, urlImagem = ?, emEstoque = ?, Disable = ? "
+		String sql = "UPDATE Produto "
+				+ "SET Nome = ?, Descricao = ?, Peso = ?, Preco = ?, Custo = ?, dtCompra = ?, dtValidade = ?, urlImagem = ?, emEstoque = ?, Disable = ? "
 				+ "WHERE Codigo = ?";
 
 		PreparedStatement stmt = null;
@@ -74,20 +72,21 @@ public class ProdutoDAO implements IDAO {
 
 		try {
 
-			stmt = cn.prepareStatement(sql2);
+			stmt = cn.prepareStatement(sql);
 
 			// SET
 			stmt.setString(1, alterado.getNome());
-			stmt.setDouble(2, alterado.getPreco());
-			stmt.setDouble(3, alterado.getCusto());
-			stmt.setTimestamp(4, (Timestamp) alterado.getDtCompra());
-			stmt.setTimestamp(5, (Timestamp) alterado.getDtValidade());
-			stmt.setString(6, alterado.getUrlImagem());
-			stmt.setBoolean(7, alterado.isEmEstoque());
-			stmt.setBoolean(8, alterado.isDisable());
+			stmt.setString(2, alterado.getDescricao());
+			stmt.setDouble(3, alterado.getPreco());
+			stmt.setDouble(4, alterado.getCusto());
+			stmt.setTimestamp(5, (Timestamp) alterado.getDtCompra());
+			stmt.setTimestamp(6, (Timestamp) alterado.getDtValidade());
+			stmt.setString(7, alterado.getUrlImagem());
+			stmt.setBoolean(8, alterado.isEmEstoque());
+			stmt.setBoolean(9, alterado.isDisable());
 
 			// WHERE
-			stmt.setString(9, alterado.getCodigo());
+			stmt.setString(10, alterado.getCodigo());
 
 			stmt.execute();
 
@@ -112,7 +111,7 @@ public class ProdutoDAO implements IDAO {
 		} catch (Exception e) {
 			// TODO: handle exception
 		} finally {
-
+			ConnectionFactory.closeConnection(cn, stmt);
 		}
 	}
 

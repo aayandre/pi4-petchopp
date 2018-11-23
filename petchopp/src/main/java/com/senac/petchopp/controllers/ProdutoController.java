@@ -1,7 +1,7 @@
 package com.senac.petchopp.controllers;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -46,7 +46,7 @@ public class ProdutoController {
 	// Get (nome)
 	public ModelAndView procuraProdutos(@ModelAttribute("procura") String procura) {
 		try {
-			ArrayList<Produto> resultados = servico.searchByNome(procura);
+			List<Produto> resultados = servico.searchByNome(procura);
 			return new ModelAndView("search").addObject("resultados", resultados);
 		} catch (SQLException e) {
 			// TODO Caso de erro
