@@ -15,6 +15,8 @@ import com.senac.petchopp.model.filtro.Filtro;
 import com.senac.petchopp.model.filtro.FiltroService;
 import com.senac.petchopp.model.produto.Produto;
 import com.senac.petchopp.model.produto.ProdutoService;
+import com.senac.petchopp.model.tipo.Tipo;
+import com.senac.petchopp.model.tipo.TipoService;
 import com.senac.petchopp.wos.FormularioSearch;
 
 @RestController
@@ -23,6 +25,7 @@ public class TesteRest {
 
 	private ProdutoService servico = new ProdutoService();
 	private FiltroService filtroService = new FiltroService();
+	private TipoService tiposervice = new TipoService();
 
 	@RequestMapping("mostrar")
 	public Produto mostrarProduto() {
@@ -37,7 +40,6 @@ public class TesteRest {
 			lista = servico.searchByNome("");
 			return lista;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return new ArrayList<>();
 		}
@@ -51,14 +53,25 @@ public class TesteRest {
 	@RequestMapping("formulario")
 	public List<Produto> formulario(@RequestBody FormularioSearch resultado) {
 		List<Produto> lista;
-//		System.out.println(resultado.toString());
 		try {
 			lista = servico.searchByNome("");
 			return lista;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return new ArrayList<>();
 		}
 	}
+
+	@RequestMapping("tipos")
+	public List<Tipo> listaTipos() {
+		List<Tipo> tipos;
+		try {
+			tipos = tiposervice.getAllTiposProdutos();
+			return tipos;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 }

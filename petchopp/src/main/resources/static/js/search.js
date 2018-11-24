@@ -100,8 +100,6 @@ $(document).ready(function () {
         }
         $('#listaFiltrosId').toggle();
     });
-
-
     // --- Filtros END
 
     // --- Procura START

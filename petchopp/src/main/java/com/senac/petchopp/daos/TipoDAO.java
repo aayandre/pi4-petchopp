@@ -71,6 +71,32 @@ public class TipoDAO implements IDAO {
 
 	}
 
+	public List<Tipo> getAllTipos() throws SQLException {
+
+		String sql = "SELECT * FROM Tipo WHERE Nome = ?";
+
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+
+		List<Tipo> resultados = new ArrayList<>();
+
+		cn = ConnectionFactory.getConnection();
+
+		try {
+			stmt = cn.prepareStatement(sql);
+			stmt.setString(1, "Produto");
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				resultados.add(new Tipo(rs));
+			}
+			return resultados;
+		} catch (SQLException e) {
+			throw new SQLException("Erro ao adiquirir todas os Tipos do banco.", e);
+		} finally {
+			ConnectionFactory.closeConnection(cn, stmt, rs);
+		}
+	}
+
 	public Tipo getTipoByID(int idTipo) {
 		String sql = "SELECT * FROM Tipo WHERE idTipo = ?";
 		PreparedStatement stmt = null;
