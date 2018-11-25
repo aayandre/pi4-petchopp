@@ -19,5 +19,6 @@ function exibirDetalhes(index) {
     $('#details-order'+index).toggle(700);
     $('#carousel'+index).toggle(700);
     $('#pagto'+index).toggle(700);
+    $('#orderInfoLeft'+index).toggleClass('align-self-center')
 }
 
