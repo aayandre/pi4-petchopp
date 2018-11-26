@@ -79,5 +79,11 @@ public class ProdutoController {
 	public ModelAndView formularioProduto(@PathVariable("codigo") String codigo) {
 		return new ModelAndView("produto/formulario").addObject("produto", servico.searchByCodigo(codigo));
 	}
+	
+	// Get produtos de tal tipo
+	@GetMapping("tipos/{descricao}")
+	public ModelAndView produtosDoTipo(@PathVariable("descricao") String descricao) {
+		return null;
+	}
 
 }

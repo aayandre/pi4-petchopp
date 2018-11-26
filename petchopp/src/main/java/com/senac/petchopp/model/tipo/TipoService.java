@@ -17,5 +17,7 @@ public class TipoService {
 		List<Tipo> tipos = tipodao.getAllTipos();
 		return tipos;
 	}
+	
+	
 
 }

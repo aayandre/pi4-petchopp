@@ -18,6 +18,8 @@ function createElementTipo(response) {
         let templateTipoLi = $('#tipoLiId').clone();
 
         templateTipoLi.attr('style', 'display: visible');
+        templateTipoLi.find('.nav-link').attr('style', 'display: visible');
+        
         templateTipoLi.find('.nav-link').attr('href', 'tipo/' + tipo.descricao);
         templateTipoLi.find('.nav-link').attr('id', tipo.idTipo);
         templateTipoLi.find('.nav-link').text(tipo.descricao);
