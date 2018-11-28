@@ -1,8 +1,8 @@
 package com.senac.petchopp.controllers;
 
+import ch.qos.logback.core.CoreConstants;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import javax.servlet.http.HttpSession;
 
@@ -17,7 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.senac.petchopp.daos.ClienteDAO;
-import com.senac.petchopp.daos.VendaDAO;
 import com.senac.petchopp.model.Auxiliares;
 import com.senac.petchopp.model.cliente.Cliente;
 import com.senac.petchopp.model.cliente.Endereco;
@@ -45,20 +44,20 @@ public class ClienteController {
 	}
 
 	@PostMapping("salvar")
-	public ModelAndView salvar(Cliente cliente, @RequestParam(value = "dtNasc") String dtNasc, Endereco endereco,
+	public ModelAndView salvar(Cliente cliente, @RequestParam(value = "dtNasc") String dtNasc
+                , Endereco endereco,
 			RedirectAttributes redirect) throws SQLException, Exception {
 		ModelAndView modelAndView = new ModelAndView("cli/login");
 		LocalDate stringToLocalDateParse = Auxiliares.stringToLocalDateParse(dtNasc);
 		cliente.addEnderecoToList(endereco);
-
 		try {
-
 			cliente.setDtCadastro(LocalDate.now());
 			cliente.setDtNasc(stringToLocalDateParse);
 			cliente.setAtivo(true);
 			clienteDAO.salvar(cliente);
 			String msg = "Cliente cadastrado com sucesso";
 			System.out.println("Usuário cadastrado = " + cliente.getNome());
+			System.out.println("senha = " + cliente.getSenha());
 			redirect.addAttribute("msg", msg);
 
 		} catch (SQLException e) {
@@ -77,9 +76,11 @@ public class ClienteController {
 			,RedirectAttributes redirect, HttpSession session) throws SQLException {
 		
 		Cliente cliente = new LoginService().clienteLogon(email, senha);
-		session.setAttribute("cliente", cliente);
-		if(cliente!=null) {
-			System.out.println(cliente.getEmail());
+		System.out.println(cliente.isLogado());
+		
+		if(cliente.isLogado()) {
+			System.out.println("Cliente logado: " + cliente.getEmail());
+			session.setAttribute("cliente", cliente);
 		return new ModelAndView("cli/cliente-index");
 		}
 		
