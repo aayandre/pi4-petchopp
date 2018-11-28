@@ -87,6 +87,9 @@ function addTags(tags) {
 
 $(document).ready(function () {
 
+    // Altera o valor do span ao carregar
+    $('#valor-max').text(parseFloat($('#preco-max').val()).toFixed(2));
+
     // --- Filtros START
     // Mostra os filtros se a janela estiver a X width
     if ($(window).width() > 576 && $('#listaFiltrosId').css('display') == 'none') {
@@ -100,6 +103,17 @@ $(document).ready(function () {
         }
         $('#listaFiltrosId').toggle();
     });
+
+    // Watcher de alterações do preço
+    $('#preco-min').on('input change', function () {
+        let valorMin = parseFloat($(this).val()).toFixed(2)
+        $('#valor-min').text(valorMin)
+    })
+    $('#preco-max').on('input change', function () {
+        let valorMin = parseFloat($(this).val()).toFixed(2)
+        $('#valor-max').text(valorMin)
+    })
+
     // --- Filtros END
 
     // --- Procura START

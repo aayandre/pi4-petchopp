@@ -31,3 +31,8 @@
 #searchBtn {
     cursor: pointer;
 }
+
+input[type=range] {
+    background-color: #ffffff00;
+    border: none;
+}

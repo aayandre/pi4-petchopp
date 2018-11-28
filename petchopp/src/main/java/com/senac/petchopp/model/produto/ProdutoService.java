@@ -51,4 +51,9 @@ public class ProdutoService {
 		return null;
 	}
 
+	public List<Produto> listByTipo(String descricao) throws SQLException {
+		List<Produto> produtos = produtoBanco.getByTipo(descricao);
+		return produtos;
+	}
+
 }

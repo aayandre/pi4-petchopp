@@ -20,7 +20,7 @@ function createElementTipo(response) {
         templateTipoLi.attr('style', 'display: visible');
         templateTipoLi.find('.nav-link').attr('style', 'display: visible');
         
-        templateTipoLi.find('.nav-link').attr('href', 'tipo/' + tipo.descricao);
+        templateTipoLi.find('.nav-link').attr('href', 'produto/tipos/' + tipo.descricao);
         templateTipoLi.find('.nav-link').attr('id', tipo.idTipo);
         templateTipoLi.find('.nav-link').text(tipo.descricao);
 

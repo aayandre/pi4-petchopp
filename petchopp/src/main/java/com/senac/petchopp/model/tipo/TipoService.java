@@ -17,7 +17,10 @@ public class TipoService {
 		List<Tipo> tipos = tipodao.getAllTipos();
 		return tipos;
 	}
-	
-	
+
+	public Tipo getByDescricao(String descricao) throws SQLException {
+		Tipo adiquirido = tipodao.getByDescricao(descricao);
+		return adiquirido;
+	}
 
 }

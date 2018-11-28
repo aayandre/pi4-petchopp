@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head th:insert="padrao/general.html :: headfiles">
+    <!-- Para fazer funcionar sem rodar a aplicacao -->
+    <div th:if="false">
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="stylesheet" href="../static/css/main.css" th:href="@{/css/main.css}">
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css"
+            data-integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous"
+            th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css}">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" data-integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+            crossorigin="anonymous" th:href="@{https://use.fontawesome.com/releases/v5.3.1/css/all.css}">
+    </div>
+    <link rel="stylesheet" href="../static/css/search.css" th:href="@{/css/search.css}">
+    <title th:text="${titulo}">Tipo X</title>
+
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <div th:replace="padrao/general.html :: navbarfiles"></div>
+
+    <!-- Page Content -->
+    <div class="container-fluid p-3 p-md-4 nav-margin">
+
+        <!-- Procura e botão do filtro -->
+        <div class="row text-center">
+
+            <!-- Procura -->
+            <div class="col-xs-12 col-sm-10 offset-sm-1 offset-md-0 col-md-8 order-md-last">
+                <form id="formProcuraId" style="display: none">
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="searchWord" id="procuraId" placeholder="Procure por nome ou tag">
+                            <div class="input-group-append" id="searchBtn">
+                                <span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-search"></i></span>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+                <h2 class="text-left" th:text="${tipo.nome}">Nome do tipo</h2>
+                <hr>
+            </div>
+
+            <!-- Botão de filtro -->
+            <div class="col-xs-12 col-sm-10 col-md-3 offset-sm-1 offset-md-0 order-md-first text-center">
+                <button type="button" class="btn btn-custom w-75" id="filtrosToggleId">
+                    Filtros
+                </button>
+            </div>
+
+        </div>
+
+        <div class="row text-center">
+
+            <!-- Filtros -->
+            <div class="col-sm-12 col-md-3 text-left mt-2 p-3" id="listaFiltrosId" style="display: none">
+                <form id="formFiltrosId">
+
+                    <!-- Preço -->
+                    <div class="filter-group" id="precosId">
+                        <h6 class="title">Preço</h6>
+                        <hr>
+                        <div class="form-group">
+                            <label for="preco-min">Mínimo: R$ <span id="valor-min" class="font-weight-bold">0,00</span></label>
+                            <input type="range" class="form-control" id="preco-min" min="0" max="300" value="0" />
+                        </div>
+                        <div class="form-group">
+                            <label for="preco-max">Máximo: R$ <span id="valor-max" class="font-weight-bold">0,00</span></label>
+                            <input type="range" class="form-control" id="preco-max" min="0" max="1000" value="1000" />
+                        </div>
+                    </div>
+
+                    <!-- Tags -->
+                    <div class="filter-group" id="tagsId">
+                        <h6 class="title">Tags</h6>
+                        <hr>
+                        <!-- Populado atravez do js -->
+                    </div>
+
+                </form>
+            </div><!-- ./Filtros -->
+
+
+            <!-- Procura e resultados -->
+            <div class="col-sm-12 col-md-9 mt-3 text-left" id="resultadosId">
+
+                <div class="row">
+
+                    <!-- Filtros selecionados -->
+                    <div class="col-12" id="filtrosSelecionadosId"></div>
+
+                    <!-- Resultados e tabela de filtros -->
+                    <div class="col-12">
+
+                        <div class="col-lg-3 col-md-6 mb-4" id="produtoTemplate" style="display: none">
+                            <div class="card">
+                                <img class="card-img-top">
+                                <div class="card-body">
+                                    <h4 class="card-title">Card title</h4>
+                                    <p class="card-text">Card text</p>
+                                </div>
+                                <div class="card-footer">
+                                    <a href="#" class="btn btn-primary">Detalhes</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" id="produtosId">
+
+
+                        </div><!-- ./row -->
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- ./row text-center -->
+
+    </div>
+    <!-- /.container nav-margin -->
+    <!-- /Page Content -->
+
+    <!-- Footer -->
+    <div th:replace="padrao/general.html :: footerfiles"></div>
+    <script src="../static/js/search.js" th:src="@{/js/search.js}"></script>
+
+</body>
+
+</html>

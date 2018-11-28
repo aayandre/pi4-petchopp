@@ -6,12 +6,11 @@ body {
 
 .nav-bottom {
     top: 56px !important;
-    z-index: 0 !important;
-    animation: 300; 
 }
 
 .nav-margin {
     margin-top: 7rem !important;
+    z-index: 0 !important;
 }
 
 .bg-color {
