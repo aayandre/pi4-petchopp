@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.senac.petchopp.daos.ClienteDAO;
 import com.senac.petchopp.model.cliente.Cliente;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
+
 @Service
 public class LoginService {
 	
@@ -19,10 +21,14 @@ public class LoginService {
 		try {
 			cli = clienteDao.getClienteByEmail(email);
 			if(cli!=null) {
-				boolean validaSenha = BCrypt.checkpw(senha, cli.getSenha());
-				if(validaSenha) {
-					System.out.println(cli.getEmail());
+				System.out.println(cli.getSenha());
+				
+				if(BCrypt.checkpw(senha, cli.getSenha())) {
+					System.out.println("Senha OK");
+					cli.setLogado(true);
 					
+				}else {
+					cli.setLogado(false);
 				}
 			}
 		} catch (SQLException e) {
