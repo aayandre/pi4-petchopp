@@ -1,5 +1,7 @@
-.orderlist{
-    padding: 60px;
+@media screen and (min-width: 992px) {
+    .orderlist{
+        padding: 60px;
+    }
 }
 
 p{
@@ -28,6 +30,13 @@ p{
 
 .orderlist-info{
     margin: 0px 15px;
+    display: block;
+}
+
+@media screen and (max-width: 768px) {
+    .orderlist-info{
+        text-align: center;
+    }
 }
 
 .orderlist-info p{
@@ -56,6 +65,19 @@ p{
     border: 1px solid #d1d3d6;
 }
 
+@media screen and (max-width: 768px) {
+    .order-totals{
+        border-top: 1px solid #d1d3d6;
+    }
+
+    .order-totals p{
+        text-align: center !important;
+    }
+
+    .order-total-geral{
+        border-top: 1px solid #d1d3d6;
+    }
+}
 @media screen and (min-width: 768px) {
     .orderlist-border-left{
         border-left: 1px solid #d1d3d6;
