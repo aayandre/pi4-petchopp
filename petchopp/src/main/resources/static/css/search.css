@@ -23,10 +23,10 @@
 }
 
 .btn-custom {
-    background-color: #b2b5d2b8;
+    background-color: #d2e5ff;
+    font-weight: bold;
+    color: #575757;
 }
-
-
 
 #searchBtn {
     cursor: pointer;
