@@ -91,4 +91,15 @@ public class ClienteController {
 		return "cli/cliente-index"; 
 	}
 
+	@GetMapping("orders")
+    public ModelAndView visualizarPedidos() throws SQLException {
+        VendaDAO vendaDAO = new VendaDAO();
+
+        List<Venda> vendas = vendaDAO.getVendasByCliente(1);
+        ModelAndView modelAndView = new ModelAndView("cli/orderList");
+        modelAndView.addObject("vendas", vendas);
+
+        return modelAndView;
+    }
+
 }
