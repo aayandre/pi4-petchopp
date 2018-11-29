@@ -42,8 +42,8 @@ public class ProdutoDAO implements IDAO {
 			stmt.setDouble(4, novo.getPeso());
 			stmt.setDouble(5, novo.getPreco());
 			stmt.setDouble(6, novo.getCusto());
-			stmt.setTimestamp(7, (Timestamp) novo.getDtCompra());
-			stmt.setTimestamp(8, (Timestamp) novo.getDtValidade());
+			stmt.setTimestamp(7, new java.sql.Timestamp(novo.getDtCompra().getTime()));
+			stmt.setTimestamp(8, new java.sql.Timestamp(novo.getDtValidade().getTime()));
 			stmt.setString(9, novo.getUrlImagem());
 			stmt.setBoolean(10, novo.isEmEstoque());
 			stmt.setBoolean(11, novo.isDisable());
@@ -291,12 +291,11 @@ public class ProdutoDAO implements IDAO {
 	public List<Produto> getByTipo(String descricao) throws SQLException {
 		String sql = "SELECT Produto.idProduto, Produto.Nome, Produto.Descricao, Produto.Peso, Produto.Preco, "
 				+ "Produto.Custo, Produto.qtdeVendas, Produto.dtCompra, Produto.dtValidade, Produto.urlImagem, "
-				+ "Produto.emEstoque, Produto.Disable FROM Produto"
-				+ "LEFT JOIN ProdutoTags ON Produto.idProduto = ProdutoTags.idProduto"
-				+ "LEFT JOIN Tags ON ProdutoTags.idTags = Tags.idTags" 
-				+ "LEFT JOIN Tipo ON Tags.idTags = Tipo.idTipo"
+				+ "Produto.emEstoque, Produto.Disable FROM Produto "
+				+ "LEFT JOIN ProdutoTags ON Produto.idProduto = ProdutoTags.idProduto "
+				+ "LEFT JOIN Tags ON ProdutoTags.idTags = Tags.idTags " + "LEFT JOIN Tipo ON Tags.idTags = Tipo.idTipo "
 				+ "WHERE Tipo.Descricao = ?";
-		
+
 		cn = ConnectionFactory.getConnection();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -317,4 +316,86 @@ public class ProdutoDAO implements IDAO {
 			ConnectionFactory.closeConnection(cn, stmt, rs);
 		}
 	}
+
+	public List<Produto> getByTipo(int idTipo) throws SQLException {
+		String sql = "SELECT Produto.idProduto, Produto.Codigo, Produto.Nome, Produto.Descricao, Produto.Peso, "
+				+ "Produto.Preco, Produto.Custo, Produto.qtdeVendas, Produto.dtCompra, Produto.dtValidade, "
+				+ "Produto.urlImagem, Produto.emEstoque, Produto.Disable " + "FROM Produto "
+				+ "LEFT JOIN ProdutoTags ON Produto.idProduto = ProdutoTags.idProduto "
+				+ "LEFT JOIN Tags ON ProdutoTags.idTags = Tags.idTags " + "LEFT JOIN Tipo ON Tags.idTags = Tipo.idTipo "
+				+ "WHERE Tipo.idTipo = ?";
+
+		cn = ConnectionFactory.getConnection();
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		List<Produto> resultados = new ArrayList<>();
+
+		try {
+			stmt = cn.prepareStatement(sql);
+			stmt.setInt(1, idTipo);
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				resultados.add(new Produto(rs));
+			}
+			return resultados;
+		} catch (SQLException e) {
+			// TODO: handle exception
+			throw new SQLException("Erro ao adquirir lista de produtos do banco.", e.getCause());
+		} finally {
+			ConnectionFactory.closeConnection(cn, stmt, rs);
+		}
+	}
+
+	public List<Produto> searchByVarios(String procura) throws SQLException {
+		String sql = "SELECT Produto.idProduto, Produto.Codigo, Produto.Nome, Produto.Descricao, Produto.Peso, Produto.Preco,  " + 
+				"Produto.Custo, Produto.qtdeVendas, Produto.dtCompra, Produto.dtValidade, Produto.urlImagem,  " + 
+				"Produto.emEstoque, Produto.Disable  FROM Produto " + 
+				"LEFT JOIN ProdutoTags ON Produto.idProduto = ProdutoTags.idProduto " + 
+				"LEFT JOIN Tags ON ProdutoTags.idTags = Tags.idTags " + 
+				"WHERE Produto.Nome LIKE '%" + procura + "%'  " + 
+				"or Produto.Descricao LIKE '%" + procura + "%'  " + 
+				"or Tags.Nome REGEXP '%%' " + //TODO Alterar as tags - Original: 'Sachê|Biscoito'
+				"GROUP BY Produto.idProduto, Produto.Nome, Produto.Descricao, Produto.Peso, Produto.Preco,  " + 
+				"Produto.Custo, Produto.qtdeVendas, Produto.dtCompra, Produto.dtValidade, Produto.urlImagem,  " + 
+				"Produto.emEstoque, Produto.Disable,   " + 
+				"CASE " + 
+				"	WHEN Produto.Nome LIKE '" + procura + "%' THEN 1 " + 
+				"	WHEN Produto.Nome LIKE '%" + procura + "' THEN 2 " + 
+				"	WHEN Produto.Nome LIKE '%" + procura + "%' THEN 3 " + 
+				"	WHEN Tags.Nome REGEXP '%%' THEN 4 " + //TODO Alterar as tags - Original: 'Sachê|Biscoito'
+				"	WHEN Produto.Descricao LIKE '" + procura + "%' THEN 5 " + 
+				"	WHEN Produto.Descricao LIKE '%" + procura + "' THEN 6 " + 
+				"	WHEN Produto.Descricao LIKE '%" + procura + "%' THEN 7  " + 
+				"END " + 
+				"ORDER BY " + 
+				"CASE " + 
+				"	WHEN Produto.Nome LIKE '" + procura + "%' THEN 1 " + 
+				"	WHEN Produto.Nome LIKE '%" + procura + "' THEN 2 " + 
+				"	WHEN Produto.Nome LIKE '%" + procura + "%' THEN 3 " + 
+				"	WHEN Tags.Nome REGEXP '%%' THEN 4 " + //TODO Alterar as tags - Original: 'Sachê|Biscoito'
+				"	WHEN Produto.Descricao LIKE '" + procura + "%' THEN 5 " + 
+				"	WHEN Produto.Descricao LIKE '%" + procura + "' THEN 6 " + 
+				"	WHEN Produto.Descricao LIKE '%" + procura + "%' THEN 7 " + 
+				"END;";
+				
+		cn = ConnectionFactory.getConnection();
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		List<Produto> resultados = new ArrayList<>();
+
+		try {
+			stmt = cn.prepareStatement(sql);
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				resultados.add(new Produto(rs));
+			}
+			return resultados;
+		} catch (SQLException e) {
+			// TODO: handle exception
+			throw new SQLException("Erro ao adquirir lista de produtos do banco.", e.getCause());
+		} finally {
+			ConnectionFactory.closeConnection(cn, stmt, rs);
+		}
+	}
+	
 }

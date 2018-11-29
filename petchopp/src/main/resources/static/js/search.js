@@ -129,7 +129,7 @@ $(document).ready(function () {
         event.preventDefault();
 
         // cria o caminho correto para o endpoint
-        let getUrl = window.location.origin + '/rest/formulario';
+        let getUrl = window.location.origin + '/produtorest/formulario';
 
         // pega o valor que o usuario digitou no input de pesquisa
         let procura = $('#formProcuraId').serializeArray()[0].value;
@@ -188,11 +188,10 @@ $(document).ready(function () {
                     preco: produto.preco,
                     descricao: produto.descricao,
                     nome: produto.nome,
-                    urlImagem: 'uploads/' + produto.urlImagem
+                    urlImagem: window.location.origin + '/uploads/' + produto.urlImagem
                 };
                 produtos[i] = produtoView;
             });
-            console.log(produtos);
             createProdutoElement(produtos)
         }
 
@@ -208,7 +207,7 @@ $(document).ready(function () {
                 template.find('.card-img-top').attr('src', produto.urlImagem);
                 template.find('.card-title').text('R$ ' + parseFloat(produto.preco).toFixed(2));
                 template.find('.card-text').text(produto.nome);
-                template.find('.btn').attr('href', 'produto/' + produto.codigo);
+                template.find('.btn').attr('href', window.location.origin + '/produto/' + produto.codigo);
 
                 template.appendTo('#produtosId');
             })

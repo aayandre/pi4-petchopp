@@ -47,7 +47,8 @@
                     </div>
 
                 </form>
-                <h2 class="text-left" th:text="${tipo.nome}">Nome do tipo</h2>
+                <h2 class="text-left" id="tipoNome" th:text="${tipo.descricao}">Nome do tipo</h2>
+                <input type="hidden" id="tipo-idtipo" th:value="${tipo.idTipo}">
                 <hr>
             </div>
 
@@ -134,6 +135,8 @@
     <!-- Footer -->
     <div th:replace="padrao/general.html :: footerfiles"></div>
     <script src="../static/js/search.js" th:src="@{/js/search.js}"></script>
+    <script src="../static/js/tipos.js" th:src="@{/js/tipos.js}"></script>
+
 
 </body>
 

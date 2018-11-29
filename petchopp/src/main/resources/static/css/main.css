@@ -6,6 +6,7 @@ body {
 
 .nav-bottom {
     top: 56px !important;
+    z-index: 1020 !important;
 }
 
 .nav-margin {
@@ -15,6 +16,12 @@ body {
 
 .bg-color {
     background-color: rgb(0, 123, 255);
+}
+
+.carousel-sizes .carousel-inner .carousel-item {
+    max-height: 25% !important;
+    height: 25% !important;
+    min-height: 25% !important;
 }
 
 .footer-font-size {

@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class Produto {
 
 	private Long idProduto;
@@ -14,7 +16,9 @@ public class Produto {
 	private double Preco;
 	private double Custo;
 	private int qtdeVendas;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date dtCompra;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date dtValidade;
 	private String urlImagem;
 	private boolean EmEstoque;
@@ -182,6 +186,14 @@ public class Produto {
 
 	public void setDisable(boolean disable) {
 		Disable = disable;
+	}
+
+	@Override
+	public String toString() {
+		return "Produto [idProduto=" + idProduto + ", Codigo=" + Codigo + ", Nome=" + Nome + ", Descricao=" + Descricao
+				+ ", Peso=" + Peso + ", Preco=" + Preco + ", Custo=" + Custo + ", qtdeVendas=" + qtdeVendas
+				+ ", dtCompra=" + dtCompra + ", dtValidade=" + dtValidade + ", urlImagem=" + urlImagem + ", EmEstoque="
+				+ EmEstoque + ", Disable=" + Disable + "]";
 	}
 
 }

@@ -12,7 +12,7 @@
     <div th:replace="padrao/general.html :: navbarfiles"></div>
 
     <!-- Page Content -->
-    <div class="container nav-margin">
+    <div class="container-fluid p-3 p-md-4 nav-margin">
 
         <div class="row">
 
@@ -36,6 +36,10 @@
                     <div class="form-group">
                         <label>Nome:</label>
                         <input type="text" th:field="*{Nome}">
+                    </div>
+                    <div class="form-group">
+                        <label>Peso:</label>
+                        <input type="number" step="0.01" min="0" th:field="*{Peso}">
                     </div>
                     <div class="form-group">
                         <label>Preço:</label>
@@ -88,6 +92,15 @@
                             </label>
                         </div>
                     </div>
+                    <!-- <div class="form-group" th:each="tag : ${tags}">
+                        
+                        <div class="form-check">
+                            <label class="form-check-label">
+                            <input type="radio" class="form-check-input" th:field="*" checked>
+                            <span th:text="${tag.NomeView}"></span>
+                          </label>
+                        </div>
+                    </div> -->
 
                     <button type="submit" class="btn btn-primary">Enviar</button>
 
@@ -95,7 +108,7 @@
             </div>
 
 
-            <div class="col-6">
+            <!-- <div class="col-6">
                 <h2>Cliente</h2>
                 <form th:action="@{/testes/addclienteteste}" method="POST" th:object="${cliente}">
 
@@ -129,7 +142,7 @@
                     </div>
 
                     <div th:object="${endereco}">
-                        <!-- Endereço -->
+                        Endereço
                         <div class="form-group">
                             <label>CEP:</label>
                             <input type="text" class="form-control" th:field="*{cep}" placeholder="CEP"
@@ -158,7 +171,7 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Enviar</button>
                 </form>
-            </div>
+            </div> -->
 
         </div>
 

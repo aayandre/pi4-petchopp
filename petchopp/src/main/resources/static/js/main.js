@@ -2,13 +2,11 @@
 
 $.ajax({
     type: 'get',
-    // url: window.location.origin + '/rest/tipos',
-    url: 'http://localhost:8080/rest/tipos',
+    url: window.location.origin + '/rest/tipos',
     data: 'data',
     dataType: 'json',
     success: function (response) {
         createElementTipo(response);
-        console.log(response);
     }
 });
 
@@ -19,8 +17,8 @@ function createElementTipo(response) {
 
         templateTipoLi.attr('style', 'display: visible');
         templateTipoLi.find('.nav-link').attr('style', 'display: visible');
-        
-        templateTipoLi.find('.nav-link').attr('href', 'produto/tipos/' + tipo.descricao);
+
+        templateTipoLi.find('.nav-link').attr('href', window.location.origin + '/produto/tipos/' + tipo.descricao);
         templateTipoLi.find('.nav-link').attr('id', tipo.idTipo);
         templateTipoLi.find('.nav-link').text(tipo.descricao);
 
