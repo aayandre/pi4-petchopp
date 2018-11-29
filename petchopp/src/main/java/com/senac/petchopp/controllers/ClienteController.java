@@ -29,54 +29,54 @@ import java.util.List;
 @Scope(value = WebApplicationContext.SCOPE_REQUEST)
 public class ClienteController {
 
-	private ClienteDAO clienteDAO = new ClienteDAO();
+    private ClienteDAO clienteDAO = new ClienteDAO();
 
-	@GetMapping("conta")
-	public String minhaConta() {
-		return "cli/cliente-index";
-	}
+    @GetMapping("conta")
+    public String minhaConta() {
+        return "cli/cliente-index";
+    }
 
-	@GetMapping("Cadastro")
-	public ModelAndView novoCliente(HttpSession session) {
-		ModelAndView modelAndView = new ModelAndView("cli/novoCliente");
-		modelAndView.addObject("cliente", new Cliente());
-		modelAndView.addObject("endereco", new Endereco());
-		System.out.println(session.getId());
-		return modelAndView;
-	}
+    @GetMapping("Cadastro")
+    public ModelAndView novoCliente(HttpSession session) {
+        ModelAndView modelAndView = new ModelAndView("cli/novoCliente");
+        modelAndView.addObject("cliente", new Cliente());
+        modelAndView.addObject("endereco", new Endereco());
+        System.out.println(session.getId());
+        return modelAndView;
+    }
 
-	@PostMapping("salvar")
-	public ModelAndView salvar(Cliente cliente, @RequestParam(value = "dtNasc") String dtNasc, Endereco endereco,
-			RedirectAttributes redirect) throws SQLException, Exception {
-		ModelAndView modelAndView = new ModelAndView("cli/login");
-		LocalDate stringToLocalDateParse = Auxiliares.stringToLocalDateParse(dtNasc);
-		cliente.addEnderecoToList(endereco);
+    @PostMapping("salvar")
+    public ModelAndView salvar(Cliente cliente, @RequestParam(value = "dtNasc") String dtNasc, Endereco endereco,
+            RedirectAttributes redirect) throws SQLException, Exception {
+        ModelAndView modelAndView = new ModelAndView("cli/login");
+        LocalDate stringToLocalDateParse = Auxiliares.stringToLocalDateParse(dtNasc);
+        cliente.addEnderecoToList(endereco);
 
-		try {
+        try {
 
-			cliente.setDtCadastro(LocalDateTime.now());
-			cliente.setDtNasc(stringToLocalDateParse);
-			cliente.setAtivo(true);
-			clienteDAO.salvar(cliente);
-			String msg = "Cliente cadastrado com sucesso";
-			System.out.println("Usuário cadastrado = " + cliente.getNome());
-			redirect.addAttribute("msg", msg);
+            cliente.setDtCadastro(LocalDateTime.now());
+            cliente.setDtNasc(stringToLocalDateParse);
+            cliente.setAtivo(true);
+            clienteDAO.salvar(cliente);
+            String msg = "Cliente cadastrado com sucesso";
+            System.out.println("Usuário cadastrado = " + cliente.getNome());
+            redirect.addAttribute("msg", msg);
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return modelAndView.addObject("redirect:cliente");
-	}
-        
-        @GetMapping("orders")
-        public ModelAndView visualizarPedidos() throws SQLException{
-            VendaDAO vendaDAO = new VendaDAO();
-            
-            List<Venda> vendas = vendaDAO.getVendasByCliente(1);
-            ModelAndView modelAndView = new ModelAndView("cli/orderList");
-            modelAndView.addObject("vendas", vendas);
-            
-            return modelAndView;
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+        return modelAndView.addObject("redirect:cliente");
+    }
+
+    @GetMapping("orders")
+    public ModelAndView visualizarPedidos() throws SQLException {
+        VendaDAO vendaDAO = new VendaDAO();
+
+        List<Venda> vendas = vendaDAO.getVendasByCliente(1);
+        ModelAndView modelAndView = new ModelAndView("cli/orderList");
+        modelAndView.addObject("vendas", vendas);
+
+        return modelAndView;
+    }
 
 }
