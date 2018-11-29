@@ -20,7 +20,7 @@ import com.senac.petchopp.model.Auxiliares;
 public class Cliente {
     
    private Long idCliente;
-   private LocalDateTime dtCadastro;
+   private LocalDate dtCadastro;
    private String nome;
    private LocalDate dtNasc;
    private String rg;
@@ -38,7 +38,7 @@ public class Cliente {
         
     }
 
-    public Cliente(Long idCliente, LocalDateTime dtCadastro, String nome, LocalDate dtNasc, String rg, String cpf, String email, String senha, String telefone1, String telefone2, boolean ativo) {
+    public Cliente(Long idCliente, LocalDate dtCadastro, String nome, LocalDate dtNasc, String rg, String cpf, String email, String senha, String telefone1, String telefone2, boolean ativo) {
         this.idCliente = idCliente;
     	this.dtCadastro = dtCadastro;
         this.nome = nome;
@@ -55,9 +55,9 @@ public class Cliente {
     
     public Cliente(ResultSet rs) throws SQLException{
         this.idCliente = rs.getLong("dtCadastro");
-        this.dtCadastro = Auxiliares.convertToLocalDateTimeViaInstant(rs.getDate("dtCadastro"));
+        this.dtCadastro = rs.getDate("dtCadastro").toLocalDate();
         this.nome = rs.getString("nome");
-        this.dtNasc = Auxiliares.convertToLocalDateViaInstant(rs.getDate("dtNasc"));
+        this.dtNasc = rs.getDate("dtNasc").toLocalDate();
         this.rg = rs.getString("RG");
         this.cpf = rs.getString("CPF");
         this.email = rs.getString("Email");
@@ -75,11 +75,11 @@ public class Cliente {
         this.idCliente = idCliente;
     }
 
-    public LocalDateTime getDtCadastro() {
+    public LocalDate getDtCadastro() {
         return dtCadastro;
     }
 
-    public void setDtCadastro(LocalDateTime dtCadastro) {
+    public void setDtCadastro(LocalDate dtCadastro) {
         this.dtCadastro = dtCadastro;
     }
 
@@ -126,7 +126,7 @@ public class Cliente {
     public String getSenha() {
         return senha;
     }
-
+    
     public void setSenha(String senha) {
         this.senha = BCrypt.hashpw(senha, BCrypt.gensalt());
     }

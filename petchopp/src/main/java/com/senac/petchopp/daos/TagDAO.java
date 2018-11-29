@@ -9,14 +9,14 @@ import java.util.List;
 
 import com.senac.petchopp.connection.ConnectionFactory;
 import com.senac.petchopp.interfaces.IDAO;
-import com.senac.petchopp.model.tipo.Tipo;
+import com.senac.petchopp.model.tag.Tag;
 
-public class TipoDAO implements IDAO {
+public class TagDAO implements IDAO {
 
 	private Connection cn = null;
 
-	public TipoDAO() {
-		super();
+	public TagDAO() {
+
 	}
 
 	@Override
@@ -39,83 +39,50 @@ public class TipoDAO implements IDAO {
 
 	@Override
 	public Object getById(Long id) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		int idInt = Integer.parseInt(id.toString());
+		String sql = "SELECT * FROM Tags WHERE idTags = ?";
+		cn = ConnectionFactory.getConnection();
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		Tag tag = null;
+
+		try {
+			stmt = cn.prepareStatement(sql);
+			stmt.setInt(1, idInt);
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				tag = new Tag(rs);
+			}
+			return tag;
+		} catch (SQLException e) {
+			// TODO: handle exception
+		} finally {
+			ConnectionFactory.closeConnection(cn, stmt, rs);
+		}
+		return tag;
 	}
 
 	@Override
 	public List<Object> getAll() throws SQLException {
-
-		String sql = "SELECT * FROM Tipo WHERE Nome = Produto";
-
+		String sql = "SELECT * FROM Tags";
+		cn = ConnectionFactory.getConnection();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-
-		List<Object> resultados = new ArrayList<>();
-
-		cn = ConnectionFactory.getConnection();
+		List<Object> tags = new ArrayList<>();
 
 		try {
 			stmt = cn.prepareStatement(sql);
 			rs = stmt.executeQuery();
 			while (rs.next()) {
-				resultados.add(new Tipo(rs));
+				tags.add(new Tag(rs));
 			}
-			return resultados;
+			return tags;
 		} catch (SQLException e) {
-			throw new SQLException("Erro ao adiquirir todas os Tipos do banco.", e);
+			// TODO: handle exception
 		} finally {
 			ConnectionFactory.closeConnection(cn, stmt, rs);
 		}
-
-	}
-
-	public Tipo getTipoByID(int idTipo) {
-		String sql = "SELECT * FROM Tipo WHERE idTipo = ?";
-		PreparedStatement stmt = null;
-		cn = ConnectionFactory.getConnection();
-		Tipo tipo = new Tipo();
-		ResultSet rs = null;
-
-		try {
-			stmt = cn.prepareStatement(sql);
-			stmt.setInt(1, idTipo);
-			rs = stmt.executeQuery();
-
-			if (rs.next()) {
-				tipo = new Tipo(rs);
-			}
-
-		} catch (Exception e) {
-
-		} finally {
-			ConnectionFactory.closeConnection(cn, stmt, rs);
-		}
-		return tipo;
-	}
-
-	public Tipo getTipoByNome(String nome) {
-		String sql = "SELECT * FROM Tipo WHERE nome = ?";
-		PreparedStatement stmt = null;
-		cn = ConnectionFactory.getConnection();
-		Tipo tipo = new Tipo();
-		ResultSet rs = null;
-
-		try {
-			stmt = cn.prepareStatement(sql);
-			stmt.setString(1, nome);
-			rs = stmt.executeQuery();
-
-			if (rs.next()) {
-				tipo = new Tipo(rs);
-			}
-
-		} catch (Exception e) {
-
-		} finally {
-			ConnectionFactory.closeConnection(cn, stmt, rs);
-		}
-		return tipo;
+		return tags;
 	}
 
 }

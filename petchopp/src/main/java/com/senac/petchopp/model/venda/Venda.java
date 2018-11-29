@@ -1,14 +1,14 @@
 package com.senac.petchopp.model.venda;
 
-import com.senac.petchopp.model.Tipo;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 
+import com.senac.petchopp.model.tipo.Tipo;
 import com.senac.petchopp.model.carrinho.Carrinho;
 import com.senac.petchopp.model.produto.Produto;
 import com.senac.petchopp.model.produto.ProdutoVenda;

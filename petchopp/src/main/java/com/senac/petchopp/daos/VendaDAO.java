@@ -10,13 +10,13 @@ import java.util.List;
 
 import com.senac.petchopp.connection.ConnectionFactory;
 import com.senac.petchopp.interfaces.IDAO;
-import com.senac.petchopp.model.produto.Produto;
 import com.senac.petchopp.model.produto.ProdutoVenda;
 import com.senac.petchopp.model.venda.Venda;
 
 public class VendaDAO implements IDAO {
 
-    private static Connection cn = null;
+	private static Connection cn = null;
+	private TipoDAO tipodao = new TipoDAO();
 
     @Override
     public void salvar(Object bean) throws SQLException {
@@ -166,8 +166,8 @@ public class VendaDAO implements IDAO {
             while (rs.next()) {
                 Venda venda = new Venda(rs);
                 venda.setCarrinho(prodVendaDAO.getProdutoVendaByVenda(Integer.parseInt(venda.getIdVenda().toString())), venda.getValorTotal());
-                venda.setStatus(TipoDAO.getTipoByID(rs.getInt("status")));
-                venda.setFormaPagto(TipoDAO.getTipoByID(rs.getInt("formaPagto")));
+                venda.setStatus(tipodao.getTipoByID(rs.getInt("status")));
+                venda.setFormaPagto(tipodao.getTipoByID(rs.getInt("formaPagto")));
                 venda.setQtdeItensVenda(venda.getCarrinho().getProdutos().size());
                 vendas.add(venda);
             }

@@ -1,13 +1,9 @@
 package com.senac.petchopp.controllers;
 
-import java.util.ArrayList;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.senac.petchopp.daos.VendaDAO;
-import com.senac.petchopp.model.venda.Venda;
 
 @Controller
 @RequestMapping("relatorio")

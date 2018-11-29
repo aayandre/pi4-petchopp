@@ -26,24 +26,25 @@
 
 <body>
 
+   <!-- Navigation Bar -->
+   <div th:replace="padrao/general.html :: navbarfiles"></div>
    <!-- Page Content -->
    <div class="container nav-margin">
-
-      <!-- Navigation Bar -->
-      <div th:replace="padrao/general.html :: navbarfiles"></div>
-
       <div class="row" id="pwd-container">
-
-         <div class="col-md-4">
+         <div class="col-lg-4 col-md-6 col-sm-9 mx-auto">
             <section class="login-form">
-               <form method="post" action="#" role="login">
+               <div th:if="${msg != null}">
+                  <p style="color: rgb(0, 4, 255); background-color: rgb(205, 245, 182)" th:text="${msg}"></p>
+               </div>
+               <form method="post" th:action="@{logon}">
 
-                  <img src="https://image.freepik.com/icones-gratis/caes-patas_318-39262.jpg" width="270" height="170" />
+                  <img class="img-fluid" src="https://image.freepik.com/icones-gratis/caes-patas_318-39262.jpg" width="270"
+                     height="170" />
                   <input type="email" name="email" placeholder="Email" required class="form-control input-lg" />
 
-                  <input type="password" class="form-control input-lg" id="password" placeholder="Senha" required="" />
+                  <input type="password" class="form-control input-lg" name="password" id="password" placeholder="Senha" required />
 
-                  <div class="pwstrength_viewport_progress"></div>
+                  <!-- <div class="pwstrength_viewport_progress"></div> -->
 
                   <button type="submit" name="go" class="btn btn-lg btn-primary btn-block">Entrar</button>
                   <div>

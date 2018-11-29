@@ -1,12 +1,13 @@
 package com.senac.petchopp.daos;
 
-import com.senac.petchopp.connection.ConnectionFactory;
 import static com.senac.petchopp.daos.ProdutoDAO.cn;
-import com.senac.petchopp.model.produto.ProdutoVenda;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.List;
+
+import com.senac.petchopp.connection.ConnectionFactory;
+import com.senac.petchopp.model.produto.ProdutoVenda;
 
 public class ProdutoVendaDAO {
     
