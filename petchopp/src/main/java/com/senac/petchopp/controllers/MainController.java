@@ -17,6 +17,7 @@ public class MainController {
 	@RequestMapping({ "/", "" })
 	public String homePage(Model model, @ModelAttribute("cliente") Cliente cliente) {
 		model.addAttribute("cliente", cliente);
+		System.out.println(cliente.isLogado());
 		return "index";
 	}
 
