@@ -49,7 +49,7 @@
                <div class="col-12 text-center border-top pt-2">
                   <!-- Adicionar ao th:href o codigo do produto
                      Ficaria assim th:href="@{/checkout/add/{codigo}(codigo=${produto.codigo})}" -->
-                  <a href="#" th:href="@{/checkout}" class="btn btn-primary w-75 btn-detalhes">Adicionar ao Carrinho</a>
+                  <a href="#" th:href="@{/checkout/addcart/{codigo}(codigo = ${produto.codigo})}" class="btn btn-primary w-75 btn-detalhes">Adicionar ao Carrinho</a>
                </div>
             </div>
          </div>

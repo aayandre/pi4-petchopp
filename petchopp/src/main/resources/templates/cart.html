@@ -102,7 +102,7 @@
                                     <i class="fas fa-minus"></i>
                                  </button>
                               </span>
-                              <input style="max-width: 60px" type="text" id="quantity" name="quantity" class="form-control input-number" value="2" min="1" max="100" />
+                              <input style="max-width: 60px" type="text" id="quantity" name="quantity" class="form-control input-number" th:value="${produto.quantidade}" min="1" max="100" />
                               <input type="hidden" id="quantityHidden" th:field="*{produtos[__${stat.index}__].quantidade}" />
                               <span class="input-group-btn">
                                  <button type="button" class="quantity-right-plus btn btn-number cart-item-quantity-button" data-type="plus" data-field="">
@@ -121,7 +121,7 @@
                               <p class="col-6">
                                  Individual
                               </p>
-                              <p name="produtoPreco" id="produtoPrecoId" class="col-6 cart-item-value" th:text="${#numbers.formatCurrency(produto.Preco)}" th:value="${produto.Preco}"></p>
+                              <p name="produtoPreco" id="produtoPrecoId" class="col-6 cart-item-value" th:text="${#numbers.formatCurrency(produto.valor)}" th:value="${produto.valor}"></p>
                            </div>
                            <div class="row cart-item-value-label">
                               <p class="col-6">
@@ -231,6 +231,7 @@
          </form>
 
       </div>
+      
 
    </div>
    <!-- /Page Content -->

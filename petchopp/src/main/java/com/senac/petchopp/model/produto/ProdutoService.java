@@ -1,12 +1,15 @@
 package com.senac.petchopp.model.produto;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
 import com.senac.petchopp.daos.ProdutoDAO;
 import com.senac.petchopp.model.Upload;
+import com.senac.petchopp.wos.FormularioSearch;
 
 public class ProdutoService {
 
@@ -18,6 +21,12 @@ public class ProdutoService {
 	public void saveProduto(Object upload, Produto novo) throws Exception {
 		MultipartFile arquivo = (MultipartFile) upload;
 		try {
+			// Arrumando a data
+//			Calendar cal = Calendar.getInstance();
+//			cal.setTime(novo.getDtCompra());
+//			novo.setDtCompra(cal.getTime());
+
+			// Salvando
 			Upload.salvar(arquivo);
 			novo.setUrlImagem(arquivo.getOriginalFilename());
 			produtoBanco.salvar(novo);
@@ -39,10 +48,26 @@ public class ProdutoService {
 		produtoBanco.atualizar(alterado);
 	}
 
-	public ArrayList<Produto> searchByNome(String nome) throws SQLException {
+	public List<Produto> searchByNome(String nome) throws SQLException {
 		// Vai procurar o nome em qualquer posição da coluna Nome
 		// por conta dos %
-		ArrayList<Produto> lista = produtoBanco.getByNome("%" + nome + "%");
+		List<Produto> lista = produtoBanco.getByNome("%" + nome + "%");
 		return lista;
+	}
+
+	public List<Produto> searchByFormularioSearch(FormularioSearch procura) throws SQLException {
+		List<Produto> produtos = produtoBanco.searchByVarios(procura.getProcura());
+		return produtos;
+	}
+
+	public List<Produto> listByTipoDescricao(String descricao) throws SQLException {
+		List<Produto> produtos = produtoBanco.getByTipo(descricao);
+		return produtos;
+	}
+
+	public List<Produto> listyTipoId(String idTipo) throws SQLException {
+		int id = Integer.parseInt(idTipo);
+		List<Produto> produtos = produtoBanco.getByTipo(id);
+		return produtos;
 	}
 }

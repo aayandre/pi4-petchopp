@@ -1,19 +1,23 @@
 package com.senac.petchopp.wos;
 
-import java.util.Arrays;
+import com.senac.petchopp.model.filtro.Filtro;
 
 public class FormularioSearch {
 
 	private String procura;
-	private Filtros filtros;
+	private Double precoMax;
+	private Double precoMin;
+	private Filtro filtros;
 
 	public FormularioSearch() {
 		super();
 	}
 
-	public FormularioSearch(String procura, Filtros filtros) {
+	public FormularioSearch(String procura, Double precoMax, Double precoMin, Filtro filtros) {
 		super();
 		this.procura = procura;
+		this.precoMax = precoMax;
+		this.precoMin = precoMin;
 		this.filtros = filtros;
 	}
 
@@ -25,55 +29,34 @@ public class FormularioSearch {
 		this.procura = procura;
 	}
 
-	public Filtros getFiltros() {
+	public Double getPrecoMax() {
+		return precoMax;
+	}
+
+	public void setPrecoMax(String precoMax) {
+		this.precoMax = Double.parseDouble(precoMax);
+	}
+
+	public Double getPrecoMin() {
+		return precoMin;
+	}
+
+	public void setPrecoMin(Double precoMin) {
+		this.precoMin = precoMin;
+	}
+
+	public Filtro getFiltros() {
 		return filtros;
 	}
 
-	public void setFiltros(Filtros filtros) {
+	public void setFiltros(Filtro filtros) {
 		this.filtros = filtros;
 	}
 
 	@Override
 	public String toString() {
-		return "FormularioSearch [procura=" + procura + ", filtros=" + filtros + "]";
-	}
-
-	public static class Filtros {
-
-		private String[] tipos;
-		private String[] tags;
-
-		public Filtros() {
-			super();
-		}
-
-		public Filtros(String[] tipos, String[] tags) {
-			super();
-			this.tipos = tipos;
-			this.tags = tags;
-		}
-
-		public String[] getTipos() {
-			return tipos;
-		}
-
-		public void setTipos(String[] tipos) {
-			this.tipos = tipos;
-		}
-
-		public String[] getTags() {
-			return tags;
-		}
-
-		public void setTags(String[] tags) {
-			this.tags = tags;
-		}
-
-		@Override
-		public String toString() {
-			return "Filtros [tipos=" + Arrays.toString(tipos) + ", tags=" + Arrays.toString(tags) + "]";
-		}
-
+		return "FormularioSearch [procura=" + procura + ", precoMax=" + precoMax + ", precoMin=" + precoMin
+				+ ", filtros=" + filtros + "]";
 	}
 
 }

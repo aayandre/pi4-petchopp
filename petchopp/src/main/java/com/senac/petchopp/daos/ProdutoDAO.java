@@ -22,8 +22,8 @@ public class ProdutoDAO implements IDAO {
 	@Override
 	public void salvar(Object bean) throws SQLException {
 
-		String sql = "INSERT INTO Produto (Codigo, Nome, Preco, Custo, Descricao, dtCompra, dtValidade, urlImagem, emEstoque, Disable) "
-				+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO Produto (Codigo, Nome, Descricao, Peso, Preco, Custo, dtCompra, dtValidade, urlImagem, emEstoque, Disable) "
+				+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		PreparedStatement stmt = null;
 
@@ -38,14 +38,15 @@ public class ProdutoDAO implements IDAO {
 
 			stmt.setString(1, novo.getCodigo());
 			stmt.setString(2, novo.getNome());
-			stmt.setDouble(3, novo.getPreco());
-			stmt.setDouble(4, novo.getCusto());
-			stmt.setString(5, novo.getDescricao());
-			stmt.setTimestamp(6, (Timestamp) novo.getDtCompra());
-			stmt.setTimestamp(7, (Timestamp) novo.getDtValidade());
-			stmt.setString(8, novo.getUrlImagem());
-			stmt.setBoolean(9, novo.isEmEstoque());
-			stmt.setBoolean(10, novo.isDisable());
+			stmt.setString(3, novo.getDescricao());
+			stmt.setDouble(4, novo.getPeso());
+			stmt.setDouble(5, novo.getPreco());
+			stmt.setDouble(6, novo.getCusto());
+			stmt.setTimestamp(7, new java.sql.Timestamp(novo.getDtCompra().getTime()));
+			stmt.setTimestamp(8, new java.sql.Timestamp(novo.getDtValidade().getTime()));
+			stmt.setString(9, novo.getUrlImagem());
+			stmt.setBoolean(10, novo.isEmEstoque());
+			stmt.setBoolean(11, novo.isDisable());
 
 			stmt.execute();
 
@@ -59,12 +60,9 @@ public class ProdutoDAO implements IDAO {
 
 	@Override
 	public void atualizar(Object bean) {
-		@SuppressWarnings("unused")
-		String sql = "UPDATE Produto SET (Nome, Preco, Custo, dtCompra, dtValidade, urlImagem, emEstoque, Disable) "
-				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?) WHERE Codigo = ?";
 
-		String sql2 = "UPDATE Produto "
-				+ "SET Nome = ?, Preco = ?, Custo = ?, dtCompra = ?, dtValidade = ?, urlImagem = ?, emEstoque = ?, Disable = ? "
+		String sql = "UPDATE Produto "
+				+ "SET Nome = ?, Descricao = ?, Peso = ?, Preco = ?, Custo = ?, dtCompra = ?, dtValidade = ?, urlImagem = ?, emEstoque = ?, Disable = ? "
 				+ "WHERE Codigo = ?";
 
 		PreparedStatement stmt = null;
@@ -74,20 +72,21 @@ public class ProdutoDAO implements IDAO {
 
 		try {
 
-			stmt = cn.prepareStatement(sql2);
+			stmt = cn.prepareStatement(sql);
 
 			// SET
 			stmt.setString(1, alterado.getNome());
-			stmt.setDouble(2, alterado.getPreco());
-			stmt.setDouble(3, alterado.getCusto());
-			stmt.setTimestamp(4, (Timestamp) alterado.getDtCompra());
-			stmt.setTimestamp(5, (Timestamp) alterado.getDtValidade());
-			stmt.setString(6, alterado.getUrlImagem());
-			stmt.setBoolean(7, alterado.isEmEstoque());
-			stmt.setBoolean(8, alterado.isDisable());
+			stmt.setString(2, alterado.getDescricao());
+			stmt.setDouble(3, alterado.getPreco());
+			stmt.setDouble(4, alterado.getCusto());
+			stmt.setTimestamp(5, (Timestamp) alterado.getDtCompra());
+			stmt.setTimestamp(6, (Timestamp) alterado.getDtValidade());
+			stmt.setString(7, alterado.getUrlImagem());
+			stmt.setBoolean(8, alterado.isEmEstoque());
+			stmt.setBoolean(9, alterado.isDisable());
 
 			// WHERE
-			stmt.setString(9, alterado.getCodigo());
+			stmt.setString(10, alterado.getCodigo());
 
 			stmt.execute();
 
@@ -112,7 +111,7 @@ public class ProdutoDAO implements IDAO {
 		} catch (Exception e) {
 			// TODO: handle exception
 		} finally {
-
+			ConnectionFactory.closeConnection(cn, stmt);
 		}
 	}
 
@@ -289,4 +288,114 @@ public class ProdutoDAO implements IDAO {
 		return null;
 	}
 
+	public List<Produto> getByTipo(String descricao) throws SQLException {
+		String sql = "SELECT Produto.idProduto, Produto.Nome, Produto.Descricao, Produto.Peso, Produto.Preco, "
+				+ "Produto.Custo, Produto.qtdeVendas, Produto.dtCompra, Produto.dtValidade, Produto.urlImagem, "
+				+ "Produto.emEstoque, Produto.Disable FROM Produto "
+				+ "LEFT JOIN ProdutoTags ON Produto.idProduto = ProdutoTags.idProduto "
+				+ "LEFT JOIN Tags ON ProdutoTags.idTags = Tags.idTags " + "LEFT JOIN Tipo ON Tags.idTags = Tipo.idTipo "
+				+ "WHERE Tipo.Descricao = ?";
+
+		cn = ConnectionFactory.getConnection();
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		List<Produto> resultados = new ArrayList<>();
+
+		try {
+			stmt = cn.prepareStatement(sql);
+			stmt.setString(1, descricao);
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				resultados.add(new Produto(rs));
+			}
+			return resultados;
+		} catch (SQLException e) {
+			// TODO: handle exception
+			throw new SQLException("Erro ao adquirir lista de produtos do banco.", e.getCause());
+		} finally {
+			ConnectionFactory.closeConnection(cn, stmt, rs);
+		}
+	}
+
+	public List<Produto> getByTipo(int idTipo) throws SQLException {
+		String sql = "SELECT Produto.idProduto, Produto.Codigo, Produto.Nome, Produto.Descricao, Produto.Peso, "
+				+ "Produto.Preco, Produto.Custo, Produto.qtdeVendas, Produto.dtCompra, Produto.dtValidade, "
+				+ "Produto.urlImagem, Produto.emEstoque, Produto.Disable " + "FROM Produto "
+				+ "LEFT JOIN ProdutoTags ON Produto.idProduto = ProdutoTags.idProduto "
+				+ "LEFT JOIN Tags ON ProdutoTags.idTags = Tags.idTags " + "LEFT JOIN Tipo ON Tags.idTags = Tipo.idTipo "
+				+ "WHERE Tipo.idTipo = ?";
+
+		cn = ConnectionFactory.getConnection();
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		List<Produto> resultados = new ArrayList<>();
+
+		try {
+			stmt = cn.prepareStatement(sql);
+			stmt.setInt(1, idTipo);
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				resultados.add(new Produto(rs));
+			}
+			return resultados;
+		} catch (SQLException e) {
+			// TODO: handle exception
+			throw new SQLException("Erro ao adquirir lista de produtos do banco.", e.getCause());
+		} finally {
+			ConnectionFactory.closeConnection(cn, stmt, rs);
+		}
+	}
+
+	public List<Produto> searchByVarios(String procura) throws SQLException {
+		String sql = "SELECT Produto.idProduto, Produto.Codigo, Produto.Nome, Produto.Descricao, Produto.Peso, Produto.Preco,  " + 
+				"Produto.Custo, Produto.qtdeVendas, Produto.dtCompra, Produto.dtValidade, Produto.urlImagem,  " + 
+				"Produto.emEstoque, Produto.Disable  FROM Produto " + 
+				"LEFT JOIN ProdutoTags ON Produto.idProduto = ProdutoTags.idProduto " + 
+				"LEFT JOIN Tags ON ProdutoTags.idTags = Tags.idTags " + 
+				"WHERE Produto.Nome LIKE '%" + procura + "%'  " + 
+				"or Produto.Descricao LIKE '%" + procura + "%'  " + 
+				"or Tags.Nome REGEXP '%%' " + //TODO Alterar as tags - Original: 'Sachê|Biscoito'
+				"GROUP BY Produto.idProduto, Produto.Nome, Produto.Descricao, Produto.Peso, Produto.Preco,  " + 
+				"Produto.Custo, Produto.qtdeVendas, Produto.dtCompra, Produto.dtValidade, Produto.urlImagem,  " + 
+				"Produto.emEstoque, Produto.Disable,   " + 
+				"CASE " + 
+				"	WHEN Produto.Nome LIKE '" + procura + "%' THEN 1 " + 
+				"	WHEN Produto.Nome LIKE '%" + procura + "' THEN 2 " + 
+				"	WHEN Produto.Nome LIKE '%" + procura + "%' THEN 3 " + 
+				"	WHEN Tags.Nome REGEXP '%%' THEN 4 " + //TODO Alterar as tags - Original: 'Sachê|Biscoito'
+				"	WHEN Produto.Descricao LIKE '" + procura + "%' THEN 5 " + 
+				"	WHEN Produto.Descricao LIKE '%" + procura + "' THEN 6 " + 
+				"	WHEN Produto.Descricao LIKE '%" + procura + "%' THEN 7  " + 
+				"END " + 
+				"ORDER BY " + 
+				"CASE " + 
+				"	WHEN Produto.Nome LIKE '" + procura + "%' THEN 1 " + 
+				"	WHEN Produto.Nome LIKE '%" + procura + "' THEN 2 " + 
+				"	WHEN Produto.Nome LIKE '%" + procura + "%' THEN 3 " + 
+				"	WHEN Tags.Nome REGEXP '%%' THEN 4 " + //TODO Alterar as tags - Original: 'Sachê|Biscoito'
+				"	WHEN Produto.Descricao LIKE '" + procura + "%' THEN 5 " + 
+				"	WHEN Produto.Descricao LIKE '%" + procura + "' THEN 6 " + 
+				"	WHEN Produto.Descricao LIKE '%" + procura + "%' THEN 7 " + 
+				"END;";
+				
+		cn = ConnectionFactory.getConnection();
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		List<Produto> resultados = new ArrayList<>();
+
+		try {
+			stmt = cn.prepareStatement(sql);
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				resultados.add(new Produto(rs));
+			}
+			return resultados;
+		} catch (SQLException e) {
+			// TODO: handle exception
+			throw new SQLException("Erro ao adquirir lista de produtos do banco.", e.getCause());
+		} finally {
+			ConnectionFactory.closeConnection(cn, stmt, rs);
+		}
+	}
+	
 }

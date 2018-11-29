@@ -2,6 +2,8 @@ package com.senac.petchopp.controllers;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,19 +17,20 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.senac.petchopp.daos.ProdutoDAO;
+import com.senac.petchopp.daos.TagDAO;
 import com.senac.petchopp.model.Upload;
-import com.senac.petchopp.model.carrinho.Carrinho;
 import com.senac.petchopp.model.cliente.Cliente;
-import com.senac.petchopp.model.cliente.Endereco;
 import com.senac.petchopp.model.produto.Produto;
 import com.senac.petchopp.model.produto.ProdutoService;
+import com.senac.petchopp.model.tag.Tag;
 
 @Controller
 @RequestMapping("/testes")
 @SessionAttributes({ "cliente", "carrinho" })
 public class Teste {
 
-	private ProdutoService servico = new ProdutoService();
+	private ProdutoService produtoService = new ProdutoService();
+	private TagDAO tagDao = new TagDAO();
 
 	@GetMapping("/mostraprodutoteste")
 	public ModelAndView mostrarProduto(@ModelAttribute("cliente") Cliente cliente) {
@@ -38,8 +41,15 @@ public class Teste {
 	// Formulario
 	@GetMapping("/formularioprod")
 	public ModelAndView formulario() {
-		return new ModelAndView("testes/testeCadastro").addObject("produto", new Produto())
-				.addObject("cliente", new Cliente()).addObject("endereco", new Endereco());
+		List<Tag> tags = new ArrayList<>();
+		try {
+			tags = tagDao.getAllTags();
+			return new ModelAndView("testes/testeCadastro")
+					.addObject("produto", new Produto()).addObject("tags", tags);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return null;
 	}
 
 	// Controller que recebe o codigo do produto pela url,
@@ -47,7 +57,7 @@ public class Teste {
 	// e no fim adiciona o resultado da pesquisa na pagina "testes" e a mostra
 	@GetMapping("/getprodutoteste/{codigo}")
 	public ModelAndView testeGetProduto(@PathVariable String codigo) {
-		Produto adquirido = (Produto) servico.searchByCodigo(codigo);
+		Produto adquirido = (Produto) produtoService.searchByCodigo(codigo);
 		return new ModelAndView("testes/testes").addObject("produto", adquirido);
 	}
 
