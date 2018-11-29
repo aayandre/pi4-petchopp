@@ -8,8 +8,6 @@ import org.springframework.stereotype.Service;
 import com.senac.petchopp.daos.ClienteDAO;
 import com.senac.petchopp.model.cliente.Cliente;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
-
 @Service
 public class LoginService {
 	
