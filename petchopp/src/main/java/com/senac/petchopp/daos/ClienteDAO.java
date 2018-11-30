@@ -182,7 +182,6 @@ public class ClienteDAO implements IDAO {
 		cn = ConnectionFactory.getConnection();
 		Cliente cli = null;
 		try {
-
 			stmt = cn.prepareStatement(sql);
 			stmt.setString(1, email);
 			rs = stmt.executeQuery();
@@ -196,16 +195,11 @@ public class ClienteDAO implements IDAO {
 				cli.setEnderecos(ed.getAllEnd(cli.getIdCliente()));
 			}
 			
-			
-
 		} catch (SQLException e) {
 			e.printStackTrace();
-
 		} finally {
-
 			ConnectionFactory.closeConnection(cn, stmt);
 		}
-
 		return cli;
 	}
 
