@@ -44,6 +44,7 @@ public class VendaController {
 		 */
 //		Object msgS = session.getAttribute("teste");
 //		model.addAttribute("teste", msgS);
+		System.out.println(carrinho);
 		return new ModelAndView("checkout").addObject("carrinho", carrinho);
 	}
 
