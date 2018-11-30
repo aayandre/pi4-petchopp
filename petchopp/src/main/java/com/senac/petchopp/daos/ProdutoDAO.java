@@ -289,11 +289,15 @@ public class ProdutoDAO implements IDAO {
 	}
 
 	public List<Produto> getByTipo(String descricao) throws SQLException {
-		String sql = "SELECT Produto.idProduto, Produto.Nome, Produto.Descricao, Produto.Peso, Produto.Preco, "
-				+ "Produto.Custo, Produto.qtdeVendas, Produto.dtCompra, Produto.dtValidade, Produto.urlImagem, "
-				+ "Produto.emEstoque, Produto.Disable FROM Produto "
-				+ "LEFT JOIN ProdutoTags ON Produto.idProduto = ProdutoTags.idProduto "
-				+ "LEFT JOIN Tags ON ProdutoTags.idTags = Tags.idTags " + "LEFT JOIN Tipo ON Tags.idTags = Tipo.idTipo "
+//		String sql = "SELECT Produto.idProduto, Produto.Nome, Produto.Descricao, Produto.Peso, Produto.Preco, "
+//				+ "Produto.Custo, Produto.qtdeVendas, Produto.dtCompra, Produto.dtValidade, Produto.urlImagem, "
+//				+ "Produto.emEstoque, Produto.Disable FROM Produto "
+//				+ "LEFT JOIN ProdutoTags ON Produto.idProduto = ProdutoTags.idProduto "
+//				+ "LEFT JOIN Tags ON ProdutoTags.idTags = Tags.idTags " + "LEFT JOIN Tipo ON Tags.idTags = Tipo.idTipo "
+//				+ "WHERE Tipo.Descricao = ?";
+		
+		String sql = "SELECT Produto.* FROM Produto "
+				+ "LEFT JOIN Tipo ON Tipo.idTipo = Produto.idTipo "
 				+ "WHERE Tipo.Descricao = ?";
 
 		cn = ConnectionFactory.getConnection();
@@ -318,13 +322,15 @@ public class ProdutoDAO implements IDAO {
 	}
 
 	public List<Produto> getByTipo(int idTipo) throws SQLException {
-		String sql = "SELECT Produto.idProduto, Produto.Codigo, Produto.Nome, Produto.Descricao, Produto.Peso, "
-				+ "Produto.Preco, Produto.Custo, Produto.qtdeVendas, Produto.dtCompra, Produto.dtValidade, "
-				+ "Produto.urlImagem, Produto.emEstoque, Produto.Disable " + "FROM Produto "
-				+ "LEFT JOIN ProdutoTags ON Produto.idProduto = ProdutoTags.idProduto "
-				+ "LEFT JOIN Tags ON ProdutoTags.idTags = Tags.idTags " + "LEFT JOIN Tipo ON Tags.idTags = Tipo.idTipo "
-				+ "WHERE Tipo.idTipo = ?";
+//		String sql = "SELECT Produto.idProduto, Produto.Codigo, Produto.Nome, Produto.Descricao, Produto.Peso, "
+//				+ "Produto.Preco, Produto.Custo, Produto.qtdeVendas, Produto.dtCompra, Produto.dtValidade, "
+//				+ "Produto.urlImagem, Produto.emEstoque, Produto.Disable " + "FROM Produto "
+//				+ "LEFT JOIN ProdutoTags ON Produto.idProduto = ProdutoTags.idProduto "
+//				+ "LEFT JOIN Tags ON ProdutoTags.idTags = Tags.idTags " + "LEFT JOIN Tipo ON Tags.idTags = Tipo.idTipo "
+//				+ "WHERE Tipo.idTipo = ?";
 
+		String sql = "SELECT Produto.* FROM Produto WHERE idTipo = ?";
+		
 		cn = ConnectionFactory.getConnection();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -398,4 +404,28 @@ public class ProdutoDAO implements IDAO {
 		}
 	}
 	
+	public void sumProdutoQtdeVenda(Integer quantidade, String codigo) throws SQLException {
+		String sql = "UPDATE Produto " 
+				+ "SET qtdeVendas = (SELECT Produto.qtdeVendas WHERE Produto.Codigo = ?) + ? "
+				+ "WHERE Codigo = ?";
+
+		PreparedStatement stmt = null;
+		cn = ConnectionFactory.getConnection();
+
+		try {
+			stmt = cn.prepareStatement(sql);
+			stmt.setString(1, codigo);
+			stmt.setInt(2, quantidade);
+			stmt.setString(3, codigo);
+
+			stmt.execute();
+
+		} catch (SQLException e) {
+			// TODO: handle exception
+			throw new SQLException("Erro ao adquirir lista de produtos do banco.", e.getCause());
+		} finally {
+			ConnectionFactory.closeConnection(cn, stmt);
+		}
+	}
+
 }

@@ -180,6 +180,7 @@ $(document).ready(function () {
             }
         });
 
+        // Construcao dos produtos
         var produtos = [];
 
         function listaProdutos(lista) {

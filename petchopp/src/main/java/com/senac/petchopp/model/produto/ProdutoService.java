@@ -1,18 +1,23 @@
 package com.senac.petchopp.model.produto;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
 import com.senac.petchopp.daos.ProdutoDAO;
+import com.senac.petchopp.daos.TipoDAO;
 import com.senac.petchopp.model.Upload;
 import com.senac.petchopp.model.tag.Tag;
+import com.senac.petchopp.model.tipo.Tipo;
 import com.senac.petchopp.wos.FormularioSearch;
+import com.senac.petchopp.wos.HomeProdutos;
 
 public class ProdutoService {
 
 	private ProdutoDAO produtoBanco = new ProdutoDAO();
+	private TipoDAO tipoBanco = new TipoDAO();
 
 	public ProdutoService() {
 	}
@@ -84,5 +89,24 @@ public class ProdutoService {
 		int id = Integer.parseInt(idTipo);
 		List<Produto> produtos = produtoBanco.getByTipo(id);
 		return produtos;
+	}
+
+	public List<HomeProdutos> getSomeProdutos() throws SQLException {
+		int[] tiposIds = { 6, 10 };
+		// String[] tiposDescricao = {"nome1", "nome2"};
+		
+		Tipo tipo = new Tipo();
+		List<Produto> produtos = new ArrayList<>();
+		List<HomeProdutos> hps = new ArrayList<>();
+
+		for (int i : tiposIds) {
+//			tipo = tipoBanco.getTipoByID(i);
+//			produtos = produtoBanco.getByTipo(i);
+			HomeProdutos hp = new HomeProdutos();
+			hp.setTipo(tipoBanco.getTipoByID(i));
+			hp.setProdutos(produtoBanco.getByTipo(i));
+			hps.add(hp);
+		}
+		return hps;
 	}
 }
