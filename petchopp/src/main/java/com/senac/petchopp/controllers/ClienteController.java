@@ -1,8 +1,8 @@
 package com.senac.petchopp.controllers;
 
-import ch.qos.logback.core.CoreConstants;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -17,9 +17,11 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.senac.petchopp.daos.ClienteDAO;
+import com.senac.petchopp.daos.VendaDAO;
 import com.senac.petchopp.model.Auxiliares;
 import com.senac.petchopp.model.cliente.Cliente;
 import com.senac.petchopp.model.cliente.Endereco;
+import com.senac.petchopp.model.venda.Venda;
 import com.senac.petchopp.service.LoginService;
 
 @Controller
@@ -44,8 +46,7 @@ public class ClienteController {
 	}
 
 	@PostMapping("salvar")
-	public ModelAndView salvar(Cliente cliente, @RequestParam(value = "dtNasc") String dtNasc
-                , Endereco endereco,
+	public ModelAndView salvar(Cliente cliente, @RequestParam(value = "dtNasc") String dtNasc, Endereco endereco,
 			RedirectAttributes redirect) throws SQLException, Exception {
 		ModelAndView modelAndView = new ModelAndView("cli/login");
 		LocalDate stringToLocalDateParse = Auxiliares.stringToLocalDateParse(dtNasc);
@@ -65,42 +66,43 @@ public class ClienteController {
 		}
 		return modelAndView.addObject("redirect:cliente");
 	}
-	
+
 	@GetMapping("login")
 	public String loginCliente() {
-		return "cli/login"; 
+		return "cli/login";
 	}
-	
+
 	@PostMapping("logon")
-	public ModelAndView logonUsurio(@RequestParam(value="email") String email, @RequestParam(value="password") String senha
-			,RedirectAttributes redirect, HttpSession session) throws SQLException {
-		
+	public ModelAndView logonUsurio(@RequestParam(value = "email") String email,
+			@RequestParam(value = "password") String senha, RedirectAttributes redirect, HttpSession session)
+			throws SQLException {
+
 		Cliente cliente = new LoginService().clienteLogon(email, senha);
 		System.out.println(cliente.isLogado());
-		
-		if(cliente.isLogado()) {
+
+		if (cliente.isLogado()) {
 			System.out.println("Cliente logado: " + cliente.getEmail());
 			session.setAttribute("cliente", cliente);
-		return new ModelAndView("cli/cliente-index");
+			return new ModelAndView("cli/cliente-index");
 		}
-		
+
 		return new ModelAndView("cli/login");
 	}
-	
+
 	@GetMapping("minhaconta")
 	public String minhaconta() {
-		return "cli/cliente-index"; 
+		return "cli/cliente-index";
 	}
 
 	@GetMapping("orders")
-    public ModelAndView visualizarPedidos() throws SQLException {
-        VendaDAO vendaDAO = new VendaDAO();
+	public ModelAndView visualizarPedidos() throws SQLException {
+		VendaDAO vendaDAO = new VendaDAO();
 
-        List<Venda> vendas = vendaDAO.getVendasByCliente(1);
-        ModelAndView modelAndView = new ModelAndView("cli/orderList");
-        modelAndView.addObject("vendas", vendas);
+		List<Venda> vendas = vendaDAO.getVendasByCliente(1);
+		ModelAndView modelAndView = new ModelAndView("cli/orderList");
+		modelAndView.addObject("vendas", vendas);
 
-        return modelAndView;
-    }
+		return modelAndView;
+	}
 
 }

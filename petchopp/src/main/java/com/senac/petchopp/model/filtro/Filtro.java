@@ -2,16 +2,18 @@ package com.senac.petchopp.model.filtro;
 
 import java.util.List;
 
+import com.senac.petchopp.model.tag.Tag;
+
 public class Filtro {
 
 	private List<Object> tipos;
-	private List<Object> tags;
+	private List<Tag> tags;
 
 	public Filtro() {
 		super();
 	}
 
-	public Filtro(List<Object> tipos, List<Object> tags) {
+	public Filtro(List<Object> tipos, List<Tag> tags) {
 		super();
 		this.tipos = tipos;
 		this.tags = tags;
@@ -25,11 +27,11 @@ public class Filtro {
 		this.tipos = tipos;
 	}
 
-	public List<Object> getTags() {
+	public List<Tag> getTags() {
 		return tags;
 	}
 
-	public void setTags(List<Object> tags) {
+	public void setTags(List<Tag> tags) {
 		this.tags = tags;
 	}
 
