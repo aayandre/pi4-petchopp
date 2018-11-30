@@ -97,7 +97,7 @@ public class TipoDAO implements IDAO {
 		}
 	}
 
-	public Tipo getTipoByID(int idTipo) {
+	public Tipo getTipoByID(int idTipo) throws SQLException {
 		String sql = "SELECT * FROM Tipo WHERE idTipo = ?";
 		PreparedStatement stmt = null;
 		cn = ConnectionFactory.getConnection();
@@ -121,7 +121,7 @@ public class TipoDAO implements IDAO {
 		return tipo;
 	}
 
-	public Tipo getTipoByNome(String nome) {
+	public Tipo getTipoByNome(String nome) throws SQLException {
 		String sql = "SELECT * FROM Tipo WHERE nome = ?";
 		PreparedStatement stmt = null;
 		cn = ConnectionFactory.getConnection();

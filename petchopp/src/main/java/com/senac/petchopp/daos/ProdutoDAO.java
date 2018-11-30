@@ -289,11 +289,15 @@ public class ProdutoDAO implements IDAO {
 	}
 
 	public List<Produto> getByTipo(String descricao) throws SQLException {
-		String sql = "SELECT Produto.idProduto, Produto.Nome, Produto.Descricao, Produto.Peso, Produto.Preco, "
-				+ "Produto.Custo, Produto.qtdeVendas, Produto.dtCompra, Produto.dtValidade, Produto.urlImagem, "
-				+ "Produto.emEstoque, Produto.Disable FROM Produto "
-				+ "LEFT JOIN ProdutoTags ON Produto.idProduto = ProdutoTags.idProduto "
-				+ "LEFT JOIN Tags ON ProdutoTags.idTags = Tags.idTags " + "LEFT JOIN Tipo ON Tags.idTags = Tipo.idTipo "
+//		String sql = "SELECT Produto.idProduto, Produto.Nome, Produto.Descricao, Produto.Peso, Produto.Preco, "
+//				+ "Produto.Custo, Produto.qtdeVendas, Produto.dtCompra, Produto.dtValidade, Produto.urlImagem, "
+//				+ "Produto.emEstoque, Produto.Disable FROM Produto "
+//				+ "LEFT JOIN ProdutoTags ON Produto.idProduto = ProdutoTags.idProduto "
+//				+ "LEFT JOIN Tags ON ProdutoTags.idTags = Tags.idTags " + "LEFT JOIN Tipo ON Tags.idTags = Tipo.idTipo "
+//				+ "WHERE Tipo.Descricao = ?";
+		
+		String sql = "SELECT Produto.* FROM Produto "
+				+ "LEFT JOIN Tipo ON Tipo.idTipo = Produto.idTipo "
 				+ "WHERE Tipo.Descricao = ?";
 
 		cn = ConnectionFactory.getConnection();
@@ -318,13 +322,15 @@ public class ProdutoDAO implements IDAO {
 	}
 
 	public List<Produto> getByTipo(int idTipo) throws SQLException {
-		String sql = "SELECT Produto.idProduto, Produto.Codigo, Produto.Nome, Produto.Descricao, Produto.Peso, "
-				+ "Produto.Preco, Produto.Custo, Produto.qtdeVendas, Produto.dtCompra, Produto.dtValidade, "
-				+ "Produto.urlImagem, Produto.emEstoque, Produto.Disable " + "FROM Produto "
-				+ "LEFT JOIN ProdutoTags ON Produto.idProduto = ProdutoTags.idProduto "
-				+ "LEFT JOIN Tags ON ProdutoTags.idTags = Tags.idTags " + "LEFT JOIN Tipo ON Tags.idTags = Tipo.idTipo "
-				+ "WHERE Tipo.idTipo = ?";
+//		String sql = "SELECT Produto.idProduto, Produto.Codigo, Produto.Nome, Produto.Descricao, Produto.Peso, "
+//				+ "Produto.Preco, Produto.Custo, Produto.qtdeVendas, Produto.dtCompra, Produto.dtValidade, "
+//				+ "Produto.urlImagem, Produto.emEstoque, Produto.Disable " + "FROM Produto "
+//				+ "LEFT JOIN ProdutoTags ON Produto.idProduto = ProdutoTags.idProduto "
+//				+ "LEFT JOIN Tags ON ProdutoTags.idTags = Tags.idTags " + "LEFT JOIN Tipo ON Tags.idTags = Tipo.idTipo "
+//				+ "WHERE Tipo.idTipo = ?";
 
+		String sql = "SELECT Produto.* FROM Produto WHERE idTipo = ?";
+		
 		cn = ConnectionFactory.getConnection();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -346,7 +352,7 @@ public class ProdutoDAO implements IDAO {
 		}
 	}
 
-	public List<Produto> searchByVarios(String procura) throws SQLException {
+	public List<Produto> searchByVarios(String procura, String tags) throws SQLException {
 		String sql = "SELECT Produto.idProduto, Produto.Codigo, Produto.Nome, Produto.Descricao, Produto.Peso, Produto.Preco,  " + 
 				"Produto.Custo, Produto.qtdeVendas, Produto.dtCompra, Produto.dtValidade, Produto.urlImagem,  " + 
 				"Produto.emEstoque, Produto.Disable  FROM Produto " + 
@@ -354,7 +360,7 @@ public class ProdutoDAO implements IDAO {
 				"LEFT JOIN Tags ON ProdutoTags.idTags = Tags.idTags " + 
 				"WHERE Produto.Nome LIKE '%" + procura + "%'  " + 
 				"or Produto.Descricao LIKE '%" + procura + "%'  " + 
-				"or Tags.Nome REGEXP '%%' " + //TODO Alterar as tags - Original: 'Sachê|Biscoito'
+				"or Tags.Nome REGEXP '" + tags + "' " + //TODO Alterar as tags - Original: 'Sachê|Biscoito'
 				"GROUP BY Produto.idProduto, Produto.Nome, Produto.Descricao, Produto.Peso, Produto.Preco,  " + 
 				"Produto.Custo, Produto.qtdeVendas, Produto.dtCompra, Produto.dtValidade, Produto.urlImagem,  " + 
 				"Produto.emEstoque, Produto.Disable,   " + 
@@ -362,7 +368,7 @@ public class ProdutoDAO implements IDAO {
 				"	WHEN Produto.Nome LIKE '" + procura + "%' THEN 1 " + 
 				"	WHEN Produto.Nome LIKE '%" + procura + "' THEN 2 " + 
 				"	WHEN Produto.Nome LIKE '%" + procura + "%' THEN 3 " + 
-				"	WHEN Tags.Nome REGEXP '%%' THEN 4 " + //TODO Alterar as tags - Original: 'Sachê|Biscoito'
+				"	WHEN Tags.Nome REGEXP '" + tags + "' THEN 4 " + //TODO Alterar as tags - Original: 'Sachê|Biscoito'
 				"	WHEN Produto.Descricao LIKE '" + procura + "%' THEN 5 " + 
 				"	WHEN Produto.Descricao LIKE '%" + procura + "' THEN 6 " + 
 				"	WHEN Produto.Descricao LIKE '%" + procura + "%' THEN 7  " + 
@@ -372,11 +378,11 @@ public class ProdutoDAO implements IDAO {
 				"	WHEN Produto.Nome LIKE '" + procura + "%' THEN 1 " + 
 				"	WHEN Produto.Nome LIKE '%" + procura + "' THEN 2 " + 
 				"	WHEN Produto.Nome LIKE '%" + procura + "%' THEN 3 " + 
-				"	WHEN Tags.Nome REGEXP '%%' THEN 4 " + //TODO Alterar as tags - Original: 'Sachê|Biscoito'
+				"	WHEN Tags.Nome REGEXP '" + tags + "' THEN 4 " + //TODO Alterar as tags - Original: 'Sachê|Biscoito'
 				"	WHEN Produto.Descricao LIKE '" + procura + "%' THEN 5 " + 
 				"	WHEN Produto.Descricao LIKE '%" + procura + "' THEN 6 " + 
 				"	WHEN Produto.Descricao LIKE '%" + procura + "%' THEN 7 " + 
-				"END;";
+				"END";
 				
 		cn = ConnectionFactory.getConnection();
 		PreparedStatement stmt = null;
@@ -398,4 +404,28 @@ public class ProdutoDAO implements IDAO {
 		}
 	}
 	
+	public void sumProdutoQtdeVenda(Integer quantidade, String codigo) throws SQLException {
+		String sql = "UPDATE Produto " 
+				+ "SET qtdeVendas = (SELECT Produto.qtdeVendas WHERE Produto.Codigo = ?) + ? "
+				+ "WHERE Codigo = ?";
+
+		PreparedStatement stmt = null;
+		cn = ConnectionFactory.getConnection();
+
+		try {
+			stmt = cn.prepareStatement(sql);
+			stmt.setString(1, codigo);
+			stmt.setInt(2, quantidade);
+			stmt.setString(3, codigo);
+
+			stmt.execute();
+
+		} catch (SQLException e) {
+			// TODO: handle exception
+			throw new SQLException("Erro ao adquirir lista de produtos do banco.", e.getCause());
+		} finally {
+			ConnectionFactory.closeConnection(cn, stmt);
+		}
+	}
+
 }

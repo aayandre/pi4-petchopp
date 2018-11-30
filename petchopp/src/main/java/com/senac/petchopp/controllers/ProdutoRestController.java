@@ -9,18 +9,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.senac.petchopp.model.filtro.FiltroService;
 import com.senac.petchopp.model.produto.Produto;
 import com.senac.petchopp.model.produto.ProdutoService;
-import com.senac.petchopp.model.tipo.TipoService;
 import com.senac.petchopp.wos.FormularioSearch;
+import com.senac.petchopp.wos.HomeProdutos;
 
 @RestController
 @RequestMapping("produtorest")
 public class ProdutoRestController {
 
 	private ProdutoService produtoServico = new ProdutoService();
-	private FiltroService filtroService = new FiltroService();
 
 	@RequestMapping("tipo/{id}")
 	public List<Produto> listProdutosTipo(@PathVariable("id") String idTipo) {
@@ -46,6 +44,19 @@ public class ProdutoRestController {
 			e.printStackTrace();
 			return new ArrayList<>();
 		}
+	}
+
+	@RequestMapping("produtoshome")
+	public List<HomeProdutos> homeProdutos() {
+		List<HomeProdutos> hps = new ArrayList<>();
+		try {
+			hps = produtoServico.getSomeProdutos();
+			return hps;
+		} catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }

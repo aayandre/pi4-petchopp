@@ -18,7 +18,7 @@ public class FiltroService {
 
 		Filtro filtro = new Filtro();
 		try {
-			filtro.setTags(tagdao.getAll());
+			filtro.setTags(tagdao.getAllTags());
 			filtro.setTipos(tipodao.getAll());
 			return filtro;
 		} catch (SQLException e) {

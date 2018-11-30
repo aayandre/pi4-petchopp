@@ -69,10 +69,11 @@ function addTags(tags) {
 
         // add ao input o id da tag atual 
         input.attr('id', item.idTags);
+        input.val(item.nome)
         label.append(input);
 
         // add ao span o nome da tag atual
-        span.text(item.nome);
+        span.text(item.nomeView);
         label.append(span);
 
         // add a label a div de tags
@@ -152,12 +153,13 @@ $(document).ready(function () {
         });
         $.each($('#formFiltrosId #tagsId :input:checked'), function (i, item) {
             let tag = {
-                idTag: '',
+                idTag: 1,
                 nome: '',
-                idtipo: ''
+                idtipo: 1
             };
             tag.idTag = item.id;
-            filtrosArray.tags[i] = tag;
+            tag.nome = $(item).val();
+            filtrosArray.tags.push(tag);
         });
 
         // cria o objeto que será enviado para o controller
@@ -178,6 +180,7 @@ $(document).ready(function () {
             }
         });
 
+        // Construcao dos produtos
         var produtos = [];
 
         function listaProdutos(lista) {

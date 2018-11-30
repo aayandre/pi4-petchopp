@@ -5,18 +5,20 @@ import java.sql.SQLException;
 
 public class Tag {
 
-	private int idTag;
+	private Integer idTag;
 	private String nome;
+	private String nomeView;
 	private int idTipo;
 
 	public Tag() {
 		super();
 	}
 
-	public Tag(int idTags, String nome, int idTipo) {
+	public Tag(Integer idTag, String nome, String nomeView, int idTipo) {
 		super();
-		this.idTag = idTags;
+		this.idTag = idTag;
 		this.nome = nome;
+		this.nomeView = nomeView;
 		this.idTipo = idTipo;
 	}
 
@@ -24,14 +26,15 @@ public class Tag {
 		super();
 		this.idTag = rs.getInt("idTags");
 		this.nome = rs.getString("Nome");
+		this.nomeView = rs.getString("NomeView");
 		this.idTipo = rs.getInt("idTipo");
 	}
 
-	public int getIdTags() {
+	public Integer getIdTags() {
 		return idTag;
 	}
 
-	public void setIdTags(int idTags) {
+	public void setIdTags(Integer idTags) {
 		this.idTag = idTags;
 	}
 
@@ -41,6 +44,14 @@ public class Tag {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public String getNomeView() {
+		return nomeView;
+	}
+
+	public void setNomeView(String nomeView) {
+		this.nomeView = nomeView;
 	}
 
 	public int getIdTipo() {
@@ -53,7 +64,7 @@ public class Tag {
 
 	@Override
 	public String toString() {
-		return "Tag [idTags=" + idTag + ", nome=" + nome + ", idTipo=" + idTipo + "]";
+		return "Tag [idTag=" + idTag + ", nome=" + nome + ", nomeView=" + nomeView + ", idTipo=" + idTipo + "]";
 	}
 
 }
