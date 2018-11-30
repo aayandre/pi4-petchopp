@@ -62,7 +62,7 @@ body {
     z-index: 1;
 }
 .listEnderecos{
-    list-style: none;
+    list-style-type: none;
 }
 .listEnderecos .tipoEndereco{
     font-style: bold;

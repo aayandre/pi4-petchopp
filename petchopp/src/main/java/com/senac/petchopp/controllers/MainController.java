@@ -28,7 +28,8 @@ public class MainController {
 	}
 
 	@RequestMapping("cart")
-	public ModelAndView cartPage(@ModelAttribute("carrinho") Carrinho carrinho) {
+	public ModelAndView cartPage(@ModelAttribute("carrinho") Carrinho carrinho
+                                , @ModelAttribute("cliente") Cliente cliente) {
 		return new ModelAndView("cart").addObject("carrinho", carrinho);
 	}
 

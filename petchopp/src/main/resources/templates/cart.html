@@ -10,10 +10,12 @@
       <link rel="stylesheet" href="../static/css/main.css" th:href="@{/css/main.css}">
 
       <!-- Bootstrap CSS -->
-      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" data-integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css"
+         data-integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
 
       <!-- Font Awesome -->
-      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" data-integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" data-integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+         crossorigin="anonymous">
    </div>
    <link rel="stylesheet" href="../static/css/cart.css" th:href="@{/css/cart.css}">
    <title th:text="${titulo}">Carrinho</title>
@@ -27,7 +29,8 @@
       <nav style="margin-bottom: 10px" class="navbar navbar-expand-lg navbar-light bg-color fixed-top">
          <div class="container">
             <a class="navbar-brand" href="index.html" th:href="@{/}">PetChopp</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+               aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -82,7 +85,8 @@
 
                         <!-- Imagem -->
                         <div class="col-md-2 col-sm-6 col-xs-12 cart-item-left-img">
-                           <img style="max-height: 150px; width: 108px" th:src="@{~/uploads/{nomeArquivo}(nomeArquivo=${produto.urlImagem})}" alt="Imagem do produto">
+                           <img style="max-height: 150px; width: 108px" th:src="@{~/uploads/{nomeArquivo}(nomeArquivo=${produto.urlImagem})}"
+                              alt="Imagem do produto">
                         </div>
 
                         <!-- Informações do produto -->
@@ -98,14 +102,17 @@
                            <!-- Seleção da quantidade do produto -->
                            <div class="input-group cart-item-quantity center-objects">
                               <span class="input-group-btn">
-                                 <button type="button" class="quantity-left-minus btn btn-number cart-item-quantity-button" data-type="minus" data-field="">
+                                 <button type="button" class="quantity-left-minus btn btn-number cart-item-quantity-button"
+                                    data-type="minus" data-field="">
                                     <i class="fas fa-minus"></i>
                                  </button>
                               </span>
-                              <input style="max-width: 60px" type="text" id="quantity" name="quantity" class="form-control input-number" th:value="${produto.quantidade}" min="1" max="100" />
+                              <input style="max-width: 60px" type="text" id="quantity" name="quantity" class="form-control input-number"
+                                 th:value="${produto.quantidade}" min="1" max="100" />
                               <input type="hidden" id="quantityHidden" th:field="*{produtos[__${stat.index}__].quantidade}" />
                               <span class="input-group-btn">
-                                 <button type="button" class="quantity-right-plus btn btn-number cart-item-quantity-button" data-type="plus" data-field="">
+                                 <button type="button" class="quantity-right-plus btn btn-number cart-item-quantity-button"
+                                    data-type="plus" data-field="">
                                     <i class="fas fa-plus"></i>
                                  </button>
                               </span>
@@ -121,14 +128,16 @@
                               <p class="col-6">
                                  Individual
                               </p>
-                              <p name="produtoPreco" id="produtoPrecoId" class="col-6 cart-item-value" th:text="${#numbers.formatCurrency(produto.valor)}" th:value="${produto.valor}"></p>
+                              <p name="produtoPreco" id="produtoPrecoId" class="col-6 cart-item-value" th:text="${#numbers.formatCurrency(produto.valor)}"
+                                 th:value="${produto.valor}"></p>
                            </div>
                            <div class="row cart-item-value-label">
                               <p class="col-6">
                                  Subtotal
                               </p>
                               <p class="col-6 font-weight-bold cart-item-value">
-                                 R$ <input type="number" name="subTotal" id="subTotalId" step="0.01" class="input-reset" disabled />
+                                 R$ <input type="number" name="subTotal" id="subTotalId" step="0.01" class="input-reset"
+                                    disabled />
                               </p>
                            </div>
                         </div>
@@ -143,15 +152,15 @@
 
                <div class="col-md-4 col-sm-6 col-xs-12 cart-resumo">
                   <h6 class="font-weight-bold">ENDEREÇO</h6>
-                  <div class="dropdown">
-                     <button class="btn btn-default btn-block dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Selecione
-                        <span class="caret"></span></button>
-                     <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Rua Ermano de
-                              Stradelli - Jardim Angela</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Endereço 2</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Endereço 3</a></li>
-                     </ul>
+                  <div>
+                     <form>
+                        <div th:each="endereco : ${session.cliente.enderecos}">
+                           <div class="form-group">
+                              <input type="radio" name="ends" th:value="${endereco.idEndereco}">
+                              <strong th:text="${endereco.tipoEndereco}"></strong>
+                           </div>
+                        </div>
+                     </form>
                   </div>
                </div>
 
@@ -231,7 +240,7 @@
          </form>
 
       </div>
-      
+
 
    </div>
    <!-- /Page Content -->
