@@ -37,16 +37,18 @@
 
 
     <!-- Page Content -->
-    <div class="container nav-margin orderlist">
-
-        <div class="row orderlist-ico-line">
-            <div class="col-md-4 col-sm-12">
-                <h4 class="text-left">
-                    <i class="fas fa-clipboard-list"></i> Meus Pedidos</h4>
-            </div>
-        </div>
-
-        <div class="col-12" th:each="venda, vendaIter : *{vendas}">
+    <div class="container nav-margin">
+            <div class="row">
+                <div class="col-md-2 lateral-cli-menu">
+    
+                    <div class="list-group">
+                        <a href="#" class="list-group-item list-group-item-action active">Meus dados</a>
+                        <a href="#" th:href="@{orders}" class="list-group-item list-group-item-action">Pedidos</a>
+                        <a href="#" th:href="@{enderecos}" class="list-group-item list-group-item-action">Endereços</a>
+                    </div>
+    
+                </div>
+                <div class="col-md-10" th:each="venda, vendaIter : *{vendas}">
             <div id="order" class="orderlist-itens mb-3" th:id="'order' + ${vendaIter.index}">
                 <!-- Imagem dos itens -->
                 <div class="row orderlist-row-item m-0">
