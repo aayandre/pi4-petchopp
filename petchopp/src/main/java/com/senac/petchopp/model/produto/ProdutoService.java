@@ -1,6 +1,8 @@
 package com.senac.petchopp.model.produto;
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -19,6 +21,12 @@ public class ProdutoService {
 	public void saveProduto(Object upload, Produto novo) throws Exception {
 		MultipartFile arquivo = (MultipartFile) upload;
 		try {
+			// Arrumando a data
+//			Calendar cal = Calendar.getInstance();
+//			cal.setTime(novo.getDtCompra());
+//			novo.setDtCompra(cal.getTime());
+
+			// Salvando
 			Upload.salvar(arquivo);
 			novo.setUrlImagem(arquivo.getOriginalFilename());
 			produtoBanco.salvar(novo);
@@ -47,8 +55,19 @@ public class ProdutoService {
 		return lista;
 	}
 
-	public List<Produto> searchByFormularioSearch(FormularioSearch procura) {
-		return null;
+	public List<Produto> searchByFormularioSearch(FormularioSearch procura) throws SQLException {
+		List<Produto> produtos = produtoBanco.searchByVarios(procura.getProcura());
+		return produtos;
 	}
 
+	public List<Produto> listByTipoDescricao(String descricao) throws SQLException {
+		List<Produto> produtos = produtoBanco.getByTipo(descricao);
+		return produtos;
+	}
+
+	public List<Produto> listyTipoId(String idTipo) throws SQLException {
+		int id = Integer.parseInt(idTipo);
+		List<Produto> produtos = produtoBanco.getByTipo(id);
+		return produtos;
+	}
 }

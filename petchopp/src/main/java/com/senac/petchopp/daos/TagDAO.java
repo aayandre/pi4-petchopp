@@ -85,4 +85,26 @@ public class TagDAO implements IDAO {
 		return tags;
 	}
 
+	public List<Tag> getAllTags() throws SQLException {
+		String sql = "SELECT * FROM Tags";
+		cn = ConnectionFactory.getConnection();
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		List<Tag> tags = new ArrayList<>();
+
+		try {
+			stmt = cn.prepareStatement(sql);
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				tags.add(new Tag(rs));
+			}
+			return tags;
+		} catch (SQLException e) {
+			// TODO: handle exception
+		} finally {
+			ConnectionFactory.closeConnection(cn, stmt, rs);
+		}
+		return tags;
+	}
+
 }

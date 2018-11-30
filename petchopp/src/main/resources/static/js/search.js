@@ -87,6 +87,9 @@ function addTags(tags) {
 
 $(document).ready(function () {
 
+    // Altera o valor do span ao carregar
+    $('#valor-max').text(parseFloat($('#preco-max').val()).toFixed(2));
+
     // --- Filtros START
     // Mostra os filtros se a janela estiver a X width
     if ($(window).width() > 576 && $('#listaFiltrosId').css('display') == 'none') {
@@ -100,6 +103,17 @@ $(document).ready(function () {
         }
         $('#listaFiltrosId').toggle();
     });
+
+    // Watcher de alterações do preço
+    $('#preco-min').on('input change', function () {
+        let valorMin = parseFloat($(this).val()).toFixed(2)
+        $('#valor-min').text(valorMin)
+    })
+    $('#preco-max').on('input change', function () {
+        let valorMin = parseFloat($(this).val()).toFixed(2)
+        $('#valor-max').text(valorMin)
+    })
+
     // --- Filtros END
 
     // --- Procura START
@@ -115,7 +129,7 @@ $(document).ready(function () {
         event.preventDefault();
 
         // cria o caminho correto para o endpoint
-        let getUrl = window.location.origin + '/rest/formulario';
+        let getUrl = window.location.origin + '/produtorest/formulario';
 
         // pega o valor que o usuario digitou no input de pesquisa
         let procura = $('#formProcuraId').serializeArray()[0].value;
@@ -174,11 +188,10 @@ $(document).ready(function () {
                     preco: produto.preco,
                     descricao: produto.descricao,
                     nome: produto.nome,
-                    urlImagem: 'uploads/' + produto.urlImagem
+                    urlImagem: window.location.origin + '/uploads/' + produto.urlImagem
                 };
                 produtos[i] = produtoView;
             });
-            console.log(produtos);
             createProdutoElement(produtos)
         }
 
@@ -194,7 +207,7 @@ $(document).ready(function () {
                 template.find('.card-img-top').attr('src', produto.urlImagem);
                 template.find('.card-title').text('R$ ' + parseFloat(produto.preco).toFixed(2));
                 template.find('.card-text').text(produto.nome);
-                template.find('.btn').attr('href', 'produto/' + produto.codigo);
+                template.find('.btn').attr('href', window.location.origin + '/produto/' + produto.codigo);
 
                 template.appendTo('#produtosId');
             })

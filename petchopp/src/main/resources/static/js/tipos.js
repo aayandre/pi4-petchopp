@@ -2,19 +2,53 @@
 
 $(document).ready(function () {
 
-    // --- Filtros START
-    // Mostra os filtros se a janela estiver a X width
-    if ($(window).width() > 576 && $('#listaFiltrosId').css('display') == 'none') {
-        $('#listaFiltrosId').toggle();
-    };
+    let caminho = window.location.origin + '/produtorest/tipo/' + $('#tipo-idtipo').val();
 
-    // Botão de mostrar filtros
-    $('#filtrosToggleId').click(function () {
-        if ($(window).width() > 576) {
-            $('#resultadosId').toggleClass('col-md-12');
+    $.ajax({
+        type: "get",
+        url: caminho,
+        dataType: "json",
+        contentType: "application/json",
+        data: "data",
+        success: function (response) {
+            listaProdutos(response)
         }
-        $('#listaFiltrosId').toggle();
     });
-    // --- Filtros END
+
+    var produtos = [];
+
+    function listaProdutos(lista) {
+
+        $.each(lista, function (i, produto) {
+            let produtoView = {
+                codigo: produto.codigo,
+                preco: produto.preco,
+                descricao: produto.descricao,
+                nome: produto.nome,
+                urlImagem: window.location.origin + '/uploads/' + produto.urlImagem
+            };
+            produtos[i] = produtoView;
+        });
+        createProdutoElement(produtos)
+    }
+
+    function createProdutoElement(lista) {
+
+        $('#produtosId').html('');
+
+        $.each(lista, function (i, produto) {
+
+            let template = $('#produtoTemplate').clone();
+
+            template.attr('style', 'display: visible');
+            template.find('.card-img-top').attr('src', produto.urlImagem);
+            template.find('.card-title').text('R$ ' + parseFloat(produto.preco).toFixed(2));
+            template.find('.card-text').text(produto.nome);
+            template.find('.btn').attr('href', window.location.origin + '/produto/' + produto.codigo);
+
+            template.appendTo('#produtosId');
+        })
+
+    }
 
 })

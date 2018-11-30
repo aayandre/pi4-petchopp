@@ -145,4 +145,27 @@ public class TipoDAO implements IDAO {
 		return tipo;
 	}
 
+	public Tipo getByDescricao(String descricao) throws SQLException {
+		String sql = "SELECT * FROM Tipo WHERE Descricao = ?";
+		PreparedStatement stmt = null;
+		cn = ConnectionFactory.getConnection();
+		Tipo tipo = new Tipo();
+		ResultSet rs = null;
+
+		try {
+			stmt = cn.prepareStatement(sql);
+			stmt.setString(1, descricao);
+			rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				tipo = new Tipo(rs);
+			}
+
+		} catch (Exception e) {
+
+		} finally {
+			ConnectionFactory.closeConnection(cn, stmt, rs);
+		}
+		return tipo;
+	}
 }
