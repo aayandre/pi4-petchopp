@@ -2,6 +2,8 @@ package com.senac.petchopp.controllers;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.context.annotation.Scope;
@@ -14,9 +16,11 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.senac.petchopp.daos.VendaDAO;
 import com.senac.petchopp.daos.ClienteDAO;
 import com.senac.petchopp.daos.VendaDAO;
 import com.senac.petchopp.model.Auxiliares;
+import com.senac.petchopp.model.venda.Venda;
 import com.senac.petchopp.model.cliente.Cliente;
 import com.senac.petchopp.model.cliente.Endereco;
 import com.senac.petchopp.model.venda.Venda;
