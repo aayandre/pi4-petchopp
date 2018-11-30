@@ -256,13 +256,13 @@
 
                             <!-- Informações do produto -->
                             <div class="col-md-7 col-sm-10">
-                                <p class="font-weight-bold box-item-name">Tipo ou tag do produto</p>
+                                <p class="font-weight-bold box-item-name" th:text="${produto.nome}">Tipo ou tag do produto</p>
                                 <p>Quantidade: [[${produto.quantidade}]]</p>
                             </div>
 
                             <div class="col-md-3 col-sm-12 align-self-center box-item-div-value">
-                                <p class="box-item-value box-item-value-xs" th:text="${#numbers.formatCurrency(produto.Preco)}"
-                                    th:value="${produto.Preco}">R$ 70,00</p>
+                                <p class="box-item-value box-item-value-xs" th:text="${#numbers.formatCurrency(produto.valor)}"
+                                    th:value="${produto.valor}">R$ 70,00</p>
                             </div>
                         </div>
                     </div>

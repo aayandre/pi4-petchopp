@@ -51,7 +51,7 @@ public class VendaController {
 	@RequestMapping("comprar")
 	public ModelAndView realizarCompra(@SessionAttribute("carrinho") Carrinho carrinho
                         ,@SessionAttribute("cliente") Cliente cliente
-                        ,@SessionAttribute("ends") String idEndereco) {
+                        ,@ModelAttribute("ends") String idEndereco) {
 		Venda nova = new Venda();
 
 		nova.setCarrinho(carrinho);
