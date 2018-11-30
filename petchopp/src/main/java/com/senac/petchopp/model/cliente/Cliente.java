@@ -1,35 +1,45 @@
 package com.senac.petchopp.model.cliente;
 
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.senac.petchopp.model.Auxiliares;
 
 /**
  *
  * @author Marcelo Pereira
  */
+
 public class Cliente {
 
 	private Long idCliente;
-	private Date dtCadastro;
+	private LocalDate dtCadastro;
 	private String nome;
-	private Date dtNasc;
+	private LocalDate dtNasc;
 	private String rg;
 	private String cpf;
 	private String email;
 	private String senha;
-	private List<Endereco> enderecos;
+	private List<Endereco> enderecos = new ArrayList<>();
+	private String telefone1;
+	private String telefone2;
 	private boolean ativo;
+	private boolean logado;
+        
 
 	public Cliente() {
 
 	}
 
-	public Cliente(Long idCliente, Date dtCadastro, String nome, Date dtNasc, String rg, String cpf, String email,
-			String senha, boolean ativo) {
+	public Cliente(Long idCliente, LocalDate dtCadastro, String nome, LocalDate dtNasc, String rg, String cpf,
+			String email, String senha, String telefone1, String telefone2, boolean ativo) {
 		this.idCliente = idCliente;
 		this.dtCadastro = dtCadastro;
 		this.nome = nome;
@@ -38,18 +48,22 @@ public class Cliente {
 		this.cpf = cpf;
 		this.email = email;
 		this.senha = senha;
+		this.telefone1 = telefone1;
+		this.telefone2 = telefone2;
 		this.ativo = ativo;
 	}
 
 	public Cliente(ResultSet rs) throws SQLException {
-		this.idCliente = rs.getLong("dtCadastro");
-		this.dtCadastro = rs.getDate("dtCadastro");
+		this.idCliente = rs.getLong("idCliente");
+		this.dtCadastro = rs.getDate("dtCadastro").toLocalDate();
 		this.nome = rs.getString("nome");
-		this.dtNasc = rs.getDate("dtNasc");
+		this.dtNasc = rs.getDate("dtNasc").toLocalDate();
 		this.rg = rs.getString("RG");
 		this.cpf = rs.getString("CPF");
 		this.email = rs.getString("Email");
 		this.senha = rs.getString("Senha");
+		this.telefone1 = rs.getString("telefone1");
+		this.telefone2 = rs.getString("telefone2");
 		this.ativo = rs.getBoolean("Ativo");
 	}
 
@@ -61,11 +75,11 @@ public class Cliente {
 		this.idCliente = idCliente;
 	}
 
-	public Date getDtCadastro() {
+	public LocalDate getDtCadastro() {
 		return dtCadastro;
 	}
 
-	public void setDtCadastro(Date dtCadastro) {
+	public void setDtCadastro(LocalDate dtCadastro) {
 		this.dtCadastro = dtCadastro;
 	}
 
@@ -77,11 +91,11 @@ public class Cliente {
 		this.nome = nome;
 	}
 
-	public Date getDtNasc() {
+	public LocalDate getDtNasc() {
 		return dtNasc;
 	}
 
-	public void setDtNasc(Date dtNasc) {
+	public void setDtNasc(LocalDate dtNasc) {
 		this.dtNasc = dtNasc;
 	}
 
@@ -131,6 +145,57 @@ public class Cliente {
 
 	public void setEnderecos(List<Endereco> enderecos) {
 		this.enderecos = enderecos;
+	}
+
+	public String getTelefone1() {
+		return telefone1;
+	}
+
+	public void setTelefone1(String telefone1) {
+		this.telefone1 = telefone1;
+	}
+
+	public String getTelefone2() {
+		return telefone2;
+	}
+
+	public void setTelefone2(String telefone2) {
+		this.telefone2 = telefone2;
+	}
+
+	public void setIdCliente(Long idCliente) {
+		this.idCliente = idCliente;
+	}
+
+	public boolean isLogado() {
+		return logado;
+	}
+
+	public void setLogado(boolean logado) {
+		this.logado = logado;
+	}
+	
+	public boolean checkPassword(String openPass) {
+        if (senha != null) {
+            return BCrypt.checkpw(senha, openPass);
+        }
+        return false;
+    }
+
+	public void addEnderecoToList(Endereco end) {
+		List<Endereco> enderecos = this.enderecos;
+		enderecos.add(end);
+		for (Endereco endereco : enderecos) {
+			System.out.println("CEP CADASTRADO: " + endereco.getCep());
+		}
+
+	}
+
+	public void impimirEnderecos() {
+		List<Endereco> enderecos = this.enderecos;
+		for (Endereco endereco : enderecos) {
+			System.out.println("CEP CADASTRADO: " + endereco.getCep());
+		}
 	}
 
 }

@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title th:text="${titulo}">TITULO</title>
+
+    <!-- No href coloque o caminho normal do arquivo
+    E no th:href o @{}, acredito que signifique o ../static -->
+    <link rel="stylesheet" href="../../static/css/main.css" th:href="@{/css/main.css}">
+    <link rel="stylesheet" href="../../static/css/MUDAR.css" th:href="@{/css/MUDAR.css}">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css"
+        data-integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" data-integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+        crossorigin="anonymous">
+    <style>
+        .form-control{
+            display: block;
+        }
+        .ddd{
+            width: 3.5em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <div th:replace="padrao/general.html :: navbarfiles"></div>
+
+    <!-- Page Content -->
+    <div class="container nav-margin">
+        <div class="row">
+            <div class="col-md-2 lateral-cli-menu">
+
+                <div class="list-group">
+                    <a href="#" th:href="@{/cliente/minhaconta}" class="list-group-item list-group-item-action active">Meus dados</a>
+                    <a href="#" th:href="@{orders}" class="list-group-item list-group-item-action">Pedidos</a>
+                    <a href="#" th:href="@{enderecos}" class="list-group-item list-group-item-action">Endereços</a>
+                </div>
+
+            </div>
+            <div class="col-md-10 ">
+                <h3>Meus dados</h3>
+                <hr>
+
+                <!-- TESTE Alterar Dados -->
+
+                <form class="formCli" th:action="@{minhaconta}" method="POST">
+                    <div class="row">
+
+                        <div class="col-md-6">
+
+                            <div class="row">
+
+                                <div class="col-12" style="display: block;">
+                                    <div class="form-group">
+                                        <label for="nome">Nome Completo </label>
+                                        <input type="text" name="nome" id="nome" th:value="*{session.cliente.nome}" class="form-control"
+                                            placeholder="" aria-describedby="helpId">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-6" style="display: block;">
+                                    <div class="form-group">
+                                        <label for="email">E-mail</label>
+                                        <input type="email" name="email" id="email" th:value="*{session.cliente.email}"
+                                            class="form-control" placeholder="exemplo@domain.com">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="dtNasc">Data nasc.</label>
+                                        <input type="date" id="dtNasc" name="dtNasc" th:value="*{session.cliente.dtNasc}"
+                                            class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="rg">RG</label>
+                                        <input type="text" id="rg" name="rg" th:value="*{session.cliente.rg}" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="cpf">CPF</label>
+                                        <input type="text" id="cpf" name="cpf" th:value="*{session.cliente.cpf}" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="cel">DDD + Celular</label>
+                                        <input type="tel" name="cel" id="cel" th:value="*{session.cliente.telefone1}"
+                                            class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="tel">DDD + Telefone</label>
+                                        <input type="tel" name="tel" id="tel" th:value="*{session.cliente.telefone2}"
+                                            class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs12">
+                                    <input type="submit" class="btn-outline-success">
+                                </div>
+                            </div>
+                        </div>
+
+                </form>
+                <!-- FIM teste Alterar Dados -->
+
+            </div>
+
+        </div>
+    </div>
+    </div>
+    <!-- /.container nav-margin -->
+    <!-- /Page Content -->
+
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2018</p>
+        </div>
+        <!-- /.container -->
+    </footer>
+
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" data-integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" data-integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" data-integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em"
+        crossorigin="anonymous"></script>
+
+    <!-- Optional JavaScript -->
+    <!-- Mesmo esquema do link css -->
+    <script src="../static/js/main.js" th:src="@{/js/main.js}"></script>
+
+</body>
+
+
+</html>

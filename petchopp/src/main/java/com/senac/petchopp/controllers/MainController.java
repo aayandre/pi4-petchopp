@@ -17,6 +17,7 @@ public class MainController {
 	@RequestMapping({ "/", "" })
 	public String homePage(Model model, @ModelAttribute("cliente") Cliente cliente) {
 		model.addAttribute("cliente", cliente);
+		System.out.println(cliente.isLogado());
 		return "index";
 	}
 
@@ -27,13 +28,14 @@ public class MainController {
 	}
 
 	@RequestMapping("cart")
-	public ModelAndView cartPage(@ModelAttribute("carrinho") Carrinho carrinho) {
+	public ModelAndView cartPage(@ModelAttribute("carrinho") Carrinho carrinho
+                                , @ModelAttribute("cliente") Cliente cliente) {
 		return new ModelAndView("cart").addObject("carrinho", carrinho);
 	}
 
 	@RequestMapping("login")
 	public String loginPage() {
-		return "login";
+		return "cli/login";
 	}
 
 	@ModelAttribute("cliente")

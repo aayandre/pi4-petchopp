@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 
 body {
@@ -275,3 +276,43 @@ button.teste {
 }
 .font-nav{
     color:  #fafafa !important;
+=======
+.filter-group {
+    border-radius: 4px;
+    box-shadow: 1px 1px 1px 1px #8080804f;
+    padding: 8px 5px 2px 10px;
+    margin-bottom: 1rem;
+    background-color: rgba(62, 145, 252, 0.23);
+}
+
+.filter-group h6 {
+    font-weight: 600;
+    color: rgb(118, 125, 131);
+    margin-bottom: 5px !important;
+}
+
+.filter-group hr {
+    margin-top: 2px !important;
+    border-top: 2px solid rgba(0, 123, 255, 0.33) !important;
+}
+
+.filter-group label {
+    color: rgb(68, 73, 77);
+    padding-left: 1.7rem;
+}
+
+.btn-custom {
+    background-color: #d2e5ff;
+    font-weight: bold;
+    color: #575757;
+}
+
+#searchBtn {
+    cursor: pointer;
+}
+
+input[type=range] {
+    background-color: #ffffff00;
+    border: none;
+}
+>>>>>>> b78104aa83383d47079c4a63917e4b0fdd5eb7cf

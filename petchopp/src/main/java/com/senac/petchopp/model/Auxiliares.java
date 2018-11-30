@@ -1,6 +1,10 @@
 package com.senac.petchopp.model;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -26,9 +30,41 @@ public class Auxiliares {
 		}
 
 	}
+	
+	public static LocalDateTime convertToLocalDateTimeViaInstant(java.sql.Date dateToConvert) {
+	    return dateToConvert.toInstant()
+	      .atZone(ZoneId.systemDefault())
+	      .toLocalDateTime();
+	}
+	
+	public static LocalDate convertToLocalDateViaInstant(java.sql.Date dateToConvert) {
+	    return dateToConvert.toInstant()
+	      .atZone(ZoneId.systemDefault())
+	      .toLocalDate();
+	}
 
 	public static java.util.Date SqlDateToUtilDate(java.sql.Date sqlDate) {
 		java.util.Date utilDate = new java.util.Date(sqlDate.getTime());
 		return utilDate;
 	}
+	
+	public static LocalDate stringToLocalDateParse(String stringDate) {
+		LocalDate dataLD = LocalDate.parse(stringDate);
+		return dataLD;
+	}
+
+	public static String formatLocalDateTimeToStringPadraoBrasil(LocalDateTime data) {
+
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		String formatDateTime = data.format(formatter);
+		return formatDateTime;
+	}
+
+	public static String formatLocalDateTimeToStringPadraoHoraMinSec(LocalDateTime data) {
+
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+		String formatDateTime = data.format(formatter);
+		return formatDateTime;
+	}
+
 }

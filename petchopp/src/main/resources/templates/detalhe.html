@@ -3,7 +3,7 @@
 
 <head th:include="padrao/general.html :: headfiles">
    <link rel="stylesheet" href="../static/css/detalhe.css" th:href="@{/css/detalhe.css}">
-   <title>Detalhes</title>
+   <title th:text="${titulo}">Detalhes</title>
 </head>
 
 <body>
@@ -11,44 +11,81 @@
    <!-- Navigation Bar -->
    <div th:replace="padrao/general.html :: navbarfiles"></div>
 
-   <!-- Conteudo da pagina -->
-   <div class="conteiner nav-margin">
+   <!-- Page Content -->
+   <div class="container nav-margin">
 
-      <div class="row">
+      <!-- Imagem, nome, tipo, preco, codigo -->
+      <div class="row mb-2 p-2">
 
          <!-- Imagem do produto -->
-         <div class="col-4">
-            <img class="h-50" src="https://cdn-petz-imgs.stoom.com.br/fotos/1515429480749.jpg" alt="Imagem do produto">
+         <div class="col-12 col-md-4 text-center">
+            <img class="img-fluid" th:src="@{~/uploads/{nomeArquivo}(nomeArquivo=${produto.urlImagem})}" src="http://placehold.it/500x600"
+               alt="Imagem do produto">
          </div>
 
          <!-- Nome do produto com algumas informacoes a mais -->
-         <div class="col-4">
+         <div class="col-12 col-md-4 pt-5">
             <h2 th:text="${produto.nome}">Nome do produto</h2>
             <div class="row">
                <div class="col-6">
-                  <div th:text="${produto.codigo}"><span class="font-weight-bold">Codigo: </span></div>
+                  <div class="font-weight-bold">
+                     Código: <span th:text="${produto.codigo}"></span>
+                  </div>
                </div>
                <div class="col-6">
-                  Marca: <a href="#">Royal Cannin</a>
+                  Tags: <a href="#">Royal Cannin</a>
                </div>
             </div>
          </div>
 
          <!-- Preco do produto e coisas sobre a venda -->
-         <div class="col-4">
+         <div class="col-12 col-md-4 pt-5">
 
-            <div class="card">
-               <div class="card-block">
-                  <h4 class="card-title" th:text="${#numbers.formatDecimal(produto.Preco, 0, 'COMMA', 2, 'POINT')}"></h4>
-                  <a href="#" class="btn btn-primary">Adicionar ao Carrinho</a>
+            <div class="row produto-info border rounded p-2">
+               <div class="col-12">
+                  <h5>Por</h5>
+                  <h4 th:text="${#numbers.formatCurrency(produto.Preco)}">Preço do produto</h4>
+               </div>
+               <div class="col-12 text-center border-top pt-2">
+                  <!-- Adicionar ao th:href o codigo do produto
+                     Ficaria assim th:href="@{/checkout/add/{codigo}(codigo=${produto.codigo})}" -->
+                  <a href="#" th:href="@{/checkout/addcart/{codigo}(codigo = ${produto.codigo})}" class="btn btn-primary w-75 btn-detalhes">Adicionar ao Carrinho</a>
                </div>
             </div>
-
          </div>
 
       </div>
 
+
+      <!-- Detalhes -->
+      <div class="row">
+         <div class="card col-12 p-3">
+            <div class="card-header">
+               Detalhes
+               <i class="far fa-caret-square-down end-icon" id="detalhesToggle"></i>
+            </div>
+            <div class="card-body pt-4 pr-5 pl-5" id="detalhesId" style="display: none">
+               <p th:text="${produto.descricao}">
+                  Descrição do produto.
+                  .
+                  .
+                  .
+                  .
+                  .
+                  .
+                  .
+                  .
+                  .
+                  .
+               </p>
+            </div>
+
+         </div>
+      </div>
+
    </div>
+   <!-- /.container nav-margin -->
+   <!-- /Page Content -->
 
    <!-- Footer -->
    <div th:replace="padrao/general.html :: footerfiles"></div>

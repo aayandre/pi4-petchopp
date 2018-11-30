@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,32 +17,38 @@ public class EnderecoDAO implements IDAO{
 	 
 	 
 	public void salvarEndereco(List<Endereco> enderecos, Long idcliente) throws SQLException {
-		ClienteDAO cd = new ClienteDAO();
 		PreparedStatement stmt = null;
 		cn = ConnectionFactory.getConnection();
 		String sql = "INSERT INTO Endereco\r\n" + 
-				"(idEndereco, CEP, Logradouro, Bairro, Cidade, UF, idCliente, TipoEndereco)\r\n" + 
-				"VALUES(?,?,?,?,?,?,?,?)";
+				"(CEP, Logradouro, Numero, Complemento, Bairro, Cidade, UF, idCliente, TipoEndereco)\r\n" + 
+				"VALUES(?,?,?,?,?,?,?,?,?)";
 		try {
-			cn.setAutoCommit(false);
-			stmt = cn.prepareStatement(sql);
+//			cn.setAutoCommit(false);
+			stmt = cn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			for(Endereco end: enderecos) {
-				stmt.setLong(1, end.getIdEndereco());
-				stmt.setString(2, end.getCep());
-				stmt.setString(3, end.getLogradouro());
-				stmt.setString(4, end.getBairro());
-				stmt.setString(5, end.getCidade());
-				stmt.setString(6, end.getUf());
-				stmt.setLong(7, idcliente);
-				stmt.setString(8, end.getTipoEndereco());
+//				stmt.setLong(1, end.getIdEndereco());
+				stmt.setString(1, end.getCep());
+				stmt.setString(2, end.getLogradouro());
+				stmt.setString(3, end.getNum());
+				stmt.setString(4, end.getComp());
+				stmt.setString(5, end.getBairro());
+				stmt.setString(6, end.getCidade());
+				stmt.setString(7, end.getUf());
+				stmt.setLong(8, idcliente);
+				stmt.setString(9, end.getTipoEndereco());
+				stmt.execute();
+				ResultSet rs = stmt.getGeneratedKeys();
+				if(rs.next()) {
+					end.setIdEndereco(rs.getLong(1));
+				}
 			}
-			cn.commit();
-			cd.setStatusCommit(true);
-		}catch (Exception e) {
+			
+//			cn.commit();
+		}catch (SQLException e) {
 			e.printStackTrace();
-			cn.rollback();
+//			cn.rollback();
 		} finally {
-			cn.setAutoCommit(true);
+//			cn.setAutoCommit(true);
 			ConnectionFactory.closeConnection(cn, stmt);
 		}
 	}
@@ -51,7 +58,7 @@ public class EnderecoDAO implements IDAO{
 			ResultSet rs = null;
 			List<Endereco> enderecos = new ArrayList<>();
 			String sql = "SELECT idEndereco, CEP, Logradouro, Numero, Complemento, Bairro, Cidade, UF, idCliente, TipoEndereco "
-					+ "FROM endereco WHERE idCliente = ?";
+					+ "FROM Endereco WHERE idCliente = ?";
 			cn = ConnectionFactory.getConnection();
 			
 			try {

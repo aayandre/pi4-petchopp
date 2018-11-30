@@ -4,24 +4,28 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class Produto {
 
 	private Long idProduto;
 	private String Codigo;
 	private String Nome;
+	private String Descricao;
+	private double Peso;
 	private double Preco;
 	private double Custo;
-	private String Descricao;
+	private int qtdeVendas;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date dtCompra;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date dtValidade;
 	private String urlImagem;
 	private boolean EmEstoque;
 	private boolean Disable;
 
-	private Integer quantidade;
-
 	public Produto() {
-	};
+	}
 
 	// Construtor que preenche o produto para fins de teste
 	public Produto(boolean preencher) {
@@ -29,9 +33,11 @@ public class Produto {
 			this.idProduto = Long.valueOf(999);
 			this.Codigo = "produtoCriadoPorTeste";
 			this.Nome = "Produto Teste";
+			this.Descricao = "Descricao do produto teste que tem apenas 500 caracteres de espaço";
+			this.Peso = 5.8;
 			this.Preco = 399.99;
 			this.Custo = 187.67;
-			this.Descricao = "Descricao do produto teste que tem apenas 500 caracteres de espaço";
+			this.qtdeVendas = 4;
 			this.dtCompra = new Date();
 			this.dtValidade = new Date();
 			this.urlImagem = "url da imagem do produto";
@@ -42,15 +48,18 @@ public class Produto {
 		}
 	}
 
-	public Produto(Long idProduto, String codigo, String nome, double preco, double custo, String descricao,
-			Date dtCompra, Date dtValidade, String urlImagem, boolean emEstoque, boolean disable) {
+	public Produto(Long idProduto, String codigo, String nome, String descricao, double peso, double preco,
+			double custo, int qtdeVendas, Date dtCompra, Date dtValidade, String urlImagem, boolean emEstoque,
+			boolean disable) {
 		super();
 		this.idProduto = idProduto;
 		Codigo = codigo;
 		Nome = nome;
+		Descricao = descricao;
+		Peso = peso;
 		Preco = preco;
 		Custo = custo;
-		Descricao = descricao;
+		this.qtdeVendas = qtdeVendas;
 		this.dtCompra = dtCompra;
 		this.dtValidade = dtValidade;
 		this.urlImagem = urlImagem;
@@ -61,16 +70,18 @@ public class Produto {
 	public Produto(ResultSet rs) throws SQLException {
 		super();
 		this.idProduto = rs.getLong("idProduto");
-		Codigo = rs.getString("Codigo");
-		Nome = rs.getString("Nome");
-		Preco = rs.getDouble("Preco");
-		Custo = rs.getDouble("Custo");
-		Descricao = rs.getString("Descricao");
+		this.Codigo = rs.getString("Codigo");
+		this.Nome = rs.getString("Nome");
+		this.Descricao = rs.getString("Descricao");
+		this.Peso = rs.getDouble("Peso");
+		this.Preco = rs.getDouble("Preco");
+		this.Custo = rs.getDouble("Custo");
+		this.qtdeVendas = rs.getInt("qtdeVendas");
 		this.dtCompra = rs.getTimestamp("dtCompra");
 		this.dtValidade = rs.getTimestamp("dtValidade");
 		this.urlImagem = rs.getString("urlImagem");
-		EmEstoque = rs.getBoolean("emEstoque");
-		Disable = rs.getBoolean("Disable");
+		this.EmEstoque = rs.getBoolean("emEstoque");
+		this.Disable = rs.getBoolean("Disable");
 	}
 
 	public Long getIdProduto() {
@@ -97,6 +108,22 @@ public class Produto {
 		Nome = nome;
 	}
 
+	public String getDescricao() {
+		return Descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		Descricao = descricao;
+	}
+
+	public double getPeso() {
+		return Peso;
+	}
+
+	public void setPeso(double peso) {
+		Peso = peso;
+	}
+
 	public double getPreco() {
 		return Preco;
 	}
@@ -113,12 +140,12 @@ public class Produto {
 		Custo = custo;
 	}
 
-	public void setDescricao(String descricao) {
-		Descricao = descricao;
+	public int getQtdeVendas() {
+		return qtdeVendas;
 	}
 
-	public String getDescricao() {
-		return Descricao;
+	public void setQtdeVendas(int qtdeVendas) {
+		this.qtdeVendas = qtdeVendas;
 	}
 
 	public Date getDtCompra() {
@@ -145,10 +172,6 @@ public class Produto {
 		this.urlImagem = urlImagem;
 	}
 
-	public void setUrlImagemPath(String fileName) {
-		this.urlImagem = fileName;
-	}
-
 	public boolean isEmEstoque() {
 		return EmEstoque;
 	}
@@ -165,12 +188,12 @@ public class Produto {
 		Disable = disable;
 	}
 
-	public Integer getQuantidade() {
-		return quantidade;
-	}
-
-	public void setQuantidade(Integer quantidade) {
-		this.quantidade = quantidade;
+	@Override
+	public String toString() {
+		return "Produto [idProduto=" + idProduto + ", Codigo=" + Codigo + ", Nome=" + Nome + ", Descricao=" + Descricao
+				+ ", Peso=" + Peso + ", Preco=" + Preco + ", Custo=" + Custo + ", qtdeVendas=" + qtdeVendas
+				+ ", dtCompra=" + dtCompra + ", dtValidade=" + dtValidade + ", urlImagem=" + urlImagem + ", EmEstoque="
+				+ EmEstoque + ", Disable=" + Disable + "]";
 	}
 
 }

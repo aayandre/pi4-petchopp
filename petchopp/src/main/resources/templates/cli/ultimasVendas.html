@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<title>TITULO</title>
+
+	<!-- No href coloque o caminho normal do arquivo
+    E no th:href o @{}, acredito que signifique o ../static -->
+	<link rel="stylesheet" href="../../static/css/main.css" th:href="@{/css/main.css}">
+	<link rel="stylesheet" href="../../static/css/cliente.css" th:href="@{/css/cliente.css}">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" data-integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B"
+	 crossorigin="anonymous">
+	<!-- GOOGLE FONTS CSS -->
+	<link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,600,700' rel='stylesheet' type='text/css'>
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" data-integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+	 crossorigin="anonymous">
+	<style>
+		.form-control{
+            display: block;
+        }
+        .ddd{
+            width: 3.5em;
+        }
+    </style>
+</head>
+
+<body>
+
+	<!-- Navigation -->
+	<nav class="navbar navbar-expand-lg navbar-light bg-green fixed-top">
+		<div class="container">
+			<a class="navbar-brand" href="index.html" th:href="@{/}">PetChopp</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+			 aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item active">
+						<a class="nav-link" href="../home/index.html">Home
+							<span class="sr-only">(current)</span>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="../search/search.html">Search</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="../cart/cart.html">Carrinho</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<!-- Page Content -->
+	<div class="container nav-margin">
+		<div class="row">
+			<div class="col-md-2 lateral-cli-menu">
+
+					<div class="list-group">
+							<a href="#" th:href="@{/cliente/minhaconta}" class="list-group-item list-group-item-action active">Meus dados</a>
+							<a href="#" th:href="@{orders}" class="list-group-item list-group-item-action">Pedidos</a>
+							<a href="#" th:href="@{enderecos}" class="list-group-item list-group-item-action">Endereços</a>
+						</div>
+
+			</div>
+			<div class="col-md-10 ">
+				<h3>Meus Pedidos</h3>
+				<hr>
+
+
+
+				<div id="timeline-wrap">
+					<div id="timeline"></div>
+					
+					<!-- This is the individual marker-->
+					<div class="marker mfirst">
+						
+					  <span class="hint--top" data-hint="Here is a marker with more text!">
+						<div class="inner-marker"></div></span></div>
+					<!-- / marker -->
+				  
+					<!-- This is the individual marker-->
+					<div class="marker m2">
+					  <span class="hint--top" data-hint="Here is a marker with more text!">
+						<div class="inner-marker"></div></span><br><p>Teste bla</p></div>
+					<!-- / marker -->
+				  
+					
+
+				</div>
+
+			</div>
+
+		
+	</div>
+	
+	<!-- /.container nav-margin -->
+	<!-- /Page Content -->
+
+
+	<!-- Footer -->
+	<footer class="py-5 bg-dark">
+		<div class="container">
+			<p class="m-0 text-center text-white">Copyright &copy; Your Website 2018</p>
+		</div>
+		<!-- /.container -->
+	</footer>
+
+
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" data-integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	 crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" data-integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+	 crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" data-integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em"
+	 crossorigin="anonymous"></script>
+
+	<!-- Optional JavaScript -->
+	<!-- Mesmo esquema do link css -->
+	<script src="../static/js/main.js" th:src="@{/js/main.js}"></script>
+
+</body>
+
+
+</html>

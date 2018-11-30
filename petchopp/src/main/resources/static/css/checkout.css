@@ -102,3 +102,7 @@ body {
       margin-right: 10px !important;
     }
   }
+
+  .box-pag-display{
+    display: none;
+  }
