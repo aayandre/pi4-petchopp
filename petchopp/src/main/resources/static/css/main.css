@@ -19,9 +19,13 @@ body {
 }
 
 .carousel-sizes .carousel-inner .carousel-item {
-    max-height: 25% !important;
-    height: 25% !important;
+    max-height: 400px !important;
+    height: 400px !important;
     min-height: 25% !important;
+}
+
+.img-carousel {
+    max-height: 400px !important;
 }
 
 .footer-font-size {
@@ -55,16 +59,22 @@ body {
     text-overflow: ellipsis;
 }
 
+.card-img-top {
+    max-height: 175.283px;
+}
+
 /*  Cliente */
 
 .icon-user {
     color: #d9d9d9;
     z-index: 1;
 }
-.listEnderecos{
+
+.listEnderecos {
     list-style-type: none;
 }
-.listEnderecos .tipoEndereco{
+
+.listEnderecos .tipoEndereco {
     font-style: bold;
 }
 
