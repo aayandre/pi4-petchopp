@@ -10,7 +10,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
 import java.util.List;
 
 import com.senac.petchopp.connection.ConnectionFactory;
@@ -83,7 +82,7 @@ public class ClienteDAO implements IDAO {
 		cn = ConnectionFactory.getConnection();
 
 		try {
-			cn.setAutoCommit(false);
+//			cn.setAutoCommit(false);
 			stmt = cn.prepareStatement(sql);
 			stmt.setLong(1, novo.getIdCliente());
 			stmt.setDate(2, java.sql.Date.valueOf(novo.getDtCadastro()));
@@ -101,13 +100,13 @@ public class ClienteDAO implements IDAO {
 
 			EnderecoDAO ed = new EnderecoDAO();
 			ed.salvarEndereco(novo.getEnderecos(), novo.getIdCliente());
-			cn.commit();
+//			cn.commit();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 			cn.rollback();
 		} finally {
-			cn.setAutoCommit(true);
+//			cn.setAutoCommit(true);
 			ConnectionFactory.closeConnection(cn, stmt);
 		}
 
@@ -186,9 +185,10 @@ public class ClienteDAO implements IDAO {
 			stmt.setString(1, email);
 			rs = stmt.executeQuery();
 
-			while (rs.next()) {
-				cli = new Cliente(rs);
-			}
+                        
+                        while(rs.next()){
+			cli = new Cliente(rs);
+                        }
 			if (cli != null) {
 				System.out.println(cli.getNome());
 				EnderecoDAO ed = new EnderecoDAO();

@@ -23,6 +23,7 @@ public class LoginService {
 				
 				if(BCrypt.checkpw(senha, cli.getSenha())) {
 					System.out.println("Senha OK");
+                                        System.out.println(cli.getIdCliente());
 					cli.setLogado(true);
 					
 				}else {

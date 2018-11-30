@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.senac.petchopp.daos.ProdutoDAO;
 import com.senac.petchopp.daos.VendaDAO;
 import com.senac.petchopp.model.carrinho.Carrinho;
+import com.senac.petchopp.model.cliente.Cliente;
 import com.senac.petchopp.model.produto.Produto;
 import com.senac.petchopp.model.produto.ProdutoVenda;
 import com.senac.petchopp.model.venda.Venda;
@@ -47,12 +48,13 @@ public class VendaController {
 	}
 
 	@RequestMapping("comprar")
-	public ModelAndView realizarCompra(@SessionAttribute("carrinho") Carrinho carrinho) {
+	public ModelAndView realizarCompra(@SessionAttribute("carrinho") Carrinho carrinho
+                        ,@SessionAttribute("cliente") Cliente cliente) {
 		Venda nova = new Venda();
 
 		nova.setCarrinho(carrinho);
 
-		nova.setIdCliente(new Long("1"));
+		nova.setIdCliente(cliente.getIdCliente());
 		// nova.setData(LocalDate.now());
 		nova.setData(new Timestamp(System.currentTimeMillis()));
 		nova.setDataView(LocalDateTime.now());

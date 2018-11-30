@@ -150,7 +150,7 @@ public class VendaDAO implements IDAO {
         return encontrados;
     }
 
-    public List<Venda> getVendasByCliente(int idCliente) throws SQLException {
+    public List<Venda> getVendasByCliente(Long idCliente) throws SQLException {
         String sql = "SELECT * FROM Venda WHERE idCliente = ? and idVenda IN (4, 7)";
         PreparedStatement stmt = null;
         cn = ConnectionFactory.getConnection();
@@ -160,7 +160,7 @@ public class VendaDAO implements IDAO {
 
         try {
             stmt = cn.prepareStatement(sql);
-            stmt.setInt(1, idCliente);
+            stmt.setLong(1, idCliente);
             rs = stmt.executeQuery();
 
             while (rs.next()) {

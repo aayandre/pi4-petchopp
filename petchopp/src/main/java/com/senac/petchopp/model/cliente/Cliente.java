@@ -32,6 +32,7 @@ public class Cliente {
 	private String telefone2;
 	private boolean ativo;
 	private boolean logado;
+        
 
 	public Cliente() {
 
@@ -53,7 +54,7 @@ public class Cliente {
 	}
 
 	public Cliente(ResultSet rs) throws SQLException {
-		this.idCliente = rs.getLong("dtCadastro");
+		this.idCliente = rs.getLong("idCliente");
 		this.dtCadastro = rs.getDate("dtCadastro").toLocalDate();
 		this.nome = rs.getString("nome");
 		this.dtNasc = rs.getDate("dtNasc").toLocalDate();

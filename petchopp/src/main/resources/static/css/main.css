@@ -55,11 +55,17 @@ body {
     text-overflow: ellipsis;
 }
 
-/* Menu login Cliente */
+/*  Cliente */
 
 .icon-user {
     color: #d9d9d9;
     z-index: 1;
 }
+.listEnderecos{
+    list-style: none;
+}
+.listEnderecos .tipoEndereco{
+    font-style: bold;
+}
 
-/* FIM login cliente */
+/*  cliente */

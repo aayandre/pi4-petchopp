@@ -30,7 +30,18 @@
 				<div th:if="${msg != null}">
 					<p style="color: rgb(0, 4, 255); background-color: rgb(205, 245, 182)" th:text="${msg}"></p>
 				</div>
-
+				<ul th:each="venda : ${enderecos}">
+					<li><strong><span th:text="${venda.tipoEndereco}"></span></strong></li>
+					<li>CEP: <span th:text="${venda.cep}"></span></li>
+					<li>Rua: <span th:text="${venda.logradouro}"></span></li>
+					<li>
+						Num: <span th:text="${venda.num}"></span> 
+						Comp: <span th:text="${venda.comp}"></span>
+					</li>
+					<li>Bairro: <span th:text="${venda.bairro}"></span></li>
+					<li>Cidade: <span th:text="${venda.cidade}"></span></li>
+					<!-- <li>CEP: <span th:text="${}"></span></li> -->
+				</ul>
 				
 			</div>
 
