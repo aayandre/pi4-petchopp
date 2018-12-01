@@ -140,6 +140,13 @@ public class ClienteController {
         return modelAndView;
     }
     
+    @GetMapping("logoff")
+    public ModelAndView logoffCliente(HttpSession session){
+        ModelAndView modelAndView = new ModelAndView("cli/login");
+        session.setAttribute("cliente", new Cliente());
+        return modelAndView;
+    }
+    
     @GetMapping("enderecos")
     public ModelAndView enderecos(HttpSession session){
         ModelAndView modelAndView = new ModelAndView("cli/enderecos");
