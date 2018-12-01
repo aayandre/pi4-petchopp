@@ -1,9 +1,10 @@
 package com.senac.petchopp.controllers;
 
 import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,7 +50,7 @@ public class VendaController {
 	}
 
 	@RequestMapping("comprar")
-	public ModelAndView realizarCompra(@SessionAttribute("carrinho") Carrinho carrinho
+	public ModelAndView realizarCompra(@ModelAttribute("carrinho") Carrinho carrinho
                         ,@SessionAttribute("cliente") Cliente cliente
                         ,@ModelAttribute("ends") String idEndereco) {
 		Venda nova = new Venda();
@@ -58,23 +59,26 @@ public class VendaController {
 
 		nova.setIdCliente(cliente.getIdCliente());
 		// nova.setData(LocalDate.now());
-		nova.setData(new Timestamp(System.currentTimeMillis()));
+		nova.setData(new Date());
 		nova.setDataView(LocalDateTime.now());
 		nova.setIdFretes(new Long("2"));
-		nova.setProtocolo(nova.getDataView().toString());
+		
+		SimpleDateFormat f = new SimpleDateFormat("yyyyMMdd");
+		nova.setProtocolo(f.format(nova.getData()) + Long.toString(nova.getData().getTime()));
+		
 		nova.setValorTotal(nova.getCarrinho().getTotal());
 
 		// Salvar infos
 		try {
 			vendaBanco.salvar(nova);
-			Long idVenda = vendaBanco.getIdVenda(nova);
-			nova.setIdVenda(idVenda);
-			vendaBanco.salvarItensVenda(nova);
+//			Long idVenda = vendaBanco.getIdVenda(nova);
+//			nova.setIdVenda(idVenda);
+//			vendaBanco.salvarItensVenda(nova);
+			return new ModelAndView("orderFinish").addObject("protocolo", nova.getProtocolo());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		return null;
 	}
 
