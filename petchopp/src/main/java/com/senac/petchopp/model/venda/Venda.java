@@ -2,18 +2,15 @@ package com.senac.petchopp.model.venda;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 
-import com.senac.petchopp.model.tipo.Tipo;
 import com.senac.petchopp.model.carrinho.Carrinho;
-import com.senac.petchopp.model.produto.Produto;
 import com.senac.petchopp.model.produto.ProdutoVenda;
-import java.sql.Date;
-import java.sql.Timestamp;
+import com.senac.petchopp.model.tipo.Tipo;
 
 public class Venda {
 
@@ -22,7 +19,7 @@ public class Venda {
     private Long idFretes;
     private String protocolo;
     private double valorFrete;
-    private Timestamp data;
+    private Date data;
     private double valorTotal;
     private Tipo status;
     private Tipo formaPagto;
@@ -34,7 +31,7 @@ public class Venda {
         super();
     }
 
-    public Venda(Long idVenda, Long idCliente, Long idFretes, double valorFrete, Timestamp data, double valorTotal) {
+    public Venda(Long idVenda, Long idCliente, Long idFretes, double valorFrete, Date data, double valorTotal) {
         super();
         this.idVenda = idVenda;
         this.idCliente = idCliente;
@@ -96,11 +93,11 @@ public class Venda {
         this.valorFrete = valorFrete;
     }
 
-    public Timestamp getData() {
+    public Date getData() {
         return data;
     }
 
-    public void setData(Timestamp data) {
+    public void setData(Date data) {
         this.data = data;
     }
 

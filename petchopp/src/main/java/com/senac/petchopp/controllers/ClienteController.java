@@ -12,22 +12,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.senac.petchopp.daos.VendaDAO;
 import com.senac.petchopp.daos.ClienteDAO;
 import com.senac.petchopp.daos.VendaDAO;
 import com.senac.petchopp.model.Auxiliares;
-import com.senac.petchopp.model.venda.Venda;
 import com.senac.petchopp.model.cliente.Cliente;
 import com.senac.petchopp.model.cliente.Endereco;
 import com.senac.petchopp.model.venda.Venda;
 import com.senac.petchopp.service.ClienteService;
 import com.senac.petchopp.service.LoginService;
-import java.util.List;
-import org.springframework.web.bind.annotation.SessionAttribute;
 
 @Controller
 @RequestMapping("cliente")
