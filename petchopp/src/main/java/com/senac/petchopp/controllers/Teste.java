@@ -18,11 +18,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.senac.petchopp.daos.ProdutoDAO;
 import com.senac.petchopp.daos.TagDAO;
+import com.senac.petchopp.daos.VendaDAO;
 import com.senac.petchopp.model.Upload;
 import com.senac.petchopp.model.cliente.Cliente;
 import com.senac.petchopp.model.produto.Produto;
 import com.senac.petchopp.model.produto.ProdutoService;
 import com.senac.petchopp.model.tag.Tag;
+import com.senac.petchopp.model.venda.Venda;
 
 @Controller
 @RequestMapping("/testes")
@@ -31,6 +33,7 @@ public class Teste {
 
 	private ProdutoService produtoService = new ProdutoService();
 	private TagDAO tagDao = new TagDAO();
+	private VendaDAO vendaDAO = new VendaDAO();
 
 	@GetMapping("/mostraprodutoteste")
 	public ModelAndView mostrarProduto(@ModelAttribute("cliente") Cliente cliente) {
@@ -84,6 +87,20 @@ public class Teste {
 	public String fragmentos() {
 		return "testes/testeFragment";
 	}
+	
+//	@GetMapping("relatorio/vendas")
+//	public ModelAndView relVendas() {
+//		
+//		ArrayList<Venda> vendas = vendaDAO.getVendas();
+//		ModelAndView modelAndView = new ModelAndView("relatorio/vendas");
+//		for (Venda venda : vendas) {
+//			venda.setHoraRelatorio(venda.getDataView());
+//			venda.setDtRelatorio(venda.getDataView());
+//			System.out.println(venda.getDtRelatorio() + " - " + venda.getHoraRelatorio());
+//		}
+//		modelAndView.addObject("vendas", vendas);
+//		return modelAndView;
+//	}
 
 	// Teste de produtos no carrinho
 	// Vou criar os produtos no banco ou carregar alguns produtos do banco
