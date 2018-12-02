@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.senac.petchopp.connection.ConnectionFactory;
 import com.senac.petchopp.interfaces.IDAO;
+import com.senac.petchopp.model.cliente.Endereco;
 import com.senac.petchopp.model.produto.ProdutoVenda;
 import com.senac.petchopp.model.venda.Venda;
 
@@ -20,7 +21,7 @@ public class VendaDAO implements IDAO {
 
 	@Override
 	public void salvar(Object bean) throws SQLException {
-		String sql = "INSERT INTO Venda (idCliente, idFretes, Protocolo, Data, ValorTotal) " + "VALUES(?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO Venda (idCliente, idEndereco, Protocolo, Data, ValorTotal, idFormaPagto, status) " + "VALUES(?, ?, ?, ?, ?, ?, ?)";
 
 		PreparedStatement stmt = null;
 
@@ -33,10 +34,12 @@ public class VendaDAO implements IDAO {
 			stmt = cn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
 			stmt.setLong(1, venda.getIdCliente());
-			stmt.setLong(2, venda.getIdFretes());
+                        stmt.setLong(2, venda.getEndereco().getIdEndereco());
 			stmt.setString(3, venda.getProtocolo());
 			stmt.setTimestamp(4, new java.sql.Timestamp(venda.getData().getTime()));
 			stmt.setDouble(5, venda.getValorTotal());
+                        stmt.setLong(6, venda.getFormaPagto().getIdTipo());
+                        stmt.setLong(7, venda.getStatus().getIdTipo());
 
 			stmt.execute();
 
@@ -186,7 +189,7 @@ public class VendaDAO implements IDAO {
 		List<Venda> vendas = new ArrayList<>();
 		ResultSet rs = null;
 		ProdutoVendaDAO prodVendaDAO = new ProdutoVendaDAO();
-
+                EnderecoDAO enderecoDAO = new EnderecoDAO();
 		try {
 			stmt = cn.prepareStatement(sql);
 			stmt.setLong(1, idCliente);
@@ -199,6 +202,7 @@ public class VendaDAO implements IDAO {
 				venda.setStatus(tipodao.getTipoByID(rs.getInt("status")));
 				venda.setFormaPagto(tipodao.getTipoByID(rs.getInt("idFormaPagto")));
 				venda.setQtdeItensVenda(venda.getCarrinho().getProdutos().size());
+                                venda.setEndereco((Endereco)enderecoDAO.getById(rs.getLong("idEndereco")));
 				vendas.add(venda);
 			}
 			return vendas;

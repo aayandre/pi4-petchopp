@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import com.senac.petchopp.model.carrinho.Carrinho;
+import com.senac.petchopp.model.cliente.Endereco;
 import com.senac.petchopp.model.produto.ProdutoVenda;
 import com.senac.petchopp.model.tipo.Tipo;
 
@@ -16,6 +17,7 @@ public class Venda {
 
     private Long idVenda;
     private Long idCliente;
+    private Endereco endereco;
     private Long idFretes;
     private String protocolo;
     private double valorFrete;
@@ -155,5 +157,13 @@ public class Venda {
 
     public void setQtdeItensVenda(int qtdeItensVenda) {
         this.qtdeItensVenda = qtdeItensVenda;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
 }

@@ -113,6 +113,17 @@ p {
   border-color: lightgrey !important;
 }
 
+.box-endereco{
+  padding: 10px 0px 0px 10px;
+  border: 1px solid #ECECEC;
+}
+
+.box-endereco li{
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .input-reset {
   -webkit-appearance: none !important;
   -moz-appearance: textfield !important;

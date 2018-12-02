@@ -16,11 +16,13 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.senac.petchopp.daos.ProdutoDAO;
+import com.senac.petchopp.daos.TipoDAO;
 import com.senac.petchopp.daos.VendaDAO;
 import com.senac.petchopp.model.carrinho.Carrinho;
 import com.senac.petchopp.model.cliente.Cliente;
 import com.senac.petchopp.model.produto.Produto;
 import com.senac.petchopp.model.produto.ProdutoVenda;
+import com.senac.petchopp.model.tipo.Tipo;
 import com.senac.petchopp.model.venda.Venda;
 import java.util.List;
 
@@ -40,20 +42,19 @@ public class VendaController {
 
 	@RequestMapping("formulario")
 	public ModelAndView formVenda(@ModelAttribute("venda") Venda venda) {
-		/*
-		 * TODO pegar o codigo do cliente que deve estar na session e utiliza-lo para
-		 * pegar: endereço ou informaçoes de pagto salvas
-		 */
+            /*
+             * TODO pegar o codigo do cliente que deve estar na session e utiliza-lo para
+             * pegar: endereço ou informaçoes de pagto salvas
+             */
 //		Object msgS = session.getAttribute("teste");
 //		model.addAttribute("teste", msgS);
-		//System.out.println(carrinho);
-		return new ModelAndView("checkout").addObject("venda", venda);
+            //System.out.println(carrinho);
+            return new ModelAndView("checkout").addObject("venda", venda);
 	}
 
 	@RequestMapping("comprar")
 	public ModelAndView realizarCompra(@ModelAttribute("venda") Venda venda
-                        ,@SessionAttribute("cliente") Cliente cliente
-                        ,@ModelAttribute("ends") String idEndereco) {
+                        ,@SessionAttribute("cliente") Cliente cliente) {
 		Venda nova = venda;
 
 		//nova.setCarrinho(carrinho);
@@ -66,7 +67,7 @@ public class VendaController {
 		
 		SimpleDateFormat f = new SimpleDateFormat("yyyyMMdd");
 		nova.setProtocolo(f.format(nova.getData()) + Long.toString(nova.getData().getTime()));
-		
+		nova.setStatus(new Tipo(17));
 		nova.setValorTotal(nova.getCarrinho().getTotal());
 
 		// Salvar infos

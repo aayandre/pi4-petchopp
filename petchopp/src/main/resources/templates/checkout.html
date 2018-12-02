@@ -77,23 +77,12 @@
                             <p class="text-white bg-dark box-title">1 - ENDEREÇOS &nbsp;
                                 <i class="fas fa-map-marker-alt"></i>
                             </p>
-                            <div>
-                                <div class="box-endereco">
-                                    <input id="enderCheckout" type="radio" name="endereco">
-                                    <label class="font-weight-bold" for="enderCheckout">Rua Atílio Delamuta, 546</label>
-                                    <ul>
-                                        <li>Jardim Itaiçaba (Ártemis)</li>
-                                        <li>13432-136 | Piracicaba - SP</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div class="box-endereco">
-                                <input id="enderCheckout" type="radio" name="endereco">
-                                <label class="font-weight-bold" for="enderCheckout">Rua Atílio Delamuta, 546</label>
+                            <div class="box-endereco" th:each="endereach : ${session.cliente.enderecos}">
+                                <input id="ends" type="radio" name="ends" th:field="*{endereco.idEndereco}" th:value="${endereach.idEndereco}">
+                                <label class="font-weight-bold" for="ends" th:text="${endereach.logradouro}"></label>
                                 <ul>
-                                    <li>Jardim Itaiçaba (Ártemis)</li>
-                                    <li>13432-136 | Piracicaba - SP</li>
+                                    <li>[[${endereach.bairro}]], [[${endereach.num}]]</li>
+                                    <li>[[${endereach.cep}]] | [[${endereach.cidade}]] - [[${endereach.uf}]]</li>
                                 </ul>
                             </div>
                         </div>
@@ -159,7 +148,7 @@
                                 </p>
                                 <div class="box-pay">
                                     <div class="box-pay-div">
-                                        <input id="typePayment-cred" type="radio" name="pagto">
+                                        <input id="typePayment-cred" type="radio" name="pagto" th:field="*{formaPagto.idTipo}" th:value="14">
                                         <label style="position: relative;" class="font-weight-bold box-pay-label" for="pagto-checkout">Cartão
                                             de Crédito</label>
 
@@ -193,7 +182,7 @@
                                     </div>
 
                                     <div class="box-pay-div">
-                                        <input id="typePayment-deb" type="radio" name="pagto">
+                                        <input id="typePayment-deb" type="radio" name="pagto" th:field="*{formaPagto.idTipo}" th:value="15">
                                         <label class="font-weight-bold box-pay-label" for="pagto-checkout">Cartão de
                                             Débito</label>
 
@@ -227,7 +216,7 @@
                                     </div>
 
                                     <div class="box-pay-div">
-                                        <input id="typePayment-boleto" type="radio" name="pagto">
+                                        <input id="typePayment-boleto" type="radio" name="pagto" th:field="*{formaPagto.idTipo}" th:value="16">
                                         <label class="font-weight-bold box-pay-label" for="pagto-checkout">Boleto
                                             Bancário</label>
 

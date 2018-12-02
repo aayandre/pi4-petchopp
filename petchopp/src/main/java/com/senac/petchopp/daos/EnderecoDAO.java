@@ -12,114 +12,142 @@ import com.senac.petchopp.connection.ConnectionFactory;
 import com.senac.petchopp.interfaces.IDAO;
 import com.senac.petchopp.model.cliente.Endereco;
 
-public class EnderecoDAO implements IDAO{
-	 Connection cn = null;
-	 
-	 
-	public void salvarEndereco(List<Endereco> enderecos, Long idcliente) throws SQLException {
-		PreparedStatement stmt = null;
-		cn = ConnectionFactory.getConnection();
-		String sql = "INSERT INTO Endereco\r\n" + 
-				"(CEP, Logradouro, Numero, Complemento, Bairro, Cidade, UF, idCliente, TipoEndereco)\r\n" + 
-				"VALUES(?,?,?,?,?,?,?,?,?)";
-		try {
+public class EnderecoDAO implements IDAO {
+
+    Connection cn = null;
+
+    public void salvarEndereco(List<Endereco> enderecos, Long idcliente) throws SQLException {
+        PreparedStatement stmt = null;
+        cn = ConnectionFactory.getConnection();
+        String sql = "INSERT INTO Endereco\r\n"
+                + "(CEP, Logradouro, Numero, Complemento, Bairro, Cidade, UF, idCliente, TipoEndereco)\r\n"
+                + "VALUES(?,?,?,?,?,?,?,?,?)";
+        try {
 //			cn.setAutoCommit(false);
-			stmt = cn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			for(Endereco end: enderecos) {
+            stmt = cn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            for (Endereco end : enderecos) {
 //				stmt.setLong(1, end.getIdEndereco());
-				stmt.setString(1, end.getCep());
-				stmt.setString(2, end.getLogradouro());
-				stmt.setString(3, end.getNum());
-				stmt.setString(4, end.getComp());
-				stmt.setString(5, end.getBairro());
-				stmt.setString(6, end.getCidade());
-				stmt.setString(7, end.getUf());
-				stmt.setLong(8, idcliente);
-				stmt.setString(9, end.getTipoEndereco());
-				stmt.execute();
-				ResultSet rs = stmt.getGeneratedKeys();
-				if(rs.next()) {
-					end.setIdEndereco(rs.getLong(1));
-				}
-			}
-			
+                stmt.setString(1, end.getCep());
+                stmt.setString(2, end.getLogradouro());
+                stmt.setString(3, end.getNum());
+                stmt.setString(4, end.getComp());
+                stmt.setString(5, end.getBairro());
+                stmt.setString(6, end.getCidade());
+                stmt.setString(7, end.getUf());
+                stmt.setLong(8, idcliente);
+                stmt.setString(9, end.getTipoEndereco());
+                stmt.execute();
+                ResultSet rs = stmt.getGeneratedKeys();
+                if (rs.next()) {
+                    end.setIdEndereco(rs.getLong(1));
+                }
+            }
+
 //			cn.commit();
-		}catch (SQLException e) {
-			e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
 //			cn.rollback();
-		} finally {
+        } finally {
 //			cn.setAutoCommit(true);
-			ConnectionFactory.closeConnection(cn, stmt);
-		}
-	}
-	
-		public List<Endereco> getAllEnd(Long idCliente) throws SQLException {
-			PreparedStatement stmt = null;
-			ResultSet rs = null;
-			List<Endereco> enderecos = new ArrayList<>();
-			String sql = "SELECT idEndereco, CEP, Logradouro, Numero, Complemento, Bairro, Cidade, UF, idCliente, TipoEndereco "
-					+ "FROM Endereco WHERE idCliente = ?";
-			cn = ConnectionFactory.getConnection();
-			
-			try {
-				stmt = cn.prepareStatement(sql);
-				stmt.setLong(1, idCliente);
-				rs= stmt.executeQuery();
-				
-				while(rs.next()) {
-					Endereco end = new Endereco();
-					
-					end.setIdEndereco(rs.getLong("idEndereco"));
-					end.setCep(rs.getString("CEP"));
-					end.setLogradouro(rs.getString("Logradouro"));
-					end.setNum(rs.getString("Numero"));
-					end.setComp(rs.getString("Complemento"));
-					end.setBairro(rs.getString("Bairro"));
-					end.setCidade(rs.getString("Cidade"));
-					end.setUf(rs.getString("UF"));
-					end.setIdCliente(rs.getLong("idCliente"));
-					end.setTipoEndereco(rs.getString("TipoEndereco"));
-					enderecos.add(end);
-					
-				}
-				
-			} finally {
-				ConnectionFactory.closeConnection(null, stmt, rs);
-			}
-			
-			
-			
-			return enderecos;
-	}
+            ConnectionFactory.closeConnection(cn, stmt);
+        }
+    }
 
-	@Override
-	public void atualizar(Object bean) {
-		// TODO Auto-generated method stub
-		
-	}
+    public List<Endereco> getAllEnd(Long idCliente) throws SQLException {
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        List<Endereco> enderecos = new ArrayList<>();
+        String sql = "SELECT idEndereco, CEP, Logradouro, Numero, Complemento, Bairro, Cidade, UF, idCliente, TipoEndereco "
+                + "FROM Endereco WHERE idCliente = ?";
+        cn = ConnectionFactory.getConnection();
 
-	@Override
-	public void deletar(Long id) {
-		// TODO Auto-generated method stub
-		
-	}
+        try {
+            stmt = cn.prepareStatement(sql);
+            stmt.setLong(1, idCliente);
+            rs = stmt.executeQuery();
 
-	@Override
-	public Object getById(Long id) {
-		
-		return null;
-	}
+            while (rs.next()) {
+                Endereco end = new Endereco();
 
-	@Override
-	public List<Object> getAll() {
-		
-		return null;
-	}
+                end.setIdEndereco(rs.getLong("idEndereco"));
+                end.setCep(rs.getString("CEP"));
+                end.setLogradouro(rs.getString("Logradouro"));
+                end.setNum(rs.getString("Numero"));
+                end.setComp(rs.getString("Complemento"));
+                end.setBairro(rs.getString("Bairro"));
+                end.setCidade(rs.getString("Cidade"));
+                end.setUf(rs.getString("UF"));
+                end.setIdCliente(rs.getLong("idCliente"));
+                end.setTipoEndereco(rs.getString("TipoEndereco"));
+                enderecos.add(end);
 
-	@Override
-	public void salvar(Object bean) {
-		// TODO Auto-generated method stub
-		
-	}
+            }
+
+        } finally {
+            ConnectionFactory.closeConnection(null, stmt, rs);
+        }
+
+        return enderecos;
+    }
+
+    @Override
+    public void atualizar(Object bean) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void deletar(Long id) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public Endereco getById(Long idEndereco) throws SQLException {
+
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Endereco endereco = new Endereco();
+        String sql = "SELECT idEndereco, CEP, Logradouro, Numero, Complemento, Bairro, Cidade, UF, idCliente, TipoEndereco "
+                + "FROM Endereco WHERE idEndereco = ?";
+        cn = ConnectionFactory.getConnection();
+
+        try {
+            stmt = cn.prepareStatement(sql);
+            stmt.setLong(1, idEndereco);
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+
+                endereco.setIdEndereco(rs.getLong("idEndereco"));
+                endereco.setCep(rs.getString("CEP"));
+                endereco.setLogradouro(rs.getString("Logradouro"));
+                endereco.setNum(rs.getString("Numero"));
+                endereco.setComp(rs.getString("Complemento"));
+                endereco.setBairro(rs.getString("Bairro"));
+                endereco.setCidade(rs.getString("Cidade"));
+                endereco.setUf(rs.getString("UF"));
+                endereco.setIdCliente(rs.getLong("idCliente"));
+                endereco.setTipoEndereco(rs.getString("TipoEndereco"));
+            }
+
+        } finally {
+            ConnectionFactory.closeConnection(null, stmt, rs);
+        }
+
+        return endereco;
+    }
+
+    @Override
+    public List<Object> getAll() {
+
+        return null;
+    }
+
+    @Override
+    public void salvar(Object bean) {
+        // TODO Auto-generated method stub
+
+    }
 
 }

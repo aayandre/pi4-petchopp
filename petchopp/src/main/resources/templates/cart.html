@@ -94,7 +94,7 @@
                            <p class="font-weight-bold cart-item-name">Tipo ou tag do produto</p>
                            <p th:text="${produto.Nome}">Nome de produto</p>
                            <p th:text="${produto.Codigo}">Código do produto</p>
-                           <p class="cart-item-sold">Vendido por Nóis</p>
+                           <!-- <p class="cart-item-sold">Vendido por Nóis</p> -->
                         </div>
 
                         <div class="col-md-3 col-sm-6 col-xs-12 align-self-center cart-item-center cart-item-left center-objects">
@@ -153,14 +153,14 @@
                <div class="col-md-4 col-sm-6 col-xs-12 cart-resumo">
                   <h6 class="font-weight-bold">ENDEREÇO</h6>
                   <div>
-                     <form>
-                        <div th:each="endereco : ${session.cliente.enderecos}">
-                           <div class="form-group">
-                              <input type="radio" name="ends" th:value="${endereco.idEndereco}">
-                              <strong th:text="${endereco.tipoEndereco}"></strong>
-                           </div>
-                        </div>
-                     </form>
+                     <div class="box-endereco" th:each="endereach : ${session.cliente.enderecos}">
+                        <input id="ends" type="radio" name="ends" th:field="*{endereco.idEndereco}" th:value="${endereach.idEndereco}">
+                        <label class="font-weight-bold" for="ends" th:text="${endereach.logradouro}"></label>
+                        <ul>
+                           <li>[[${endereach.bairro}]], [[${endereach.num}]]</li>
+                           <li>[[${endereach.cep}]] | [[${endereach.cidade}]] - [[${endereach.uf}]]</li>
+                        </ul>
+                     </div>
                   </div>
                </div>
 
