@@ -18,12 +18,15 @@ import org.springframework.web.servlet.ModelAndView;
 import com.senac.petchopp.daos.ProdutoDAO;
 import com.senac.petchopp.daos.TipoDAO;
 import com.senac.petchopp.daos.VendaDAO;
+import com.senac.petchopp.exception.EstoqueException;
 import com.senac.petchopp.model.carrinho.Carrinho;
 import com.senac.petchopp.model.cliente.Cliente;
+import com.senac.petchopp.model.estoqueProduto.EstoqueProduto;
 import com.senac.petchopp.model.produto.Produto;
 import com.senac.petchopp.model.produto.ProdutoVenda;
 import com.senac.petchopp.model.tipo.Tipo;
 import com.senac.petchopp.model.venda.Venda;
+import com.senac.petchopp.service.ServicoEstoqueProduto;
 import java.util.List;
 
 @Controller
@@ -54,34 +57,49 @@ public class VendaController {
 
 	@RequestMapping("comprar")
 	public ModelAndView realizarCompra(@ModelAttribute("venda") Venda venda
-                        ,@SessionAttribute("cliente") Cliente cliente) {
-		Venda nova = venda;
+                        ,@SessionAttribute("cliente") Cliente cliente) throws EstoqueException {
+            ServicoEstoqueProduto servicoEstoque = new ServicoEstoqueProduto();
+            String erro = null;
+            Venda nova = venda;
+                    
+            nova.setIdCliente(cliente.getIdCliente());
+            nova.setData(new Date());
+            nova.setDataView(LocalDateTime.now());
+            nova.setIdFretes(new Long("2"));
 
-		//nova.setCarrinho(carrinho);
+            SimpleDateFormat f = new SimpleDateFormat("yyyyMMdd");
+            nova.setProtocolo(f.format(nova.getData()) + Long.toString(nova.getData().getTime()));
+            nova.setStatus(new Tipo(17));
+            nova.setValorTotal(nova.getCarrinho().getTotal());
 
-		nova.setIdCliente(cliente.getIdCliente());
-		// nova.setData(LocalDate.now());
-		nova.setData(new Date());
-		nova.setDataView(LocalDateTime.now());
-		nova.setIdFretes(new Long("2"));
-		
-		SimpleDateFormat f = new SimpleDateFormat("yyyyMMdd");
-		nova.setProtocolo(f.format(nova.getData()) + Long.toString(nova.getData().getTime()));
-		nova.setStatus(new Tipo(17));
-		nova.setValorTotal(nova.getCarrinho().getTotal());
-
-		// Salvar infos
-		try {
-			vendaBanco.salvar(nova);
+            // Salvar infos
+            try {
+                //Validação de estoque
+                List<EstoqueProduto> estoqueProd = new ArrayList<>();
+                for (ProdutoVenda prods : nova.getCarrinho().getProdutos()) {
+                    estoqueProd.add(new EstoqueProduto((long) prods.getIdProduto(), servicoEstoque.ObtemQuantidadeByIdProduto(prods.getIdProduto())));
+                }
+                erro = servicoEstoque.validaQtdeEstoquePedido(estoqueProd, nova.getCarrinho().getProdutos());
+                
+                if (erro != null){
+                    return new ModelAndView("checkout").addObject("venda", venda).addObject("erro", erro);
+                }
+                
+                //Atualizando a qtde estoque no banco
+                for (EstoqueProduto estoqueProduto : estoqueProd) {
+                    servicoEstoque.AtualizarEstoque(estoqueProduto);
+                }
+                
+                vendaBanco.salvar(nova);
 //			Long idVenda = vendaBanco.getIdVenda(nova);
 //			nova.setIdVenda(idVenda);
 //			vendaBanco.salvarItensVenda(nova);
-			return new ModelAndView("orderFinish").addObject("protocolo", nova.getProtocolo());
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
+                return new ModelAndView("orderFinish").addObject("protocolo", nova.getProtocolo());
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            return null;
 	}
 
 	@GetMapping("/addcart/{codigo}")
