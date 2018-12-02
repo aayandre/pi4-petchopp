@@ -24,7 +24,7 @@ public class Venda {
     private Tipo status;
     private Tipo formaPagto;
     private int qtdeItensVenda;
-    private Carrinho carrinho;
+    private Carrinho carrinho = new Carrinho();
     private LocalDateTime dataView;
 
     public Venda() {

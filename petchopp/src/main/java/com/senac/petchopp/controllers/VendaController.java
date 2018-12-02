@@ -22,10 +22,11 @@ import com.senac.petchopp.model.cliente.Cliente;
 import com.senac.petchopp.model.produto.Produto;
 import com.senac.petchopp.model.produto.ProdutoVenda;
 import com.senac.petchopp.model.venda.Venda;
+import java.util.List;
 
 @Controller
 @RequestMapping("checkout")
-@SessionAttributes({ "cliente", "carrinho" })
+@SessionAttributes({ "cliente", "venda" })
 public class VendaController {
 
 	private VendaDAO vendaBanco = new VendaDAO();
@@ -38,24 +39,24 @@ public class VendaController {
 //	}
 
 	@RequestMapping("formulario")
-	public ModelAndView formVenda(@ModelAttribute("carrinho") Carrinho carrinho) {
+	public ModelAndView formVenda(@ModelAttribute("venda") Venda venda) {
 		/*
 		 * TODO pegar o codigo do cliente que deve estar na session e utiliza-lo para
 		 * pegar: endereço ou informaçoes de pagto salvas
 		 */
 //		Object msgS = session.getAttribute("teste");
 //		model.addAttribute("teste", msgS);
-		System.out.println(carrinho);
-		return new ModelAndView("checkout").addObject("carrinho", carrinho);
+		//System.out.println(carrinho);
+		return new ModelAndView("checkout").addObject("venda", venda);
 	}
 
 	@RequestMapping("comprar")
-	public ModelAndView realizarCompra(@ModelAttribute("carrinho") Carrinho carrinho
+	public ModelAndView realizarCompra(@ModelAttribute("venda") Venda venda
                         ,@SessionAttribute("cliente") Cliente cliente
                         ,@ModelAttribute("ends") String idEndereco) {
-		Venda nova = new Venda();
+		Venda nova = venda;
 
-		nova.setCarrinho(carrinho);
+		//nova.setCarrinho(carrinho);
 
 		nova.setIdCliente(cliente.getIdCliente());
 		// nova.setData(LocalDate.now());
@@ -84,17 +85,17 @@ public class VendaController {
 
 	@GetMapping("/addcart/{codigo}")
 	public ModelAndView addProdutoCart(@PathVariable("codigo") String codigo,
-			@ModelAttribute("carrinho") Carrinho carrinho) {
+			@ModelAttribute("venda") Venda venda) {
 
-		ArrayList<ProdutoVenda> lista = carrinho.getProdutos();
+		ArrayList<ProdutoVenda> lista = venda.getCarrinho().getProdutos();
 		try {
 			Produto adiquirido = (Produto) produtoBanco.getByCodigo(codigo);
 			lista.add(new ProdutoVenda(adiquirido.getIdProduto(), adiquirido.getCodigo(), adiquirido.getNome(),
 					adiquirido.getPreco(), adiquirido.getPreco(), adiquirido.getUrlImagem(),
 					// quantidade padrao ao adicionar um item no carrinho
 					1));
-			carrinho.setProdutos(lista);
-			return new ModelAndView("redirect:/cart").addObject("carrinho", carrinho);
+			venda.getCarrinho().setProdutos(lista);
+			return new ModelAndView("redirect:/cart").addObject("venda", venda);
 
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -9,9 +9,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.senac.petchopp.model.carrinho.Carrinho;
 import com.senac.petchopp.model.cliente.Cliente;
+import com.senac.petchopp.model.venda.Venda;
 
 @Controller
-@SessionAttributes({ "cliente", "carrinho" })
+@SessionAttributes({ "cliente", "venda" })
 public class MainController {
 
 	@RequestMapping({ "/", "" })
@@ -28,9 +29,9 @@ public class MainController {
 	}
 
 	@RequestMapping("cart")
-	public ModelAndView cartPage(@ModelAttribute("carrinho") Carrinho carrinho
+	public ModelAndView cartPage(@ModelAttribute("venda") Venda venda
                                 , @ModelAttribute("cliente") Cliente cliente) {
-		return new ModelAndView("cart").addObject("carrinho", carrinho);
+		return new ModelAndView("cart").addObject("venda", venda);
 	}
 
 	@RequestMapping("login")
@@ -43,9 +44,9 @@ public class MainController {
 		return new Cliente();
 	}
 
-	@ModelAttribute("carrinho")
-	public Carrinho carrinho() {
-		return new Carrinho();
+	@ModelAttribute("venda")
+	public Venda venda() {
+		return new Venda();
 	}
 
 }
