@@ -197,7 +197,7 @@ public class VendaDAO implements IDAO {
 				venda.setCarrinho(prodVendaDAO.getProdutoVendaByVenda(Integer.parseInt(venda.getIdVenda().toString())),
 						venda.getValorTotal());
 				venda.setStatus(tipodao.getTipoByID(rs.getInt("status")));
-				venda.setFormaPagto(tipodao.getTipoByID(rs.getInt("formaPagto")));
+				venda.setFormaPagto(tipodao.getTipoByID(rs.getInt("idFormaPagto")));
 				venda.setQtdeItensVenda(venda.getCarrinho().getProdutos().size());
 				vendas.add(venda);
 			}

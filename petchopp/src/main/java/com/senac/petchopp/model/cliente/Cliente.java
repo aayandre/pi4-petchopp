@@ -3,14 +3,11 @@ package com.senac.petchopp.model.cliente;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.mindrot.jbcrypt.BCrypt;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import com.senac.petchopp.model.Auxiliares;
 
 /**
  *
