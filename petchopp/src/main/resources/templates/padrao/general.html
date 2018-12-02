@@ -53,7 +53,7 @@
                      </div>
                      <div th:if="${session.cliente.logado} == true">
                            <a class="dropdown-item" href="#" th:href="@{/cliente/minhaconta}">Minha conta</a>
-                           <a class="dropdown-item" href="#" th:href="@{/cliente/login}">Sair</a>
+                           <a class="dropdown-item" href="#" th:href="@{/cliente/logoff}">Sair</a>
                         </div>
                   </div>
                </div>
@@ -193,4 +193,52 @@
    <!-- Optional JavaScript -->
    <!-- Mesmo esquema do link css -->
    <script src="../static/js/main.js" th:src="@{/js/main.js}"></script>
+</div>
+
+<div th:fragment="dash-head">
+   <!-- Required meta tags -->
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+   <!-- Bootstrap CSS -->
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css"
+      data-integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+
+   <!-- Font Awesome -->
+   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" data-integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+      crossorigin="anonymous">
+
+   <link rel="stylesheet" href="../../static/css/dash-home.css" th:href="@{/css/dash-home.css}">
+</div>
+
+<div th:fragment="dash-footer">
+   <!-- Optional JavaScript -->
+   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+   <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+      crossorigin="anonymous"></script>
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em"
+      crossorigin="anonymous"></script>
+</div>
+
+<div th:fragment="dash-sidebar">
+   <div class="sidebar collapse show" id="sidebar">
+      <div class="sidebar-header">
+         <span class="">P. DashBoard</span>
+         <span class="sidebar-burger" data-toggle="collapse" data-target="#sidebar" aria-expanded="true">
+            <i class="fas fa-bars"></i>
+         </span>
+      </div>
+      <ul class="sidebar-ul">
+         <li class="nav-item">
+            <a class="nav-link" id="produtoLink" href="#" th:href="@{/dash/produtoLink}">Produto</a>
+         </li>
+         <li class="nav-item">
+            <a class="nav-link" id="vendaLink" href="#" th:href="@{/dash/vendaLink}">Vendas</a>
+         </li>
+         <li class="nav-item">
+            <a class="nav-link" id="clienteLink" href="#" th:href="@{/dash/clienteLink}">Clientes</a>
+         </li>
+      </ul>
    </div>
+</div>

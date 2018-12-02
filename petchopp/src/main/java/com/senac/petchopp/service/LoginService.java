@@ -37,4 +37,8 @@ public class LoginService {
 		return cli;
 	}
 
+        public Cliente clienteLogoff(){
+            Cliente cliente = null;
+            return cliente;
+        }
 }

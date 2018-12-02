@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <div th:replace="padrao/general.html :: dash-head"></div>
+    <title>Dash - Home</title>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div th:replace="padrao/general.html :: dash-sidebar"></div>
+
+    <!-- Page Content -->
+    <div class="container-fluid sidebar-margin">
+
+        <div class="row burger" data-toggle="collapse" data-target="#sidebar"><i class="fas fa-bars"></i></div>
+
+        <div class="row">
+
+            <div class="col-12">
+                <div class="align-self-center text-center mt-5 pt-5">
+                    <div class="pt-3">
+                        <h1>Olá, <span th:text=${admin.nome}>Nome do administrador</span></h1>
+                        <!-- <h1>Olá, <span>Nome do administrador</span></h1> -->
+                    </div>
+                    <h2 class="aviso mt-5">Você está na área de admistração da aplicação.</h2>
+                </div>
+            </div>
+
+        </div>
+        <!-- ./row -->
+
+    </div>
+    <!-- ./conteiner-fluid -->
+
+    <!-- Footer -->
+    <div th:replace="padrao/general.html :: dash-footer"></div>
+    <script src="../../static/js/dash-home.js" th:src="@{/js/dash-home.js}"></script>
+
+
+</body>
+
+</html>

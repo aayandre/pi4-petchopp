@@ -118,7 +118,7 @@ public class ClienteController {
              RedirectAttributes redirect, HttpSession session) throws SQLException {
 
         Cliente cliente = new LoginService().clienteLogon(email, senha);
-        System.out.println(cliente.isLogado());
+//        System.out.println(cliente.isLogado());
 
         if (cliente.isLogado()) {
             System.out.println("Cliente logado: " + cliente.getEmail());
@@ -137,6 +137,13 @@ public class ClienteController {
         ModelAndView modelAndView = new ModelAndView("cli/orderList");
         modelAndView.addObject("vendas", vendas);
 
+        return modelAndView;
+    }
+    
+    @GetMapping("logoff")
+    public ModelAndView logoffCliente(HttpSession session){
+        ModelAndView modelAndView = new ModelAndView("cli/login");
+        session.setAttribute("cliente", new Cliente());
         return modelAndView;
     }
     

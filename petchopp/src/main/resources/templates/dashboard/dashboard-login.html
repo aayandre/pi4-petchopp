@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head th:include="padrao/general.html :: headfiles">
+    <title>Dash - Login</title>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-sm-12 col-md-4 offset-md-4">
+
+                <div class="login-div">
+                    <form action="#" th:action="@{/dash/logon}" method="post">
+
+                        <div class="form-group">
+                            <label for="email">E-mail: </label>
+                            <input type="text" class="form-control" name="email" id="email" aria-describedby="Email do usuário"
+                                placeholder="email@host.something">
+                            <small id="helpId" class="form-text text-muted">Help text</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="senha">Senha: </label>
+                            <input type="password" class="form-control" name="senha" id="senha" aria-describedby="Senha do usuário"
+                                placeholder="Senha...">
+                            <small id="helpId" class="form-text text-muted">Help text</small>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Login</button>
+
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
