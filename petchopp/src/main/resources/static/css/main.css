@@ -81,4 +81,34 @@ body {
     font-style: bold;
 }
 
+.pass_show{position: relative} 
+
+.pass_show .ptxt { 
+
+position: absolute; 
+
+top: 50%; 
+
+right: 10px; 
+
+z-index: 0; 
+
+color: #f36c01; 
+
+margin-top: -10px; 
+
+cursor: pointer; 
+
+transition: .3s ease all; 
+
+} 
+
+.pass_show .ptxt:hover{color: #333333;}
+.vertical-line{
+    border-right: 2px solid lightgray;
+    height: 40%;
+}
+.btn-cliente{
+    width: 10em;
+}
 /*  cliente */
