@@ -4,7 +4,7 @@ public class EstoqueProdutoRelatorio extends EstoqueProduto{
     private double preco;
     private String nome;
     
-    public EstoqueProdutoRelatorio(int id_produto, int quantidade, double preco, String nome) {
+    public EstoqueProdutoRelatorio(Long id_produto, int quantidade, double preco, String nome) {
         super(id_produto, quantidade);
         this.preco = preco;
         this.nome = nome;

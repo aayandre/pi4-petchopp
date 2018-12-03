@@ -16,16 +16,22 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.senac.petchopp.daos.ProdutoDAO;
+import com.senac.petchopp.daos.TipoDAO;
 import com.senac.petchopp.daos.VendaDAO;
+import com.senac.petchopp.exception.EstoqueException;
 import com.senac.petchopp.model.carrinho.Carrinho;
 import com.senac.petchopp.model.cliente.Cliente;
+import com.senac.petchopp.model.estoqueProduto.EstoqueProduto;
 import com.senac.petchopp.model.produto.Produto;
 import com.senac.petchopp.model.produto.ProdutoVenda;
+import com.senac.petchopp.model.tipo.Tipo;
 import com.senac.petchopp.model.venda.Venda;
+import com.senac.petchopp.service.ServicoEstoqueProduto;
+import java.util.List;
 
 @Controller
 @RequestMapping("checkout")
-@SessionAttributes({ "cliente", "carrinho" })
+@SessionAttributes({ "cliente", "venda" })
 public class VendaController {
 
 	private VendaDAO vendaBanco = new VendaDAO();
@@ -38,63 +44,77 @@ public class VendaController {
 //	}
 
 	@RequestMapping("formulario")
-	public ModelAndView formVenda(@ModelAttribute("carrinho") Carrinho carrinho) {
-		/*
-		 * TODO pegar o codigo do cliente que deve estar na session e utiliza-lo para
-		 * pegar: endereço ou informaçoes de pagto salvas
-		 */
+	public ModelAndView formVenda(@ModelAttribute("venda") Venda venda) {
+            /*
+             * TODO pegar o codigo do cliente que deve estar na session e utiliza-lo para
+             * pegar: endereço ou informaçoes de pagto salvas
+             */
 //		Object msgS = session.getAttribute("teste");
 //		model.addAttribute("teste", msgS);
-		System.out.println(carrinho);
-		return new ModelAndView("checkout").addObject("carrinho", carrinho);
+            //System.out.println(carrinho);
+            return new ModelAndView("checkout").addObject("venda", venda);
 	}
 
 	@RequestMapping("comprar")
-	public ModelAndView realizarCompra(@ModelAttribute("carrinho") Carrinho carrinho
-                        ,@SessionAttribute("cliente") Cliente cliente
-                        ,@ModelAttribute("ends") String idEndereco) {
-		Venda nova = new Venda();
+	public ModelAndView realizarCompra(@ModelAttribute("venda") Venda venda
+                        ,@SessionAttribute("cliente") Cliente cliente) throws EstoqueException {
+            ServicoEstoqueProduto servicoEstoque = new ServicoEstoqueProduto();
+            String erro = null;
+            Venda nova = venda;
+                    
+            nova.setIdCliente(cliente.getIdCliente());
+            nova.setData(new Date());
+            nova.setDataView(LocalDateTime.now());
+            nova.setIdFretes(new Long("2"));
 
-		nova.setCarrinho(carrinho);
+            SimpleDateFormat f = new SimpleDateFormat("yyyyMMdd");
+            nova.setProtocolo(f.format(nova.getData()) + Long.toString(nova.getData().getTime()));
+            nova.setStatus(new Tipo(17));
+            nova.setValorTotal(nova.getCarrinho().getTotal());
 
-		nova.setIdCliente(cliente.getIdCliente());
-		// nova.setData(LocalDate.now());
-		nova.setData(new Date());
-		nova.setDataView(LocalDateTime.now());
-		nova.setIdFretes(new Long("2"));
-		
-		SimpleDateFormat f = new SimpleDateFormat("yyyyMMdd");
-		nova.setProtocolo(f.format(nova.getData()) + Long.toString(nova.getData().getTime()));
-		
-		nova.setValorTotal(nova.getCarrinho().getTotal());
-
-		// Salvar infos
-		try {
-			vendaBanco.salvar(nova);
+            // Salvar infos
+            try {
+                //Validação de estoque
+                List<EstoqueProduto> estoqueProd = new ArrayList<>();
+                for (ProdutoVenda prods : nova.getCarrinho().getProdutos()) {
+                    estoqueProd.add(new EstoqueProduto((long) prods.getIdProduto(), servicoEstoque.ObtemQuantidadeByIdProduto(prods.getIdProduto())));
+                }
+                erro = servicoEstoque.validaQtdeEstoquePedido(estoqueProd, nova.getCarrinho().getProdutos());
+                
+                if (erro != null){
+                    return new ModelAndView("checkout").addObject("venda", venda).addObject("erro", erro);
+                }
+                
+                //Atualizando a qtde estoque no banco
+                for (EstoqueProduto estoqueProduto : estoqueProd) {
+                    servicoEstoque.AtualizarEstoque(estoqueProduto);
+                }
+                
+                vendaBanco.salvar(nova);
 //			Long idVenda = vendaBanco.getIdVenda(nova);
 //			nova.setIdVenda(idVenda);
 //			vendaBanco.salvarItensVenda(nova);
-			return new ModelAndView("orderFinish").addObject("protocolo", nova.getProtocolo());
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
+                return new ModelAndView("orderFinish").addObject("protocolo", nova.getProtocolo());
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            return null;
 	}
 
 	@GetMapping("/addcart/{codigo}")
 	public ModelAndView addProdutoCart(@PathVariable("codigo") String codigo,
-			@ModelAttribute("carrinho") Carrinho carrinho) {
+			@ModelAttribute("venda") Venda venda) {
 
-		ArrayList<ProdutoVenda> lista = carrinho.getProdutos();
+		ArrayList<ProdutoVenda> lista = venda.getCarrinho().getProdutos();
 		try {
 			Produto adiquirido = (Produto) produtoBanco.getByCodigo(codigo);
 			lista.add(new ProdutoVenda(adiquirido.getIdProduto(), adiquirido.getCodigo(), adiquirido.getNome(),
 					adiquirido.getPreco(), adiquirido.getPreco(), adiquirido.getUrlImagem(),
 					// quantidade padrao ao adicionar um item no carrinho
 					1));
-			carrinho.setProdutos(lista);
-			return new ModelAndView("redirect:/cart").addObject("carrinho", carrinho);
+			venda.getCarrinho().setProdutos(lista);
+			return new ModelAndView("redirect:/cart").addObject("venda", venda);
 
 		} catch (Exception e) {
 			e.printStackTrace();

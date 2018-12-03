@@ -59,7 +59,7 @@
       <div class="nb-3 cart">
 
          <!-- Formulario para enviar a lista de produtos selecionados no carrinho -->
-         <form th:action="@{/checkout/formulario}" method="post" th:object="${carrinho}">
+         <form th:action="@{/checkout/formulario}" method="post" th:object="${venda}">
 
             <div class="cart-ico">
                <div class="row cart-ico-line">
@@ -81,7 +81,7 @@
                   <div class="col-12">
 
                      <!-- Lista produtos -->
-                     <div class="row" th:each="produto, stat : *{produtos}">
+                     <div class="row" th:each="produto, stat : *{carrinho.produtos}">
 
                         <!-- Imagem -->
                         <div class="col-md-2 col-sm-6 col-xs-12 cart-item-left-img">
@@ -94,7 +94,7 @@
                            <p class="font-weight-bold cart-item-name">Tipo ou tag do produto</p>
                            <p th:text="${produto.Nome}">Nome de produto</p>
                            <p th:text="${produto.Codigo}">Código do produto</p>
-                           <p class="cart-item-sold">Vendido por Nóis</p>
+                           <!-- <p class="cart-item-sold">Vendido por Nóis</p> -->
                         </div>
 
                         <div class="col-md-3 col-sm-6 col-xs-12 align-self-center cart-item-center cart-item-left center-objects">
@@ -109,7 +109,7 @@
                               </span>
                               <input style="max-width: 60px" type="text" id="quantity" name="quantity" class="form-control input-number"
                                  th:value="${produto.quantidade}" min="1" max="100" />
-                              <input type="hidden" id="quantityHidden" th:field="*{produtos[__${stat.index}__].quantidade}" />
+                              <input type="hidden" id="quantityHidden" th:field="*{carrinho.produtos[__${stat.index}__].quantidade}" />
                               <span class="input-group-btn">
                                  <button type="button" class="quantity-right-plus btn btn-number cart-item-quantity-button"
                                     data-type="plus" data-field="">
@@ -153,14 +153,14 @@
                <div class="col-md-4 col-sm-6 col-xs-12 cart-resumo">
                   <h6 class="font-weight-bold">ENDEREÇO</h6>
                   <div>
-                     <form>
-                        <div th:each="endereco : ${session.cliente.enderecos}">
-                           <div class="form-group">
-                              <input type="radio" name="ends" th:value="${endereco.idEndereco}">
-                              <strong th:text="${endereco.tipoEndereco}"></strong>
-                           </div>
-                        </div>
-                     </form>
+                     <div class="box-endereco" th:each="endereach : ${session.cliente.enderecos}">
+                        <input id="ends" type="radio" name="ends" th:field="*{endereco.idEndereco}" th:value="${endereach.idEndereco}">
+                        <label class="font-weight-bold" for="ends" th:text="${endereach.logradouro}"></label>
+                        <ul>
+                           <li>[[${endereach.bairro}]], [[${endereach.num}]]</li>
+                           <li>[[${endereach.cep}]] | [[${endereach.cidade}]] - [[${endereach.uf}]]</li>
+                        </ul>
+                     </div>
                   </div>
                </div>
 
@@ -219,7 +219,7 @@
                            TOTAL
                         </h6>
                         <p style="font-size: 16px" class="col-6 font-weight-bold cart-item-value text-right" id="carrinhoTotalId"></p>
-                        <input type="hidden" th:field="*{total}" id="carrinhoTotalHidden" />
+                        <input type="hidden" th:field="*{carrinho.total}" id="carrinhoTotalHidden" />
                      </div>
                   </div>
 
@@ -230,7 +230,7 @@
                   </div>
 
                   <div class="col-12 cart-resumo cart-resumo-padding">
-                     <a href="#" th:href="@{#}" class="btn btn-block font-weight-bold cart-resumo-cont-compr">Continuar
+                     <a href="#" th:href="@{/}" class="btn btn-block font-weight-bold cart-resumo-cont-compr">Continuar
                         Comprando</a>
                   </div>
                </div>

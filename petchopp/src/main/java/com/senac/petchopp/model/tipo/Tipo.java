@@ -13,6 +13,10 @@ public class Tipo {
 	public Tipo() {
 		super();
 	}
+        
+        public Tipo(int idTipo) {
+	    this.idTipo = idTipo;
+	}
 
 	public Tipo(int idTipo, String nome, String nomeView, String descricao) {
 		super();

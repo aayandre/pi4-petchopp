@@ -124,7 +124,7 @@
                                         <p class="font-weight-bold cart-item-name">Tipo ou tag do produto</p>
                                         <p th:text="${produto.Nome}">Nome de produto</p>
                                         <p th:text="${produto.Codigo}">Código do produto</p>
-                                        <p class="cart-item-sold">Vendido por Nóis</p>
+                                        <!-- <p class="cart-item-sold">Vendido por Nóis</p> -->
                                     </div>
 
                                     <div class="col-md-4 col-sm-12 col-xs-12 align-self-center order-totals">
@@ -158,8 +158,8 @@
                                 <div class="row m-3 orderlist-row-resumo">
                                     <div class="col-md-6 col-sm-12 col-xs-12 my-2">
                                         <p class="font-weight-bold mb-3 mt-3">ENDEREÇO DE ENTREGA:</p>
-                                        <p>Rua Atílio Delamuta, 546 - Jardim Itaiçaba (Ártemis)</p>
-                                        <p>CEP: 13432-136, Piracicaba, SP</p>
+                                        <p>[[*{venda.Endereco.Bairro}]], [[*{venda.endereco.num}]] - [[*{venda.endereco.bairro}]]</p>
+                                        <p>CEP: [[*{venda.endereco.cep}]], [[*{venda.endereco.cidade}]], [[*{venda.endereco.uf}]]</p>
                                     </div>
 
                                     <div class="col-md-6 col-sm-12 col-xs-12 my-2 border-left order-total-geral">

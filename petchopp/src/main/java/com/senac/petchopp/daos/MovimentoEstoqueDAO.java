@@ -17,7 +17,7 @@ public class MovimentoEstoqueDAO {
             throws MovimentoEstoqueException {
         PreparedStatement stmt = null;
 
-        String sql = "INSERT INTO estoque (dtMovimento, Quantidade, idTipo, idNatureza, idProduto) "
+        String sql = "INSERT INTO MovimentoEstoque (dtMovimento, Quantidade, idTipo, idNatureza, idProduto) "
                 + "VALUES (?, ?, ?, ?, ?)";
 
         Connection cn = ConnectionFactory.getConnection();
@@ -25,15 +25,12 @@ public class MovimentoEstoqueDAO {
         try {
             stmt = cn.prepareStatement(sql);
 
-            stmt.setDate(1, new java.sql.Date(movimentoEstoque.getDataCalendar().getTimeInMillis()));
+            stmt.setTimestamp(1, new java.sql.Timestamp(movimentoEstoque.getData().getTime()));
             stmt.setInt(2, movimentoEstoque.getQuantidade());
             stmt.setInt(3, movimentoEstoque.getTipo());
             stmt.setInt(4, movimentoEstoque.getNatureza());
-            stmt.setInt(5, movimentoEstoque.getIdProduto());
-
-            boolean eae = stmt.execute();
-
-            System.out.println(eae);
+            stmt.setLong(5, movimentoEstoque.getIdProduto());
+            stmt.execute();
 
         } catch (Exception e) {
             throw new MovimentoEstoqueException("Erro ao cadastrar movimento de estoque.", e.getCause());
@@ -79,7 +76,7 @@ public class MovimentoEstoqueDAO {
 
             while (rs.next()) {
                 MovimentoEstoque movimentoEstoque = new MovimentoEstoque(
-                        rs.getInt("id_produto"),
+                        rs.getLong("id_produto"),
                         rs.getInt("Quantidade"),
                         rs.getDate("DataMovimento"),
                         rs.getInt("Tipo"),
