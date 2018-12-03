@@ -20,7 +20,7 @@ function createElementTipo(response) {
 
         templateTipoLi.find('.nav-link').attr('href', window.location.origin + '/produto/tipos/' + tipo.descricao);
         templateTipoLi.find('.nav-link').attr('id', tipo.idTipo);
-        templateTipoLi.find('.nav-link').text(tipo.descricao);
+        templateTipoLi.find('.nav-link').text(tipo.nomeView);
 
         templateTipoLi.appendTo('#navBottomTipos');
     });

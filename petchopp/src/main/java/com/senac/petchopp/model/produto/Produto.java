@@ -9,6 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Produto {
 
 	private Long idProduto;
+	private Integer idTipo;
 	private String Codigo;
 	private String Nome;
 	private String Descricao;
@@ -31,6 +32,7 @@ public class Produto {
 	public Produto(boolean preencher) {
 		if (preencher) {
 			this.idProduto = Long.valueOf(999);
+			this.idTipo = 13;
 			this.Codigo = "produtoCriadoPorTeste";
 			this.Nome = "Produto Teste";
 			this.Descricao = "Descricao do produto teste que tem apenas 500 caracteres de espaço";
@@ -48,11 +50,12 @@ public class Produto {
 		}
 	}
 
-	public Produto(Long idProduto, String codigo, String nome, String descricao, double peso, double preco,
-			double custo, int qtdeVendas, Date dtCompra, Date dtValidade, String urlImagem, boolean emEstoque,
-			boolean disable) {
+	public Produto(Long idProduto, Integer idTipo, String codigo, String nome, String descricao, double peso,
+			double preco, double custo, int qtdeVendas, Date dtCompra, Date dtValidade, String urlImagem,
+			boolean emEstoque, boolean disable) {
 		super();
 		this.idProduto = idProduto;
+		this.idTipo = idTipo;
 		Codigo = codigo;
 		Nome = nome;
 		Descricao = descricao;
@@ -70,6 +73,7 @@ public class Produto {
 	public Produto(ResultSet rs) throws SQLException {
 		super();
 		this.idProduto = rs.getLong("idProduto");
+		this.idTipo = rs.getInt("idTipo");
 		this.Codigo = rs.getString("Codigo");
 		this.Nome = rs.getString("Nome");
 		this.Descricao = rs.getString("Descricao");
@@ -90,6 +94,14 @@ public class Produto {
 
 	public void setIdProduto(Long idProduto) {
 		this.idProduto = idProduto;
+	}
+
+	public Integer getIdTipo() {
+		return idTipo;
+	}
+
+	public void setIdTipo(Integer idTipo) {
+		this.idTipo = idTipo;
 	}
 
 	public String getCodigo() {
@@ -190,10 +202,10 @@ public class Produto {
 
 	@Override
 	public String toString() {
-		return "Produto [idProduto=" + idProduto + ", Codigo=" + Codigo + ", Nome=" + Nome + ", Descricao=" + Descricao
-				+ ", Peso=" + Peso + ", Preco=" + Preco + ", Custo=" + Custo + ", qtdeVendas=" + qtdeVendas
-				+ ", dtCompra=" + dtCompra + ", dtValidade=" + dtValidade + ", urlImagem=" + urlImagem + ", EmEstoque="
-				+ EmEstoque + ", Disable=" + Disable + "]";
+		return "Produto [idProduto=" + idProduto + ", idTipo=" + idTipo + ", Codigo=" + Codigo + ", Nome=" + Nome
+				+ ", Descricao=" + Descricao + ", Peso=" + Peso + ", Preco=" + Preco + ", Custo=" + Custo
+				+ ", qtdeVendas=" + qtdeVendas + ", dtCompra=" + dtCompra + ", dtValidade=" + dtValidade
+				+ ", urlImagem=" + urlImagem + ", EmEstoque=" + EmEstoque + ", Disable=" + Disable + "]";
 	}
 
 }

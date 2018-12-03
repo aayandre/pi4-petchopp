@@ -80,9 +80,6 @@ function addTags(tags) {
         $('#tagsId').append(label);
     });
 
-    $('#tagsId').find('.form-check-input').on('change', function () {
-        $('#formProcuraId').submit();
-    });
 }
 
 
@@ -103,6 +100,11 @@ $(document).ready(function () {
             $('#resultadosId').toggleClass('col-md-12');
         }
         $('#listaFiltrosId').toggle();
+    });
+
+    // Watcher das tags
+    $('#tagsId').find('.form-check-input').on('change', function () {
+        $('#formProcuraId').submit();
     });
 
     // Watcher de alterações do preço

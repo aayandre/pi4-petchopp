@@ -30,12 +30,12 @@ public class Tag {
 		this.idTipo = rs.getInt("idTipo");
 	}
 
-	public Integer getIdTags() {
+	public Integer getIdTag() {
 		return idTag;
 	}
 
-	public void setIdTags(Integer idTags) {
-		this.idTag = idTags;
+	public void setIdTag(Integer idTag) {
+		this.idTag = idTag;
 	}
 
 	public String getNome() {

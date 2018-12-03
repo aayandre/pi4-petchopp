@@ -1,5 +1,7 @@
 package com.senac.petchopp.controllers;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -8,11 +10,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.senac.petchopp.model.cliente.Cliente;
-import com.senac.petchopp.model.produto.Produto;
+import com.senac.petchopp.model.produto.ProdutoService;
+import com.senac.petchopp.wos.FormularioProduto;
 
 @Controller
 @RequestMapping("dash")
 public class DashboardController {
+
+	private ProdutoService produtoService = new ProdutoService();
 
 	@RequestMapping("")
 	public ModelAndView telaLogin() {
@@ -37,9 +42,18 @@ public class DashboardController {
 	}
 
 	@RequestMapping("/novoproduto")
-	public ModelAndView novoProdutoForm() {
-		return new ModelAndView("/dashboard/dashboard-produto").addObject("liActivator", "liNewProdId")
-				.addObject("produto", new Produto());
+	public ModelAndView novoProdutoForm(HttpServletRequest request) {
+		String msg;
+		try {
+			FormularioProduto formProd = produtoService.populaFormularioProduto();
+			return new ModelAndView("/dashboard/dashboard-produto").addObject("liActivator", "liNewProdId")
+					.addObject("formularioProduto", formProd);
+		} catch (Exception e) {
+			e.printStackTrace();
+			msg = "Erro ao criar o FormularioProduto.";
+			return new ModelAndView("/dashboard/dashboard-produto").addObject("falha", msg);
+		}
+
 	}
 
 }

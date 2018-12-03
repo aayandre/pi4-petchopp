@@ -1,0 +1,12 @@
+.card-header {
+    padding-left: 2rem;
+}
+
+.tag-view {
+    background-color: #6495ed45;
+    border-radius: 4px;
+}
+
+.tag-view .form-check-input:checked {
+    background-color: #135ce2af;
+}

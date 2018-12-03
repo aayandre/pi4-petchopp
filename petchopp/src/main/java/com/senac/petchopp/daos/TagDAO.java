@@ -10,6 +10,8 @@ import java.util.List;
 import com.senac.petchopp.connection.ConnectionFactory;
 import com.senac.petchopp.interfaces.IDAO;
 import com.senac.petchopp.model.tag.Tag;
+import com.senac.petchopp.model.tipo.Tipo;
+import com.senac.petchopp.model.tipo.TipoTag;
 
 public class TagDAO implements IDAO {
 
@@ -105,6 +107,35 @@ public class TagDAO implements IDAO {
 			ConnectionFactory.closeConnection(cn, stmt, rs);
 		}
 		return tags;
+	}
+
+	public TipoTag getAllTagsByTipos(Tipo tipo) throws SQLException {
+		String sql = "SELECT * FROM Tags WHERE idTipo = ?";
+
+		cn = ConnectionFactory.getConnection();
+
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		TipoTag tipoTag = new TipoTag();
+
+		try {
+
+			List<Tag> tags = new ArrayList<>();
+			stmt = cn.prepareStatement(sql);
+			stmt.setInt(1, tipo.getIdTipo());
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				tags.add(new Tag(rs));
+			}
+			tipoTag.setTags(tags);
+			tipoTag.setTipo(tipo);
+			return tipoTag;
+
+		} catch (SQLException e) {
+			throw new SQLException("Erro ao obter tags com id do tipo.", e.getCause());
+		} finally {
+			ConnectionFactory.closeConnection(cn, stmt, rs);
+		}
 	}
 
 }

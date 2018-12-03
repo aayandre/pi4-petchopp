@@ -19,6 +19,7 @@ import com.senac.petchopp.model.produto.Produto;
 import com.senac.petchopp.model.produto.ProdutoService;
 import com.senac.petchopp.model.tipo.Tipo;
 import com.senac.petchopp.model.tipo.TipoService;
+import com.senac.petchopp.wos.FormularioProduto;
 
 @Controller
 @RequestMapping("produto")
@@ -29,24 +30,24 @@ public class ProdutoController {
 
 	// Create
 	@PostMapping("/new")
-	public ModelAndView novoProduto(@ModelAttribute("produto") Produto novo,
+	public ModelAndView novoProduto(@ModelAttribute("formularioProduto") FormularioProduto novo,
 			@RequestParam("arquivo") MultipartFile arquivo) {
 		String msg;
 		try {
-			if (novo.getIdProduto() != null) {
+			if (novo.getProduto().getIdProduto() != null) {
 				produtoService.updateProduto(novo);
 			} else {
 				produtoService.saveProduto(arquivo, novo);
 			}
 			msg = "Produto salvo com sucesso!";
-			return new ModelAndView("/dashboard/dashboard-produto").addObject("sucesso", msg)
-					.addObject("produto", produtoService.searchByCodigo(novo.getCodigo()));
+			novo.setProduto(produtoService.searchByCodigo(novo.getProduto().getCodigo()));
+			return new ModelAndView("redirect:/dash/novoproduto").addObject("sucesso", msg)
+					.addObject("formularioProduto", novo);
 		} catch (Exception e) {
-			// TODO Mostrar pagina de erro com uma menssagem personalizada
 			e.printStackTrace();
 			msg = "Erro ao salvar produto.";
-			return new ModelAndView("/dashboard/dashboard-produto").addObject("falha", msg)
-					.addObject("produto", novo);
+			return new ModelAndView("redirect:/dash/novoproduto").addObject("falha", msg).addObject("formularioProduto",
+					novo);
 		}
 	}
 
@@ -82,7 +83,7 @@ public class ProdutoController {
 	// Put(Update)
 	@PutMapping("/alterar/{codigo}")
 	public ModelAndView alterarProduto(@PathVariable("codigo") String codigo,
-			@ModelAttribute("produto") Produto alterado) {
+			@ModelAttribute("produto") FormularioProduto alterado) {
 		produtoService.updateProduto(alterado);
 		return new ModelAndView("redirect:/produto/" + codigo);
 	}

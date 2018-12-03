@@ -3,6 +3,7 @@
 
 <head>
     <div th:replace="padrao/general.html :: dash-head"></div>
+    <link rel="stylesheet" href="../../static/css/dash-produto.css" th:href="@{/css/dash-produto.css}">
     <title>Dash - Produto</title>
 </head>
 
@@ -26,106 +27,178 @@
                 <h4 th:if="${sucesso != null}" th:text="${sucesso}" class="msg-sucesso col-12 col-md-8 offset-md-2"></h4>
                 <h4 th:if="${falha != null}" th:text="${falha}" class="msg-falha col-12 col-md-8 offset-md-2"></h4>
 
-                <form class="col-12" th:action="@{/produto/new}" method="POST" th:object="${produto}" enctype="multipart/form-data">
+                <form class="col-12" th:action="@{/produto/new}" method="POST" th:object="${formularioProduto}" enctype="multipart/form-data">
 
                     <!-- Imagem -->
                     <div class="form-row mt-3">
-                        <label>Imagem do produto:</label>
+                        <label class="font-weight-bold">Imagem do produto:</label>
                         <input class="form-control col-12" type="file" name="arquivo" required>
                     </div>
 
-                    <fieldset class="form-row mt-3">
+                    <div class="form-row mt-3">
                         <!-- Codigo -->
                         <div class="col-6">
-                            <label>Codigo</label>
-                            <input class="form-control" type="text" th:field="*{Codigo}" required>
+                            <label class="font-weight-bold">Codigo</label>
+                            <input class="form-control" type="text" th:field="*{produto.Codigo}" required>
                         </div>
 
                         <!-- Nome -->
                         <div class="col-6">
-                            <label>Nome:</label>
-                            <input class="form-control" type="text" th:field="*{Nome}" required>
+                            <label class="font-weight-bold">Nome:</label>
+                            <input class="form-control" type="text" th:field="*{produto.Nome}" required>
                         </div>
-                    </fieldset>
+                    </div>
 
-                    <fieldset class="form-row">
-                        <!-- Peso -->
-                        <div class="col-3">
-                            <label>Peso:</label>
-                            <input class="form-control" type="number" step="0.01" min="0" th:field="*{Peso}" required>
-                        </div>
-
+                    <div class="form-row">
                         <!-- Preco -->
                         <div class="col">
-                            <label>Preço:</label>
-                            <input class="form-control" type="number" step="0.01" min="0" th:field="*{Preco}" required>
+                            <label class="font-weight-bold">Preço:</label>
+                            <input class="form-control" type="number" step="0.01" min="0" th:field="*{produto.Preco}"
+                                required>
                         </div>
 
                         <!-- Custo -->
                         <div class="col">
-                            <label>Custo:</label>
-                            <input class="form-control" type="number" step="0.01" min="0" th:field="*{Custo}" required>
+                            <label class="font-weight-bold">Custo:</label>
+                            <input class="form-control" type="number" step="0.01" min="0" th:field="*{produto.Custo}"
+                                required>
                         </div>
-                    </fieldset>
+
+                        <!-- Peso -->
+                        <div class="col-2">
+                            <label class="font-weight-bold">Peso:</label>
+                            <input class="form-control" type="number" step="0.01" min="0" th:field="*{produto.Peso}"
+                                required>
+                        </div>
+                    </div>
 
                     <!-- Descricao -->
                     <div class="form-row mt-3">
-                        <label for="descricaoprod">Descrição:</label>
-                        <textarea class="form-control col-12" rows="10" id="descricaoprod" th:field="*{Descricao}"
+                        <label class="font-weight-bold" for="descricaoprod">Descrição:</label>
+                        <textarea class="form-control col-12" rows="10" id="descricaoprod" th:field="*{produto.Descricao}"
                             required></textarea>
                     </div>
 
-                    <fieldset class="form-row mt-3">
+                    <div class="form-row mt-3">
                         <!-- Data Compra -->
-                        <div class="col">
-                            <label>Data Compra:</label>
-                            <input class="form-control" type="date" th:field="*{dtCompra}" required>
+                        <div class="col-sm-12 col-md-3">
+                            <label class="font-weight-bold" for="dataCompra">Data Compra:</label>
+                            <input class="form-control" id="dataCompra" type="date" th:field="*{produto.dtCompra}"
+                                required>
                         </div>
 
                         <!-- Validade -->
-                        <div class="col">
-                            <label>Validade:</label>
-                            <input class="form-control" type="date" th:field="*{dtValidade}" required>
+                        <div class="col-sm-12 col-md-3">
+                            <label class="font-weight-bold" for="dataValidade">Validade:</label>
+                            <input class="form-control" id="dataValidade" type="date" th:field="*{produto.dtValidade}"
+                                required>
                         </div>
-                    </fieldset>
 
-                    <fieldset class="form-row mt-3">
                         <!-- Disponibilidade -->
-                        <div class="form-group col mt-3">
+                        <div class="mt-3 mt-md-0 form-group col-sm-12 col-md-3">
+                            <div class="font-weight-bold">Disponibilidade</div>
                             <div class="form-check form-check-inline">
                                 <label class="form-check-label" for="radioD1">
                                     <input type="radio" class="form-check-input" id="radioD1" name="radioD1" value="1"
-                                        th:field="*{EmEstoque}" checked>
+                                        th:field="*{produto.EmEstoque}" checked>
                                     Disponível
                                 </label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <label class="form-check-label" for="radioD2">
                                     <input type="radio" class="form-check-input" id="radioD2" name="radioD2" value="0"
-                                        th:field="*{EmEstoque}">
+                                        th:field="*{produto.EmEstoque}">
                                     Indisponível
                                 </label>
                             </div>
                         </div>
 
                         <!-- Atividade -->
-                        <div class="form-group col mt-3">
+                        <div class="mt-3 mt-md-0 form-group col-sm-12 col-md-3">
+                            <div class="font-weight-bold">Em atividade</div>
                             <div class="form-check-inline">
                                 <label class="form-check-label" for="radioA1">
                                     <input type="radio" class="form-check-input" id="radioA1" name="radioA1" value="1"
-                                        th:field="*{Disable}" checked>
+                                        th:field="*{produto.Disable}" checked>
                                     Ativado
                                 </label>
                             </div>
                             <div class="form-check-inline">
                                 <label class="form-check-label" for="radioA2">
                                     <input type="radio" class="form-check-input" id="radioA2" name="radioA2" value="0"
-                                        th:field="*{Disable}">
+                                        th:field="*{produto.Disable}">
                                     Desativado
                                 </label>
                             </div>
                         </div>
-                    </fieldset>
+                    </div>
+
+                    <p class="mt-3 font-weight-bold">Tipos & Tags</p>
+                    <!-- Tipos e tags -->
+                    <div class="accordion form-group" id="accordionTipo">
+
+                        <div class="card" style="display: none">
+                            <div class="card-header" id="headingOne">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne"
+                                        aria-expanded="true" aria-controls="collapseOne">
+                                        Collapsible Group Item #1
+                                    </button>
+                                </h5>
+                            </div>
+
+                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                <div class="card-body">
+                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="card" th:each="tipoTag, stat1 : *{tipoTags}">
+
+                            <!-- Tipo -->
+                            <div class="card-header" th:id="${tipoTag.tipo.descricao + 'heading'}">
+                                <h5 class="mb-0">
+                                    <label class="form-check-label" th:for="${tipoTag.tipo.idTipo + tipoTag.tipo.descricao}"
+                                        data-toggle="collapse" aria-expanded="true" th:data-target="${'#' + tipoTag.tipo.descricao}"
+                                        th:aria-controls="${tipoTag.tipo.descricao}">
+
+                                        <input type="radio" class="form-check-input tipoTag" th:id="${tipoTag.tipo.idTipo + tipoTag.tipo.descricao}"
+                                            name="tipo" th:field="*{produto.idTipo}" th:value="${tipoTag.tipo.idTipo}"
+                                            required>
+                                        <span th:text="${tipoTag.tipo.nomeView}">Nome do Tipo</span>
+
+                                    </label>
+                                </h5>
+                            </div>
+
+                            <!-- Tags do tipo -->
+                            <div class="collapse" th:id="${tipoTag.tipo.descricao}" th:aria-labelledby="${tipoTag.tipo.descricao + 'heading'}"
+                                data-parent="#accordionTipo">
+
+                                <div class="card-body row">
+
+                                    <div class="form-check offset-xs-3 col-sm-8 offset-sm-2 col-md-3 offset-md-0 mr-2 mb-2 pl-4 tag-view"
+                                        th:each="tag, stat2 : *{tipoTags[__${stat1.index}__].tags}">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input" th:id="${tag.idTag}"
+                                                th:value="${tag.idTag}" th:field="*{tagRetorno[__${stat2.index}__].idTag}">
+                                            <span th:text="${tag.nomeView}">Nome da tag</span>
+                                        </label>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+
+                    </div>
+
 
                     <!-- Submit -->
                     <button type="submit" class="btn btn-primary col-4 mt-3">Enviar</button>
@@ -137,11 +210,12 @@
         <!-- ./row -->
 
     </div>
-    <!-- ./conteiner-fluid -->
+    <!-- ./container-fluid -->
 
     <!-- Footer -->
     <div th:replace="padrao/general.html :: dash-footer"></div>
     <script src="../../static/js/dash-home.js" th:src="@{/js/dash-home.js}"></script>
+    <script src="../../static/js/dash-produto.js" th:src="@{/js/dash-produto.js}"></script>
 
 
 </body>

@@ -1,5 +1,6 @@
 package com.senac.petchopp.model.produto;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,9 +8,12 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.senac.petchopp.daos.ProdutoDAO;
+import com.senac.petchopp.daos.TagDAO;
 import com.senac.petchopp.daos.TipoDAO;
 import com.senac.petchopp.model.Upload;
 import com.senac.petchopp.model.tag.Tag;
+import com.senac.petchopp.model.tipo.Tipo;
+import com.senac.petchopp.wos.FormularioProduto;
 import com.senac.petchopp.wos.FormularioSearch;
 import com.senac.petchopp.wos.HomeProdutos;
 
@@ -17,21 +21,24 @@ public class ProdutoService {
 
 	private ProdutoDAO produtoBanco = new ProdutoDAO();
 	private TipoDAO tipoBanco = new TipoDAO();
+	private TagDAO tagBanco = new TagDAO();
 
 	public ProdutoService() {
 	}
 
-	public void saveProduto(Object upload, Produto novo) throws Exception {
+	public void saveProduto(Object upload, FormularioProduto novo) throws SQLException {
 		MultipartFile arquivo = (MultipartFile) upload;
 		try {
 
 			// Salvando
-			Upload.salvar(arquivo);
-			novo.setUrlImagem(arquivo.getOriginalFilename());
+			novo.getProduto().setUrlImagem(arquivo.getOriginalFilename());
 			produtoBanco.salvar(novo);
+			
+			// Só faz o upload se salvar o produto no banco
+			Upload.salvar(arquivo);
 
-		} catch (SQLException e) {
-			throw new Exception("Erro ao salvar o produto. (ProdutoService)", e.getCause());
+		} catch (SQLException | IOException e) {
+			throw new SQLException("Erro ao salvar o produto. (ProdutoService)", e.getCause());
 		}
 	}
 
@@ -44,7 +51,7 @@ public class ProdutoService {
 		produtoBanco.deletar(codigo);
 	}
 
-	public void updateProduto(Produto alterado) {
+	public void updateProduto(FormularioProduto alterado) {
 		produtoBanco.atualizar(alterado);
 	}
 
@@ -101,4 +108,21 @@ public class ProdutoService {
 		}
 		return hps;
 	}
+
+	public FormularioProduto populaFormularioProduto() throws SQLException {
+		FormularioProduto formProd = new FormularioProduto();
+		try {
+			// Lista tipos
+			List<Tipo> tipos = tipoBanco.getAllTipos();
+			// Pega tags por tipo e add no form
+			for (Tipo tipo : tipos) {
+				formProd.addTipoTag(tagBanco.getAllTagsByTipos(tipo));
+			}
+			formProd.setProduto(new Produto());
+			return formProd;
+		} catch (SQLException e) {
+			throw new SQLException("Erro ao criar/popular o FormularioProduto.", e.getCause());
+		}
+	}
+
 }
