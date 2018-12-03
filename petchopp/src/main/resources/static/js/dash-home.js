@@ -1,9 +1,9 @@
 $(function () {
-
-    console.log('aqui');
-    
-
     // Watcher dos links da sidebar, muda a cor
+    if (!($('#li-activator').text() == "")) {
+        $('#' + $('#li-activator').text()).addClass('li-active');
+    }
+
     $('.nav-item').click(function () {
         $.each($('.nav-item'), function (indexInArray, valueOfElement) {
             $(valueOfElement).removeClass('li-active');
@@ -17,11 +17,4 @@ $(function () {
             $('#sidebar').removeClass('collapse');
         }
     });
-
-    if($('#pageTitleId') === null) {
-        let idLiNav = '#' + $(this).text();
-        $(idLiNav).addClass('li-active');
-    }
-    
-
 });

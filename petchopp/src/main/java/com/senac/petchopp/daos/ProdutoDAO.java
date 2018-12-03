@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,8 +78,8 @@ public class ProdutoDAO implements IDAO {
 			stmt.setString(2, alterado.getDescricao());
 			stmt.setDouble(3, alterado.getPreco());
 			stmt.setDouble(4, alterado.getCusto());
-			stmt.setTimestamp(5, (Timestamp) alterado.getDtCompra());
-			stmt.setTimestamp(6, (Timestamp) alterado.getDtValidade());
+			stmt.setTimestamp(5, new java.sql.Timestamp(alterado.getDtCompra().getTime()));
+			stmt.setTimestamp(6, new java.sql.Timestamp(alterado.getDtValidade().getTime()));
 			stmt.setString(7, alterado.getUrlImagem());
 			stmt.setBoolean(8, alterado.isEmEstoque());
 			stmt.setBoolean(9, alterado.isDisable());
@@ -428,4 +427,6 @@ public class ProdutoDAO implements IDAO {
 		}
 	}
 
+	
+	
 }
