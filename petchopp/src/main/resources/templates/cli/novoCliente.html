@@ -2,7 +2,7 @@
 <html lang="pt-br">
 
 <head th:include="padrao/general.html :: headfiles">
-	<link rel="stylesheet" href="../static/css/detalhe.css" th:href="@{/css/detalhe.css}">
+	<link rel="stylesheet" href="../../static/css/detalhe.css" th:href="@{/css/detalhe.css}">
 	<title th:text="${titulo}">Detalhes</title>
 </head>
 
@@ -185,8 +185,9 @@
 
 	<!-- Footer -->
 	<div th:replace="padrao/general.html :: footerfiles"></div>
-
+	<script src="../../static/js/jquery.mask.min.js" th:src="@{/js/jquery.mask.min.js}"></script>
 	<script src="../../static/js/busca-endereco.js" th:src="@{/js/busca-endereco.js}"></script>
+	<script src="../../static/js/cliente.js" th:src="@{/js/cliente.js}"></script>
 </body>
 
 </html>

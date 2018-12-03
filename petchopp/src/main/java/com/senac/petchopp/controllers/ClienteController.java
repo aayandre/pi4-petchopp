@@ -109,8 +109,9 @@ public class ClienteController {
     }
 
     @GetMapping("login")
-    public String loginCliente() {
-        return "cli/login";
+    public ModelAndView loginCliente() {
+        ModelAndView modelAndView = new ModelAndView("cli/login");
+        return modelAndView;
     }
 
     @PostMapping("logon")
@@ -123,7 +124,7 @@ public class ClienteController {
         if (cliente.isLogado()) {
             System.out.println("Cliente logado: " + cliente.getEmail());
             session.setAttribute("cliente", cliente);
-            return new ModelAndView("cli/cliente-index");
+            return new ModelAndView("index");
         }
 
         return new ModelAndView("cli/login");
@@ -142,8 +143,9 @@ public class ClienteController {
     
     @GetMapping("logoff")
     public ModelAndView logoffCliente(HttpSession session){
-        ModelAndView modelAndView = new ModelAndView("cli/login");
+        ModelAndView modelAndView = new ModelAndView("redirect:/");
         session.setAttribute("cliente", new Cliente());
+            session.invalidate();
         return modelAndView;
     }
     
@@ -156,4 +158,24 @@ public class ClienteController {
         
         return modelAndView;
     }
+    
+    @PostMapping("alterarsenha")
+    public ModelAndView alterPass(@RequestParam(value = "passNew") String novaSenha
+            ,@RequestParam(value = "passNewConf") String novaSenhaConf
+            ,HttpSession session){
+        ModelAndView modelAndView = new ModelAndView("redirect:minhaconta");
+        Cliente cli = (Cliente) session.getAttribute("cliente");
+            if(novaSenha.equals(novaSenhaConf)){
+                cli.setSenha(novaSenha);
+                clienteDAO.atualizarSenha(cli.getIdCliente(), cli.getSenha());
+                System.out.println("Entrando no alterar senha");
+                System.out.println(cli.getSenha());
+//                modelAndView.addObject("cliente", cli);
+            }else{
+                modelAndView.addObject("msg", "Senha inválida!");
+            }
+            
+        return modelAndView;
+    }
+    
 }
