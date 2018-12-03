@@ -123,7 +123,7 @@ public class ClienteController {
         if (cliente.isLogado()) {
             System.out.println("Cliente logado: " + cliente.getEmail());
             session.setAttribute("cliente", cliente);
-            return new ModelAndView("cli/cliente-index");
+            return new ModelAndView("index");
         }
 
         return new ModelAndView("cli/login");

@@ -98,8 +98,8 @@ public class ClienteDAO implements IDAO {
 			stmt.setLong(12, novo.getIdCliente());
 			stmt.execute();
 
-			EnderecoDAO ed = new EnderecoDAO();
-			ed.salvarEndereco(novo.getEnderecos(), novo.getIdCliente());
+//			EnderecoDAO ed = new EnderecoDAO();
+//			ed.salvarEndereco(novo.getEnderecos(), novo.getIdCliente());
 //			cn.commit();
 
 		} catch (SQLException e) {
