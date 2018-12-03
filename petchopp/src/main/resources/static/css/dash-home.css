@@ -68,6 +68,33 @@
     color: rgb(0, 123, 255);
 }
 
+.page-title {
+    color: white;
+    background-color: #007bff;
+    border-radius: 5px;
+    padding: 3px 15px 10px 20px;
+}
+
+.msg-sucesso {
+    border-width: 2px;
+    border-color: #00ff15;
+    border-style: dotted;
+    border-radius: 4px;
+    padding: 5px 10px;
+    background-color: #00ff004d;
+    color: green;
+}
+
+.msg-falha {
+    border-width: 2px;
+    border-color: #f00;
+    border-style: dotted;
+    border-radius: 4px;
+    padding: 5px 10px;
+    background-color: #ff00004d;
+    color: #b40808;
+}
+
 @media screen and (min-width: 577px) {
 
     .sidebar-burger {

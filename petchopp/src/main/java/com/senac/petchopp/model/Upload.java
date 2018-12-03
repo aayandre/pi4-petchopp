@@ -1,5 +1,7 @@
 package com.senac.petchopp.model;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -18,17 +20,21 @@ public class Upload {
 	public static void salvar(MultipartFile arquivo) throws IOException {
 		byte[] bytesArquivo;
 		try {
+			
 			bytesArquivo = arquivo.getBytes();
+			
 			caminhoDoProjeto = Paths.get(createWay(arquivo.getOriginalFilename()));
-			Files.write(caminhoDoProjeto, bytesArquivo);
+			
+			FileOutputStream fos = new FileOutputStream(caminhoDoProjeto.toString());
+			fos.write(bytesArquivo);
+			fos.close();
+			
 		} catch (IOException e) {
 			throw new IOException("Falha ao fazer o upload do arquivo.", e);
 		}
 	}
 
 	public static String createWay(String nomeDoArquivo) {
-		// texto seria o nome do arquivo
-		// texto seria o nome do arquivo
 		if (caminhoDoProjeto.toString().contains(windowsPadrao)) {
 			// Caso Windows
 			caminhoDoProjeto = Paths

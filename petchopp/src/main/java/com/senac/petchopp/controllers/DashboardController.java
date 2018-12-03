@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.senac.petchopp.model.cliente.Cliente;
+import com.senac.petchopp.model.produto.Produto;
 
 @Controller
 @RequestMapping("dash")
@@ -33,6 +34,12 @@ public class DashboardController {
 		} else {
 			return new ModelAndView("erro");
 		}
+	}
+
+	@RequestMapping("/novoproduto")
+	public ModelAndView novoProdutoForm() {
+		return new ModelAndView("/dashboard/dashboard-produto").addObject("liActivator", "liNewProdId")
+				.addObject("produto", new Produto());
 	}
 
 }

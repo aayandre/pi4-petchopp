@@ -31,13 +31,23 @@ public class ProdutoController {
 	@PostMapping("/new")
 	public ModelAndView novoProduto(@ModelAttribute("produto") Produto novo,
 			@RequestParam("arquivo") MultipartFile arquivo) {
+		String msg;
 		try {
-			produtoService.saveProduto(arquivo, novo);
+			if (novo.getIdProduto() != null) {
+				produtoService.updateProduto(novo);
+			} else {
+				produtoService.saveProduto(arquivo, novo);
+			}
+			msg = "Produto salvo com sucesso!";
+			return new ModelAndView("/dashboard/dashboard-produto").addObject("sucesso", msg)
+					.addObject("produto", produtoService.searchByCodigo(novo.getCodigo()));
 		} catch (Exception e) {
 			// TODO Mostrar pagina de erro com uma menssagem personalizada
 			e.printStackTrace();
+			msg = "Erro ao salvar produto.";
+			return new ModelAndView("/dashboard/dashboard-produto").addObject("falha", msg)
+					.addObject("produto", novo);
 		}
-		return new ModelAndView("produto/" + novo.getCodigo());
 	}
 
 	// Get (codigo)
@@ -88,8 +98,8 @@ public class ProdutoController {
 	public ModelAndView produtosDoTipo(@PathVariable("descricao") String descricao) {
 		try {
 			Tipo adiquirido = tipoService.getByDescricao(descricao);
-			return new ModelAndView("tipo").addObject("tipo", adiquirido)
-					.addObject("titulo", adiquirido.getDescricao());
+			return new ModelAndView("tipo").addObject("tipo", adiquirido).addObject("titulo",
+					adiquirido.getDescricao());
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

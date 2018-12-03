@@ -6,14 +6,14 @@ import java.util.Date;
 public class MovimentoEstoque {
 
     private int idMovimento;
-    private int idProduto;
+    private Long idProduto;
     private int quantidade;
     private Date Data;
     private Calendar dataCalendar;
     private int tipo;
     private int natureza;
 
-    public MovimentoEstoque(int idProduto, int quantidade, Date Data, int tipo, int natureza) {
+    public MovimentoEstoque(Long idProduto, int quantidade, Date Data, int tipo, int natureza) {
         this.idProduto = idProduto;
         this.quantidade = quantidade;
         this.Data = Data;
@@ -30,11 +30,11 @@ public class MovimentoEstoque {
         this.idMovimento = idMovimento;
     }
 
-    public int getIdProduto() {
+    public Long getIdProduto() {
         return idProduto;
     }
 
-    public void setIdProduto(int idProduto) {
+    public void setIdProduto(Long idProduto) {
         this.idProduto = idProduto;
     }
 

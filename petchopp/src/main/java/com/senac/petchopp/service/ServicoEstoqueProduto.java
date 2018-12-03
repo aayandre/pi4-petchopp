@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 public class ServicoEstoqueProduto {
 
     //Esse metodo irá checar se é nessário chamar o cadastro ou atualização de estoque.
-    public static void AtualizarEstoque(EstoqueProduto estoqueProduto) {
+    public void AtualizarEstoque(EstoqueProduto estoqueProduto) {
         //Deverá conter validações para que não seja permitido realizar uma transação inválida (estoque negativo).
         try {
             if (estoqueProduto.possuiCadastroEstoque()) {
@@ -26,11 +26,11 @@ public class ServicoEstoqueProduto {
             }
 
             //Após atualizar o estoque, chamar o serviço para armazenar a movimentação.
-            Date dataAtual = Calendar.getInstance().getTime();
+            //Date dataAtual = Calendar.getInstance().getTime();
             MovimentoEstoque movimentoEstoque = new MovimentoEstoque(
                     estoqueProduto.getIdProduto(),
-                    estoqueProduto.getQuantidade(),
-                    dataAtual,
+                    estoqueProduto.getQuantidadeMovimento(),
+                    new Date(),
                     1, //Falta definir 
                     1);//Falta definir
             ServicoMovimentoEstoque.CadastrarMovimentoEstoque(movimentoEstoque);
@@ -39,7 +39,7 @@ public class ServicoEstoqueProduto {
         }
     }
 
-    public static void AtualizarEstoqueVenda(EstoqueProduto estoqueProduto) {
+    public void AtualizarEstoqueVenda(EstoqueProduto estoqueProduto) {
         //Deverá conter validações para que não seja permitido realizar uma transação inválida (estoque negativo).
         try {
             if (estoqueProduto.possuiCadastroEstoque()) {
@@ -62,7 +62,7 @@ public class ServicoEstoqueProduto {
         }
     }
 
-    public static List<EstoqueProduto> ListarEstoquePorIdsProduto(List<ProdutoVenda> produtos) {
+    public List<EstoqueProduto> ListarEstoquePorIdsProduto(List<ProdutoVenda> produtos) {
 
         long[] idsProdutos = new long[produtos.size()];
         List<EstoqueProduto> listaAtual = new ArrayList<>();
@@ -81,7 +81,7 @@ public class ServicoEstoqueProduto {
         return listaAtual;
     }
 
-    public static void listarEstoque(Integer id_produto) {
+    public void listarEstoque(Long id_produto) {
 
         try {
             EstoqueProdutoDAO.ListarEstoque(id_produto);
@@ -90,7 +90,7 @@ public class ServicoEstoqueProduto {
         }
     }
 
-    public static int ObtemQuantidadeByIdProduto(int idproduto)
+    public int ObtemQuantidadeByIdProduto(Long idproduto)
             throws EstoqueException {
 
         try {
@@ -98,5 +98,27 @@ public class ServicoEstoqueProduto {
         } catch (SQLException ex) {
             throw new EstoqueException("Erro ao obter a quantidade.(ServicoEstoqueProduto)", ex.getCause());
         }
+    }
+    
+    public String validaQtdeEstoquePedido(List<EstoqueProduto> estoqueProdutos, ArrayList<ProdutoVenda> produtosVenda){
+        
+        try {
+            for (ProdutoVenda produtoVenda : produtosVenda) {
+                for (EstoqueProduto estoqueProduto : estoqueProdutos) {
+                    if (produtoVenda.getIdProduto() == estoqueProduto.getIdProduto()){
+                        if (produtoVenda.getQuantidade() > estoqueProduto.getQuantidade()){
+                            return "Quantidade insuficiente em estoque para o item '" + produtoVenda.getNome() + "'";
+                        }else{
+                            //Atualizando a quantidade do estoque no objeto
+                            estoqueProduto.setQuantidade(estoqueProduto.getQuantidade() - produtoVenda.getQuantidade());
+                            estoqueProduto.setQuantidadeMovimento(produtoVenda.getQuantidade());
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+        }
+        
+        return null;
     }
 }

@@ -10,7 +10,6 @@ import com.senac.petchopp.daos.ProdutoDAO;
 import com.senac.petchopp.daos.TipoDAO;
 import com.senac.petchopp.model.Upload;
 import com.senac.petchopp.model.tag.Tag;
-import com.senac.petchopp.model.tipo.Tipo;
 import com.senac.petchopp.wos.FormularioSearch;
 import com.senac.petchopp.wos.HomeProdutos;
 
@@ -25,15 +24,12 @@ public class ProdutoService {
 	public void saveProduto(Object upload, Produto novo) throws Exception {
 		MultipartFile arquivo = (MultipartFile) upload;
 		try {
-			// Arrumando a data
-//			Calendar cal = Calendar.getInstance();
-//			cal.setTime(novo.getDtCompra());
-//			novo.setDtCompra(cal.getTime());
 
 			// Salvando
 			Upload.salvar(arquivo);
 			novo.setUrlImagem(arquivo.getOriginalFilename());
 			produtoBanco.salvar(novo);
+
 		} catch (SQLException e) {
 			throw new Exception("Erro ao salvar o produto. (ProdutoService)", e.getCause());
 		}
@@ -94,14 +90,10 @@ public class ProdutoService {
 	public List<HomeProdutos> getSomeProdutos() throws SQLException {
 		int[] tiposIds = { 6, 10 };
 		// String[] tiposDescricao = {"nome1", "nome2"};
-		
-		Tipo tipo = new Tipo();
-		List<Produto> produtos = new ArrayList<>();
+
 		List<HomeProdutos> hps = new ArrayList<>();
 
 		for (int i : tiposIds) {
-//			tipo = tipoBanco.getTipoByID(i);
-//			produtos = produtoBanco.getByTipo(i);
 			HomeProdutos hp = new HomeProdutos();
 			hp.setTipo(tipoBanco.getTipoByID(i));
 			hp.setProdutos(produtoBanco.getByTipo(i));

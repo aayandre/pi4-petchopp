@@ -14,18 +14,123 @@
     <!-- Page Content -->
     <div class="container-fluid sidebar-margin">
 
+        <div style="display: none" id="li-activator" th:text="${liActivator}"></div>
+
         <div class="row burger" data-toggle="collapse" data-target="#sidebar"><i class="fas fa-bars"></i></div>
 
         <div class="row">
 
-            <div class="col-12">
-                <div class="align-self-center text-center mt-5 pt-5">
-                    <div class="pt-3">
-                        <h1>Olá, <span th:text=${admin.nome}>Nome do administrador</span></h1>
-                        <!-- <h1>Olá, <span>Nome do administrador</span></h1> -->
+            <div class="col-12 p-5 row">
+
+                <h2 class="page-title col-12">Novo produto</h2>
+                <h4 th:if="${sucesso != null}" th:text="${sucesso}" class="msg-sucesso col-12 col-md-8 offset-md-2"></h4>
+                <h4 th:if="${falha != null}" th:text="${falha}" class="msg-falha col-12 col-md-8 offset-md-2"></h4>
+
+                <form class="col-12" th:action="@{/produto/new}" method="POST" th:object="${produto}" enctype="multipart/form-data">
+
+                    <!-- Imagem -->
+                    <div class="form-row mt-3">
+                        <label>Imagem do produto:</label>
+                        <input class="form-control col-12" type="file" name="arquivo" required>
                     </div>
-                    <h2 class="aviso mt-5">Você está na área de admistração da aplicação.</h2>
-                </div>
+
+                    <fieldset class="form-row mt-3">
+                        <!-- Codigo -->
+                        <div class="col-6">
+                            <label>Codigo</label>
+                            <input class="form-control" type="text" th:field="*{Codigo}" required>
+                        </div>
+
+                        <!-- Nome -->
+                        <div class="col-6">
+                            <label>Nome:</label>
+                            <input class="form-control" type="text" th:field="*{Nome}" required>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="form-row">
+                        <!-- Peso -->
+                        <div class="col-3">
+                            <label>Peso:</label>
+                            <input class="form-control" type="number" step="0.01" min="0" th:field="*{Peso}" required>
+                        </div>
+
+                        <!-- Preco -->
+                        <div class="col">
+                            <label>Preço:</label>
+                            <input class="form-control" type="number" step="0.01" min="0" th:field="*{Preco}" required>
+                        </div>
+
+                        <!-- Custo -->
+                        <div class="col">
+                            <label>Custo:</label>
+                            <input class="form-control" type="number" step="0.01" min="0" th:field="*{Custo}" required>
+                        </div>
+                    </fieldset>
+
+                    <!-- Descricao -->
+                    <div class="form-row mt-3">
+                        <label for="descricaoprod">Descrição:</label>
+                        <textarea class="form-control col-12" rows="10" id="descricaoprod" th:field="*{Descricao}"
+                            required></textarea>
+                    </div>
+
+                    <fieldset class="form-row mt-3">
+                        <!-- Data Compra -->
+                        <div class="col">
+                            <label>Data Compra:</label>
+                            <input class="form-control" type="date" th:field="*{dtCompra}" required>
+                        </div>
+
+                        <!-- Validade -->
+                        <div class="col">
+                            <label>Validade:</label>
+                            <input class="form-control" type="date" th:field="*{dtValidade}" required>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="form-row mt-3">
+                        <!-- Disponibilidade -->
+                        <div class="form-group col mt-3">
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label" for="radioD1">
+                                    <input type="radio" class="form-check-input" id="radioD1" name="radioD1" value="1"
+                                        th:field="*{EmEstoque}" checked>
+                                    Disponível
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label" for="radioD2">
+                                    <input type="radio" class="form-check-input" id="radioD2" name="radioD2" value="0"
+                                        th:field="*{EmEstoque}">
+                                    Indisponível
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Atividade -->
+                        <div class="form-group col mt-3">
+                            <div class="form-check-inline">
+                                <label class="form-check-label" for="radioA1">
+                                    <input type="radio" class="form-check-input" id="radioA1" name="radioA1" value="1"
+                                        th:field="*{Disable}" checked>
+                                    Ativado
+                                </label>
+                            </div>
+                            <div class="form-check-inline">
+                                <label class="form-check-label" for="radioA2">
+                                    <input type="radio" class="form-check-input" id="radioA2" name="radioA2" value="0"
+                                        th:field="*{Disable}">
+                                    Desativado
+                                </label>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- Submit -->
+                    <button type="submit" class="btn btn-primary col-4 mt-3">Enviar</button>
+
+                </form>
             </div>
 
         </div>

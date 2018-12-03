@@ -14,17 +14,17 @@ import java.util.List;
 public class EstoqueProdutoDAO {
 
     //Metodo para verificar se já existe uma linha no banco para o produto + pessoa informado no objeto.
-    public static boolean PossuiCadastroEstoque(int id_produto) {
+    public static boolean PossuiCadastroEstoque(Long id_produto) {
         ResultSet rs = null;
         PreparedStatement stmt = null;
         
-        String sql = "SELECT idProduto FROM estoqueProduto WHERE idProduto = ?";
+        String sql = "SELECT idProduto FROM Estoque WHERE idProduto = ?";
         
         Connection cn = ConnectionFactory.getConnection();
         
         try {
             stmt = cn.prepareStatement(sql);
-            stmt.setInt(1, id_produto);
+            stmt.setLong(1, id_produto);
             
             rs = stmt.executeQuery();
             
@@ -41,14 +41,14 @@ public class EstoqueProdutoDAO {
     public static void CadastrarEstoque(EstoqueProduto estoqueProduto) {
         PreparedStatement stmt = null;
         
-        String sql = "INSERT INTO estoque (idProduto, quantidade) VALUES (?, ?)";
+        String sql = "INSERT INTO Estoque (idProduto, quantidade) VALUES (?, ?)";
         
         Connection cn = ConnectionFactory.getConnection();
         
         try {
             stmt = cn.prepareStatement(sql);
             
-            stmt.setInt(1, estoqueProduto.getIdProduto());
+            stmt.setLong(1, estoqueProduto.getIdProduto());
             stmt.setInt(2, estoqueProduto.getQuantidade());
             stmt.execute();
             
@@ -67,7 +67,7 @@ public class EstoqueProdutoDAO {
         
         List<EstoqueProduto> lista = new ArrayList<>();
         
-        String sql = "SELECT * FROM estoque WHERE (";
+        String sql = "SELECT * FROM Estoque WHERE (";
         
         int counter = 0;
         for (long i : idsProduto) {
@@ -90,7 +90,7 @@ public class EstoqueProdutoDAO {
             
             while (rs.next()) {
                 EstoqueProduto estoqueProduto = new EstoqueProduto(
-                        rs.getInt("idProduto"),
+                        rs.getLong("idProduto"),
                         rs.getInt("Quantidade"));
                 
                 lista.add(estoqueProduto);
@@ -108,7 +108,7 @@ public class EstoqueProdutoDAO {
     public static void AtualizarEstoque(EstoqueProduto estoqueProduto) {
         PreparedStatement stmt = null;
         
-        String sql = "UPDATE estoque SET idProduto = ?, Quantidade = ? "
+        String sql = "UPDATE Estoque SET idProduto = ?, Quantidade = ? "
                 + "WHERE idProduto = ?;";
 
         Connection cn = ConnectionFactory.getConnection();
@@ -116,10 +116,10 @@ public class EstoqueProdutoDAO {
         try {
             stmt = cn.prepareStatement(sql);
             
-            stmt.setInt(1, estoqueProduto.getIdProduto());
+            stmt.setLong(1, estoqueProduto.getIdProduto());
             stmt.setInt(2, estoqueProduto.getQuantidade());
             //WHERE
-            stmt.setInt(3, estoqueProduto.getIdProduto());
+            stmt.setLong(3, estoqueProduto.getIdProduto());
             stmt.execute();
             
         } catch (Exception e) {
@@ -130,22 +130,22 @@ public class EstoqueProdutoDAO {
     }
 
     // Poderá ser listado estoque por: item ou empresa
-    public static List<EstoqueProdutoRelatorio> ListarEstoque(Integer id_produto) {
+    public static List<EstoqueProdutoRelatorio> ListarEstoque(Long id_produto) {
         ResultSet rs = null;
         PreparedStatement stmt = null;
         String[] strWhere = new String[2];
         String sql = "";
         List<EstoqueProdutoRelatorio> listaEstoqueProduto = new ArrayList<>();
         
-        if (id_produto != null) {
-            strWhere[0] = "estoque.idProduto = " + id_produto;
+        if (id_produto != 0) {
+            strWhere[0] = "Estoque.idProduto = " + id_produto;
         }
         
         if (strWhere[0] != null) {
-            sql = "SELECT * FROM estoque INNER JOIN produto ON produto.idProduto = estoque.idProduto "
+            sql = "SELECT * FROM Estoque INNER JOIN produto ON produto.idProduto = estoque.idProduto "
                     + "WHERE " + AuxiliaresDAO.ligaVetorAND(strWhere);
         } else {
-            sql = "SELECT * FROM estoque INNER JOIN produto ON produto.idProduto = estoque.idProduto";
+            sql = "SELECT * FROM Estoque INNER JOIN produto ON produto.idProduto = estoque.idProduto";
         }
         
         Connection cn = ConnectionFactory.getConnection();
@@ -156,7 +156,7 @@ public class EstoqueProdutoDAO {
             
             while (rs.next()) {
                 EstoqueProdutoRelatorio estoqueProduto = new EstoqueProdutoRelatorio(
-                        rs.getInt("idProduto"),
+                        rs.getLong("idProduto"),
                         rs.getInt("quantidade"),
                         rs.getDouble("preco"),
                         rs.getString("nome"));
@@ -171,25 +171,28 @@ public class EstoqueProdutoDAO {
         return listaEstoqueProduto;
     }
 
-    public static int getQuantidadeByIdProduto(int idproduto)
+    public static int getQuantidadeByIdProduto(Long idproduto)
             throws SQLException {
         ResultSet rs = null;
         PreparedStatement stmt = null;
 
-        String sql = "SELECT * FROM estoque WHERE idProduto = ?";
+        String sql = "SELECT * FROM Estoque WHERE idProduto = ?";
 
         Connection cn = ConnectionFactory.getConnection();
 
         try {
             stmt = cn.prepareStatement(sql);
 
-            stmt.setInt(1, idproduto);
+            stmt.setLong(1, idproduto);
 
             rs = stmt.executeQuery();
 
-            rs.next();
-
-            return rs.getInt("Quantidade");
+            if (rs.next()){
+                return rs.getInt("Quantidade");
+            }else{
+                return 0;
+            }
+            
 
         } catch (SQLException e) {
             throw new SQLException("Erro ao obter quantidade do produto em estoque por id do produto.(EstoqueProdutoDAO)", e.getCause());
