@@ -32,6 +32,10 @@ public class ProdutoService {
 
 			// Salvando
 			novo.getProduto().setUrlImagem(arquivo.getOriginalFilename());
+			// Validação de quantidade do produto em estoque
+			if(novo.getQuantidadeEstoque() <= 0) {
+				novo.setQuantidadeEstoque(1);
+			}
 			produtoBanco.salvar(novo);
 
 			// Só faz o upload se salvar o produto no banco
@@ -52,6 +56,10 @@ public class ProdutoService {
 	}
 
 	public void updateProduto(FormularioProduto alterado) {
+		// Validação de quantidade do produto em estoque
+		if(alterado.getQuantidadeEstoque() <= 0) {
+			alterado.setQuantidadeEstoque(1);
+		}
 		produtoBanco.atualizar(alterado);
 	}
 

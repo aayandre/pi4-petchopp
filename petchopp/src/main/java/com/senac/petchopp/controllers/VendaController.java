@@ -16,12 +16,10 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.senac.petchopp.daos.ProdutoDAO;
 import com.senac.petchopp.daos.VendaDAO;
 import com.senac.petchopp.exception.EstoqueException;
 import com.senac.petchopp.model.cliente.Cliente;
 import com.senac.petchopp.model.estoqueProduto.EstoqueProduto;
-import com.senac.petchopp.model.produto.Produto;
 import com.senac.petchopp.model.produto.ProdutoService;
 import com.senac.petchopp.model.produto.ProdutoVenda;
 import com.senac.petchopp.model.tipo.Tipo;
@@ -34,24 +32,11 @@ import com.senac.petchopp.service.ServicoEstoqueProduto;
 public class VendaController {
 
 	private VendaDAO vendaBanco = new VendaDAO();
-	private ProdutoDAO produtoBanco = new ProdutoDAO();
 	private ProdutoService produtoService = new ProdutoService();
-
-//	@GetMapping("")
-//	public ModelAndView carrinho(@ModelAttribute("carrinho") Carrinho carrinho) {
-//		carrinho.setProdutos(new ProdutoDAO().testeCarrinho(3));
-//		return new ModelAndView("cart").addObject("carrinho", carrinho);
-//	}
 
 	@RequestMapping("formulario")
 	public ModelAndView formVenda(@ModelAttribute("venda") Venda venda, @ModelAttribute("cliente") Cliente cliente) {
-		/*
-		 * TODO pegar o codigo do cliente que deve estar na session e utiliza-lo para
-		 * pegar: endereço ou informaçoes de pagto salvas
-		 */
-//		Object msgS = session.getAttribute("teste");
-//		model.addAttribute("teste", msgS);
-		// System.out.println(carrinho);
+		
 		System.out.println(cliente.getNome());
 
 		if (!cliente.isLogado()) {
@@ -113,8 +98,8 @@ public class VendaController {
 	public ModelAndView addProdutoCart(@PathVariable("codigo") String codigo, @ModelAttribute("venda") Venda venda) {
 
 		try {
-			venda.getCarrinho().setProdutos(
-					produtoService.addProdutoNoCarrinho(codigo, venda.getCarrinho().getProdutos()));
+			venda.getCarrinho()
+					.setProdutos(produtoService.addProdutoNoCarrinho(codigo, venda.getCarrinho().getProdutos()));
 			return new ModelAndView("redirect:/cart").addObject("venda", venda);
 
 		} catch (Exception e) {

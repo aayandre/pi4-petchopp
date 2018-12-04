@@ -10,6 +10,7 @@ import com.senac.petchopp.model.tipo.TipoTag;
 public class FormularioProduto {
 
 	private Produto produto;
+	private Integer quantidadeEstoque;
 	private List<Tag> tagRetorno = new ArrayList<>();
 	private List<TipoTag> tipoTags = new ArrayList<>();
 
@@ -17,9 +18,10 @@ public class FormularioProduto {
 		super();
 	}
 
-	public FormularioProduto(Produto produto, List<Tag> tagRetorno, List<TipoTag> tipoTags) {
+	public FormularioProduto(Produto produto, Integer quantidadeEstoque, List<Tag> tagRetorno, List<TipoTag> tipoTags) {
 		super();
 		this.produto = produto;
+		this.quantidadeEstoque = quantidadeEstoque;
 		this.tagRetorno = tagRetorno;
 		this.tipoTags = tipoTags;
 	}
@@ -34,6 +36,14 @@ public class FormularioProduto {
 
 	public void setProduto(Produto produto) {
 		this.produto = produto;
+	}
+
+	public Integer getQuantidadeEstoque() {
+		return quantidadeEstoque;
+	}
+
+	public void setQuantidadeEstoque(Integer quantidadeEstoque) {
+		this.quantidadeEstoque = quantidadeEstoque;
 	}
 
 	public List<Tag> getTagRetorno() {
@@ -54,7 +64,8 @@ public class FormularioProduto {
 
 	@Override
 	public String toString() {
-		return "FormularioProduto [produto=" + produto + ", tagRetorno=" + tagRetorno + ", tipoTags=" + tipoTags + "]";
+		return "FormularioProduto [produto=" + produto + ", quantidadeEstoque=" + quantidadeEstoque + ", tagRetorno="
+				+ tagRetorno + ", tipoTags=" + tipoTags + "]";
 	}
 
 }

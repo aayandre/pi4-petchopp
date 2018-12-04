@@ -52,6 +52,10 @@ body {
     }
 }
 
+.card {
+    box-shadow: 0px 0px 10px 0px #8080806b;
+}
+
 .card-text {
     min-height: 4.2em;
     max-height: 4.2em;
@@ -60,12 +64,21 @@ body {
 }
 
 .card-img-top {
-    max-width: 100px !important;
-    max-height: 100px !important;
-    width: auto !important;
-    height: auto !important;
+    height: 34vh !important;
+    padding: 10% !important;
 }
 
+.produto-grupos {
+    box-shadow: 0px 0px 1px 0px #007bff4d;
+    padding: 15px;
+    background-color: #f3f3f3;
+    border-radius: 50px;
+}
+
+.produto-grupos-titulo {
+    text-shadow: 1px 1px 1px #80808087;
+    color: #007bff;
+}
 /*  Cliente */
 
 .icon-user {
@@ -81,34 +94,41 @@ body {
     font-style: bold;
 }
 
-.pass_show{position: relative} 
+.pass_show {
+    position: relative
+}
 
-.pass_show .ptxt { 
+.pass_show .ptxt {
 
-position: absolute; 
+    position: absolute;
 
-top: 50%; 
+    top: 50%;
 
-right: 10px; 
+    right: 10px;
 
-z-index: 0; 
+    z-index: 0;
 
-color: #f36c01; 
+    color: #f36c01;
 
-margin-top: -10px; 
+    margin-top: -10px;
 
-cursor: pointer; 
+    cursor: pointer;
 
-transition: .3s ease all; 
+    transition: .3s ease all;
 
-} 
+}
 
-.pass_show .ptxt:hover{color: #333333;}
-.vertical-line{
+.pass_show .ptxt:hover {
+    color: #333333;
+}
+
+.vertical-line {
     border-right: 2px solid lightgray;
     height: 40%;
 }
-.btn-cliente{
+
+.btn-cliente {
     width: 10em;
 }
+
 /*  cliente */

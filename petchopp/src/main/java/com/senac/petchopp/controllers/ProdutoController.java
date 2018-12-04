@@ -1,6 +1,7 @@
 package com.senac.petchopp.controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,7 +28,7 @@ public class ProdutoController {
 	// Create
 	@PostMapping("/new")
 	public ModelAndView novoProduto(@ModelAttribute("formularioProduto") FormularioProduto novo,
-			@RequestParam("arquivo") MultipartFile arquivo) {
+			@RequestParam("arquivo") MultipartFile arquivo, ModelMap model) {
 		String msg;
 		try {
 			if (novo.getProduto().getIdProduto() != null) {
@@ -37,13 +38,17 @@ public class ProdutoController {
 			}
 			msg = "Produto salvo com sucesso!";
 			novo.setProduto(produtoService.searchByCodigo(novo.getProduto().getCodigo()));
-			return new ModelAndView("redirect:/dash/novoproduto").addObject("sucesso", msg)
-					.addObject("formularioProduto", novo);
+
+			model.addAttribute("sucesso", msg);
+			model.addAttribute("formularioProduto", novo);
+			return new ModelAndView("redirect:/dash/novoproduto", model);
 		} catch (Exception e) {
 			e.printStackTrace();
 			msg = "Erro ao salvar produto.";
-			return new ModelAndView("redirect:/dash/novoproduto").addObject("falha", msg)
-					.addObject("formularioProduto", novo);
+
+			model.addAttribute("falha", msg);
+			model.addAttribute("formularioProduto", novo);
+			return new ModelAndView("redirect:/dash/novoproduto", model);
 		}
 	}
 
@@ -68,8 +73,8 @@ public class ProdutoController {
 		try {
 			// Os produtos são obtidos pelo JAVASCRIPT no caminho do /produtorest
 			Tipo adiquirido = tipoService.getByDescricao(descricao);
-			return new ModelAndView("tipo").addObject("tipo", adiquirido).addObject("titulo",
-					adiquirido.getDescricao()).addObject("titulo", adiquirido.getNomeView());
+			return new ModelAndView("tipo").addObject("tipo", adiquirido).addObject("titulo", adiquirido.getNomeView())
+					.addObject("titulo", adiquirido.getNomeView());
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

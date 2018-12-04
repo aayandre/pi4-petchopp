@@ -9,6 +9,7 @@
 .produto-info {
     border: 0.5px solid #80808059;
     border-radius: 4px;
+    box-shadow: 0px 0px 10px 0px #8080806b;
 }
 
 .btn-detalhes {

@@ -41,7 +41,7 @@ $(function () {
         let templateDiv = $('#homeProdsTemplate').clone();
         templateDiv.attr('style', 'display: visible');
 
-        templateDiv.find('#tipoTitulo').text(tipo.descricao)
+        templateDiv.find('#tipoTitulo').text(tipo.nomeView)
         // templateDiv.find('#tipoTitulo').attr('style', 'display: visible');
 
         $.each(produtos, function (i, produto) {

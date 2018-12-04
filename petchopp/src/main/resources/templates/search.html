@@ -1,25 +1,8 @@
 <!doctype html>
 <html lang="pt-br">
-
-<head th:insert="padrao/general.html :: headfiles">
-   <!-- Para fazer funcionar sem rodar a aplicacao -->
-   <div th:if="false">
-      <!-- Required meta tags -->
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-      <link rel="stylesheet" href="../static/css/main.css" th:href="@{/css/main.css}">
-      <!-- Bootstrap CSS -->
-      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css"
-         data-integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous"
-         th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css}">
-
-      <!-- Font Awesome -->
-      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" data-integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
-         crossorigin="anonymous" th:href="@{https://use.fontawesome.com/releases/v5.3.1/css/all.css}">
-   </div>
+<head>
+   <div th:insert="padrao/general.html :: headfiles"></div>
    <link rel="stylesheet" href="../static/css/search.css" th:href="@{/css/search.css}">
-   
 </head>
 
 <body>
@@ -99,9 +82,9 @@
                <!-- Resultados e tabela de filtros -->
                <div class="col-12">
 
-                  <div class="col-lg-3 col-md-6 mb-4" id="produtoTemplate" style="display: none">
+                  <div class="col-10 offset-1 col-sm-8 offset-sm-2 col-lg-3 offset-md-0 col-md-6 mb-4" id="produtoTemplate" style="display: none">
                      <div class="card">
-                        <img class="card-img-top">
+                        <img class="card-img-top img-fluid">
                         <div class="card-body">
                            <h4 class="card-title">Card title</h4>
                            <p class="card-text">Card text</p>

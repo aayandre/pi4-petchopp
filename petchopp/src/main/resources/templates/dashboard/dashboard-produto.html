@@ -4,7 +4,7 @@
 <head>
     <div th:replace="padrao/general.html :: dash-head"></div>
     <link rel="stylesheet" href="../../static/css/dash-produto.css" th:href="@{/css/dash-produto.css}">
-    </head>
+</head>
 
 <body>
 
@@ -44,30 +44,37 @@
                         <!-- Nome -->
                         <div class="col-6">
                             <label class="font-weight-bold">Nome:</label>
-                            <input class="form-control" type="text" th:field="*{produto.Nome}" required>
+                            <input class="form-control" type="text" th:field="*{produto.Nome}" placeholder="Nome do produto"
+                                required>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <!-- Preco -->
-                        <div class="col">
+                        <div class="col-sm-6 col-md-3 mt-2">
                             <label class="font-weight-bold">Preço:</label>
                             <input class="form-control" type="number" step="0.01" min="0" th:field="*{produto.Preco}"
-                                required>
+                                placeholder="Preço de venda do produto" required>
                         </div>
 
                         <!-- Custo -->
-                        <div class="col">
+                        <div class="col-sm-6 col-md-3 mt-2">
                             <label class="font-weight-bold">Custo:</label>
                             <input class="form-control" type="number" step="0.01" min="0" th:field="*{produto.Custo}"
-                                required>
+                                placeholder="Custo unitário de produto" required>
                         </div>
 
                         <!-- Peso -->
-                        <div class="col-2">
+                        <div class="col-sm-6 col-md-3 mt-2">
                             <label class="font-weight-bold">Peso:</label>
                             <input class="form-control" type="number" step="0.01" min="0" th:field="*{produto.Peso}"
-                                required>
+                                placeholder="Peso do produto em quilos(Kg)" required>
+                        </div>
+                        <!-- Quantidade em Estoque -->
+                        <div class="col-sm-6 col-md-3 mt-2">
+                            <label class="font-weight-bold" for="quantidadeEstoque">Em Estoque:</label>
+                            <input class="form-control" id="quantidadeEstoque" type="number" min="1" th:field="*{quantidadeEstoque}"
+                                placeholder="Quantidade em estoque" required>
                         </div>
                     </div>
 

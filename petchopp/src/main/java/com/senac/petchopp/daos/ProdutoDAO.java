@@ -12,7 +12,6 @@ import com.senac.petchopp.connection.ConnectionFactory;
 import com.senac.petchopp.interfaces.IDAO;
 import com.senac.petchopp.model.produto.Produto;
 import com.senac.petchopp.model.tag.Tag;
-import com.senac.petchopp.model.tipo.TipoTag;
 import com.senac.petchopp.wos.FormularioProduto;
 
 public class ProdutoDAO implements IDAO {
@@ -30,7 +29,10 @@ public class ProdutoDAO implements IDAO {
 
 		String tagsSql = "INSERT INTO ProdutoTags (idProduto, idTags) VALUES(?, ?)";
 
+		String estoque = "INSERT INTO Estoque (idProduto, Quantidade) VALUES (?, ?)";
+
 		PreparedStatement stmt = null;
+		ResultSet rs = null;
 
 		cn = ConnectionFactory.getConnection();
 
@@ -56,12 +58,11 @@ public class ProdutoDAO implements IDAO {
 			stmt.setBoolean(12, novo.getProduto().isDisable());
 
 			stmt.execute();
-			ResultSet rs = stmt.getGeneratedKeys();
-			stmt.close();
+			rs = stmt.getGeneratedKeys();
 
 			// Tags insert
 			stmt = cn.prepareStatement(tagsSql);
-			
+
 			rs.next();
 			stmt.setLong(1, rs.getLong(1));
 			for (Tag tag : novo.getTagRetorno()) {
@@ -71,10 +72,16 @@ public class ProdutoDAO implements IDAO {
 				}
 			}
 
+			// Estoque insert
+			stmt = cn.prepareStatement(estoque);
+			stmt.setLong(1, rs.getLong(1));
+			stmt.setInt(2, novo.getQuantidadeEstoque());
+			stmt.execute();
+
 		} catch (SQLException e) {
 			throw new SQLException("Erro ao salvar o objeto no banco.", e);
 		} finally {
-			ConnectionFactory.closeConnection(cn, stmt);
+			ConnectionFactory.closeConnection(cn, stmt, rs);
 		}
 
 	}
@@ -82,33 +89,58 @@ public class ProdutoDAO implements IDAO {
 	@Override
 	public void atualizar(Object bean) {
 
-		String sql = "UPDATE Produto "
-				+ "SET Nome = ?, Descricao = ?, Peso = ?, Preco = ?, Custo = ?, dtCompra = ?, dtValidade = ?, urlImagem = ?, emEstoque = ?, Disable = ? "
-				+ "WHERE Codigo = ?";
+		String produtoSql = "UPDATE Produto "
+				+ "SET Nome = ?, Descricao = ?, Peso = ?, Preco = ?, Custo = ?, dtCompra = ?, "
+				+ "dtValidade = ?, urlImagem = ?, emEstoque = ?, Disable = ? , idTipo = ?" + "WHERE Codigo = ?";
+
+		String removeOldTags = "DELETE FROM ProdutoTags WHERE idProduto = ?";
+		String tagsSql = "INSERT INTO ProdutoTags (idProduto, idTags) VALUES(?, ?)";
+
+		String estoque = "UPDATE Estoque Quantidade = ? WHERE idProduto = ?";
 
 		PreparedStatement stmt = null;
 		cn = ConnectionFactory.getConnection();
 
-		Produto alterado = (Produto) bean;
+		FormularioProduto alterado = (FormularioProduto) bean;
 
 		try {
 
-			stmt = cn.prepareStatement(sql);
+			stmt = cn.prepareStatement(produtoSql);
 
-			// SET
-			stmt.setString(1, alterado.getNome());
-			stmt.setString(2, alterado.getDescricao());
-			stmt.setDouble(3, alterado.getPreco());
-			stmt.setDouble(4, alterado.getCusto());
-			stmt.setTimestamp(5, new java.sql.Timestamp(alterado.getDtCompra().getTime()));
-			stmt.setTimestamp(6, new java.sql.Timestamp(alterado.getDtValidade().getTime()));
-			stmt.setString(7, alterado.getUrlImagem());
-			stmt.setBoolean(8, alterado.isEmEstoque());
-			stmt.setBoolean(9, alterado.isDisable());
-
+			// UPDATE PRODUTO
+			stmt.setString(1, alterado.getProduto().getNome());
+			stmt.setString(2, alterado.getProduto().getDescricao());
+			stmt.setDouble(3, alterado.getProduto().getPreco());
+			stmt.setDouble(4, alterado.getProduto().getCusto());
+			stmt.setTimestamp(5, new java.sql.Timestamp(alterado.getProduto().getDtCompra().getTime()));
+			stmt.setTimestamp(6, new java.sql.Timestamp(alterado.getProduto().getDtValidade().getTime()));
+			stmt.setString(7, alterado.getProduto().getUrlImagem());
+			stmt.setBoolean(8, alterado.getProduto().isEmEstoque());
+			stmt.setBoolean(9, alterado.getProduto().isDisable());
 			// WHERE
-			stmt.setString(10, alterado.getCodigo());
+			stmt.setString(10, alterado.getProduto().getCodigo());
+			stmt.execute();
 
+			// DELETE OLD TAGS
+			stmt = cn.prepareStatement(removeOldTags);
+			stmt.setLong(1, alterado.getProduto().getIdProduto());
+			stmt.execute();
+
+			// UPDATE TAGS
+			stmt = cn.prepareStatement(tagsSql);
+
+			stmt.setLong(1, alterado.getProduto().getIdProduto());
+			for (Tag tag : alterado.getTagRetorno()) {
+				if (tag.getIdTag() != null && tag.getIdTag() > 0) {
+					stmt.setInt(2, tag.getIdTag());
+					stmt.execute();
+				}
+			}
+
+			// Estoque insert
+			stmt = cn.prepareStatement(estoque);
+			stmt.setInt(1, alterado.getQuantidadeEstoque());
+			stmt.setLong(2, alterado.getProduto().getIdProduto());
 			stmt.execute();
 
 		} catch (Exception e) {
