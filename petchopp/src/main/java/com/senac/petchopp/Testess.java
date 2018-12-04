@@ -1,15 +1,14 @@
 package com.senac.petchopp;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Scanner;
 
 import com.senac.petchopp.connection.ConnectionFactory;
 
@@ -17,25 +16,19 @@ public class Testess {
 
 	public static void main(String[] args) {
 
-		try {
+		Scanner sn = new Scanner(System.in);
 
-			// create a temp file
-			File temp = File.createTempFile("temp-file-name", ".tmp");
-			FileOutputStream fos = new FileOutputStream(temp);
+		System.out.println("Digite com ponto ç etc...");
+		String entrada = sn.nextLine();
+		sn.close();
 
-			System.out.println("Temp file : " + temp.getAbsolutePath());
+		// Utilizar no cadastro de tags e tipos
+		String saida = Normalizer.normalize(entrada, Normalizer.Form.NFD)
+				.replaceAll("[^\\p{ASCII}]", "");
+		
+		System.out.println("Saída sem os caracteres especiais: ");
+		System.out.println(saida);
 
-			// Get tempropary file path
-			String absolutePath = temp.getAbsolutePath();
-			String tempFilePath = absolutePath.substring(0, absolutePath.lastIndexOf(File.separator));
-
-			System.out.println("Temp file path : " + tempFilePath);
-
-		} catch (IOException e) {
-
-			e.printStackTrace();
-
-		}
 	}
 
 	public static ArrayList<String> getAll() {
