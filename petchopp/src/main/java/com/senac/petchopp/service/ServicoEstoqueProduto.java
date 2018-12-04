@@ -81,10 +81,10 @@ public class ServicoEstoqueProduto {
         return listaAtual;
     }
 
-    public void listarEstoque(Long id_produto) {
+    public void listarEstoque(int[] tipos, String nome) {
 
         try {
-            EstoqueProdutoDAO.ListarEstoque(id_produto);
+            EstoqueProdutoDAO.ListarEstoque(tipos, nome);
         } catch (Exception e) {
 
         }

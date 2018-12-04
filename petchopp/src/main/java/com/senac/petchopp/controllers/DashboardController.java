@@ -53,5 +53,15 @@ public class DashboardController {
 		}
 
 	}
+        
+        @RequestMapping("/relestoque")
+	public ModelAndView relatorioEstoque() {
+            return new ModelAndView("/dashboard/relatorio-estoque").addObject("titulo", "PetChopp - Dashboard Estoque Produtos");
+	}
+        
+        @RequestMapping("/reltransestoque")
+	public ModelAndView relatorioTransEstoque() {
+            return new ModelAndView("/dashboard/rel-transacoes").addObject("titulo", "PetChopp - Dashboard Transações Estoque");
+	}
 
 }

@@ -2,6 +2,7 @@ package com.senac.petchopp.auxiliares;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class AuxiliaresDAO {
 
@@ -19,6 +20,22 @@ public class AuxiliaresDAO {
             }
         }
         return concat;
+    }
+    
+    public static String montaIN(int[] array) {
+        String concat = "";
+        for (int pos : array) {
+            if ("".equals(concat)){
+                if (pos != 0) {
+                    concat += "(" + pos;
+                }
+            } else {
+                if (pos != 0) {
+                    concat += ", " + pos;
+                }
+            }
+        }
+        return concat + ")";
     }
 
     public static String filtraRangeDate(String campo, Date dataInicial, Date dataFinal) {

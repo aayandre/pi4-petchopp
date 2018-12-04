@@ -4,6 +4,7 @@ import com.senac.petchopp.connection.ConnectionFactory;
 import com.senac.petchopp.auxiliares.AuxiliaresDAO;
 import com.senac.petchopp.model.estoqueProduto.EstoqueProduto;
 import com.senac.petchopp.model.estoqueProduto.EstoqueProdutoRelatorio;
+import com.senac.petchopp.model.tipo.Tipo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -130,18 +131,22 @@ public class EstoqueProdutoDAO {
     }
 
     // Poderá ser listado estoque por: item ou empresa
-    public static List<EstoqueProdutoRelatorio> ListarEstoque(Long id_produto) {
+    public static List<EstoqueProdutoRelatorio> ListarEstoque(int[] tipos, String nome) {
         ResultSet rs = null;
         PreparedStatement stmt = null;
         String[] strWhere = new String[2];
         String sql = "";
         List<EstoqueProdutoRelatorio> listaEstoqueProduto = new ArrayList<>();
         
-        if (id_produto != 0) {
-            strWhere[0] = "Estoque.idProduto = " + id_produto;
+        if (!nome.isEmpty()) {
+            strWhere[0] = "produto.nome LIKE %" + nome + "%";
         }
         
-        if (strWhere[0] != null) {
+        if (tipos.length != 0) {
+            strWhere[1] = "produto.idTipo IN " + AuxiliaresDAO.montaIN(tipos);
+        }
+        
+        if (strWhere[0] != null || strWhere[1] != null) {
             sql = "SELECT * FROM Estoque INNER JOIN produto ON produto.idProduto = estoque.idProduto "
                     + "WHERE " + AuxiliaresDAO.ligaVetorAND(strWhere);
         } else {
@@ -158,7 +163,6 @@ public class EstoqueProdutoDAO {
                 EstoqueProdutoRelatorio estoqueProduto = new EstoqueProdutoRelatorio(
                         rs.getLong("idProduto"),
                         rs.getInt("quantidade"),
-                        rs.getDouble("preco"),
                         rs.getString("nome"));
                 listaEstoqueProduto.add(estoqueProduto);
             }

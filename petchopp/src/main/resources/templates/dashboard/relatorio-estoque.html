@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <div th:replace="padrao/general.html :: dash-head"></div>
+    <link rel="stylesheet" href="../../static/css/dash-produto.css" th:href="@{/css/dash-produto.css}">
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div th:replace="padrao/general.html :: dash-sidebar"></div>
+
+    <!-- Page Content -->
+    <div class="container-fluid sidebar-margin">
+
+        <div style="display: none" id="li-activator" th:text="${liActivator}"></div>
+
+        <div class="row burger" data-toggle="collapse" data-target="#sidebar">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <div class="row">
+
+            <div class="col-12 p-5 row">
+
+                <h2 class="page-title col-12">Relatório de Estoque</h2>
+                <h4 th:if="${sucesso != null}" th:text="${sucesso}" class="msg-sucesso col-12 col-md-8 offset-md-2"></h4>
+                <h4 th:if="${falha != null}" th:text="${falha}" class="msg-falha col-12 col-md-8 offset-md-2"></h4>
+
+                <!-- <form class="col-12" th:action="@{/produto/new}" method="POST" th:object="${formularioProduto}" enctype="multipart/form-data"></form> -->
+                <form th:action="@{/produto/new}" method="POST" th:object="${filtros}">
+                    <div class="col-sm-12">
+                        <label class="font-weight-bold">Nome:</label>
+                        <input class="form-control" type="text" th:field="*{Nome}" placeholder="Nome do produto">
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="font-weight-bold">Tipos</div>
+                        <div th:each="tipo, tipoIter : ${tipos}">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" th:id="'tipo' + ${tipoIter.index}" th:value="${tipo.id}" th:field="${filtros.idTipo}">
+                                <label class="form-check-label" th:for="'tipo' + ${tipoIter.index}" th:text="${tipo.descricao}"></label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-12" th:if="${estoque != null}">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">First</th>
+                            <th scope="col">Last</th>
+                            <th scope="col">Handle</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>Jacob</td>
+                            <td>Thornton</td>
+                            <td>@fat</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td colspan="2">Larry the Bird</td>
+                            <td>@twitter</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <!-- ./row -->
+
+    </div>
+    <!-- ./container-fluid -->
+
+    <!-- Footer -->
+    <div th:replace="padrao/general.html :: dash-footer"></div>
+    <script src="../../static/js/dash-home.js" th:src="@{/js/dash-home.js}"></script>
+    <script src="../../static/js/dash-produto.js" th:src="@{/js/dash-produto.js}"></script>
+
+
+</body>
+
+</html>
