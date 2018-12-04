@@ -121,9 +121,9 @@ public class ClienteDAO implements IDAO {
             stmt = cn.prepareStatement(sql);
             stmt.setString(1, senha);
             stmt.setLong(2, id);
+            stmt.execute();
 
         } catch (SQLException e) {
-            e.printStackTrace();
         } finally {
 //			cn.setAutoCommit(true);
             ConnectionFactory.closeConnection(cn, stmt);

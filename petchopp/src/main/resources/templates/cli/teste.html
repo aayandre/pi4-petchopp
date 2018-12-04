@@ -30,104 +30,92 @@
                 <!-- TESTE Alterar Dados -->
                 <div class="row">
 
-                    <!-- FORM ALTERAR DADOS PESSOAIS -->
+                    <!-- FORM CADASTRAR NOVO ENDERECO -->
                     <div class="col-sm-6">
-                        <form class="formCli" th:action="@{minhaconta}" method="POST">
-
-
+                        <form class="formCli" th:action="@{enderecos}" method="POST" th:object="${endereco}">
                             <div class="row">
-
-                                <div class="col-12" style="display: block;">
+                                <div class="col-4">
                                     <div class="form-group">
-                                        <label for="nome">Nome Completo </label>
-                                        <input type="text" name="nome" id="nome" th:value="*{session.cliente.nome}"
-                                            class="form-control" placeholder="" aria-describedby="helpId">
+                                        <label for="cep">CEP</label>
+                                        <input type="text" name="cep" id="cep" th:field="*{cep}" class="form-control"
+                                            placeholder="Ex: 00000-000">
                                     </div>
                                 </div>
-
-                            </div>
-                            <div class="row">
-                                <div class="col-6" style="display: block;">
+                                <div class="col-8">
                                     <div class="form-group">
-                                        <label for="email">E-mail</label>
-                                        <input type="email" name="email" id="email" th:value="*{session.cliente.email}"
-                                            class="form-control" placeholder="exemplo@domain.com">
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label for="dtNasc">Data nasc.</label>
-                                        <input type="date" id="dtNasc" name="dtNasc" th:value="*{session.cliente.dtNasc}"
-                                            class="form-control">
+                                        <label for="log">Endereço</label>
+                                        <input type="text" name="log" id="log" th:field="*{logradouro}" class="form-control"
+                                            placeholder="Ex: Rua São João">
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-
-                                <div class="col-6">
+                                <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="rg">RG</label>
-                                        <input type="text" id="rg" name="rg" th:value="*{session.cliente.rg}" class="form-control">
+                                        <label for="num">Numero</label>
+                                        <input type="text" name="num" id="num" th:field="*{num}" class="form-control"
+                                            placeholder="Ex: 405">
                                     </div>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-md-8">
                                     <div class="form-group">
-                                        <label for="cpf">CPF</label>
-                                        <input type="text" id="cpf" name="cpf" th:value="*{session.cliente.cpf}" class="form-control">
+                                        <label for="comp">Complemento</label>
+                                        <input type="text" name="comp" id="comp" th:field="*{comp}" class="form-control"
+                                            placeholder="Ex: Apto 1005, 10° andar ">
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-6">
+                                <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="cel">DDD + Celular</label>
-                                        <input type="tel" name="cel" id="cel" th:value="*{session.cliente.telefone1}"
-                                            class="form-control">
+                                        <label for="bairro">Bairro</label>
+                                        <input type="text" name="bairro" id="bairro" th:field="*{bairro}" class="form-control">
                                     </div>
                                 </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label for="tel">DDD + Telefone</label>
-                                        <input type="tel" name="tel" id="tel" th:value="*{session.cliente.telefone2}"
-                                            class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xs12">
-                                <button type="button" class="btn btn-primary">Salvar</button>
                             </div>
                             <div class="row">
-
-
-                        </form>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="uf">Estado</label>
+                                        <input type="text" name="uf" id="uf" th:field="*{uf}" class="form-control"
+                                            placeholder="Ex: SP">
+                                    </div>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <label for="cidade">Cidade</label>
+                                        <input type="text" name="cidade" id="cidade" th:field="*{cidade}" class="form-control"
+                                            placeholder="Ex: Apto 1005, 10° andar ">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="tipoEnd">Identificação Endereço</label>
+                                        <input type="text" name="tipoEnd" id="tipoEnd" th:field="*{tipoEndereco}" class="form-control"
+                                            placeholder="Ex: Casa, Trabalho">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <input type="submit" class="btn btn-primary btn-LG" value="Salvar">
+                                </div>
+                            </div>
                     </div>
                 </div>
-
-                <!-- FIM ALTERAR DADOS PESSOAIS -->
-
-                <!-- ALTERAR SENHA -->
-                <div class="col-sm-6 col-sm-offset-3 col-6">
-                    <p class="text-center">Use os campos abaixo para alterar sua senha</p>
-                    <form method="POST">
-                        <label>Nova Senha:*</label>
-                        <div class="form-group pass_show">
-                            <input type="password"  class="form-control" placeholder="New Password">
-                        </div>
-                        <label>Confirme a nova senha:*</label>
-                        <div class="form-group pass_show">
-                            <input type="password"  class="form-control" placeholder="Confirm Password">
-                        </div>
-                        <button type="button" class="btn btn-primary">Confirmar</button>
-                    </form>
-                    </form>
-                </div>
-                <!-- /ALTERAR SENHA -->
+                </form>
             </div>
-
         </div>
 
+        <!-- FIM CADASTRAR NOVO ENDERECO -->
+
+
+        <!-- /ALTERAR SENHA -->
     </div>
 
+    
 
 
 

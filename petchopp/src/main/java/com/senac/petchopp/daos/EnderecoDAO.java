@@ -20,8 +20,8 @@ public class EnderecoDAO implements IDAO {
         PreparedStatement stmt = null;
         cn = ConnectionFactory.getConnection();
         String sql = "INSERT INTO Endereco\r\n"
-                + "(CEP, Logradouro, Numero, Complemento, Bairro, Cidade, UF, idCliente, TipoEndereco)\r\n"
-                + "VALUES(?,?,?,?,?,?,?,?,?)";
+                + "(CEP, Logradouro, Numero, Complemento, Bairro, Cidade, UF, idCliente, TipoEndereco, Ativo)\r\n"
+                + "VALUES(?,?,?,?,?,?,?,?,?,?)";
         try {
 //			cn.setAutoCommit(false);
             stmt = cn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -36,6 +36,7 @@ public class EnderecoDAO implements IDAO {
                 stmt.setString(7, end.getUf());
                 stmt.setLong(8, idcliente);
                 stmt.setString(9, end.getTipoEndereco());
+                stmt.setBoolean(10, end.isAtivo());
                 stmt.execute();
                 ResultSet rs = stmt.getGeneratedKeys();
                 if (rs.next()) {
@@ -52,13 +53,48 @@ public class EnderecoDAO implements IDAO {
             ConnectionFactory.closeConnection(cn, stmt);
         }
     }
+//    Salvar Novo endereço
+     public void salvarNovoEndereco(Endereco endereco, Long idcliente) throws SQLException {
+        PreparedStatement stmt = null;
+        cn = ConnectionFactory.getConnection();
+        String sql = "INSERT INTO Endereco\r\n"
+                + "(CEP, Logradouro, Numero, Complemento, Bairro, Cidade, UF, idCliente, TipoEndereco, Ativo)\r\n"
+                + "VALUES(?,?,?,?,?,?,?,?,?,?)";
+        try {
+//			cn.setAutoCommit(false);
+            stmt = cn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                stmt.setString(1, endereco.getCep());
+                stmt.setString(2, endereco.getLogradouro());
+                stmt.setString(3, endereco.getNum());
+                stmt.setString(4, endereco.getComp());
+                stmt.setString(5, endereco.getBairro());
+                stmt.setString(6, endereco.getCidade());
+                stmt.setString(7, endereco.getUf());
+                stmt.setLong(8, idcliente);
+                stmt.setString(9, endereco.getTipoEndereco());
+                stmt.setBoolean(10, endereco.isAtivo());
+                stmt.execute();
+                ResultSet rs = stmt.getGeneratedKeys();
+                if (rs.next()) {
+                    endereco.setIdEndereco(rs.getLong(1));
+                }
+
+//			cn.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+//			cn.rollback();
+        } finally {
+//			cn.setAutoCommit(true);
+            ConnectionFactory.closeConnection(cn, stmt);
+        }
+    }
 
     public List<Endereco> getAllEnd(Long idCliente) throws SQLException {
         PreparedStatement stmt = null;
         ResultSet rs = null;
         List<Endereco> enderecos = new ArrayList<>();
-        String sql = "SELECT idEndereco, CEP, Logradouro, Numero, Complemento, Bairro, Cidade, UF, idCliente, TipoEndereco "
-                + "FROM Endereco WHERE idCliente = ?";
+        String sql = "SELECT idEndereco, CEP, Logradouro, Numero, Complemento, Bairro, Cidade, UF, idCliente, TipoEndereco, Ativo "
+                + "FROM Endereco WHERE idCliente = ? AND Ativo = true";
         cn = ConnectionFactory.getConnection();
 
         try {
@@ -79,6 +115,7 @@ public class EnderecoDAO implements IDAO {
                 end.setUf(rs.getString("UF"));
                 end.setIdCliente(rs.getLong("idCliente"));
                 end.setTipoEndereco(rs.getString("TipoEndereco"));
+                end.setAtivo(rs.getBoolean("Ativo"));
                 enderecos.add(end);
 
             }
@@ -98,8 +135,19 @@ public class EnderecoDAO implements IDAO {
 
     @Override
     public void deletar(Long id) {
-        // TODO Auto-generated method stub
+        PreparedStatement stmt = null;
+        String sql = "UPDATE Endereco SET Ativo = false WHERE idEndereco = ?";
+        cn = ConnectionFactory.getConnection();
+        try {
+            stmt = cn.prepareStatement(sql);
+            stmt.setLong(1, id);
+            stmt.execute();
 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectionFactory.closeConnection(cn, stmt);
+        }
     }
 
     @Override

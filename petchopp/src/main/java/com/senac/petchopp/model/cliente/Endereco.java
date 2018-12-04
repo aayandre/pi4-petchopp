@@ -16,6 +16,8 @@ public class Endereco {
    private String uf;
    private long idCliente;
    private String tipoEndereco;
+   private boolean ativo;
+   private boolean principal;
 
     public Endereco() {
         
@@ -112,6 +114,22 @@ public class Endereco {
 
     public void setTipoEndereco(String tipoEndereco) {
         this.tipoEndereco = tipoEndereco;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
+
+    public boolean isPrincipal() {
+        return principal;
+    }
+
+    public void setPrincipal(boolean principal) {
+        this.principal = principal;
     }
 
     

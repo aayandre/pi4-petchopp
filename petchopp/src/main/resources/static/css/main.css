@@ -122,7 +122,12 @@ body {
     color: #333333;
 }
 
-.vertical-line {
+.cli-info{
+    margin-bottom: 1em;
+}
+
+.pass_show .ptxt:hover{color: #333333;}
+.vertical-line{
     border-right: 2px solid lightgray;
     height: 40%;
 }
@@ -130,5 +135,13 @@ body {
 .btn-cliente {
     width: 10em;
 }
+.idEndereco{
+    width: 10%;
+    height: auto;
+}
 
+.renova-senha{
+    margin-top: 5em;
+    margin-bottom: 5em;
+}
 /*  cliente */
