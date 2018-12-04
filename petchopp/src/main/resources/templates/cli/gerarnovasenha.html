@@ -30,24 +30,18 @@
    <!-- Page Content -->
    <div class="container nav-margin">
       <div class="row" id="pwd-container">
-         <div class="col-lg-4 col-md-6 col-sm-9 mx-auto">
-            <section class="login-form">
+         <div class="col-lg-4 col-md-6 col-sm-9 mx-auto renova-senha">
+            <section class="request-password-form">
                <div th:if="${msg != null}">
                   <p style="color: rgb(0, 4, 255); background-color: rgb(205, 245, 182)" th:text="${msg}"></p>
                </div>
-               <form method="post" th:action="@{logon}">
-
-                  <img class="img-fluid" src="https://image.freepik.com/icones-gratis/caes-patas_318-39262.jpg" width="270"
-                     height="170" />
+               <form method="post" th:action="@{novasenha}">
+                  
                   <input type="email" name="email" placeholder="Email" required class="form-control input-lg" />
 
-                  <input type="password" class="form-control input-lg" name="password" id="password" placeholder="Senha" required />
-
-                  <!-- <div class="pwstrength_viewport_progress"></div> -->
-
-                  <button type="submit" name="go" class="btn btn-lg btn-primary btn-block">Entrar</button>
+                  <button type="submit" name="go" class="btn btn-lg btn-primary btn-block">Solicitar nova senha</button>
                   <div>
-                     <a href="#" th:href="@{/cliente/Cadastro}">Criar Conta</a> ou <a href="#" th:href="@{/cliente/novasenha}">Esqueci Senha</a>
+                     <a href="#" th:href="@{/cliente/Cadastro}">Criar Conta</a> ou <a href="#" th:href="@{/cliente/login}">Entrar</a>
                   </div>
 
                </form>

@@ -133,7 +133,7 @@ public class ClienteController {
         }
 //        System.out.println(cliente.isLogado());
 
-        if (cliente.isLogado()) {
+        if (cliente != null && cliente.isLogado()) {
             System.out.println("Cliente logado: " + cliente.getEmail());
             session.setAttribute("cliente", cliente);
             return new ModelAndView("index");
@@ -223,7 +223,7 @@ public class ClienteController {
         Cliente cli = (Cliente) session.getAttribute("cliente");
         String aux;
         if (novaSenha.equals(novaSenhaConf)) {
-            aux = BCrypt.hashpw(novaSenha, BCrypt.gensalt());
+            aux = service.novaSenha(novaSenha);
             clienteDAO.atualizarSenha(cli.getIdCliente(), aux);
             System.out.println("Entrando no alterar senha");
             System.out.println(cli.getSenha());
@@ -233,6 +233,31 @@ public class ClienteController {
         }
 
         return modelAndView;
+    }
+    
+    @GetMapping("novasenha")
+    public ModelAndView novaSenha(){
+       ModelAndView modelAndView = new ModelAndView("cli/gerarnovasenha");
+       return modelAndView;
+    }
+    
+    @PostMapping("novasenha")
+    public ModelAndView geraSenha(@RequestParam(value = "email") String email){
+       ModelAndView modelAndView = new ModelAndView("redirect:login");
+       String aux = service.gerarNovaSenha();
+       String auxBcrypt = service.novaSenha(aux);
+       
+        try {
+            if(service.verificaSeExiste(email)){
+               Cliente cli = clienteDAO.getClienteByEmail(email);
+                clienteDAO.atualizarSenha(cli.getIdCliente(), auxBcrypt);
+                service.envianovaSenha(email, aux);
+            }else{
+                modelAndView.addObject("msg", "E-mail não cadastrado!");
+            }
+        } catch (Exception e) {
+        }
+       return modelAndView;
     }
 
 }
