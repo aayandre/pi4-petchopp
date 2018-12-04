@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head th:include="padrao/general.html :: headfiles">
+	<link rel="stylesheet" href="../../static/css/detalhe.css" th:href="@{/css/detalhe.css}">
+	<title th:text="${titulo}">Detalhes</title>
+</head>
+
+<body>
+
+	<!-- Navigation Bar -->
+	<div th:replace="padrao/general.html :: navbarfiles"></div>
+
+	<!-- Page Content -->
+	<div class="container nav-margin">
+		<div class="row">
+			<div class="col-md-2 lateral-cli-menu">
+				<!-- MENU CLIENTE -->
+				<div class="list-group">
+					<a href="#" th:href="@{/cliente/minhaconta}" class="list-group-item list-group-item-action active">Meus
+						dados</a>
+					<a href="#" th:href="@{orders}" class="list-group-item list-group-item-action">Pedidos</a>
+					<a href="#" th:href="@{enderecos}" class="list-group-item list-group-item-action">Endereços</a>
+				</div>
+			</div>
+			<!-- /MENU CLIENTE -->
+		
+		 <!-- FORM CADASTRAR NOVO ENDERECO -->
+		 <div class="col-sm-6">
+			<form class="formCli" th:action="@{enderecos}" method="POST" th:object="${endereco}">
+				<div class="row">
+					<div class="col-4">
+						<div class="form-group">
+							<label for="cep">CEP</label>
+							<input type="text" name="cep" id="cep" th:field="*{cep}" class="form-control"
+								placeholder="Ex: 00000-000">
+						</div>
+					</div>
+					<div class="col-8">
+						<div class="form-group">
+							<label for="log">Endereço</label>
+							<input type="text" name="log" id="log" th:field="*{logradouro}" class="form-control"
+								placeholder="Ex: Rua São João">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group">
+							<label for="num">Numero</label>
+							<input type="text" name="num" id="num" th:field="*{num}" class="form-control"
+								placeholder="Ex: 405">
+						</div>
+					</div>
+					<div class="col-md-8">
+						<div class="form-group">
+							<label for="comp">Complemento</label>
+							<input type="text" name="comp" id="comp" th:field="*{comp}" class="form-control"
+								placeholder="Ex: Apto 1005, 10° andar ">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group">
+							<label for="bairro">Bairro</label>
+							<input type="text" name="bairro" id="bairro" th:field="*{bairro}" class="form-control">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3">
+						<div class="form-group">
+							<label for="uf">Estado</label>
+							<input type="text" name="uf" id="uf" th:field="*{uf}" class="form-control"
+								placeholder="Ex: SP">
+						</div>
+					</div>
+					<div class="col-md-9">
+						<div class="form-group">
+							<label for="cidade">Cidade</label>
+							<input type="text" name="cidade" id="cidade" th:field="*{cidade}" class="form-control"
+								placeholder="Ex: Apto 1005, 10° andar ">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group">
+							<label for="tipoEnd">Identificação Endereço</label>
+							<input type="text" name="tipoEnd" id="tipoEnd" th:field="*{tipoEndereco}" class="form-control"
+								placeholder="Ex: Casa, Trabalho">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-12">
+						<input type="submit" class="btn btn-primary btn-LG" value="Salvar">
+					</div>
+				</div>
+	</form>
+</div>
+</div>
+</div>
+
+<!-- FIM CADASTRAR NOVO ENDERECO -->
+			
+	
+
+	
+
+	<!-- /.container nav-margin -->
+	<!-- /Page Content -->
+
+
+	<!-- Footer -->
+	<div th:replace="padrao/general.html :: footerfiles"></div>
+	<script src="../../static/js/jquery.mask.min.js" th:src="@{/js/jquery.mask.min.js}"></script>
+	<script src="../../static/js/busca-endereco.js" th:src="@{/js/busca-endereco.js}"></script>
+	<script src="../../static/js/cliente.js" th:src="@{/js/cliente.js}"></script>
+</body>
+
+</html>

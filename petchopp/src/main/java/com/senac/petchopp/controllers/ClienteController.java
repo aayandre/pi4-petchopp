@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.senac.petchopp.daos.ClienteDAO;
+import com.senac.petchopp.daos.EnderecoDAO;
 import com.senac.petchopp.daos.VendaDAO;
 import com.senac.petchopp.model.Auxiliares;
 import com.senac.petchopp.model.cliente.Cliente;
@@ -25,6 +26,7 @@ import com.senac.petchopp.model.cliente.Endereco;
 import com.senac.petchopp.model.venda.Venda;
 import com.senac.petchopp.service.ClienteService;
 import com.senac.petchopp.service.LoginService;
+import org.mindrot.jbcrypt.BCrypt;
 
 @Controller
 @RequestMapping("cliente")
@@ -32,8 +34,9 @@ import com.senac.petchopp.service.LoginService;
 public class ClienteController {
 
     private ClienteDAO clienteDAO = new ClienteDAO();
+    private EnderecoDAO enderecoDAO = new EnderecoDAO();
     private ClienteService service = new ClienteService();
-    
+
     @GetMapping("conta")
     public String minhaConta() {
         return "cli/cliente-index";
@@ -50,7 +53,7 @@ public class ClienteController {
 
     @PostMapping("salvar")
     public ModelAndView salvar(Cliente cliente, @RequestParam(value = "dtNasc") String dtNasc,
-             Endereco endereco,
+            Endereco endereco,
             RedirectAttributes redirect) throws SQLException, Exception {
         ModelAndView modelAndView = new ModelAndView("cli/login");
         LocalDate stringToLocalDateParse = Auxiliares.stringToLocalDateParse(dtNasc);
@@ -78,27 +81,27 @@ public class ClienteController {
 
     @PostMapping("/minhaconta")
     public ModelAndView atualizar(HttpSession session, @RequestParam(value = "nome") String nome,
-             @RequestParam(value = "email") String email,
-             @RequestParam(value = "cel") String telefone1,
-             @RequestParam(value = "tel") String telefone2) {
+            @RequestParam(value = "email") String email,
+            @RequestParam(value = "cel") String telefone1,
+            @RequestParam(value = "tel") String telefone2) {
         ModelAndView modelAndView = new ModelAndView("cli/cliente-index");
 
         Cliente cli = (Cliente) session.getAttribute("cliente");
 
         try {
 
-            if(!cli.getNome().equals(nome)){
-                 cli.setNome(nome);
+            if (!cli.getNome().equals(nome)) {
+                cli.setNome(nome);
             }
-            if(!cli.getEmail().equals(email)){
+            if (!cli.getEmail().equals(email)) {
                 cli.setEmail(email);
             }
-            if(!cli.getTelefone1().equals(telefone1)){
+            if (!cli.getTelefone1().equals(telefone1)) {
                 cli.setTelefone1(telefone1);
             }
-           if( cli.getTelefone2().isEmpty() || cli.getTelefone2().equals("") || !cli.getTelefone2().equals(telefone2)){
+            if (cli.getTelefone2().isEmpty() || cli.getTelefone2().equals("") || !cli.getTelefone2().equals(telefone2)) {
                 cli.setTelefone2(telefone2);
-           }
+            }
             System.out.println("ID do Cliente" + cli.getIdCliente());
             service.atualizar(cli);
         } catch (Exception e) {
@@ -116,7 +119,7 @@ public class ClienteController {
 
     @PostMapping("logon")
     public ModelAndView logonUsurio(@RequestParam(value = "email") String email, @RequestParam(value = "password") String senha,
-             RedirectAttributes redirect, HttpSession session) throws SQLException {
+            RedirectAttributes redirect, HttpSession session) throws SQLException {
 
         Cliente cliente = new LoginService().clienteLogon(email, senha);
 //        System.out.println(cliente.isLogado());
@@ -140,42 +143,87 @@ public class ClienteController {
 
         return modelAndView;
     }
-    
+
     @GetMapping("logoff")
-    public ModelAndView logoffCliente(HttpSession session){
+    public ModelAndView logoffCliente(HttpSession session) {
         ModelAndView modelAndView = new ModelAndView("redirect:/");
         session.setAttribute("cliente", new Cliente());
-            session.invalidate();
+        session.invalidate();
         return modelAndView;
     }
-    
+
+//    ENDERECOS
     @GetMapping("enderecos")
-    public ModelAndView enderecos(HttpSession session){
+    public ModelAndView enderecos(HttpSession session) {
         ModelAndView modelAndView = new ModelAndView("cli/enderecos");
         Cliente cli = (Cliente) session.getAttribute("cliente");
         List<Endereco> enderecos = cli.getEnderecos();
         modelAndView.addObject("enderecos", enderecos);
-        
+
+        return modelAndView;
+    }
+
+    @GetMapping("novoendereco")
+    public ModelAndView endereco() {
+        ModelAndView modelAndView = new ModelAndView("cli/enderecoForm");
+        modelAndView.addObject("endereco", new Endereco());
+        return modelAndView;
+    }
+
+    @PostMapping("enderecos")
+    public ModelAndView novoEndereco(HttpSession session, Endereco end) {
+        ModelAndView modelAndView = new ModelAndView("redirect:enderecos");
+        Cliente cli = (Cliente) session.getAttribute("cliente");
+        List<Endereco> enderecos = (List<Endereco>) session.getAttribute("enderecos");
+        try {
+            end.setAtivo(true);
+            enderecoDAO.salvarNovoEndereco(end, cli.getIdCliente());
+            cli.getEnderecos().add(end);
+        } catch (SQLException e) {
+        }
         return modelAndView;
     }
     
+    @PostMapping("excluirendereco")
+    public ModelAndView deleteEnd(@RequestParam(value = "id") String idEndereco
+                                    , HttpSession session){
+        ModelAndView modelAndView = new ModelAndView("redirect:enderecos");
+        String msg = "Endereço removido com sucesso";
+        Cliente cli = (Cliente) session.getAttribute("cliente");
+        Long id = Long.parseLong(idEndereco);
+        try {
+            enderecoDAO.deletar(id);
+            for(int i = 0; i<cli.getEnderecos().size(); i++){
+                Endereco end = cli.getEnderecos().get(i);
+                if(end.getIdEndereco() == id){
+                    cli.getEnderecos().remove(i);
+                }
+                modelAndView.addObject("msg", msg);
+            }
+        } catch (Exception e) {
+        }
+        return modelAndView;
+    }
+
+    //  FIM  ENDERECOS
     @PostMapping("alterarsenha")
-    public ModelAndView alterPass(@RequestParam(value = "passNew") String novaSenha
-            ,@RequestParam(value = "passNewConf") String novaSenhaConf
-            ,HttpSession session){
+    public ModelAndView alterPass(@RequestParam(value = "passNew") String novaSenha,
+             @RequestParam(value = "passNewConf") String novaSenhaConf,
+             HttpSession session) {
         ModelAndView modelAndView = new ModelAndView("redirect:minhaconta");
         Cliente cli = (Cliente) session.getAttribute("cliente");
-            if(novaSenha.equals(novaSenhaConf)){
-                cli.setSenha(novaSenha);
-                clienteDAO.atualizarSenha(cli.getIdCliente(), cli.getSenha());
-                System.out.println("Entrando no alterar senha");
-                System.out.println(cli.getSenha());
+        String aux;
+        if (novaSenha.equals(novaSenhaConf)) {
+            aux = BCrypt.hashpw(novaSenha, BCrypt.gensalt());
+            clienteDAO.atualizarSenha(cli.getIdCliente(), aux);
+            System.out.println("Entrando no alterar senha");
+            System.out.println(cli.getSenha());
 //                modelAndView.addObject("cliente", cli);
-            }else{
-                modelAndView.addObject("msg", "Senha inválida!");
-            }
-            
+        } else {
+            modelAndView.addObject("msg", "Senha inválida!");
+        }
+
         return modelAndView;
     }
-    
+
 }

@@ -2,8 +2,8 @@
 <html lang="pt-br">
 
 <head th:include="padrao/general.html :: headfiles">
-	<link rel="stylesheet" href="../static/css/detalhe.css" th:href="@{/css/detalhe.css}">
-	<title th:text="${titulo}">Detalhes</title>
+	<link rel="stylesheet" href="../../static/css/detalhe.css" th:href="@{/css/detalhe.css}">
+	<lin <title th:text="${titulo}">Detalhes</title>
 </head>
 
 <body>
@@ -16,13 +16,13 @@
 		<div class="row">
 			<div class="col-md-2 lateral-cli-menu">
 
-					<div class="list-group">
-							<a href="#" th:href="@{/cliente/minhaconta}" class="list-group-item list-group-item-action active">Meus dados</a>
-							<a href="#" th:href="@{orders}" class="list-group-item list-group-item-action">Pedidos</a>
-							<a href="#" th:href="@{enderecos}" class="list-group-item list-group-item-action">Endereços</a>
-						</div>
+				<div class="list-group">
+					<a href="#" th:href="@{/cliente/minhaconta}" class="list-group-item list-group-item-action active">Meus dados</a>
+					<a href="#" th:href="@{orders}" class="list-group-item list-group-item-action">Pedidos</a>
+					<a href="#" th:href="@{enderecos}" class="list-group-item list-group-item-action">Endereços</a>
+				</div>
 
-				
+
 
 			</div>
 			<div class="col-md-10 form-cad-cli">
@@ -30,21 +30,33 @@
 				<div th:if="${msg != null}">
 					<p style="color: rgb(0, 4, 255); background-color: rgb(205, 245, 182)" th:text="${msg}"></p>
 				</div>
-				<ul th:each="endereco : ${enderecos}">
-					<li><strong><span th:text="${endereco.tipoEndereco}"></span></strong></li>
-					<li>CEP: <span th:text="${endereco.cep}"></span></li>
-					<li>Rua: <span th:text="${endereco.logradouro}"></span></li>
-					<li>
-						Num: <span th:text="${endereco.num}"></span> 
-						Comp: <span th:text="${endereco.comp}"></span>
-					</li>
-					<li>Bairro: <span th:text="${endereco.bairro}"></span></li>
-					<li>Cidade: <span th:text="${endereco.cidade}"></span></li>
-					<!-- <li>CEP: <span th:text="${}"></span></li> -->
-				</ul>
-				
+				<div class="row justify-content-end">
+					<div class="col-2">
+						<p><a href="#" th:href="@{novoendereco}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Novo Endereço</a></p>
+					</div>
+				</div>
+				<table class="table">
+					<thead class="thead-light">
+						<tr>
+							<th>Endereço</th>
+							<th>Cidade</th>
+							<th>Excluir</th>
+						</tr>
+					</thead>
+					<tbody th:each="endereco : ${enderecos}">
+						<tr>
+							<td th:text="${endereco.logradouro}">teste</td>
+							<td th:text="${endereco.cidade}">teste</td>
+							<td>
+								<form method="POST" th:action="@{excluirendereco}">
+									<input type="hidden" id="id" name="id" th:value="${endereco.idEndereco}" hidden>
+									<input type="image" id="excluir" name="excluir" src="../../static/img/delete-01.png" th:src="@{/img/delete-01.png}"
+									 th:value="${endereco.idEndereco}"></form>
+							</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
-
 		</div>
 	</div>
 

@@ -43,7 +43,8 @@
 
             <div class="col-md-2 col-sm-12 lateral-cli-menu">
                 <div class="list-group">
-                    <a href="#" class="list-group-item list-group-item-action active">Meus dados</a>
+                    <a href="#" th:href="@{/cliente/minhaconta}" class="list-group-item list-group-item-action active">Meus
+                        dados</a>
                     <a href="#" th:href="@{orders}" class="list-group-item list-group-item-action">Pedidos</a>
                     <a href="#" th:href="@{enderecos}" class="list-group-item list-group-item-action">Endereços</a>
                 </div>
@@ -158,8 +159,10 @@
                                 <div class="row m-3 orderlist-row-resumo">
                                     <div class="col-md-6 col-sm-12 col-xs-12 my-2">
                                         <p class="font-weight-bold mb-3 mt-3">ENDEREÇO DE ENTREGA:</p>
-                                        <p>[[*{venda.Endereco.Bairro}]], [[*{venda.endereco.num}]] - [[*{venda.endereco.bairro}]]</p>
-                                        <p>CEP: [[*{venda.endereco.cep}]], [[*{venda.endereco.cidade}]], [[*{venda.endereco.uf}]]</p>
+                                        <p>[[*{venda.Endereco.Bairro}]], [[*{venda.endereco.num}]] -
+                                            [[*{venda.endereco.bairro}]]</p>
+                                        <p>CEP: [[*{venda.endereco.cep}]], [[*{venda.endereco.cidade}]],
+                                            [[*{venda.endereco.uf}]]</p>
                                     </div>
 
                                     <div class="col-md-6 col-sm-12 col-xs-12 my-2 border-left order-total-geral">

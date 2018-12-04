@@ -103,6 +103,10 @@ transition: .3s ease all;
 
 } 
 
+.cli-info{
+    margin-bottom: 1em;
+}
+
 .pass_show .ptxt:hover{color: #333333;}
 .vertical-line{
     border-right: 2px solid lightgray;
@@ -110,5 +114,9 @@ transition: .3s ease all;
 }
 .btn-cliente{
     width: 10em;
+}
+.idEndereco{
+    width: 10%;
+    height: auto;
 }
 /*  cliente */
