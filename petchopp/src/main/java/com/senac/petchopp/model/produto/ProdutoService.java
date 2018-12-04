@@ -33,7 +33,7 @@ public class ProdutoService {
 			// Salvando
 			novo.getProduto().setUrlImagem(arquivo.getOriginalFilename());
 			produtoBanco.salvar(novo);
-			
+
 			// Só faz o upload se salvar o produto no banco
 			Upload.salvar(arquivo);
 
@@ -123,6 +123,34 @@ public class ProdutoService {
 		} catch (SQLException e) {
 			throw new SQLException("Erro ao criar/popular o FormularioProduto.", e.getCause());
 		}
+	}
+
+	public ArrayList<ProdutoVenda> removerDoCarrinho(String codigo, ArrayList<ProdutoVenda> produtos) {
+		ArrayList<ProdutoVenda> novo = new ArrayList<>();
+		for (ProdutoVenda produtoVenda : produtos) {
+			if (!produtoVenda.getCodigo().equals(codigo)) {
+				novo.add(produtoVenda);
+			}
+		}
+		return novo;
+	}
+
+	public ArrayList<ProdutoVenda> addProdutoNoCarrinho(String codigo, ArrayList<ProdutoVenda> produtos) {
+		boolean inCart = false;
+		for (ProdutoVenda produtoVenda : produtos) {
+			if (produtoVenda.getCodigo().equals(codigo)) {
+				inCart = true;
+			}
+		}
+
+		if (!inCart) {
+			Produto adiquirido = (Produto) produtoBanco.getByCodigo(codigo);
+			produtos.add(new ProdutoVenda(adiquirido.getIdProduto(), adiquirido.getCodigo(), adiquirido.getNome(),
+					adiquirido.getPreco(), adiquirido.getPreco(), adiquirido.getUrlImagem(),
+					// quantidade padrao ao adicionar um item no carrinho
+					1));
+		}
+		return produtos;
 	}
 
 }

@@ -119,7 +119,7 @@
                            </div>
 
                            <!-- Remover produto do carrinho -->
-                           <a href="#"><i class="far fa-trash-alt cart-item-exclude"></i>
+                           <a href="#" th:href="@{/checkout/removefromcart/{prodCodigo}(prodCodigo = ${produto.codigo})}"><i class="far fa-trash-alt cart-item-exclude"></i>
                               Remover Produto</a>
                         </div>
 

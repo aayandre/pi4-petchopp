@@ -119,6 +119,15 @@ public class ClienteController {
              RedirectAttributes redirect, HttpSession session) throws SQLException {
 
         Cliente cliente = new LoginService().clienteLogon(email, senha);
+        
+        Object ov = session.getAttribute("venda");
+        
+        Venda venda = (Venda) ov;
+        
+        if(venda != null && !(venda.getCarrinho().getProdutos().isEmpty())) {
+        	session.setAttribute("cliente", cliente);
+            return new ModelAndView("redirect:/cart");
+        }
 //        System.out.println(cliente.isLogado());
 
         if (cliente.isLogado()) {
