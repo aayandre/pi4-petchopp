@@ -1,7 +1,5 @@
 package com.senac.petchopp.controllers;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,23 +33,23 @@ public class DashboardController {
 	public ModelAndView home(@ModelAttribute("cliente") Cliente admin) {
 		admin.setNome("Leonildo"); // pro teste
 		if (!admin.getNome().equalsIgnoreCase("")) {
-			return new ModelAndView("/dashboard/dashboard-home").addObject("admin", admin);
+			return new ModelAndView("/dashboard/dashboard-home").addObject("admin", admin).addObject("titulo", "PetChopp - Dashboard");
 		} else {
 			return new ModelAndView("erro");
 		}
 	}
 
 	@RequestMapping("/novoproduto")
-	public ModelAndView novoProdutoForm(HttpServletRequest request) {
+	public ModelAndView novoProdutoForm() {
 		String msg;
 		try {
 			FormularioProduto formProd = produtoService.populaFormularioProduto();
 			return new ModelAndView("/dashboard/dashboard-produto").addObject("liActivator", "liNewProdId")
-					.addObject("formularioProduto", formProd);
+					.addObject("formularioProduto", formProd).addObject("titulo", "PetChopp - Dashboard Novo Produto");
 		} catch (Exception e) {
 			e.printStackTrace();
 			msg = "Erro ao criar o FormularioProduto.";
-			return new ModelAndView("/dashboard/dashboard-produto").addObject("falha", msg);
+			return new ModelAndView("/dashboard/dashboard-produto").addObject("falha", msg).addObject("titulo", "PetChopp - Dashboard Novo Produto");
 		}
 
 	}

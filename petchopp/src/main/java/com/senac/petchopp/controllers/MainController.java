@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.senac.petchopp.model.carrinho.Carrinho;
 import com.senac.petchopp.model.cliente.Cliente;
 import com.senac.petchopp.model.venda.Venda;
 
@@ -18,6 +17,7 @@ public class MainController {
 	@RequestMapping({ "/", "" })
 	public String homePage(Model model, @ModelAttribute("cliente") Cliente cliente) {
 		model.addAttribute("cliente", cliente);
+		model.addAttribute("titulo", "PetChopp - O site de petshop mais petshop do Brasil");
 		System.out.println(cliente.isLogado());
 		return "index";
 	}
@@ -25,13 +25,14 @@ public class MainController {
 	@RequestMapping("search")
 	public String searchPage(Model model, @ModelAttribute("cliente") Cliente cliente) {
 		model.addAttribute("cliente", cliente);
+		model.addAttribute("titulo", "Procura");
 		return "search";
 	}
 
 	@RequestMapping("cart")
 	public ModelAndView cartPage(@ModelAttribute("venda") Venda venda
                                 , @ModelAttribute("cliente") Cliente cliente) {
-		return new ModelAndView("cart").addObject("venda", venda);
+		return new ModelAndView("cart").addObject("venda", venda).addObject("titulo", "Carrinho");
 	}
 
 	@RequestMapping("login")
