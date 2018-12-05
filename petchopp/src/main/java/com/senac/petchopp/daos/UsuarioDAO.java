@@ -28,14 +28,14 @@ public class UsuarioDAO implements IDAO{
         PreparedStatement stmt = null;
         Usuario user = (Usuario) bean;
         String sql = "ISERT INTO Usuario "
-                + "(Nome, User, Password, Role, Ativo) "
-                + "VALUES(?,?,?,?,?)";
+                + " (Nome, Email, Senha, Role, Ativo) "
+                + " VALUES(?,?,?,?,?)";
         cn = ConnectionFactory.getConnection();
         
         try {
             stmt = cn.prepareStatement(sql);
             stmt.setString(1, user.getNome());
-            stmt.setString(2, user.getUser());
+            stmt.setString(2, user.getEmail());
             stmt.setString(3, user.getSenha());
             stmt.setInt(4, user.getRole());
             stmt.setBoolean(5, user.isAtivo());
@@ -52,14 +52,14 @@ public class UsuarioDAO implements IDAO{
         PreparedStatement stmt = null;
         Usuario user = (Usuario) bean;
         String sql = "UPDATE Usuario "
-                + "SET Nome=?, User=?, Password=?, Role=?, Ativo=? "
-                + "WHERE idUsuario=?";
+                + " SET Nome=?, Email=?, Senha=?, Role=?, Ativo=? "
+                + " WHERE idUsuario=?";
         cn = ConnectionFactory.getConnection();
         
         try {
             stmt = cn.prepareStatement(sql);
             stmt.setString(1, user.getNome());
-            stmt.setString(2, user.getUser());
+            stmt.setString(2, user.getEmail());
             stmt.setString(3, user.getSenha());
             stmt.setInt(4, user.getRole());
             stmt.setBoolean(5, user.isAtivo());
@@ -76,8 +76,8 @@ public class UsuarioDAO implements IDAO{
     public void deletar(Long id) throws SQLException {
         PreparedStatement stmt = null;
         String sql = "UPDATE Usuario "
-                + "SET Ativo=? "
-                + "WHERE idUsuario=?";
+                + " SET Ativo=? "
+                + " WHERE idUsuario=?";
         cn = ConnectionFactory.getConnection();
         
         try {
@@ -97,8 +97,8 @@ public class UsuarioDAO implements IDAO{
         PreparedStatement stmt = null;
         ResultSet rs = null;
         Usuario user = new Usuario();
-        String sql = "SELECT idUsuario, Nome, User, Password, Role, Ativo"
-                + "FROM Usuario WHERE idUsuario = ?";
+        String sql = "SELECT idUsuario, Nome, Email, Senha, Role, Ativo "
+                + " FROM Usuario WHERE idUsuario = ?";
         cn = ConnectionFactory.getConnection();
         
         try {
@@ -108,8 +108,8 @@ public class UsuarioDAO implements IDAO{
             while(rs.next()){
                 user.setIdUsuario(rs.getLong("idUsuario"));
                 user.setNome(rs.getString("Nome"));
-                user.setUser(rs.getString("User"));
-                user.setSenha(rs.getString("Password"));
+                user.setEmail(rs.getString("Email"));
+                user.setSenha(rs.getString("Senha"));
                 user.setRole(rs.getInt("Role"));
                 user.setAtivo(rs.getBoolean("Ativo"));
             }
@@ -123,8 +123,8 @@ public class UsuarioDAO implements IDAO{
         PreparedStatement stmt = null;
         ResultSet rs = null;
         Usuario user = new Usuario();
-        String sql = "SELECT idUsuario, Nome, User, Password, Role, Ativo"
-                + "FROM Usuario WHERE User LIKE ?";
+        String sql = "SELECT idUsuario, Nome, Email, Senha, Role, Ativo "
+                + " FROM Usuario WHERE Email LIKE ?";
         cn = ConnectionFactory.getConnection();
         
         try {
@@ -134,12 +134,13 @@ public class UsuarioDAO implements IDAO{
             while(rs.next()){
                 user.setIdUsuario(rs.getLong("idUsuario"));
                 user.setNome(rs.getString("Nome"));
-                user.setUser(rs.getString("User"));
-                user.setSenha(rs.getString("Password"));
+                user.setEmail(rs.getString("Email"));
+                user.setSenha(rs.getString("Senha"));
                 user.setRole(rs.getInt("Role"));
                 user.setAtivo(rs.getBoolean("Ativo"));
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
+             e.printStackTrace();
         }finally{
             ConnectionFactory.closeConnection(cn, stmt, rs);
         }
@@ -154,8 +155,8 @@ public class UsuarioDAO implements IDAO{
         PreparedStatement stmt = null;
         ResultSet rs = null;
         List<Usuario> usuarios = new ArrayList<>();
-        String sql = "SELECT idUsuario, Nome, User, Password, Role, Ativo"
-                + "FROM Usuario WHERE Ativo = ?";
+        String sql = "SELECT idUsuario, Nome, Email, Senha, Role, Ativo "
+                + " FROM Usuario WHERE Ativo = ?";
         cn = ConnectionFactory.getConnection();
         
         try {
@@ -166,8 +167,8 @@ public class UsuarioDAO implements IDAO{
                 Usuario user = new Usuario();
                 user.setIdUsuario(rs.getLong("idUsuario"));
                 user.setNome(rs.getString("Nome"));
-                user.setUser(rs.getString("User"));
-                user.setSenha(rs.getString("Password"));
+                user.setEmail(rs.getString("Email"));
+                user.setSenha(rs.getString("Senha"));
                 user.setRole(rs.getInt("Role"));
                 user.setAtivo(rs.getBoolean("Ativo"));
                 usuarios.add(user);
@@ -181,7 +182,7 @@ public class UsuarioDAO implements IDAO{
     
     public void atualizarSenha(Long id, String senha) {
         PreparedStatement stmt = null;
-        String sql = "UPDATE Usuario SET  Password = ? WHERE idUsuario = ?";
+        String sql = "UPDATE Usuario SET  Senha = ? WHERE idUsuario = ?";
         cn = ConnectionFactory.getConnection();
 
         try {

@@ -15,7 +15,7 @@ public class Usuario {
     
     private Long idUsuario;
     private String nome;
-    private String user;
+    private String email;
     private String senha;
     private int role;
     private boolean ativo;
@@ -27,7 +27,7 @@ public class Usuario {
     public Usuario(Long idUsuario, String nome, String user, String senha, int role, boolean ativo) {
         this.idUsuario = idUsuario;
         this.nome = nome;
-        this.user = user;
+        this.email = user;
         this.senha = senha;
         this.role = role;
         this.ativo = ativo;
@@ -49,12 +49,12 @@ public class Usuario {
         this.nome = nome;
     }
 
-    public String getUser() {
-        return user;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getSenha() {
@@ -62,7 +62,7 @@ public class Usuario {
     }
 
     public void setSenha(String senha) {
-        this.senha = BCrypt.hashpw(senha, BCrypt.gensalt());
+        this.senha = senha;
     }
 
     public int getRole() {
@@ -87,6 +87,10 @@ public class Usuario {
 
     public void setLogado(boolean logado) {
         this.logado = logado;
+    }
+    
+    public void setSenhaHash(String senha){
+        this.senha = BCrypt.hashpw(senha, BCrypt.gensalt());
     }
     
     

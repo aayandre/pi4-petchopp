@@ -26,6 +26,7 @@ public class UsuarioController {
     
     UsuarioDAO usuarioDAO = new UsuarioDAO();
     UsuarioService servicoUsuario = new UsuarioService();
+    
     @GetMapping("home")
     public ModelAndView homeAdmin(HttpSession session){
         ModelAndView modelAndView;
