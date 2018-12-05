@@ -55,7 +55,7 @@ public class ClienteService {
         return false;
     }
     
-    public void envianovaSenha(String email, String senhaNoCrypt){
+    public void enviaNovaSenha(String email, String senhaNoCrypt){
         EmailService sendEmail = new EmailService();
         String subject = "PETCHOPP - Nova Senha";
         String msg = " Olá; \n"

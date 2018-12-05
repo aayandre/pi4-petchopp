@@ -26,7 +26,6 @@ import com.senac.petchopp.model.cliente.Endereco;
 import com.senac.petchopp.model.venda.Venda;
 import com.senac.petchopp.service.ClienteService;
 import com.senac.petchopp.service.LoginService;
-import org.mindrot.jbcrypt.BCrypt;
 
 @Controller
 @RequestMapping("cliente")
@@ -251,7 +250,7 @@ public class ClienteController {
             if(service.verificaSeExiste(email)){
                Cliente cli = clienteDAO.getClienteByEmail(email);
                 clienteDAO.atualizarSenha(cli.getIdCliente(), auxBcrypt);
-                service.envianovaSenha(email, aux);
+                service.enviaNovaSenha(email, aux);
             }else{
                 modelAndView.addObject("msg", "E-mail não cadastrado!");
             }
