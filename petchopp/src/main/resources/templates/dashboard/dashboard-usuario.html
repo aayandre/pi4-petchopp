@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <div th:replace="padrao/general.html :: dash-head"></div>
+
+        <title>Title</title>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+            integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link rel="stylesheet" href="../../static/css/dash-home.css">
+
+
+
+
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div th:replace="padrao/general.html :: dash-sidebar"></div>
+
+    <!-- Page Content -->
+    <div class="container-fluid sidebar-margin">
+
+        <div class="row burger" data-toggle="collapse" data-target="#sidebar"><i class="fas fa-bars"></i></div>
+
+        <div class="row">
+
+            <div class="col-12">
+                <div class="align-self-center text-center mt-5 pt-5">
+                    <div class="form-cad-usuario">
+                        <form class="form-inline form-usuario">
+                            <div class="form-group col-3">
+                                <label for="nome" class="sr-only">Nome:</label>
+                                <input type="text" name="nome" id="nome" class="form-control" placeholder="Nome completo">
+                            </div>
+                            <div class="form-group col-3">
+                                <label for="email" class="sr-only">Email:</label>
+                                <input type="text" name="email" id="email" class="form-control" placeholder="nome@example.com">
+                            </div>
+                            <div class="form-group col-3">
+                                <label for="senha" class="sr-only">Senha:</label>
+                                <input type="text" name="senha" id="senha" class="form-control" placeholder="8 a 12 caracteres"
+                                    minlength="8" max="12">
+                            </div>
+                            <div class="form-group col-2">
+                                <label class="sr-only">Acesso:</label>
+                                <select class="form-control">
+                                    <option>Acesso</option>
+                                    <option value="1">Admin</option>
+                                    <option value="2">Gerente</option>
+                                    <option value="3">Assitente</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-1">
+                                <input type="submit" name="senha" id="senha" class="btn btn-primary form-control">
+                            </div>
+                        </form>
+                        
+                    </div>
+                    <hr>
+                    <div class="lista-usuarios">
+                        <table class="table table-hover">
+                            <thead>
+                                <th>Nome</th>
+                                <th>E-mail</th>
+                                <th>Acesso</th>
+                                <th>Editar</th>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- ./row -->
+
+    </div>
+    <!-- ./conteiner-fluid -->
+
+    <!-- Footer -->
+    <div th:replace="padrao/general.html :: dash-footer">
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+            crossorigin="anonymous"></script>
+    </div>
+    <script src="../../static/js/dash-home.js" th:src="@{/js/dash-home.js}"></script>
+
+
+</body>
+
+</html>
