@@ -27,7 +27,7 @@ public class UsuarioDAO implements IDAO{
     public void salvar(Object bean) throws SQLException {
         PreparedStatement stmt = null;
         Usuario user = (Usuario) bean;
-        String sql = "ISERT INTO Usuario "
+        String sql = "INSERT INTO Usuario "
                 + " (Nome, Email, Senha, Role, Ativo) "
                 + " VALUES(?,?,?,?,?)";
         cn = ConnectionFactory.getConnection();
@@ -37,7 +37,7 @@ public class UsuarioDAO implements IDAO{
             stmt.setString(1, user.getNome());
             stmt.setString(2, user.getEmail());
             stmt.setString(3, user.getSenha());
-            stmt.setInt(4, user.getRole());
+            stmt.setString(4, user.getRole());
             stmt.setBoolean(5, user.isAtivo());
             stmt.execute();
             
@@ -61,7 +61,7 @@ public class UsuarioDAO implements IDAO{
             stmt.setString(1, user.getNome());
             stmt.setString(2, user.getEmail());
             stmt.setString(3, user.getSenha());
-            stmt.setInt(4, user.getRole());
+            stmt.setString(4, user.getRole());
             stmt.setBoolean(5, user.isAtivo());
             stmt.setLong(6, user.getIdUsuario());
             stmt.execute();
@@ -110,7 +110,7 @@ public class UsuarioDAO implements IDAO{
                 user.setNome(rs.getString("Nome"));
                 user.setEmail(rs.getString("Email"));
                 user.setSenha(rs.getString("Senha"));
-                user.setRole(rs.getInt("Role"));
+                user.setRole(rs.getString("Role"));
                 user.setAtivo(rs.getBoolean("Ativo"));
             }
         } catch (Exception e) {
@@ -136,7 +136,7 @@ public class UsuarioDAO implements IDAO{
                 user.setNome(rs.getString("Nome"));
                 user.setEmail(rs.getString("Email"));
                 user.setSenha(rs.getString("Senha"));
-                user.setRole(rs.getInt("Role"));
+                user.setRole(rs.getString("Role"));
                 user.setAtivo(rs.getBoolean("Ativo"));
             }
         } catch (SQLException e) {
@@ -169,7 +169,7 @@ public class UsuarioDAO implements IDAO{
                 user.setNome(rs.getString("Nome"));
                 user.setEmail(rs.getString("Email"));
                 user.setSenha(rs.getString("Senha"));
-                user.setRole(rs.getInt("Role"));
+                user.setRole(rs.getString("Role"));
                 user.setAtivo(rs.getBoolean("Ativo"));
                 usuarios.add(user);
             }

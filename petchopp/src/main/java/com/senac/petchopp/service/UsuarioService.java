@@ -7,6 +7,11 @@ package com.senac.petchopp.service;
 
 import com.senac.petchopp.daos.UsuarioDAO;
 import com.senac.petchopp.model.retaguarda.Usuario;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.mindrot.jbcrypt.BCrypt;
 
 /**
@@ -33,4 +38,38 @@ public class UsuarioService {
         return user;
     }
     
+    public List<Usuario> listaUsuarios(){
+        List<Usuario> lista = new ArrayList<>();
+        try {
+            lista = uDAO.getAllUsers();
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lista;
+    }
+    
+    public boolean salvar(Usuario novo){
+        try {
+            novo.setAtivo(true);
+            uDAO.salvar(novo);
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    
+    public boolean atualizar(Usuario novo){
+        
+        try {
+            uDAO.atualizar(novo);
+            return true;
+        } catch (Exception e) {
+        }
+        return false;
+    }
+    
+    public Usuario buscar(Long id) throws SQLException{
+        return (Usuario) uDAO.getById(id);
+    }
 }

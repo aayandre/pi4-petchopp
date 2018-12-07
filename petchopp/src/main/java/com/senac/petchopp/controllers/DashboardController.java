@@ -11,7 +11,11 @@ import com.senac.petchopp.model.produto.ProdutoService;
 import com.senac.petchopp.model.retaguarda.Usuario;
 import com.senac.petchopp.service.UsuarioService;
 import com.senac.petchopp.wos.FormularioProduto;
+import java.util.List;
 import javax.servlet.http.HttpSession;
+import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 
 @Controller
 @RequestMapping("dash")
@@ -27,28 +31,30 @@ public class DashboardController {
 
     @PostMapping("logon")
     public ModelAndView logon(@RequestParam("email") String email,
-             @RequestParam("senha") String senha, HttpSession session) {
+            @RequestParam("senha") String senha, HttpSession session) {
 
         ModelAndView modelAndView;
         Usuario usuario = servicoUsuario.efetuaLogin(email, senha);
 
         if (usuario.isLogado()) {
-            modelAndView = new ModelAndView("redirect:home");
             session.setAttribute("usuario", usuario);
+            modelAndView = new ModelAndView("redirect:home");
         } else {
-            modelAndView = new ModelAndView("redirect:login");
+            modelAndView = new ModelAndView("redirect:logon");
         }
 
         return modelAndView;
     }
 
     @RequestMapping("home")
-    public ModelAndView home(@ModelAttribute("usuario") Usuario admin) {
+    public ModelAndView home(HttpSession session) {
 //		admin.setNome("Leonildo"); // pro teste
+        Usuario admin = (Usuario) session.getAttribute("usuario");
         if (admin.isLogado()) {
+            session.setAttribute("usuario", admin);
             return new ModelAndView("/dashboard/dashboard-home").addObject("admin", admin).addObject("titulo", "PetChopp - Dashboard");
         } else {
-            return new ModelAndView("redirect:login").addObject("msg", "Usuario não tem permissão para acessar esta área!"
+            return new ModelAndView("redirect:logon").addObject("msg", "Usuario não tem permissão para acessar esta área!"
                     + "\nContate o administrador do sistema.");
         }
     }
@@ -76,6 +82,75 @@ public class DashboardController {
     @RequestMapping("/reltransestoque")
     public ModelAndView relatorioTransEstoque() {
         return new ModelAndView("/dashboard/rel-transacoes").addObject("titulo", "PetChopp - Dashboard Transações Estoque");
+    }
+
+    @GetMapping("user-manager")
+    public ModelAndView managerUser(HttpSession session, Usuario novo) {
+
+        Usuario admin = (Usuario) session.getAttribute("usuario");
+        if (admin != null && admin.isLogado()) {
+            if (novo.getIdUsuario() == null) {
+                System.out.println(admin.getNome() + " - " + admin.isLogado());
+                List<Usuario> usuariosList = servicoUsuario.listaUsuarios();
+                return new ModelAndView("/dashboard/dashboard-usuario")
+                        .addObject("novo", new Usuario())
+                        .addObject("usuariosList", usuariosList);
+            } else if (servicoUsuario.atualizar(novo)) {
+                List<Usuario> usuariosList = servicoUsuario.listaUsuarios();
+                new ModelAndView("/dashboard/dashboard-usuario").addObject("usuariosList", usuariosList);
+            }
+        }
+        return new ModelAndView("redirect:logon");
+    }
+    
+    @GetMapping("user-manager-cadastro")
+    public ModelAndView novousuario() {
+        return new ModelAndView("/dashboard/dashboard-usuario-cadastrar")
+                .addObject("novo", new Usuario());
+    }
+    
+    @PostMapping("user-manager-cadastro")
+    public ModelAndView userRegister(Usuario novo
+                    , @RequestParam(value = "roleUser") String role) {
+        ModelAndView modelAndView = new ModelAndView("redirect:user-manager");
+        List<Usuario> usuariosList;
+        try {
+            System.out.println("Entrando no cadastro novo usuario");
+            novo.setRole(role);
+            novo.setSenha(BCrypt.hashpw(novo.getSenha(), BCrypt.gensalt()));
+            if (servicoUsuario.salvar(novo)) {
+                usuariosList = servicoUsuario.listaUsuarios();
+                modelAndView.addObject("usuariosList", usuariosList);
+            }
+        } catch (Exception e) {
+        }
+
+        return modelAndView.addObject("msg", "Falha ao salvar usuário!");
+    }
+    
+    @PostMapping("user-manager-update")
+    public ModelAndView userUpdate(@RequestParam(value = "id") String idUsuario,
+            @RequestParam(value = "roleUser") String novaRole,
+            @RequestParam(value = "senhaUser") String novaSenha) {
+        ModelAndView modelAndView = new ModelAndView("redirect:user-manager");
+        List<Usuario> usuariosList;
+        
+        try {
+            Usuario user = servicoUsuario.buscar(Long.parseLong(idUsuario));
+            if(novaRole != null){
+                user.setRole(novaRole);
+            }
+            if(novaSenha != null){
+                user.setSenha(BCrypt.hashpw(novaSenha, BCrypt.gensalt()));
+            }
+               if (servicoUsuario.atualizar(user)) {
+                usuariosList = servicoUsuario.listaUsuarios();
+                modelAndView.addObject("usuariosList", usuariosList);
+            }
+        } catch (Exception e) {
+        }
+
+        return modelAndView.addObject("msg", "Falha ao salvar usuário!");
     }
 
 }

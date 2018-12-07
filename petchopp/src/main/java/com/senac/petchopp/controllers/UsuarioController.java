@@ -21,7 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author macop
  */
 @Controller
-@RequestMapping("dashboard")
+@RequestMapping("dashantiga")
 public class UsuarioController {
     
     UsuarioDAO usuarioDAO = new UsuarioDAO();

@@ -17,14 +17,14 @@ public class Usuario {
     private String nome;
     private String email;
     private String senha;
-    private int role;
+    private String role;
     private boolean ativo;
     private boolean logado;
 
     public Usuario() {
     }
 
-    public Usuario(Long idUsuario, String nome, String user, String senha, int role, boolean ativo) {
+    public Usuario(Long idUsuario, String nome, String user, String senha, String role, boolean ativo) {
         this.idUsuario = idUsuario;
         this.nome = nome;
         this.email = user;
@@ -65,11 +65,11 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public int getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(int role) {
+    public void setRole(String role) {
         this.role = role;
     }
 
