@@ -25,11 +25,12 @@
             <div class="col-12 p-5 row">
 
                 <h2 class="page-title col-12">Relatório de Estoque</h2>
+                <hr>
                 <h4 th:if="${sucesso != null}" th:text="${sucesso}" class="msg-sucesso col-12 col-md-8 offset-md-2"></h4>
                 <h4 th:if="${falha != null}" th:text="${falha}" class="msg-falha col-12 col-md-8 offset-md-2"></h4>
 
                 <!-- <form class="col-12" th:action="@{/produto/new}" method="POST" th:object="${formularioProduto}" enctype="multipart/form-data"></form> -->
-                <form th:action="@{/produto/new}" method="POST" th:object="${filtros}">
+                <!-- <form th:action="@{/produto/new}" method="POST" th:object="${filtros}">
                     <div class="col-sm-12">
                         <label class="font-weight-bold">Nome:</label>
                         <input class="form-control" type="text" th:field="*{Nome}" placeholder="Nome do produto">
@@ -43,37 +44,27 @@
                             </div>
                         </div>
                     </div>
-                </form>
+                </form> -->
             </div>
 
-            <div class="col-12" th:if="${estoque != null}">
+            <div class="col-12">
                 <table class="table table-sm">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Handle</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Saida</th>
+                            <th scope="col">Estoque Atual</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody th:each="prod : ${estProdutos}">
                         <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
+                            <th scope="row" th:text="${prod.codigo}">1</th>
+                            <td th:text="${prod.nome}">Mark</td>
+                            <td th:text="${prod.saida}"> Otto</td>
+                            <td th:text="${prod.estoque}">@mdo</td>
                         </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td colspan="2">Larry the Bird</td>
-                            <td>@twitter</td>
-                        </tr>
+                        
                     </tbody>
                 </table>
             </div>

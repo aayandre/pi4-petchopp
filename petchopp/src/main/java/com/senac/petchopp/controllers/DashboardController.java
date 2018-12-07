@@ -1,5 +1,7 @@
 package com.senac.petchopp.controllers;
 
+import com.senac.petchopp.daos.RelatorioDAO;
+import com.senac.petchopp.daos.VendaDAO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -8,9 +10,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.senac.petchopp.model.produto.ProdutoService;
+import com.senac.petchopp.model.retaguarda.RelatorioEstoque;
 import com.senac.petchopp.model.retaguarda.Usuario;
+import com.senac.petchopp.model.venda.Venda;
 import com.senac.petchopp.service.UsuarioService;
 import com.senac.petchopp.wos.FormularioProduto;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.mindrot.jbcrypt.BCrypt;
@@ -132,7 +138,7 @@ public class DashboardController {
     public ModelAndView userUpdate(@RequestParam(value = "id") String idUsuario,
             @RequestParam(value = "roleUser") String novaRole,
             @RequestParam(value = "senhaUser") String novaSenha) {
-        ModelAndView modelAndView = new ModelAndView("redirect:user-manager");
+        ModelAndView modelAndView = new ModelAndView("/dashboard/dashboard-usuario-editar");
         List<Usuario> usuariosList;
         
         try {
@@ -145,12 +151,33 @@ public class DashboardController {
             }
                if (servicoUsuario.atualizar(user)) {
                 usuariosList = servicoUsuario.listaUsuarios();
-                modelAndView.addObject("usuariosList", usuariosList);
+                new ModelAndView("redirect:user-manager").addObject("usuariosList", usuariosList);
             }
         } catch (Exception e) {
         }
 
         return modelAndView.addObject("msg", "Falha ao salvar usuário!");
     }
+    
+//    RELATORIOS
+    
+        private VendaDAO vendaDAO = new VendaDAO();
+        private RelatorioDAO rDAO = new RelatorioDAO();
+	
+	
+	@RequestMapping("vendas")
+	public ModelAndView relVendas() {
+		
+		          ArrayList<Venda> vendas = vendaDAO.getVendas();
+		ModelAndView modelAndView = new ModelAndView("dashboard/relatorio-vendas");
+		modelAndView.addObject("vendas", vendas);
+		return modelAndView;
+	}
+        
+        @RequestMapping("estoque")
+        public ModelAndView estoqueAtual() throws SQLException{
+            List<RelatorioEstoque> estoqueProdutos = rDAO.getEstoqueAtual();
+            return new ModelAndView("/dashboard/relatorio-estoque").addObject("estProdutos", estoqueProdutos);
+        }
 
 }
